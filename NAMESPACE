@@ -1,0 +1,8 @@
+useDynLib(Rfast, .registration = TRUE)
+
+importFrom("stats", "pt", "cov", "glm", "pchisq", "pf", "poisson", "binomial", "family", "cor", "qt", "sd")
+importFrom(Rcpp, evalCpp)
+
+exportPattern("^[[:alpha:]]+")
+exportPattern("^[^\\.]")
+
