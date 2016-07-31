@@ -8,7 +8,7 @@ ftests <- function(x, ina) {
   for ( i in 1:k ) {
      y <- x[ina ==i, ]
      s[i, ] <- colVars( y )
-     m[i, ] <- colMeans(y)
+     m[i, ] <- colmeans(y)
   }
   
   w <- ni / s
@@ -24,7 +24,3 @@ ftests <- function(x, ina) {
   cbind(stat, pval)
 
 } 
-   
-  
-
-

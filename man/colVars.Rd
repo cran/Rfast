@@ -43,19 +43,13 @@ Michail Tsagris
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
 
-
-\seealso{
-\code{\link{cova}, \link{cora}
-}
-}
-
 \examples{
 x <- matrix( rnorm(100 * 10000), ncol = 10000 )
 system.time( apply(x, 2, var) )
 system.time( colVars(x) )
 a1 <- apply(x, 2, var)
 a2 <- colVars(x)
-all.equal(a1, a2)
+all.equal(as.vector(a1), as.vector(a2))
 }
 
 \keyword{ Column-wise variances }

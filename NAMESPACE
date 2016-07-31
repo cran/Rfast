@@ -1,6 +1,6 @@
 useDynLib(Rfast, .registration = TRUE)
 
-importFrom("stats", "pt", "cov", "glm", "pchisq", "pf", "poisson", "binomial", "family", "cor", "qt", "sd")
+importFrom("stats", "pt", "cov", "glm", "pchisq", "pf", "poisson", "binomial", "family", "cor", "qt", "sd", "qnorm")
 importFrom(Rcpp, evalCpp)
 
 exportPattern("^[[:alpha:]]+")

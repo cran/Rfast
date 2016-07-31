@@ -50,7 +50,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 
 \seealso{
-\code{\link{allbetas}, \link{univglms}, \link{cova}, \link{cora}
+\code{\link{allbetas}, \link{univglms}
 }
 }
 

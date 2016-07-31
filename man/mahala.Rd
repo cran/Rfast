@@ -7,22 +7,26 @@
 }
 
 \usage{
-mahala(x, m, s, inverted = FALSE)
+mahala(x, mu, sigma, ncores, ischol)
 }
 
 \arguments{
 \item{x}{
 A matrix with the data, where rows denotes observations (vectors) and the columns contain the variables.
 }
-\item{m}{
+\item{mu}{
 The mean vector.
 }
-\item{s}{
+\item{sigma}{
 The covariance or any square symmetric matrix.
 }
-\item{inverted}{
-If the covariance matrix is already inverted put this equal to TRUE.
+\item{ncores}{
+The numbers of cores to use
 }
+\item{ischol}{
+A boolean variable set to true if the Cholesky decomposition of the covariance matrix is supplied in the argument "sigma".
+}
+
 }
 
 %\details{
@@ -45,11 +49,6 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %\note{
 %%  ~~further notes~~
 %}
-
-\seealso{
-\code{\link{cova}, \link{cora}
-}
-}
 
 \examples{
 x <- matrix( rnorm(10000 * 200), ncol = 200 )

@@ -7,8 +7,8 @@ allbetas <- function(y, x, pvalue = FALSE) {
   r <- as.vector( cov(y, x) )
   n <- length(y)
   my <- sum(y) / n
-  m <- colMeans(x)
-  sx <- colVars(x)
+  m <- as.vector(colmeans(x))
+  sx <- as.vector(colVars(x))
   be <- r / sx
   a <- my - be * m
 

@@ -1,19 +1,15 @@
-\name{Column-wise medians}
-\alias{colMedians}
-\alias{colMedians_parallel}
-
+\name{Column-wise mean absolute deviations}
+\alias{colMads}
 \title{
-Colum-wise medians (in parallel)
+Colum-wise mean absolute deviations
 }
 
 \description{
-Colum-wise medians of a matrix
+Colum-wise mean absolute deviations.
 }
 
 \usage{
-colMedians(x)
-
-colMedians_parallel(x, ncores)
+colMads(x, ncores = 2)
 }
 
 \arguments{
@@ -21,7 +17,7 @@ colMedians_parallel(x, ncores)
 A matrix with the data.
 }
 \item{ncores}{
-How many cores to use.
+How many cores to use. If you specify 2 or more cores, parallel implementation takes place. Be careful not to put less than 1 or more cores than your system has.
 }
 }
 
@@ -30,7 +26,7 @@ The functions is written in C++ in order to be as fast as possible.
 }
 
 \value{
-A vector with the column medians.
+A vector with the column-wise mean absolute deviations.
 }
 
 %\references{
@@ -45,22 +41,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 
 \seealso{
-\code{\link{colVars}, \link{colMeans} (buit-in R function)
+\code{\link{colMedians}, \link{colVars}, \link{colMeans} (buit-in R function)
 }
 }
 
 \examples{
 x <- matrix( rnorm(100 * 1000), ncol = 1000 )
-system.time( apply(x, 2, median) )
-system.time( colMedians(x) )
-system.time( colMedians_parallel(x, ncores = 2) )
-a <- apply(x, 2, median) 
-b1 <- colMedians(x) 
-b2 <- colMedians_parallel(x, ncores = 2)
-all.equal(a, b1)
-all.equal(a, b2)
+system.time( colMads(x) )
+a = colMads(x) 
 }
 
-\keyword{ Column-wise medians }
-\keyword{ parallel computations }
-
+\keyword{ Column-wise median absolute deviations }

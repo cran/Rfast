@@ -1,16 +1,17 @@
 Package: Rfast
 Type: Package
 Title: Fast R Functions
-Version: 1.0
-Date: 2016-07-09
-Author: Michail Tsagris, Manos Papadakis and Ioannis Tsamardinos
+Version: 1.1
+Date: 2016-07-31
+Author: Michail Tsagris, Manos Papadakis, Ioannis Tsamardinos, Matteo Fasiolo, Giorgos Borboudakis and John Burkardt
 Maintainer: Manos Papadakis <papadakm95@gmail.com>
 Depends: R (>= 3.2.2), Rcpp (>= 0.12.3)
 LinkingTo: Rcpp (>= 0.12.3), RcppArmadillo
+SystemRequirements: C++11
 Description: A collection of fast (utility) functions for data analysis. Fast covariance matrix calculation, Mahalanobis distance and column-wise variances are some of the functions.
 License: GPL-2
 LazyData: TRUE
 NeedsCompilation: yes
-Packaged: 2016-07-09 18:17:01 UTC; MANOS
+Packaged: 2016-07-31 17:31:12 UTC; MANOS
 Repository: CRAN
-Date/Publication: 2016-07-10 11:55:46
+Date/Publication: 2016-07-31 23:20:25

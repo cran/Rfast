@@ -1,26 +1,26 @@
-\name{fastR-package}
-\alias{fastR-package}
+\name{Rfast-package}
+\alias{Rfast-package}
 \docType{package}
 \title{
 Really fast R functions
 }
 
 \description{
-A collection of fast functions for data analysis.
+A collection of Rfast functions for data analysis.
 }
 
 \details{
 \tabular{ll}{
-Package: \tab fastR\cr
+Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.0 \cr
-Date: \tab 2016-07-09\cr
+Version: \tab 1.1 \cr
+Date: \tab 2016-07-29\cr
 License: \tab GPL-2\cr
 }
 }
 
 \author{
-Manos Papadakis <papadakm95@gmail.com>, Michail Tsagris <mtsagris@yahoo.gr> and Ioannis Tsamardinos <tsamard@csd.uoc.gr>
+Manos Papadakis <papadakm95@gmail.com>, Michail Tsagris <mtsagris@yahoo.gr> and Ioannis Tsamardinos <tsamard@csd.uoc.gr> and 
 }
 
 \section{Maintainers }{

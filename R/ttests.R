@@ -6,8 +6,8 @@ ttests <- function(x, ina, paired = FALSE) {
 
   if ( paired == FALSE ) {
 
-    m1 <- colMeans(x1)
-    m2 <- colMeans(x2)
+    m1 <- colmeans(x1)
+    m2 <- colmeans(x2)
     s1 <- colVars(x1)
     s2 <- colVars(x2)
 
@@ -36,7 +36,7 @@ ttests <- function(x, ina, paired = FALSE) {
       n <- n1
       z <- x1 - x2
 
-      m <- colMeans(z)
+      m <- colmeans(z)
       s <- colVars(z)
       stat <- m / sqrt(s/n)
       pvalue <- 2 * pt( abs(stat), n - 1, lower.tail = FALSE )

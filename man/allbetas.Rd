@@ -27,7 +27,8 @@ If you want a hypothesis test that each slope (beta coefficient) is equal to zer
 %}
 
 \value{
-A matrix with the constant (alpha) and the slope (beta) for each simple linear regression.
+A matrix with the constant (alpha) and the slope (beta) for each simple linear regression. 
+If the p-value is set to TRUE, the correlation of each y with the x is calculated along with the relevant p-value.
 }
 
 %\references{
@@ -45,7 +46,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{\link{correls}, \link{univglms}, \link{cova}, \link{cora}
+\code{ \link{mvbetas}, \link{correls}, \link{univglms}
 }
 }
 
@@ -64,5 +65,5 @@ system.time(  for (i in 1:10000) b[i, ] = coef( lm.fit( cbind(1,x[,i]), y ) )  )
 
 }
 
-\keyword{ Column-wise variances }
+\keyword{ Many betas in regression }
 

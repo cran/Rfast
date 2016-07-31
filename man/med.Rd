@@ -1,32 +1,29 @@
-\name{The nth largest value of a vector}
-\alias{nth}
+\name{Median of a vector}
+\alias{med}
 \title{
-The nth largest value of a vector
+Median of a vector
 }
 
 \description{
-The nth largest value of a vector.
+Median of a vector.
 }
 
 \usage{
-nth(x, k)
+med(x)
 }
 
 \arguments{
 \item{x}{
 A numerical vector.
 }
-\item{k}{
-The kth largest number to be returned. 
-}
 }
 
 \details{
-The function is written in C++ and this is why it is very fast. This is called (and used) by \code{\link{colMedians}}. 
+The function is written in C++ and this is why it is very fast.  
 }
 
 \value{
-The desired value.
+The median of the vector of a numbers.
 }
 
 %\references{
@@ -43,14 +40,18 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{\link{med}, \link{colMedians}
+\code{\link{nth}, \link{colMedians}
 }
 }
 
 \examples{
 x <- rnorm(10000)
-nth(x, 5000)
-sort(x)[5000]
+system.time( for (i in 1:1000) med(x) )
+system.time( for (i in 1:1000) median(x) )
+
+x <- rnorm(10001)
+system.time( for (i in 1:1000) med(x) )
+system.time( for (i in 1:1000) median(x) )
 }
 
 \keyword{ nth elements }
