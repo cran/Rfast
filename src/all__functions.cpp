@@ -205,12 +205,12 @@ vector<double> colmax(NumericMatrix x,bool value=false){
   mat X = mat(x.begin(), x.nrow(), p, false); 
   vector<double> F(p);
   if(value){
-  	vec f=max(X,0);
+  	rowvec f=max(X,0);
   	for(i=0;i<p;i++)
       F[i]=f(i);
   }else
     for(i=0;i<p;i++)
-      F[i]=max_element(X.begin_col(i),X.end_col(i))-X.begin_col(i);
+      F[i]=max_element(X.begin_col(i),X.end_col(i))-X.begin_col(i)+1;
   return F;
 }
 
@@ -220,12 +220,12 @@ vector<double> colmin(NumericMatrix x,bool value=false){
   mat X = mat(x.begin(), x.nrow(), p, false); 
   vector<double> F(p);
   if(value){
-  	vec f=min(X,0);
+  	rowvec f=min(X,0);
   	for(i=0;i<p;i++)
       F[i]=f(i);
   }else
     for(i=0;i<p;i++)
-      F[i]=min_element(X.begin_col(i),X.end_col(i))-X.begin_col(i);
+      F[i]=min_element(X.begin_col(i),X.end_col(i))-X.begin_col(i)+1;
   return F;
 }
 
@@ -239,16 +239,19 @@ vector<int> which_isFactor(DataFrame x){
 }
 
 //[[Rcpp::export]]
-NumericVector diri_nr_type2(NumericVector a1, NumericVector a2, NumericVector ma,double tol){
-  NumericVector f,tr1,dg1,der;
+vec diri_nr_type2(vec a1, vec a2, vec ma,double tol){
+  int n=a1.size(),i;
+  vec f,tr1(n),dg1(n),der;
   double sa,trsa,dgsa;
   while (sum(abs(a2-a1))>tol){
     a1=a2;
     sa=sum(a1);
-    dgsa=R::digamma(sa);
-    trsa=R::trigamma(sa);
-    tr1=-trigamma(a1)+trsa;
-    dg1=ma-digamma(a1)+dgsa;
+    dgsa=digamma(sa);
+    trsa=trigamma(sa);
+    for(i=0;i<n;++i){
+      tr1(i)=-trigamma(a1(i))+trsa;
+      dg1(i)=ma(i)-digamma(a1(i))+dgsa;
+    }
     a2=a1-dg1/tr1;
   }
   return a2;
@@ -331,6 +334,31 @@ rowvec colsums(NumericMatrix x){
   mat X = mat(x.begin(), x.nrow(), x.ncol(), false); 
   return sum(X, 0); 
 }
+
+// [[Rcpp::export]]
+colvec rowsums(NumericMatrix x){
+  mat X = mat(x.begin(), x.nrow(), x.ncol(), false); 
+  return sum(X, 1); 
+}
+
+// [[Rcpp::export]]
+colvec rowmeans(NumericMatrix x){
+  mat X = mat(x.begin(), x.nrow(), x.ncol(), false); 
+  return mean(X, 1); 
+}
+
+// [[Rcpp::export]]
+colvec rowMaxs(NumericMatrix x){
+  mat X = mat(x.begin(), x.nrow(), x.ncol(), false); 
+  return max(X, 1); 
+}
+
+// [[Rcpp::export]]
+colvec rowMins(NumericMatrix x){
+  mat X = mat(x.begin(), x.nrow(), x.ncol(), false); 
+  return min(X, 1); 
+}
+
 
 /////////////// GEORGE ///////////////////////////
 

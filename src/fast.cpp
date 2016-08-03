@@ -141,14 +141,14 @@ END_RCPP
 }
 
 // part of the Compositional::diri.nr
-NumericVector diri_nr_type2(NumericVector a1, NumericVector a2, NumericVector ma,double tol);
+vec diri_nr_type2(vec a1, vec a2, vec ma,double tol);
 RcppExport SEXP Rfast_diri_nr_type2(SEXP a1SEXP,SEXP a2SEXP,SEXP maSEXP,SEXP tolSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< NumericVector >::type a1(a1SEXP);
-    traits::input_parameter< NumericVector >::type a2(a2SEXP);
-    traits::input_parameter< NumericVector >::type ma(maSEXP);
+    traits::input_parameter< vec >::type a1(a1SEXP);
+    traits::input_parameter< vec >::type a2(a2SEXP);
+    traits::input_parameter< vec >::type ma(maSEXP);
     traits::input_parameter< double >::type tol(tolSEXP);
     __result = wrap(diri_nr_type2(a1,a2,ma,tol));
     return __result;
@@ -254,6 +254,50 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     __result = wrap(colsums(x));
+    return __result;
+END_RCPP
+}
+
+colvec rowsums(NumericMatrix x);
+RcppExport SEXP Rfast_rowsums(SEXP xSEXP) {
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    __result = wrap(rowsums(x));
+    return __result;
+END_RCPP
+}
+
+colvec rowmeans(NumericMatrix x);
+RcppExport SEXP Rfast_rowmeans(SEXP xSEXP) {
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    __result = wrap(rowmeans(x));
+    return __result;
+END_RCPP
+}
+
+colvec rowMaxs(NumericMatrix x);
+RcppExport SEXP Rfast_rowMaxs(SEXP xSEXP) {
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    __result = wrap(rowMaxs(x));
+    return __result;
+END_RCPP
+}
+
+colvec rowMins(NumericMatrix x);
+RcppExport SEXP Rfast_rowMins(SEXP xSEXP) {
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    __result = wrap(rowMins(x));
     return __result;
 END_RCPP
 }

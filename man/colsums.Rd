@@ -1,16 +1,18 @@
-\name{ The sums of the collumns }
+\name{ The sums of the columns and rows }
 \alias{colsums}
-\alias{colsums}
+\alias{rowsums}
 \title{
- The sums of the collumns.
+ The sums of the columns and rows .
 }
 
 \description{
-The sums of the collumns.
+The sums of the columns and rows .
 }
 
 \usage{
 colsums(x)
+
+rowsums(x)
 }
 
 \arguments{
@@ -24,12 +26,9 @@ A numerical matrix with data.
 %}
 
 \value{
-Returns a row vector with collumn sums.
+Returns a row vector with column sums or a column vector with the row sums.
 }
 
-%\references{
-%Shabalin, A.A. (2012). Matrix eQTL: Ultra fast eQTL analysis %via large matrix operations. Bioinformatics 28(10): 1353-1358.
-%}
 
 \author{
 Manos Papadakis
@@ -51,7 +50,11 @@ x <- matrix(rpois(1000 * 1000,10),ncol = 1000)
 x1 <- colsums(x)
 x2 <- colSums(x)
 x1 == x2
+
+x1 <- rowsums(x)
+x2 <- rowSums(x)
+x1 == x2
 }
 
-\keyword{ Collumn Sums }
-
+\keyword{ Column sums }
+\keyword{ row sums }

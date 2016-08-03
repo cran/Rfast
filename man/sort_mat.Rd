@@ -55,10 +55,10 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 x <- matrix( rnorm(1000 * 20), ncol = 20 )
 system.time( sort_mat(x) )
 system.time( sort_mat_parallel(x, 2) )
-system.time( t( apply(x, 2, sort) ) )
+system.time( apply(x, 2, sort)  )
 s1 <- sort_mat_parallel(x, 2)
-s2 <- t( apply(x, 2, sort) )
-all.equal(s1, s2)
+s2 <- apply(x, 2, sort) 
+all.equal(as.vector(s1), as.vector(s2))
 }
 
 \keyword{ Sorting }

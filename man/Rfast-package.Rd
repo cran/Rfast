@@ -13,14 +13,15 @@ A collection of Rfast functions for data analysis.
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.1 \cr
-Date: \tab 2016-07-29\cr
+Version: \tab 1.2 \cr
+Date: \tab 2016-08-02\cr
 License: \tab GPL-2\cr
 }
 }
 
 \author{
-Manos Papadakis <papadakm95@gmail.com>, Michail Tsagris <mtsagris@yahoo.gr> and Ioannis Tsamardinos <tsamard@csd.uoc.gr> and 
+Manos Papadakis <papadakm95@gmail.com>, Michail Tsagris <mtsagris@yahoo.gr>, Ioannis Tsamardinos <tsamard@csd.uoc.gr> , Matteo Fasiolo <matteo.fasiolo@gmail.com>, Giorgos Borboudakis 
+<borbudak@gmail.com> and John Burkardt <jburkardt@fsu.edu>
 }
 
 \section{Maintainers }{
@@ -38,5 +39,3 @@ We would like to acknowledge Professor Kurt Hornik for his invaluable help with 
 \keyword{ variances }
 \keyword{ t-tests }
 \keyword{ univariate regressions }
-
-

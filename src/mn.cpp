@@ -136,3 +136,63 @@ size_t generatekey1(const string &s)
   }
   return hash;
 }
+
+double trigamma ( double x)
+{
+  using namespace std;
+  double a = 0.0001;
+  double b = 5.0;
+  double b2 =  0.1666666667;
+  double b4 = -0.03333333333;
+  double b6 =  0.02380952381; 
+  double b8 = -0.03333333333;
+  double value;
+  double y;
+  double z;
+  
+  z = x;
+  //
+  //  Use small value approximation if X <= A.
+  //
+  if ( x <= a )
+  {
+    value = 1.0 / x / x;
+    return value;
+  }
+  //
+  //  Increase argument to ( X + I ) >= B.
+  //
+  value = 0.0;
+  
+  while ( z < b )
+  {
+    value = value + 1.0 / z / z;
+    z = z + 1.0;
+  }
+  //
+  //  Apply asymptotic formula if argument is B or greater.
+  //
+  y = 1.0 / z / z;
+  
+  value = value + 0.5 *
+    y + ( 1.0
+            + y * ( b2
+                      + y * ( b4
+                      + y * ( b6
+                      + y *   b8 )))) / z;
+                      
+                      return value;
+}
+
+
+double digamma(double x) {
+  double result = 0, xx, xx2, xx4;
+  for ( ; x < 7; ++x)
+    result -= 1/x;
+  x -= 1.0/2.0;
+  xx = 1.0/x;
+  xx2 = xx*xx;
+  xx4 = xx2*xx2;
+  result += log(x)+(1./24.)*xx2-(7.0/960.0)*xx4+(31.0/8064.0)*xx4*xx2-(127.0/30720.0)*xx4*xx4;
+  return result;
+}

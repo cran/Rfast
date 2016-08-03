@@ -58,7 +58,7 @@ In Joint European Conference on Machine Learning and Knowledge Discovery in Data
 }
 
 \author{
-Giorgos Borboudakis based on a C++ code by John Burkardt.
+Giorgos Borboudakis. The permutation version used a C++ code by John Burkardt.
 
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }

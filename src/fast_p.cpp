@@ -40,12 +40,12 @@ END_RCPP
 }
 
 // colmax_p
-vector<double> colmax_p(mat x,int ncores,bool value=false);
+vector<double> colmax_p(NumericMatrix x,int ncores,bool value=false);
 RcppExport SEXP Rfast_colmax_p(SEXP xSEXP,SEXP ncoresSEXP,SEXP valueSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< mat >::type x(xSEXP);
+    traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< bool >::type value(valueSEXP);
     traits::input_parameter< int >::type ncores(ncoresSEXP);
     __result = wrap(colmax_p(x,ncores,value));
@@ -54,12 +54,12 @@ END_RCPP
 }
 
 // colmax_p
-vector<double> colmin_p(mat x,int ncores,bool value=false);
+vector<double> colmin_p(NumericMatrix x,int ncores,bool value=false);
 RcppExport SEXP Rfast_colmin_p(SEXP xSEXP,SEXP ncoresSEXP,SEXP valueSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< mat >::type x(xSEXP);
+    traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< int >::type ncores(ncoresSEXP);
     traits::input_parameter< bool >::type value(valueSEXP);
     __result = wrap(colmin_p(x,ncores,value));

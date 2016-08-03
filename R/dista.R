@@ -17,7 +17,7 @@ dista <- function(xnew, x, type = "euclidean") {
 
     for (i in 1:nu) {
       z <- y - xnew[i, ]
-      disa[i, ] <- sqrt( colsums( z^2 ) )
+      disa[i, ] <- sqrt( as.vector(colsums( z^2 )) )
     }
 
   } else if (type == "manhattan") {
@@ -25,7 +25,7 @@ dista <- function(xnew, x, type = "euclidean") {
 
     for (i in 1:nu) {
       a <- y - xnew[i, ]
-      disa[i, ] <- colsums( abs(a) )
+      disa[i, ] <- as.vector(colsums( abs(a) ))
     }
   }
 

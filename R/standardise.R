@@ -8,7 +8,7 @@ standardise <- function(x, center = TRUE, scale = TRUE) {
   } else if ( center == TRUE & scale == FALSE )  {
 
     m <- as.vector(colmeans(x))
-    s <- as.vector(colVars(x, std = TRUE))
+    s <- colVars(x, std = TRUE)
     y <- ( t(x) - m )
 
   } else if ( center == FALSE & scale == TRUE )  {

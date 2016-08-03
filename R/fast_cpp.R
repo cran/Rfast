@@ -80,3 +80,19 @@ colmeans <- function(x) {
 colsums <- function(x) {
   .Call('Rfast_colsums', PACKAGE = 'Rfast',x)
 }
+
+rowsums <- function(x) {
+  .Call('Rfast_rowsums', PACKAGE = 'Rfast',x)
+}
+
+rowmeans <- function(x) {
+  .Call('Rfast_rowmeans', PACKAGE = 'Rfast',x)
+}
+
+rowMaxs <- function(x) {
+  .Call('Rfast_rowMaxs', PACKAGE = 'Rfast',x)
+}
+
+rowMins <- function(x) {
+  .Call('Rfast_rowMins', PACKAGE = 'Rfast',x)
+}

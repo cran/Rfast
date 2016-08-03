@@ -56,7 +56,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
     %}
 
 \seealso{
-\code{\link{nth}, \link{colMedians}, \link{colVars}, \link{sort_mat}
+\code{\link{rowMins}, \link{rowMaxs}, \link{nth}, \link{colMedians}, \link{colVars}, \link{sort_mat}
 }
 }
 

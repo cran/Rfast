@@ -13,13 +13,13 @@ diri.nr2 <- function(x, tol = 1e-07) {
   
     runtime <- proc.time()
     x <- as.matrix(x)  ## makes sure x is a matrix
-    x <- x/rowSums(x)  ## makes sure x is compositional data
+    x <- x/as.vector(rowsums(x))  ## makes sure x is compositional data
     n <- nrow(x)  ## sample size
     p <- ncol(x)
     zx <- t( log(x) )
     
-    ma <- rowMeans(zx)
-    m <- colMeans(x)
+    ma <- as.vector(rowmeans(zx))
+    m <- as.vector(colmeans(x))
     down <-  - sum( m * ( ma - log(m) ) )
     sa <- 0.5 * (p - 1) / down  ## initial value for precision
     a1 <- sa * m  ## initial values
