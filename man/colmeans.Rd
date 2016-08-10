@@ -11,6 +11,7 @@ The means of the columns and the rows.
 
 \usage{
 colmeans(x)
+rowmeans(x)
 }
 
 \arguments{
@@ -50,10 +51,11 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 x <- matrix(rpois(1000 * 1000,10),ncol = 1000)
 x1 <- colmeans(x)
 x2 <- colMeans(x)
-x1 == x2
+all.equal(x1,x2)
+
 x1 <- rowmeans(x)
 x2 <- rowMeans(x)
-x1 == x2
+all.equal(x1,x2)
 }
 
 \keyword{ column means }

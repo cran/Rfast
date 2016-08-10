@@ -49,11 +49,11 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 x <- matrix(rpois(1000 * 1000,10),ncol = 1000)
 x1 <- colsums(x)
 x2 <- colSums(x)
-x1 == x2
+all.equal(x1,x2)
 
 x1 <- rowsums(x)
 x2 <- rowSums(x)
-x1 == x2
+all.equal(x1,x2)
 }
 
 \keyword{ Column sums }

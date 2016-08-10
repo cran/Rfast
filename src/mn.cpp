@@ -77,39 +77,14 @@ vec loga(vec &x){
   return F;
 }
 
-//[[Rcpp::export]]
-vec regression_only(mat x, colvec y) {
-  int n=x.n_rows,p=x.n_cols,i,j;
-  double SSO=var(y)*(double)(n-1),SS1=0.0;
-  mat b(2,1),z(n,2),tr_z(2,n);
-  vec F1(p),res(n);
-  for(j=0;j<n;j++){
-    z(j,0)=1;
-  }
-  for(i=0;i<p;i++){
-    for(j=0;j<n;j++){
-      z(j,1)=x(j,i);
-    }
-    tr_z=trans(z);
-    b=inv(tr_z*z)*tr_z*y;
-    res=y-z*b;
-    SS1=var(res)*(n-1);
-    F1(i)=(SSO/SS1-1)*(n-2);
-  }
-  return F1;
-}
-
 long double regression_only_col(colvec x, colvec y) {
-  unsigned int n=x.size(),j;
-  double SSO=var(y)*(double)(n-1),SS1=0.0;
-  long double F1=0.0;
+  int n=x.size();
+  double SSO=var(y)*(double)(n-1),SS1=0.0,F1=0.0;
   mat z(n,2),tr_z(2,n);
   colvec b(2);
   vec res(n);
-  for(j=0;j<n;j++){
-    z(j,0)=1;
-    z(j,1)=x(j);
-  }
+  z.col(0)=ones(n);
+  z.col(1)=x;
   tr_z=z.t();
   b=inv(tr_z*z)*tr_z*y;
   res=y-z*b;

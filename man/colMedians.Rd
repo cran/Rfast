@@ -1,9 +1,8 @@
 \name{Column-wise medians}
 \alias{colMedians}
-\alias{colMedians_parallel}
 
 \title{
-Colum-wise medians (in parallel)
+Colum-wise medians
 }
 
 \description{
@@ -12,16 +11,11 @@ Colum-wise medians of a matrix
 
 \usage{
 colMedians(x)
-
-colMedians_parallel(x, ncores)
 }
 
 \arguments{
 \item{x}{
 A matrix with the data.
-}
-\item{ncores}{
-How many cores to use.
 }
 }
 
@@ -51,14 +45,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <- matrix( rnorm(100 * 1000), ncol = 1000 )
-system.time( apply(x, 2, median) )
-system.time( colMedians(x) )
-system.time( colMedians_parallel(x, ncores = 2) )
-a <- apply(x, 2, median) 
-b1 <- colMedians(x) 
-b2 <- colMedians_parallel(x, ncores = 2)
-all.equal(a, b1)
-all.equal(a, b2)
+system.time( a <- apply(x, 2, median) )
+system.time( b1 <- colMedians(x) )
+all.equal(as.vector(a), b1)
 }
 
 \keyword{ Column-wise medians }

@@ -45,10 +45,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <- matrix( rnorm(100 * 10000), ncol = 10000 )
-system.time( apply(x, 2, var) )
-system.time( colVars(x) )
-a1 <- apply(x, 2, var)
-a2 <- colVars(x)
+system.time( a1 <- apply(x, 2, var) )
+system.time( a2 <- colVars(x) )
 all.equal(as.vector(a1), as.vector(a2))
 }
 

@@ -29,7 +29,7 @@ diri.nr2 <- function(x, tol = 1e-07) {
     a2 <- a1 - f / der
     i <- 2
     
-    a<-as.vector(diri_nr_type2(a1,a2,ma,tol))
+    a<-as.vector(.Call('Rfast_diri_nr_type2', PACKAGE = 'Rfast',a1,a2,ma,tol))
     
     loglik <- n * lgamma( sum(a) ) - n * sum( lgamma(a) ) +
       sum( zx * (a - 1) )

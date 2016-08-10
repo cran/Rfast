@@ -213,7 +213,7 @@ BEGIN_RCPP
 END_RCPP
 }
 
-int Match(colvec x,double key);
+int Match(vec x,double key);
 RcppExport SEXP Rfast_Match(SEXP xSEXP,SEXP keySEXP) {
 BEGIN_RCPP
     RObject __result;
@@ -221,17 +221,6 @@ BEGIN_RCPP
     traits::input_parameter< vec >::type x(xSEXP);
     traits::input_parameter< double >::type key(keySEXP);
     __result = wrap(Match(x,key));
-    return __result;
-END_RCPP
-}
-
-mat Chol(mat x);
-RcppExport SEXP Rfast_Chol(SEXP xSEXP) {
-BEGIN_RCPP
-    RObject __result;
-    RNGScope __rngScope;
-    traits::input_parameter< mat >::type x(xSEXP);
-    __result = wrap(Chol(x));
     return __result;
 END_RCPP
 }
@@ -298,6 +287,68 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     __result = wrap(rowMins(x));
+    return __result;
+END_RCPP
+}
+
+NumericVector Rpois(int n, double mu);
+RcppExport SEXP Rfast_Rpois(SEXP nSEXP,SEXP muSEXP) {
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< int >::type n(nSEXP);
+    traits::input_parameter< double >::type mu(muSEXP);
+    __result = wrap(Rpois(n,mu));
+    return __result;
+END_RCPP
+}
+
+NumericVector Runif(int n, double mn, double mx);
+RcppExport SEXP Rfast_Runif(SEXP nSEXP,SEXP mnSEXP,SEXP mxSEXP) {
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< int >::type n(nSEXP);
+    traits::input_parameter< double >::type mn(mnSEXP);
+    traits::input_parameter< double >::type mx(mxSEXP);
+    __result = wrap(Runif(n,mn,mx));
+    return __result;
+END_RCPP
+}
+
+NumericVector Rnorm(int n);
+RcppExport SEXP Rfast_Rnorm(SEXP nSEXP){
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< int >::type n(nSEXP);
+    __result = wrap(Rnorm(n));
+    return __result;
+END_RCPP
+}
+
+NumericVector Rbeta(int n, double a, double b);
+RcppExport SEXP Rfast_Rbeta(SEXP nSEXP,SEXP aSEXP,SEXP bSEXP){
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< int >::type n(nSEXP);
+    traits::input_parameter< double >::type a(aSEXP);
+    traits::input_parameter< double >::type b(bSEXP);
+    __result = wrap(Rbeta(n,a,b));
+    return __result;
+END_RCPP
+}
+
+NumericVector Rbinom(int n, double nin, double pp);
+RcppExport SEXP Rfast_Rbinom(SEXP nSEXP,SEXP ninSEXP,SEXP ppSEXP){
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< int >::type n(nSEXP);
+    traits::input_parameter< double >::type nin(ninSEXP);
+    traits::input_parameter< double >::type pp(ppSEXP);
+    __result = wrap(Rbinom(n,nin,pp));
     return __result;
 END_RCPP
 }

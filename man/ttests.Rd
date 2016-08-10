@@ -52,7 +52,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 ## 100000 variables, hence 100000 t-tests will be performed
-x = matrix( rnorm(100 * 100000), ncol = 100000 )
+x = matrix( rnorm(100 * 10000), ncol = 10000 )
 ## 100 observations in total
 ina = rbinom(100, 1, 0.6) + 1   ## independent samples t-test
 system.time( ttests(x, ina) )

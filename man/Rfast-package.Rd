@@ -13,8 +13,8 @@ A collection of Rfast functions for data analysis.
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.2 \cr
-Date: \tab 2016-08-02\cr
+Version: \tab 1.3 \cr
+Date: \tab 2016-08-08\cr
 License: \tab GPL-2\cr
 }
 }

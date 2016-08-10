@@ -50,16 +50,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <-matrix( rnorm( 1000 * 500), ncol = 500 )
-system.time( cor(x) )
-system.time( cora(x) )
-s1 <- cor(x)
-s2 <- cora(x)
+system.time( s1 <- cor(x) )
+system.time( s2 <- cora(x) )
 all.equal(s1, s2)
 
 
 x <- as.matrix(iris[, 1:4])
-system.time( for (i in 1:10000) cova(x) )
-system.time( for (i in 1:10000) cov(x) )
+system.time( for (i in 1:1000) cova(x) )
+system.time( for (i in 1:1000) cov(x) )
 }
 
 \keyword{ Covariance matrix }

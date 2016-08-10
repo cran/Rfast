@@ -41,10 +41,6 @@ which_isFactor <- function(x) {
   .Call('Rfast_which_isFactor', PACKAGE = 'Rfast',x)
 }
 
-diri_nr_type2 <- function(a1,a2,ma,tol) {
-  .Call('Rfast_diri_nr_type2', PACKAGE = 'Rfast',a1,a2,ma,tol)
-}
-
 med <- function(x) {
   .Call('Rfast_med', PACKAGE = 'Rfast',x)
 }
@@ -69,10 +65,6 @@ Match <- function(x,key) {
   .Call('Rfast_Match', PACKAGE = 'Rfast',x,key)
 }
 
-cholesky <- function(x) {
-  .Call('Rfast_Chol', PACKAGE = 'Rfast',x)
-}
-
 colmeans <- function(x) {
   .Call('Rfast_colmeans', PACKAGE = 'Rfast',x)
 }
@@ -95,4 +87,24 @@ rowMaxs <- function(x) {
 
 rowMins <- function(x) {
   .Call('Rfast_rowMins', PACKAGE = 'Rfast',x)
+}
+
+Rpois <- function(n,mu) {
+  .Call('Rfast_Rpois', PACKAGE = 'Rfast',n,mu)
+}
+
+Runif <- function(n,mn,mx) {
+  .Call('Rfast_Runif', PACKAGE = 'Rfast',n,mn,mx)
+}
+
+Rnorm <- function(n) {
+  .Call('Rfast_Rnorm', PACKAGE = 'Rfast',n)
+}
+
+Rbeta <- function(n,a,b) {
+  .Call('Rfast_Rbeta', PACKAGE = 'Rfast',n,a,b)
+}
+
+Rbinom <- function(n,nin,pp) {
+  .Call('Rfast_Rbinom', PACKAGE = 'Rfast',n,nin,pp)
 }

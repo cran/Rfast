@@ -6,8 +6,8 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
-#include <cstdlib>
 #include <ctime>
+#include <cstdlib>
 #include <Rinternals.h>
 #include <map>
 #include "g2t.h"
@@ -32,8 +32,7 @@ mat design_matrix(CharacterVector x) {
   a=indices_copy_x.begin();
   for(;a!=indices_copy_x.end();a++)
     Final((*a).second,lower_bound(leksi.begin(),leksi.end(),(*a).first)-leksi.begin())=1;
-  Final.shed_col(leksi.size()-1);
-  Final.insert_cols(0,ones(n));
+  Final.col(0)=ones(n);
   return Final;
 }
 
@@ -47,13 +46,9 @@ vec logistic_only(mat x, colvec y){
   double dif,s,t,sw=0.0,szw=0.0,sz2w=0.0,my = mean(y);
   b_old(0)=log(my/(1-my));
   b_old(1)=0;
-  for(j=0;j<n;j++){
-    z(j,0)=1;
-  }
+  z.col(0)=ones(n);
   for(i=0;i<pcols;i++){
-    for(j=0;j<n;j++){
-      z(j,1)=x(j,i);
-    }
+    z.col(1)=x.col(i);
     dif=1.0;
     s=0.0;
     while(dif>0.000000001){
@@ -88,7 +83,7 @@ vec logistic_only(mat x, colvec y){
 
 //[[Rcpp::export]]
 vec poisson_only(mat x, colvec y){
-  unsigned int i,j,d=2,n=x.n_rows,pcols=x.n_cols;
+  unsigned int i,d=2,n=x.n_rows,pcols=x.n_cols;
   char e='e';
   mat z(n,2),inv_L2(d,d),tmp,ytr=y.t();
   vec m(n),L(pcols),z_col_1(n);
@@ -96,13 +91,9 @@ vec poisson_only(mat x, colvec y){
   colvec b_old(d),b_new(d),L1(d),yhat(n),L2_L1(d);
   b_old(0)=log(mean(y));
   b_old(1)=0;
-  for(j=0;j<n;j++){
-    z(j,0)=1;
-  }
+  z.col(0)=ones(n);
   for(i=0;i<pcols;i++){
-    for(j=0;j<n;j++){
-      z(j,1)=x(j,i);
-    }
+    z.col(1)=x.col(i);
     z_col_1=z.col(1);
     dif=1.0;
     while(dif>0.000000001){
@@ -311,16 +302,10 @@ long double hash_find(List x,string value){
 
 //[[Rcpp::export]]
 int Match(colvec x,double key){
-  int i,n=x.size();
-  for(i=0;i<n;++i)
-    if(x(i)==key)
-      return i+1;
+  int i=find(x.begin(),x.end(),key)-x.begin();
+  if(i>-1)
+    return i+1;
   return 0;
-}
-
-//[[Rcpp::export]]
-mat Chol(mat x){
-  return chol(x);
 }
 
 // [[Rcpp::export]]
@@ -359,6 +344,29 @@ colvec rowMins(NumericMatrix x){
   return min(X, 1); 
 }
 
+//[[Rcpp::export]]
+NumericVector Rpois(int n, double mu){
+  return rpois(n,mu);
+}
+
+//[[Rcpp::export]]
+NumericVector Runif(int n, double mn, double mx){
+  return Rcpp::runif(n,mn,mx);
+}
+//[[Rcpp::export]]
+NumericVector Rnorm(int n){
+  return rnorm(n);
+}
+
+//[[Rcpp::export]]
+NumericVector Rbinom(int n, double nin, double pp){
+  return rbinom(n,nin,pp);
+}
+
+//[[Rcpp::export]]
+NumericVector Rbeta(int n, double a, double b){
+  return rbeta(n,a,b);
+}
 
 /////////////// GEORGE ///////////////////////////
 

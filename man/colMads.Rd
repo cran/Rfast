@@ -9,15 +9,12 @@ Colum-wise mean absolute deviations.
 }
 
 \usage{
-colMads(x, ncores = 2)
+colMads(x)
 }
 
 \arguments{
 \item{x}{
 A matrix with the data.
-}
-\item{ncores}{
-How many cores to use. If you specify 2 or more cores, parallel implementation takes place. Be careful not to put less than 1 or more cores than your system has.
 }
 }
 
@@ -47,8 +44,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <- matrix( rnorm(100 * 1000), ncol = 1000 )
-system.time( colMads(x) )
-a = colMads(x) 
+system.time( a <- colMads(x) )
+
 }
 
 \keyword{ Column-wise median absolute deviations }

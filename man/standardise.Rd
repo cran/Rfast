@@ -54,11 +54,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <-matrix( rnorm( 10000 * 100), ncol = 100 )
-system.time( scale(x)[1:10000, ] )
-system.time( standardise(x) )
-a1 <- standardise(x)
-a2 <- scale(x)[1:10000, ]
-all.equal(a1, a2)
+system.time( a1 <- scale(x)[1:10000, ] )
+system.time( a2 <- standardise(x) )
+all.equal(as.vector(a1), as.vector(a2))
 
 }
 

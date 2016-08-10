@@ -60,11 +60,7 @@ x = as.data.frame(x)
 
 ## 100 observations in total
 y = rnorm(100)   ## binary logistic regression
-system.time( regression(x, y) )
-
-
-a1 = regression(x, y)
-
+system.time( a1 <- regression(x, y) )
 
 }
 

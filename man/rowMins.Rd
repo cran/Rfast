@@ -51,15 +51,11 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- matrix( rnorm(1000 * 2000), ncol = 2000 )
 
-system.time( rowMins(x) )
-system.time( apply(x, 1, min) )
-s1 = rowMins(x)
-s2 = apply(x, 1, min)
+system.time( s1 <- rowMins(x) )
+system.time( s1 <- apply(x, 1, min) )
 
-system.time( rowMaxs(x) )
-system.time( apply(x, 1, max) )
-s1 = rowMaxs(x)
-s2 = apply(x, 1, max)
+system.time( s1 <- rowMaxs(x) )
+system.time( s1 <- apply(x, 1, max) )
 }
 
 \keyword{ Row-wise minimum }

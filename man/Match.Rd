@@ -47,7 +47,9 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 
 \examples{
 y <- rnorm(100)
-Match(y,50) == match(50,y)
+a <- Match(y,50)
+b <- match(50,y)
+all.equal(as.vector(a),as.vector(b))
 }
 
 \keyword{ Match Function }

@@ -7,7 +7,7 @@
 }
 
 \usage{
-mahala(x, mu, sigma, ncores, ischol)
+mahala(x, mu, sigma, ischol)
 }
 
 \arguments{
@@ -19,9 +19,6 @@ The mean vector.
 }
 \item{sigma}{
 The covariance or any square symmetric matrix.
-}
-\item{ncores}{
-The numbers of cores to use
 }
 \item{ischol}{
 A boolean variable set to true if the Cholesky decomposition of the covariance matrix is supplied in the argument "sigma".
@@ -51,14 +48,12 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \examples{
-x <- matrix( rnorm(10000 * 200), ncol = 200 )
-m <- colMeans(x)
+x <- matrix( rnorm(1000 * 200), ncol = 200 )
+m <- as.vector(colmeans(x))
 s <- cov(x)
-system.time( mahala(x, m, s) )
-system.time( mahalanobis(x, m, s) )
-a1 <- mahalanobis(x, m, s)
-a2 <- mahala(x, m, s)
-all.equal(a1, a2)
+system.time( a1 <- mahala(x, m, s) )
+system.time( a2 <- mahalanobis(x, m, s) )
+all.equal(as.vector(a1), as.vector(a2))
 }
 
 \keyword{ Mahalanobis distance }

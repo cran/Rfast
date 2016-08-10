@@ -1,8 +1,6 @@
-\name{Column-wise minimum and maximum (in parallel)}
+\name{Column-wise minimum and maximum }
 \alias{colMins}
 \alias{colMaxs}
-\alias{colMins_parallel}
-\alias{colMaxs_parallel}
 \title{
 Column-wise minimum and maximum of a matrix
 }
@@ -15,18 +13,11 @@ Column-wise minimum and maximum of a matrix in parallel.
 colMins(x, value=FALSE)
 
 colMaxs(x, value=FALSE)
-
-colMins_parallel(x, ncores, value = FALSE)
-
-colMaxs_parallel(x, ncores, value = FALSE)
 }
 
 \arguments{
 \item{x}{
 A numerical matrix with data.
-}
-\item{ncores}{
-The number of cores to use.
 }
 \item{value}{
 If the value is TRUE it returns the indices of the minimum/maximum, otherwise it returns the minimum and maximum values.
@@ -63,20 +54,11 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- matrix( rnorm(1000 * 2000), ncol = 2000 )
 
-system.time( colMins(x) )
-system.time( apply(x, 2, min) )
-s1 = colMins(x)
-s2 = apply(x, 2, min)
+system.time( s1 <- colMins(x) )
+system.time( s2 <- apply(x, 2, min) )
 
-system.time( colMaxs(x) )
-system.time( apply(x, 2, max) )
-s1 = colMaxs(x)
-s2 = apply(x, 2, max)
-
-system.time( colMins_parallel(x, ncores = 2) )
-system.time( apply(x, 2, min) )
-s1 = colMins_parallel(x, ncores = 2)
-s2 = apply(x, 2, min)
+system.time( s1 <- colMaxs(x) )
+system.time( s2 <- apply(x, 2, max) )
 }
 
 \keyword{ Column-wise minimum }
