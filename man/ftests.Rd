@@ -43,7 +43,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{\link{colVars}
+\code{\link{ttests}, \link{colVars}
 }
 }
 

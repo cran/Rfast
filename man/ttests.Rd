@@ -46,7 +46,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{\link{colVars}
+\code{\link{colVars}, \link{ftests}, \link{proptests}
 }
 }
 

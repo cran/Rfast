@@ -44,7 +44,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{\link{univglms}, \link{logistic_only}
+\code{\link{univglms}, \link{logistic_only}, \link{allbetas}, \link{regression}
 }
 }
 

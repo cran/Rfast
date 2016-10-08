@@ -8,8 +8,28 @@
 using namespace Rcpp;
 using namespace arma;
 
-bool my_compare(const pair<string,int>& a,const pair<string,int>& b){
+bool my_compare1(const pair<string,int>& a,const pair<string,int>& b){
   return a.first<b.first;
+}
+
+bool my_compare_order(const pair<double,int>& a,const pair<double,int>& b){
+  return a.first<b.first;
+}
+
+bool descending(const double& a,const double& b){
+  return a>b;
+}
+
+bool cor_vecs(const pair<double,double>& a,const pair<double,double>& b){
+  return a.second<b.second;
+}
+
+bool s_indx_asc(const pair<int,double>& a,const pair<int,double>& b){
+  return a.second<b.second;
+}
+
+bool s_indx_des(const pair<int,double>& a,const pair<int,double>& b){
+  return a.second>b.second;
 }
 
 mat operator+(colvec &y,mat &x){
@@ -93,25 +113,6 @@ long double regression_only_col(colvec x, colvec y) {
   return F1;
 }
 
-unsigned int generatekey2(const string &s,unsigned int seed = 0){
-  unsigned int hash = seed;
-  const char *ss=s.c_str();
-  while (*ss)
-    hash = hash * 101 + *ss++;
-  return hash;
-}
-
-/* Fowler / Noll / Vo (FNV) Hash */
-size_t generatekey1(const string &s)
-{
-  size_t hash = InitialFNV;
-  for(size_t i = 0; i < s.length(); i++){
-    hash = hash ^ (s[i]);       /* xor  the low 8 bits */
-    hash = hash * FNVMultiple;  /* multiply by the magic number */
-  }
-  return hash;
-}
-
 double trigamma ( double x)
 {
   using namespace std;
@@ -170,4 +171,21 @@ double digamma(double x) {
   xx4 = xx2*xx2;
   result += log(x)+(1./24.)*xx2-(7.0/960.0)*xx4+(31.0/8064.0)*xx4*xx2-(127.0/30720.0)*xx4*xx4;
   return result;
+}
+
+int i4_min ( double i1, double i2 ){ 
+  if ( i1 < i2 )
+    return i1;
+  return i2;
+}
+  
+void i4mat_floyd ( int n, vector<double> &a ){
+  int i,j,k;
+  const double i4_huge = 2147483647;
+  for ( k = 0; k < n; k++ )
+    for ( j = 0; j < n; j++ )
+      if ( a[k+j*n] < i4_huge )
+        for ( i = 0; i < n; i++ )
+          if ( a[i+k*n] < i4_huge )
+            a[i+j*n] = i4_min ( a[i+j*n], a[i+k*n] + a[k+j*n] );
 }

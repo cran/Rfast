@@ -14,10 +14,10 @@ Match(x,key)
 
 \arguments{
 \item{x}{
-A Numeric vector 
+A numeric vector.
 }
 \item{key}{
-The value for searching the key
+The value for searching the key.
 }
 
 }

@@ -1,0 +1,56 @@
+\name{Transpose of a matrix}
+\alias{transpose}
+\title{
+Transpose of a matrix
+}
+
+\description{
+Transpose of a matrix.
+}
+
+\usage{
+transpose(x)
+}
+
+\arguments{
+\item{x}{
+A numerical \bold{square} matrix with data.
+}
+}
+
+%\details{
+%
+%}
+
+\value{
+The transposed matrix.
+}
+
+\references{
+Gilbert Strang (2006). Linear Algebra and its Applications (4th edition). 
+}
+
+\author{
+Manos Papadakis
+
+R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
+}
+
+%\note{
+  %%  ~~further notes~~
+    %}
+
+\seealso{
+\code{\link{nth}, \link{colMaxs}, \link{colMins}, \link{colrange}
+}
+}
+
+\examples{
+x <- matrix( rnorm(500 * 500), ncol = 1000 )
+system.time( transpose(x) )
+system.time( t(x)  )
+}
+
+\keyword{ Transpose }
+\keyword{ matrix }
+

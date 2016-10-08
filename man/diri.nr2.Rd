@@ -34,13 +34,10 @@ The value of the log-likelihood.
 \item{param}{
 The estimated parameters.
 }
-\item{runtime}{
-The run time of the procedure.
-}
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris and Manos Papadakis
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>
 }
@@ -49,14 +46,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %%  ~~further notes~~
 %}
 
-%\seealso{
-%\code{\link{diri.est}, \link{diri.contour} \link{rdiri}
-%}
-%}
+\seealso{
+\code{\link{beta.mle}
+}
+}
 
 \examples{
 x <- matrix( rgamma(100 * 4, c(5, 6, 7, 8), 1), ncol = 4)
-x <- x / as.vector(rowsums(x))
+x <- x / rowsums(x)
 system.time( for(i in 1:1000) diri.nr2(x) )
 }
 

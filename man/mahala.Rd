@@ -47,9 +47,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %%  ~~further notes~~
 %}
 
+\seealso{
+\code{\link{dista}, \link{colmeans}
+}
+}
+
 \examples{
 x <- matrix( rnorm(1000 * 200), ncol = 200 )
-m <- as.vector(colmeans(x))
+m <- colmeans(x)
 s <- cov(x)
 system.time( a1 <- mahala(x, m, s) )
 system.time( a2 <- mahalanobis(x, m, s) )

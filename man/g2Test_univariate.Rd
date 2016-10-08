@@ -53,7 +53,7 @@ The degrees of freedom of each test.
 }
 
 \references{
-Tsamardinos, I., & Borboudakis, G. (2010, September). Permutation testing improves Bayesian network learning. 
+Tsamardinos, I., & Borboudakis, G. (2010). Permutation testing improves Bayesian network learning. 
 In Joint European Conference on Machine Learning and Knowledge Discovery in Databases (pp. 322-337). Springer Berlin Heidelberg
 }
 

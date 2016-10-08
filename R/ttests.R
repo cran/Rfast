@@ -4,10 +4,10 @@ ttests <- function(x, ina, paired = FALSE) {
   x1 <- x[ ina == 1, ]
   x2 <- x[ ina == 2, ]
 
-  if ( paired == FALSE ) {
+  if ( !paired ) {
 
-    m1 <- as.vector(colmeans(x1))
-    m2 <- as.vector(colmeans(x2))
+    m1 <- colmeans(x1)
+    m2 <- colmeans(x2)
     s1 <- colVars(x1)
     s2 <- colVars(x2)
 
@@ -36,7 +36,7 @@ ttests <- function(x, ina, paired = FALSE) {
       n <- n1
       z <- x1 - x2
 
-      m <- as.vector(colmeans(z))
+      m <- colmeans(z)
       s <- colVars(z)
       stat <- m / sqrt(s/n)
       pvalue <- 2 * pt( abs(stat), n - 1, lower.tail = FALSE )

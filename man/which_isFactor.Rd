@@ -27,7 +27,6 @@ A vector with the column indices which are factor variables. If there are no fac
 }
 
 %\references{
-%Draper, N.R. and Smith H. (1988). Applied regression analysis. New York, Wiley, 3rd edition.
 %}
 
 \author{
@@ -40,7 +39,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 %}
 
 \seealso{
-\code{\link{nth}
+\code{ \link{nth}, \link{Match}
 }
 }
 

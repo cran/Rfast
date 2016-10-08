@@ -10,14 +10,16 @@ Row-wise minimum and maximum of a matrix.
 }
 
 \usage{
-rowMins(x)
-
-rowMaxs(x)
+rowMins(x, value = FALSE)
+rowMaxs(x, value = FALSE)
 }
 
 \arguments{
 \item{x}{
 A numerical matrix with data.
+}
+\item{value}{
+If the value is TRUE it returns the indices of the minimum/maximum, otherwise it returns the minimum and maximum values.
 }
 }
 
@@ -30,7 +32,6 @@ A vector with the relevant values.
 }
 
 %\references{
-%Shabalin, A.A. (2012). Matrix eQTL: Ultra fast eQTL analysis %via large matrix operations. Bioinformatics 28(10): 1353-1358.
 %}
 
 \author{
@@ -44,7 +45,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
     %}
 
 \seealso{
-\code{\link{colMins}, \link{colMaxs}, \link{nth}, \link{colMedians}, \link{colVars}, \link{sort_mat}
+\code{\link{colMins}, \link{colMaxs}, \link{nth}, \link{rowrange} \link{colMedians}, \link{colVars}, \link{sort_mat}
 }
 }
 

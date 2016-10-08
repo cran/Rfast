@@ -1,12 +1,12 @@
-\name{ The means of the columns and the rows }
+\name{Column and row-wise means of a matrix}
 \alias{colmeans}
 \alias{rowmeans}
 \title{
- The means of the columns and the rows.
+Column and row-wise means of a matrix
 }
 
 \description{
-The means of the columns and the rows.
+Column and row-wise means of a matrix.
 }
 
 \usage{
@@ -25,7 +25,7 @@ A numerical matrix with data.
 %}
 
 \value{
-Returns a row vector with column means or a column vector with the row means.
+A vector with column means or a column vector with the row means.
 }
 
 %\references{
@@ -43,7 +43,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
     %}
 
 \seealso{
-\code{\link{colsums},\link{rowsums},\link{colMins},\link{colMedians}
+\code{\link{colsums}, \link{rowsums}, \link{colMins}, \link{colMedians}, \link{colMads}
 }
 }
 
@@ -58,6 +58,6 @@ x2 <- rowMeans(x)
 all.equal(x1,x2)
 }
 
-\keyword{ column means }
+\keyword{ Column means }
 \keyword{ row means }
 

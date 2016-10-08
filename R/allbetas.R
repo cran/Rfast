@@ -7,12 +7,12 @@ allbetas <- function(y, x, pvalue = FALSE) {
   r <- as.vector( cov(y, x) )
   n <- length(y)
   my <- sum(y) / n
-  m <- as.vector(colmeans(x))
-  sx <- as.vector(colVars(x))
+  m <- colmeans(x)
+  sx <- colVars(x)
   be <- r / sx
   a <- my - be * m
 
-  if ( pvalue == FALSE )  {
+  if ( !pvalue )  {
 
     result <- cbind(a, be)
 

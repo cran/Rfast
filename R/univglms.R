@@ -43,7 +43,7 @@ univglms <- function(y, x, oiko = NULL, logged = FALSE) {
          }
        }
 
-       if ( logged == TRUE ) {
+       if ( logged ) {
          pval <- pchisq(stat, 1, lower.tail = FALSE, log.p = TRUE)
        } else {
          pval <- pchisq(stat, 1, lower.tail = FALSE)
@@ -53,7 +53,7 @@ univglms <- function(y, x, oiko = NULL, logged = FALSE) {
        
        y <- as.vector(y)
        m <- sum(y) / n  
-       ini <- 2 * ( sum(y * log(y / m), na.rm = TRUE ) ) 
+       ini <- 2 * sum(y * log(y / m), na.rm = TRUE ) 
        mod <- poisson_only(x, y)  ## deviance of each predictor variable
        stat <- abs( mod - ini )
 
@@ -65,7 +65,7 @@ univglms <- function(y, x, oiko = NULL, logged = FALSE) {
          }
        }
 	   
-       if ( logged == TRUE ) {
+       if ( logged ) {
          pval <- pchisq(stat, 1, lower.tail = FALSE, log.p = TRUE)
        } else {
          pval <- pchisq(stat, 1, lower.tail = FALSE)
@@ -92,9 +92,10 @@ univglms <- function(y, x, oiko = NULL, logged = FALSE) {
    }
    
      result <- cbind(stat, pval) 
+	 colnames(result) <- c("stat", "pvalue") 
 
      if ( is.null( colnames(x) ) ) {
-       row.names(result) <- paste("Var", 1:d, sep = "")
+       rownames(result) <- paste("Var", 1:d, sep = "")
      } else  row.names(result) <- colnames(x)
  
     result

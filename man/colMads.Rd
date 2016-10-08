@@ -1,11 +1,11 @@
-\name{Column-wise mean absolute deviations}
+\name{Column and rows-wise mean absolute deviations}
 \alias{colMads}
 \title{
-Colum-wise mean absolute deviations
+Column and row-wise mean absolute deviations
 }
 
 \description{
-Colum-wise mean absolute deviations.
+Column and row-wise mean absolute deviations.
 }
 
 \usage{
@@ -38,7 +38,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 
 \seealso{
-\code{\link{colMedians}, \link{colVars}, \link{colMeans} (buit-in R function)
+\code{\link{colMedians}, \link{rowMedians}, \link{colVars}, \link{colmeans}, \link{colMeans} (buit-in R function)
 }
 }
 

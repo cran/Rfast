@@ -41,7 +41,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 %}
 
 \seealso{
-\code{\link{generate_key_1},\link{generate_key_2}
+\code{\link{hash.list}
 }
 }
 

@@ -1,11 +1,12 @@
-\name{Column-wise range of values of a matrix}
+\name{Column and row-wise range of values of a matrix}
 \alias{colrange}
+\alias{rowrange}
 \title{
-Column-wise range of values of a matrix.
+Column and row-wise range of values of a matrix.
 }
 
 \description{
-Column-wise range of values of a matrix.
+Column and row-wise range of values of a matrix.
 }
 
 \usage{
@@ -55,8 +56,11 @@ x <- matrix( rnorm(1000 * 2000), ncol = 2000 )
 system.time( a1 <- colrange(x) )
 system.time( a2 <- apply(x, 2, function(x) diff( range(x)) ) )
 all.equal(a1, a2)
+
+system.time( a1 <- rowrange(x) )
+system.time( a2 <- apply(x, 1, function(x) diff( range(x)) ) )
+all.equal(a1, a2)
 }
 
 \keyword{ Column-wise ranges}
-
 

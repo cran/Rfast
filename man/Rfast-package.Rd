@@ -13,8 +13,8 @@ A collection of Rfast functions for data analysis.
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.3 \cr
-Date: \tab 2016-08-08\cr
+Version: \tab 1.4 \cr
+Date: \tab 2016-10-05\cr
 License: \tab GPL-2\cr
 }
 }
@@ -35,7 +35,7 @@ We would like to acknowledge Professor Kurt Hornik for his invaluable help with 
 }
 
 \keyword{ Mahalanobis distance }
-\keyword{ covariance matrix }
+\keyword{ G^2 test }
 \keyword{ variances }
 \keyword{ t-tests }
 \keyword{ univariate regressions }

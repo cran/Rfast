@@ -42,7 +42,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 }
 
 \examples{
-x1=iris[, 5]
+x1 <- iris[, 5]
 x <- as.character(x1)
 a <- design_matrix(x)
 }

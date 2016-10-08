@@ -34,7 +34,6 @@ A matrix with the standardised data.
 }
 
 %\references{
-%Shabalin, A.A. (2012). Matrix eQTL: Ultra fast eQTL analysis via large matrix operations. Bioinformatics 28(10): 1353-1358.
 %}
 
 \author{
@@ -48,7 +47,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
     %}
 
 \seealso{
-\code{\link{colVars}
+\code{\link{colVars}, \link{colmeans}, \link{colMads}
 }
 }
 

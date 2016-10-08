@@ -1,12 +1,12 @@
-\name{ The sums of the columns and rows }
+\name{Column and row-wise sums of a matrix}
 \alias{colsums}
 \alias{rowsums}
 \title{
- The sums of the columns and rows .
+Column and row-wise sums of a matrix
 }
 
 \description{
-The sums of the columns and rows .
+Column and row-wise sums of a matrix.
 }
 
 \usage{
@@ -26,7 +26,7 @@ A numerical matrix with data.
 %}
 
 \value{
-Returns a row vector with column sums or a column vector with the row sums.
+A vector with column sums or a column vector with the row sums.
 }
 
 
@@ -41,7 +41,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
     %}
 
 \seealso{
-\code{\link{colsums}
+\code{\link{colsums}, \link{colmeans}, \link{colVars}
 }
 }
 

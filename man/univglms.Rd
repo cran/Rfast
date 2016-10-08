@@ -56,7 +56,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{\link{logistic_only}, \link{poisson_only}, \link{allbetas}, \link{correls}
+\code{\link{logistic_only}, \link{poisson_only}, \link{allbetas}, \link{correls}, \link{regression}
 }
 }
 

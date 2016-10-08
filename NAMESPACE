@@ -1,7 +1,12 @@
 useDynLib(Rfast, .registration = TRUE)
 
-importFrom("stats", "pt", "cov", "glm", "pchisq", "pf", "poisson", "binomial", "family", "cor", "qt", "sd", "qnorm")
+importFrom("stats", "pt", "cov", "glm", "pchisq", "pf", "poisson", "binomial", "family", "cor", "qt", "sd", "qnorm", "dpois", "pnorm", "rchisq", "rexp")
 importFrom(Rcpp, evalCpp)
+importFrom("RcppZiggurat", "zrnorm")
+
+export(design_matrix, logistic_only, poisson_only, regression, colMedians, nth, sort_mat, colMaxs, colMins, which_isFactor, med, hash.list, hash.find, Match, colmeans,
+       colsums, rowsums, rowmeans, rowMaxs, rowMins, all_equals, allbetas, beta.mle, binary_search, colMads, colsums, colVars, colrange, cora, correls, count_value, cova,
+	   Digamma, Trigamma, Lgamma, diri.nr2, dista, floyd, ftests, is_element, comb_n, mvbetas, Order, permutation, permutation_next, permutation_prev, proptests, racg, rmvlaplace, rmvnorm, rmvt, rowrange, rowMedians, rowsums, rowVars, sort_index, sort_cor_vectors, sort_unique, standardise, transpose, ttests, upper_tri, lower_tri, zip.mle, univglms, g2Test, g2Test_univariate_perm, g2Test_univariate, g2Test_perm)
 
 exportPattern("^[[:alpha:]]+")
 exportPattern("^[^\\.]")

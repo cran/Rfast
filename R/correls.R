@@ -5,7 +5,7 @@ correls <- function(y, x, type = "pearson", a = 0.05, rho = 0) {
   ## a is the significance level
   ## rho is the hypothesised correlation
 
-  n <- length(x)
+  n <- length(y)
 
   if (type == "pearson") {
     r <- as.vector( cor(y, x) ) ## the correlation value between y and all the xs
@@ -20,8 +20,8 @@ correls <- function(y, x, type = "pearson", a = 0.05, rho = 0) {
     se <- 1.029563 / sqrt(n - 3)  ## standard error for Fisher's transformation of Ho
   }
 
-  test <- as.vector( (zh1 - zh0) / se ) ## test statistic
-  pvalue <-  2 * ( pt( -abs(test), n - 3, lower.tail = FALSE ) )  ## p-value
+  test <- (zh1 - zh0) / se ## test statistic
+  pvalue <-  2 * ( pt( -abs(test), n - 3 ) )  ## p-value
   b1 <- zh1 - qt(1 - a/2, n - 3) * se
   b2 <- zh1 + qt(1 - a/2, n - 3) * se
   ca <- cbind(b1 ,b2)

@@ -1,7 +1,8 @@
-#include "g2t.h"
 #include <iostream>
 #include <cstring>
+#include <random>
 #include <cmath>
+#include "g2t.h"
 
 TestResult::TestResult(double _pvalue, double _stat, double _logpvalue, int _df){
 	pvalue=_pvalue;

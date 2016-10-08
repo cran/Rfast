@@ -1,16 +1,17 @@
-\name{Column-wise medians}
+\name{Column and row-wise medians}
 \alias{colMedians}
-
+\alias{rowMedians}
 \title{
-Colum-wise medians
+Column and row-wise medians
 }
 
 \description{
-Colum-wise medians of a matrix
+Column and row-wise medians of a matrix
 }
 
 \usage{
 colMedians(x)
+rowMedians(x)
 }
 
 \arguments{
@@ -39,7 +40,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 
 \seealso{
-\code{\link{colVars}, \link{colMeans} (buit-in R function)
+\code{\link{med}, \link{colVars}, \link{colMeans} (buit-in R function)
 }
 }
 

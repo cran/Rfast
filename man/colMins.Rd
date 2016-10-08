@@ -10,9 +10,9 @@ Column-wise minimum and maximum of a matrix in parallel.
 }
 
 \usage{
-colMins(x, value=FALSE)
+colMins(x, value = FALSE)
 
-colMaxs(x, value=FALSE)
+colMaxs(x, value = FALSE)
 }
 
 \arguments{
@@ -47,7 +47,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
     %}
 
 \seealso{
-\code{\link{rowMins}, \link{rowMaxs}, \link{nth}, \link{colMedians}, \link{colVars}, \link{sort_mat}
+\code{\link{rowMins}, \link{rowMaxs}, \link{nth}, \link{colrange}, \link{colMedians}, \link{colVars}, \link{sort_mat}
 }
 }
 
@@ -62,6 +62,6 @@ system.time( s2 <- apply(x, 2, max) )
 }
 
 \keyword{ Column-wise minimum }
-\keyword{ Column-wise maximum }
+\keyword{ column-wise maximum }
 \keyword{ parallel computations }
 

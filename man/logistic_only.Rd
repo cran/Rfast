@@ -44,7 +44,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{\link{allbetas}, \link{correls}
+\code{\link{allbetas}, \link{correls}, \link{poisson_only}, \link{regression}
 }
 }
 

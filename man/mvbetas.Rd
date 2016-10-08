@@ -32,7 +32,6 @@ If the p-value is set to TRUE, the correlation of each y with the x is calculate
 }
 
 %\references{
-%Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 %}
 
 \author{

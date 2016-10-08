@@ -14,10 +14,10 @@ hash.list(key,x)
 
 \arguments{
 \item{key}{
-The keys of the given values
+The keys of the given values.
 }
 \item{x}{
-The values
+The values.
 }
 
 }
@@ -41,7 +41,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 %}
 
 \seealso{
-\code{\link{generate_key_1},\link{generate_key_2}
+\code{\link{hash.find}
 }
 }
 

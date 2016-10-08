@@ -22,7 +22,9 @@ A matrix with data. It has to be matrix, if it is data.frame for example the fun
 }
 
 \details{
-The calculations take place faster than the built-in functions \code{\link{cov}}\code{\link{cor}}. We found this method in \href{http://stackoverflow.com/questions/18964837/fast-correlation-in-r-using-c-and-parallelization}{stackoverflow}. This is true if the number of variables is high, say from 500 and above. For less variables, it's better to use the R's built-in function.
+The calculations take place faster than the built-in functions \code{\link{cov}}\code{\link{cor}} as the number of variables increases. For a few tens of variables
+This is true if the number of variables is high, say from 500 and above. For less variables, it's better to use the R's built-in function.
+We found this method in \href{http://stackoverflow.com/questions/18964837/fast-correlation-in-r-using-c-and-parallelization}{stackoverflow} 
 }
 
 \value{
@@ -44,12 +46,12 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
     %}
 
 \seealso{
-\code{\link{cor}, \link{cov}
+\code{\link{colVars}, \link{cor}, \link{cov}
 }
 }
 
 \examples{
-x <-matrix( rnorm( 1000 * 500), ncol = 500 )
+x <-matrix( rnorm( 1000 * 700), ncol = 700 )
 system.time( s1 <- cor(x) )
 system.time( s2 <- cora(x) )
 all.equal(s1, s2)

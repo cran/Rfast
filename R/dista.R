@@ -11,14 +11,14 @@ dista <- function (xnew, x, type = "euclidean") {
         y <- t(x)
         for (i in 1:nu) {
             z <- y - xnew[i, ]
-            disa[i, ] <- sqrt( as.vector( colsums(z^2) ) )
+            disa[i, ] <- sqrt( colsums(z^2) )
         }
 
       } else if (type == "manhattan") {
         y <- t(x)
         for (i in 1:nu) {
             a <- y - xnew[i, ]
-            disa[i, ] <- as.vector( colsums( abs(a) ) )
+            disa[i, ] <- colsums( abs(a) )
         }
       }
    
@@ -27,11 +27,11 @@ dista <- function (xnew, x, type = "euclidean") {
       xnew <- as.vector(xnew)
       if ( type == "euclidean" ) {
          z <- t(x) - xnew
-         disa <- sqrt( as.vector( rowsums(z^2) ) )
+         disa <- sqrt( rowsums(z^2) )
 
       } else if ( type == "manhattan" ) {
           z <- t(x) - xnew
-          disa <- as.vector( rowsums( abs(a) ) )
+          disa <- rowsums( abs(a) )
       }
     
     }

@@ -1,11 +1,12 @@
-\name{Column-wise variances and standard deviations}
+\name{Column and row-wise variances and standard deviations}
 \alias{colVars}
+\alias{rowVars}
 \title{
-Colum-wise variances and standard deviations of a matrix
+Column and row-wise variances and standard deviations of a matrix
 }
 
 \description{
-Colum-wise variances and standard deviations of a matrix
+Column and row-wise variances and standard deviations of a matrix
 }
 
 \usage{
@@ -51,4 +52,4 @@ all.equal(as.vector(a1), as.vector(a2))
 }
 
 \keyword{ Column-wise variances }
-
+\keyword{ row-wise variances }

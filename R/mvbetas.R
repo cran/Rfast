@@ -2,7 +2,7 @@ mvbetas <- function (y, x, pvalue = FALSE) {
 
     r <- as.vector( cov(x, y) )
     n <- length(x)
-    my <- as.vector(colmeans(y))
+    my <- colmeans(y)
     
     mx <- sum(x)/n
     sx <- ( sum(x^2) - sum(x)^2 / n ) / (n - 1)
@@ -10,7 +10,7 @@ mvbetas <- function (y, x, pvalue = FALSE) {
     be <- r/sx
     a <- my - be * mx
     
-    if ( pvalue == FALSE ) {
+    if ( !pvalue ) {
 
       result <- cbind(a, be)
       if ( is.null( colnames(y) ) ) {

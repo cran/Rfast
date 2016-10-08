@@ -46,7 +46,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{ \link{mvbetas}, \link{correls}, \link{univglms}
+\code{ \link{mvbetas}, \link{correls}, \link{univglms}, \link{colsums}, \link{colVars}
 }
 }
 
@@ -61,7 +61,7 @@ for (i in 1:1000) b[i, ] = coef( lm.fit( cbind(1,x[,i]), y ) )
 x <- matrix( rnorm(100 * 1000), ncol = 1000 )
 y <- rnorm(100)
 system.time( allbetas(y, x) )
-system.time(  for (i in 1:1000) b[i, ] = coef( lm.fit( cbind(1,x[,i]), y ) )  )
+system.time(  for (i in 1:1000) b[i, ] = coef( lm.fit( cbind(1, x[,i]), y ) )  )
 
 }
 
