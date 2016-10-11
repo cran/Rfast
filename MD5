@@ -1,4 +1,4 @@
-5fcb664e582dc59aed8637f02a5e663c *DESCRIPTION
+351cb315a6fca8936442db4605498d3e *DESCRIPTION
 059e6cb287820ecaf3ad4f63ee8a9a6a *NAMESPACE
 f5bcd25b49524199a9ec8fba57abdcc5 *R/Digamma.R
 f4087acf0cf86f1cba1c3e10901f7d7d *R/Lgamma.R
@@ -78,7 +78,7 @@ e002f53f09ce640d58c339a293766cfa *man/beta.mle.Rd
 f25b08d1d10e1d46f60b6210970bae75 *man/colMins.Rd
 17c085415ecb2aa8222919b8ae7ef241 *man/colVars.Rd
 9d15d4537ae52bee76e11fc4454f179a *man/colmeans.Rd
-23458070c0cf7456d65f50a894629bc4 *man/colrange.Rd
+402f78e012cf20f49f0bfc12a746fe87 *man/colrange.Rd
 98a17a928fbf2488926bfc069e0b6eb5 *man/colsums.Rd
 c82f1a29525d33be074d46639c02d017 *man/comb_n.Rd
 724536f200c1fd972143b1c2dda462ad *man/correls.Rd
@@ -96,7 +96,7 @@ f8f9d953179f0ca80a5d46d3b4b78189 *man/hash.find.Rd
 ec5bb36cb88668e3fd0b1f456f39ecbc *man/is_element.Rd
 e246cfe3f5c64d7ec2640fafa83d00b9 *man/logistic_only.Rd
 acc41bfabac7305825cd54b08a90550b *man/lower_tri.Rd
-531fd67d0a797f89bba84e1327aefc6b *man/mahala.Rd
+92b10314482e4dfc1f4c639fd652c5e4 *man/mahala.Rd
 d80c154e721dcf10b44f7c6d5ba9e730 *man/med.Rd
 b329fbac9f0607cf178631bfd17aa8c9 *man/mvbetas.Rd
 f38811122fb41f9934f74dd7a4597802 *man/nth.Rd
@@ -112,8 +112,8 @@ f1ee68c801cdc690096a03e3ebdaa68b *man/rowMins.Rd
 b328c89586dfc6ef0377c23d042c5ba4 *man/sort_mat.Rd
 f1d45dea958103ff9f5282335ddc6ae8 *man/sort_unique.Rd
 e5dd44c76db54a5bffcd36daa297ad08 *man/standardise.Rd
-b6e9d86f4cdf7b4ffd23507a47042377 *man/transpose.Rd
-1c83a251f58ca02bdf2c30848dcc9b23 *man/ttests.Rd
+509e9f1d0df697047bad857a1d58070c *man/transpose.Rd
+706ab108396224117dc338faca8cdce2 *man/ttests.Rd
 f3cd9775afa31a7409e4ebf8f3f66e8e *man/univglms.Rd
 3956e8018a0dc16644041b77e46d2418 *man/which_isFactor.Rd
 ed29fbed512185f682ed8f1c1b747bdf *man/zip.mle.Rd

@@ -35,13 +35,12 @@ A vector with the Mahalanobis distances.
 }
 
 %\references{
-%Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
 %}
 
 \author{
-Michail Tsagris
+Matteo Fasiolo <matteo.fasiolo@gmail.com>, 
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
+C++ and R implementation and documentation: Matteo Fasiolo <matteo.fasiolo@gmail.com>.
 }
 %\note{
 %%  ~~further notes~~
