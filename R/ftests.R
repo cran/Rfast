@@ -1,25 +1,20 @@
-ftests <- function(x, ina) {
+ftests <- function(x, ina, logged = FALSE) {
 
-  ina <- as.numeric(ina)
   k <- max(ina)  ## number of groups
   ni <- as.vector( table(ina) )  ## sample sizes
-  m <- s <- matrix( nrow = k, ncol = ncol(x) )
-
-  for ( i in 1:k ) {
-     y <- x[ina ==i, ]
-     s[i, ] <- colVars( y )
-     m[i, ] <- colmeans(y)
-  }
+  m <- rowsum(x, ina) / ni
+  s <- rowsum(x^2, ina)  
+  s <- ( s - m^2 * ni ) / (ni - 1)
   
   w <- ni / s
   W <- colsums(w)
   mesi <- colsums(w * m) / W
   hi <- ( 1 - w/W )^2 / (ni - 1)
-  H <- colSums(hi)
-  f <- (k^2 - 1 ) / ( 3 * H )
+  H <- colsums(hi)
+  f <- (k^2 - 1 ) / 3 / H 
 
   stat <- rowsums( ( t(w) * (t(m) - mesi)^2 ) / (k - 1)  / ( 1 + 2 * (k - 2)/(k^2 - 1) * H ) )
-  pval <- pf(stat, k - 1, f, lower.tail = FALSE)
+  pval <- pf(stat, k - 1, f, lower.tail = FALSE, log.p = logged)
 
   cbind(stat, pval)
 

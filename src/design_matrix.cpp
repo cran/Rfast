@@ -4,13 +4,12 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include <RcppArmadillo.h>
-#include <Rcpp.h>
 #include "mn.h"
 
 using namespace Rcpp;
 
 //[[Rcpp::export]]
-arma::mat design_matrix(CharacterVector x) {
+arma::mat design_matrix(CharacterVector x,bool ones_c=true) {
   int i=0,n=x.size();
   std::vector< pair<string,int> > indices_copy_x(n);
   std::vector< pair<string,int> >::iterator a=indices_copy_x.begin();
@@ -23,18 +22,20 @@ arma::mat design_matrix(CharacterVector x) {
   leksi=as< vector<string> >(sort_unique(x));
   Final.resize(n,leksi.size());
   for(a=indices_copy_x.begin();a!=indices_copy_x.end();++a)
-    Final((*a).second,lower_bound(leksi.begin(),leksi.end(),(*a).first)-leksi.begin())=1;
-  Final.col(0)=ones(n);
+    Final.at((*a).second,lower_bound(leksi.begin(),leksi.end(),(*a).first)-leksi.begin())=1;
+  if(ones_c)
+    Final.col(0)=ones(n);
   return Final;
 }
 
 //the model.matrix form R but by collumn
-RcppExport SEXP Rfast_design_matrix(SEXP xSEXP) {
+RcppExport SEXP Rfast_design_matrix(SEXP xSEXP,SEXP onesSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< CharacterVector >::type x(xSEXP);
-    __result = wrap(design_matrix(x));
+    traits::input_parameter< bool >::type ones(onesSEXP);
+    __result = wrap(design_matrix(x,ones));
     return __result;
 END_RCPP
 }

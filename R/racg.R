@@ -12,12 +12,7 @@ racg <- function(n, sigma) {
 
   p <- dim(sigma)[1]
   x <- matrix( RcppZiggurat::zrnorm(n * p), ncol = p )  
-  eig <- eigen(sigma)
-  lam <- eig$values
-  vec <- eig$vectors
-  B <- vec %*% ( t(vec) * sqrt(lam) )
-  x <- tcrossprod(B, x) 
-  x <- t(x)
+  x <- x %*% chol(sigma) 
   x / sqrt( rowsums(x^2) )
 
 }

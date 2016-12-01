@@ -1,6 +1,5 @@
 \name{Standardisation}
 \alias{standardise}
-\alias{standardise}
 \title{
 Standardisation
 }

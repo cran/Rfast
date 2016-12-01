@@ -9,21 +9,24 @@ Design Matrix.
 }
 
 \usage{
-design_matrix(x)
+design_matrix(x, ones = TRUE)
 }
 
 \arguments{
 \item{x}{
-A character vector 
+A character vector or a factor type vector. Do not supply a numerical vector. 
+}
+\item{ones}{
+A boolean variable specifying whether to include the ones in the design matrix or not. The default value is TRUE. 
 }
 }
 
 \details{
-This function implements the R's "model.matrix" function.
+This function implements the R's "model.matrix" function and is used only when the x is a factor. 
 }
 
 \value{
-Returns the same matrix with model.matrix .
+Returns the same matrix with model.matrix.
 }
 
 \author{
@@ -42,10 +45,9 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 }
 
 \examples{
-x1 <- iris[, 5]
-x <- as.character(x1)
-a <- design_matrix(x)
+a <- design_matrix( iris[, 5] )
+b <- model.matrix( ~ iris[,5] )  ## R's built-in funciton
 }
 
-\keyword{ Desing Matrix }
-\keyword{ Model Matrix}
+\keyword{ Design Matrix }
+

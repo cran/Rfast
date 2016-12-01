@@ -55,6 +55,14 @@ x <- matrix( rnorm(1000 * 500), ncol = 500 )
 system.time( a1 <- Lgamma(x) )
 system.time( a2 <- lgamma(x) )
 all.equal(as.vector(a1), as.vector(a2))
+
+system.time( a1 <- Digamma(x) )
+system.time( a2 <- digamma(x) )
+all.equal(as.vector(a1), as.vector(a2))
+
+system.time( a1 <- Trigamma(x) )
+system.time( a2 <- trigamma(x) )
+all.equal(as.vector(a1), as.vector(a2))
 }
 
 \keyword{ Logarithm of gamma function }

@@ -13,8 +13,8 @@ using namespace arma;
 
 // [[Rcpp::export]]
 vector<double> rowMins(NumericMatrix x,bool value=false){
-  unsigned int i,p=x.ncol();
-  mat X = mat(x.begin(), x.nrow(), p, false); 
+  unsigned int i,p=x.nrow();
+  mat X = mat(x.begin(), p, x.ncol(), false); 
   vector<double> F(p);
   vector<double>::iterator FF=F.begin();
   if(value){
@@ -24,7 +24,7 @@ vector<double> rowMins(NumericMatrix x,bool value=false){
       *FF=*ff;
   }else
     for(i=0;i<p;++i,++FF)
-      *FF=(X.col(i)).index_min()+1;
+      *FF=(X.row(i)).index_min()+1;
   return F;
 }
 

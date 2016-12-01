@@ -31,11 +31,11 @@ The value of the hypothesised correlation to be used in the hypothesis testing.
 }
 
 \details{
-The functions uses the built-in function "cor" which is very fast and then includes confidence intervals and produces a p-value for the hypothesis test.
+The functions uses the built-in function "cor" which is very fast and then includes confidence intervals and produces a p-value for the hypothesis test. 
 }
 
 \value{
-A matrix with 5 column; the correlation, the p-value for the hypothesis test that each of them is eaqual to "rho", the test statistic and the a/2\% lower and upper confidence limits.
+A matrix with 5 column; the correlation, the p-value for the hypothesis test that each of them is eaqual to "rho", the test statistic and the $a/2\%$ lower and upper confidence limits.
 }
 
 %\references{
@@ -55,12 +55,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rnorm(100 * 10000), ncol = 10000 )
+x <- matrix( rnorm(100 * 1000), ncol = 1000 )
 y <- rnorm(100)
 r <- cor(y, x)  ## correlation of y with each of the xs
 a <- allbetas(y, x)  ## the coefficients of each simple linear regression of y with x
 b <- correls(y, x)
+w <- runif(1000)
 }
 
 \keyword{ Correlations }
+
 

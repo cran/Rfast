@@ -2,5 +2,9 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 colMaxs <- function(x,value=FALSE) {
-  .Call('Rfast_colmax',x,value)
+	dm <- dim(x)
+	if(value){
+		return (.Call('Rfast_colmax',x,dm[1],dm[2]))
+	}
+    .Call('Rfast_colmax_indices',x,dm[1],dm[2])
 }

@@ -1,7 +1,4 @@
 cova <- function(x) {
-  ## x must be a matrix
-  n <- nrow(x)  ## sample size
-  mat <- t( x )
-  mat <- mat - rowmeans(mat)
-  tcrossprod( mat ) / (n - 1)
+    mat <- t(x) - colmeans(x)
+    tcrossprod(mat) / ( dim(x)[1] - 1 )
 }

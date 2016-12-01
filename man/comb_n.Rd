@@ -9,7 +9,7 @@ All k possible combinations from n elements.
 }
 
 \usage{
-comb_n(n, k)
+comb_n(n, k, trans = FALSE)
 }
 
 \arguments{
@@ -18,6 +18,9 @@ A stirctly (greater than zero) positive integer number.
 }
 \item{k}{
 A positive integer number at most equal to n.
+}
+\item{trans}{
+A boolean value for returning the matrix transposed.
 }
 }
 

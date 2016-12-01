@@ -14,10 +14,6 @@ rmvt <- function(n, mu, sigma, v) {
   p <- length(mu)
   x <- matrix( RcppZiggurat::zrnorm(n * p), ncol = p )  
   w <- sqrt( v / rchisq(n, v) )
-  eig <- eigen(sigma)
-  lam <- eig$values
-  vec <- eig$vectors
-  B <- vec %*% ( t(vec) * sqrt(lam) )
-  w * tcrossprod(x, B) + rep( mu, rep(n, p) )
+  w * x %*% chol(sigma) + rep(mu, rep(n, p) )
 
 }

@@ -1,15 +1,17 @@
-\name{Many F-tests}
+\name{Many multi-sample tests}
 \alias{ftests}
+\alias{anovas}
 \title{
-Many F-tests
+Many multi-sample tests
 }
 
 \description{
-It performs very many F-tests.
+Many multi-sample tests.
 }
 
 \usage{
-ftests(x, ina)
+ftests(x, ina, logged = FALSE)
+anovas(x, ina, logged = FALSE)
 }
 
 \arguments{
@@ -19,10 +21,14 @@ A matrix with the data, where the rows denote the samples (and the two groups) a
 \item{ina}{
 A numerical vector with 1s, 2s, 3s and so one indicating the two groups. Be careful, the function is desinged to accept numbers greater than zero.
 }
+\item{logged}{
+Should the p-values be returned (FALSE) or their logarithm (TRUE)?
+}
+
 }
 
 \details{
-The Welch's F-test (without assuming equal variances) is performed.
+The Welch's F-test (without assuming equal variances) is performed with the "ftests" funciton. The "anovas" funciton perform the classical (Fisher's) one-way analysis of variance (ANOVA) which assumes equal variance across the groups. 
 }
 
 \value{
@@ -43,16 +49,18 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{\link{ttests}, \link{colVars}
+\code{\link{ttests}
 }
 }
 
 \examples{
-## 100000 variables, hence 100000 F-tests will be performed
-x = matrix( rnorm(100 * 10000), ncol = 10000 )
-## 100 observations in total
-ina = rbinom(100, 3, 0.6) + 1   ## independent samples t-test
+## 1000 variables, hence 1000 F-tests will be performed
+x = matrix( rnorm(300 * 1000), ncol = 1000 )
+## 300 observations in total
+ina = rbinom(300, 3, 0.6) + 1   ## independent samples t-test
 system.time( ftests(x, ina) ) 
+system.time( anovas(x, ina) )
 }
 
 \keyword{ F-tests }
+\keyword{ analysis of variance }

@@ -2,6 +2,5 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 rowmeans <- function(x) {
-	y <- .Call('Rfast_rowmeans',x)
-  	as.vector(y)
+  	as.vector(.Call('Rfast_rowmeans',x))
 }

@@ -4,7 +4,6 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include <RcppArmadillo.h>
-#include <Rcpp.h>
 #include "mn.h"
 
 using namespace Rcpp;
@@ -13,41 +12,41 @@ using namespace arma;
 
 //[[Rcpp::export]]
 mat regression(DataFrame x, colvec y){
-  int pos_f=0,ptf=0, n=x.nrows(),p,size_F=x.length(),i=0;
-  vec res;
-  CharacterVector leksi;
-  NumericVector x_i;
-  colvec asses(y.n_rows);
-  mat strtonum,tr_strtonum,b,F(2,size_F);
-  double SSO=var(y)*(double)(n-1),SS1;
+  int size_F=x.length(),i;
+  mat F(2,size_F);
   vector<int> pos=which_isFactor(x);
-  asses.fill(1);
+  DataFrame::iterator xx=x.begin();
   if(!pos.size()){
-    for(;i<size_F;i++){
-      x_i=x(i);
-      F(0,i)=regression_only_col(as<colvec>(x_i),y);
-      F(1,i)=1;
+    for(i=0;i<size_F;++i,++xx){
+      F.at(0,i)=regression_only_col(as<colvec>(*xx),y);
+      F.at(1,i)=1;
     }
     return F;
   }
+  int pos_f=0,ptf=0, n=x.nrows(),p;
+  mat strtonum,tr_strtonum,b;
+  double SSO=var(y)*(double)(n-1),SS1;
+  colvec asses(y.n_rows);
+  vec res;
+  CharacterVector leksi;
+  asses.fill(1);
   pos_f=pos[ptf]-1;
-  for(;i<size_F;i++){
+  for(i=0;i<size_F;++i,++xx){
     if(pos_f==i){
-      leksi=x(i);
-      strtonum=design_matrix(leksi);
+      leksi=*xx;
+      strtonum=design_matrix(leksi,true);
       tr_strtonum=strtonum.t();
       b=inv(tr_strtonum*strtonum)*tr_strtonum*y; 
       res=y-strtonum*b; 
       SS1=var(res)*(n-1);
       p=strtonum.n_cols;
-      F(0,i)=(SSO-SS1)*(n-p)/((p-1)*SS1);
-      F(1,i)=p-1;
+      F.at(0,i)=(SSO-SS1)*(n-p)/((p-1)*SS1);
+      F.at(1,i)=p-1;
       ptf++;
       pos_f=pos[ptf]-1;
     }else{
-      x_i=x(i);
-      F(0,i)=regression_only_col(as<colvec>(x_i),y);
-      F(1,i)=1;
+      F.at(0,i)=regression_only_col(as<colvec>(*xx),y);
+      F.at(1,i)=1;
     }
   }
   return F;

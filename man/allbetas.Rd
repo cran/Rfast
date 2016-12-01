@@ -7,7 +7,7 @@
 }
 
 \usage{
-allbetas(y, x, pvalue = FALSE)
+allbetas(y, x, pvalue = FALSE, logged = FALSE)
 }
 
 \arguments{
@@ -20,6 +20,9 @@ A matrix with the data, where rows denotes the observations and the columns cont
 \item{pvalue}{
 If you want a hypothesis test that each slope (beta coefficient) is equal to zero set this equal to TRUE. It will also produce all the correlations between y and x.
 }
+\item{logged}{
+A boolean variable; it will return the logarithm of the pvalue if set to TRUE.
+}
 }
 
 %\details{
@@ -28,7 +31,7 @@ If you want a hypothesis test that each slope (beta coefficient) is equal to zer
 
 \value{
 A matrix with the constant (alpha) and the slope (beta) for each simple linear regression. 
-If the p-value is set to TRUE, the correlation of each y with the x is calculated along with the relevant p-value.
+If the p-value is set to TRUE, the correlation of each y with the x is calculated along with the relevant test statistic and its associated p-value.
 }
 
 %\references{

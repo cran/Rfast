@@ -2,5 +2,9 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 colMins <- function(x,value=FALSE) {
-  .Call('Rfast_colmin',x,value)
+	dm <- dim(x)
+	if(value){
+		return (.Call('Rfast_colmin',x,dm[1],dm[2]))
+	}
+    .Call('Rfast_colmin_indices',x,dm[1],dm[2])
 }

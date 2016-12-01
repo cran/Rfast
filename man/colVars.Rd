@@ -11,6 +11,7 @@ Column and row-wise variances and standard deviations of a matrix
 
 \usage{
 colVars(x, suma = NULL, std = FALSE)
+rowVars(x, suma = NULL, std = FALSE)
 }
 
 \arguments{

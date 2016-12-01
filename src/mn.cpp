@@ -44,7 +44,7 @@ mat operator+(colvec &y,mat &x){
 }
 
 colvec operator^(colvec x,const int y){
-  int i,n=x.n_rows;
+  int i,n=x.n_elem;
   double t;
   colvec Y(n);
   for(i=0;i<n;i++){
@@ -55,16 +55,16 @@ colvec operator^(colvec x,const int y){
 }
 
 colvec operator-(colvec &x,colvec &y){
-  int i,n=x.n_rows;
+  int i,n=x.n_elem;
   colvec F(n);
-  for(i=0;i<n;i+=2){
-    F(i)=x(i)-y(i);F(i+1)=x(i+1)-y(i+1);
+  for(i=0;i<n;++i){
+    F(i)=x(i)-y(i);
   }
   return F;
 }
 
 double operator*(vec x,vec y){
-  int i,n=x.n_rows;
+  int i,n=x.n_elem;
   double s=0.0;
   for(i=0;i<n;i++){
     s+=x(i)*y(i);
@@ -73,16 +73,16 @@ double operator*(vec x,vec y){
 }
 
 colvec operator+(colvec &x,colvec &y){
-  int i,n=x.n_rows;
+  int i,n=x.n_elem;
   colvec F(n);
-  for(i=0;i<n;i+=2){
-    F(i)=x(i)+y(i);F(i+1)=x(i+1)+y(i+1);
+  for(i=0;i<n;++i){
+    F(i)=x(i)+y(i);
   }
   return F;
 }
 
 colvec operator^(const char a,const colvec y){
-  int i,yrow=y.n_rows;
+  int i,yrow=y.n_elem;
   colvec Y(yrow);
   for(i=0;i<yrow;i++)
       Y(i)=exp(y(i));
@@ -97,7 +97,7 @@ vec loga(vec &x){
   return F;
 }
 
-long double regression_only_col(colvec x, colvec y) {
+double regression_only_col(colvec x, colvec y) {
   int n=x.size();
   double SSO=var(y)*(double)(n-1),SS1=0.0,F1=0.0;
   mat z(n,2),tr_z(2,n);
@@ -188,4 +188,86 @@ void i4mat_floyd ( int n, vector<double> &a ){
         for ( i = 0; i < n; i++ )
           if ( a[i+k*n] < i4_huge )
             a[i+j*n] = i4_min ( a[i+j*n], a[i+k*n] + a[k+j*n] );
+}
+
+void min_max2(double *start,double *end,double &min, double &max){
+  double xxx;
+  min=max=*start;
+  start++;
+  for(;start!=end;++start){
+    xxx=*start;
+    if(xxx>max)
+      max=xxx;
+    else if(xxx<min)
+      min=xxx;
+  }
+}
+
+void min_max3(int *start,int *end,int &min, int &max){
+  int xxx;
+  min=max=*start;
+  start++;
+  for(;start!=end;++start){
+    xxx=*start;
+    if(xxx>max)
+      max=xxx;
+    else if(xxx<min)
+      min=xxx;
+  }
+}
+
+void max_d(double *start,double *end, double &mx){
+  double xxx;
+  mx=*start;
+  start++;
+  for(;start!=end;++start){
+    xxx=*start;
+    if(xxx>mx)
+      mx=xxx;
+  }
+}
+
+void max_i(int *start,int *end, int &mx){
+  int xxx;
+  mx=*start;
+  start++;
+  for(;start!=end;++start){
+    xxx=*start;
+    if(xxx>mx)
+      mx=xxx;
+  }
+}
+
+void min_d(double *start,double *end, double &mn){
+  double xxx;
+  mn=*start;
+  start++;
+  for(;start!=end;++start){
+    xxx=*start;
+    if(xxx<mn)
+      mn=xxx;
+  }
+}
+
+void min_i(int *start,int *end, int &mn){
+  int xxx;
+  mn=*start;
+  start++;
+  for(;start!=end;++start){
+    xxx=*start;
+    if(xxx<mn)
+      mn=xxx;
+  }
+}
+
+void copy_sexp_d(double *x,double y[],int &len){
+  double *end=x+len,*yy=y;
+  for(;x!=end;++x,++yy)
+    *yy=*x;
+}
+
+void copy_sexp_i(int *x,int y[],int &len){
+  int *end=x+len,*yy=y;
+  for(;x!=end;++x,++yy)
+    *yy=*x;
 }

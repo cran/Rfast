@@ -9,21 +9,21 @@ Multivariate Laplace random values simulation.
 }
 
 \usage{
-rmvlaplace(n, lam, m, G) 
+rmvlaplace(n, lam, mu, G) 
 }
 
 \arguments{
-  \item{n}{
-  The sample size, a numerical value.
+\item{n}{
+The sample size, a numerical value.
 }
-  \item{lam}{
-  The the parameter of the exponential distribution, a positive number.
+\item{lam}{
+The the parameter of the exponential distribution, a positive number.
 }
-  \item{m}{
-  The mean vector.
+\item{mu}{
+The mean vector.
 }
-  \item{G}{
-   A \eqn{d \times d} covariance matrix with determinant 1. 
+\item{G}{
+A \eqn{d \times d} covariance matrix with determinant 1. 
 }
 }
 
@@ -36,7 +36,7 @@ A matrix with the simulated data.
 }
 
 \references{
-Eltoft, T., Kim, T., and Lee, T.-W. (2006). On the multivariate laplace distribution. Signal Processing Letters, IEEE, 13(5):300-303.
+Eltoft T., Kim T., and Lee T.W. (2006). On the multivariate laplace distribution. Signal Processing Letters, IEEE, 13(5):300-303.
 }
 
 \author{

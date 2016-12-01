@@ -13,10 +13,12 @@ using namespace std;
 //[[Rcpp::export]]
 vector<int> which_isFactor(DataFrame x){
   vector<int> P;
-  for(int i=0;i<x.length();++i)
-    if(Rf_isFactor(x(i)))
-      P.push_back(i+1);
-   return P;
+  int i=1;
+  DataFrame::iterator xx=x.begin();
+  for(;xx!=x.end();++xx,++i)
+    if(Rf_isFactor(*xx))
+      P.push_back(i);
+  return P;
 }
 
 //find which collumns are factors

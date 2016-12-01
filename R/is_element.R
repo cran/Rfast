@@ -4,5 +4,5 @@
 is_element<-function(x,key){
   if(is.matrix(x))
     x<-as.vector(x)
-  .Call('Rfast_is_element',x,key)
+  .Call('Rfast_is_element', x,key)
 }

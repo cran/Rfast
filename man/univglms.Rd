@@ -19,7 +19,7 @@ corresponding to a poisson regression or a numerical vector with continuous valu
 they are transformed in \eqn{R} using \eqn{log{y}/log{(1-y)}} and linear regression is applied. 
 }
 \item{x}{
-A matrix with the data, where the rows denote the samples (and the two groups) and the columns are the variables. Currently only continuous variables are allowed.
+A matrix with the data, where the rows denote the samples (and the two groups) and the columns are the variables. Currently only continuous variables are allowed. You are advised to standardise the data before hand to avoid numerical overflow or similar issues. If you see NaN in the outcome, this is the case.
 }
 \item{oiko}{
 This can be either "normal", "poisson" or "binomial". If you are not sure leave it NULL and the function will check internally. However, you might have discrete data (e.g. years of age)

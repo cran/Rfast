@@ -2,5 +2,5 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 poisson_only <- function(x,y) {
-  .Call('Rfast_poisson_only',x,y)
+  .Call('Rfast_poisson_only',x,y,sum(y*log(y),na.rm=TRUE))
 }

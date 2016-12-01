@@ -1,6 +1,7 @@
 \name{Column-wise minimum and maximum }
 \alias{colMins}
 \alias{colMaxs}
+\alias{col_Mins_Maxs}
 \title{
 Column-wise minimum and maximum of a matrix
 }
@@ -13,6 +14,8 @@ Column-wise minimum and maximum of a matrix in parallel.
 colMins(x, value = FALSE)
 
 colMaxs(x, value = FALSE)
+
+col_Mins_Maxs(x)
 }
 
 \arguments{
@@ -59,9 +62,12 @@ system.time( s2 <- apply(x, 2, min) )
 
 system.time( s1 <- colMaxs(x) )
 system.time( s2 <- apply(x, 2, max) )
+
+system.time( s1 <- col_Mins_Maxs(x) )
+system.time( s2 <- c(apply(x, 2, min), apply(x, 2, max)) )
+
 }
 
 \keyword{ Column-wise minimum }
 \keyword{ column-wise maximum }
-\keyword{ parallel computations }
 

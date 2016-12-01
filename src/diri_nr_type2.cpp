@@ -4,7 +4,6 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include <RcppArmadillo.h>
-#include <Rcpp.h>
 #include <vector>
 #include "mn.h"
 

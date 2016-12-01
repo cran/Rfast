@@ -27,9 +27,8 @@ correls <- function(y, x, type = "pearson", a = 0.05, rho = 0) {
   ca <- cbind(b1 ,b2)
   ela <- exp( 2 * ca )
   ci <- ( ela - 1 ) / ( ela + 1 )  ## confidence intervals
-  res <- cbind(r, pvalue, test, ci)
-  colnames(res) <- c( 'correlation', 'p-value', 'z-stat',
-                      paste( c( a/2 * 100, (1 - a/2) * 100 ), "%", sep = "") )
+  res <- cbind(r, ci, test, pvalue)
+  colnames(res) <- c( 'correlation', paste( c( a/2 * 100, (1 - a/2) * 100 ), "%", sep = ""), 'z-stat', 'p-value' )
 
   if ( is.null(colnames(x)) ) {
     rownames(res) <- paste("X", 1:ncol(x), sep = "")

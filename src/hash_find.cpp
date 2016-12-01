@@ -13,7 +13,7 @@ using namespace arma;
 //[[Rcpp::export]]
 long double hash_find(List x,string value){
   vector<string> nam=x.names();
-  if(std::find(nam.begin(),nam.end(),value)!=nam.end())
+  if(find(nam.begin(),nam.end(),value)!=nam.end())
     return as<long double>(x[value]);
   return 0.0;
 }
