@@ -271,3 +271,22 @@ void copy_sexp_i(int *x,int y[],int &len){
   for(;x!=end;++x,++yy)
     *yy=*x;
 }
+
+colvec Digamma_v(colvec x,int &p){
+  double *start=x.memptr(),*end=start+p;
+  for(;start!=end;++start)
+    *start=digamma(*start);
+  return x;
+}
+
+colvec Trigamma_v(colvec x,int &p){
+  double *start=x.memptr(),*end=start+p;
+  for(;start!=end;++start)
+    *start=trigamma(*start);
+  return x;
+}
+
+void fill_m(double *start,double *end,double v){
+  for(;start!=end;++start)
+    *start=v;
+}

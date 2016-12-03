@@ -18,8 +18,8 @@ vector<double> rowMins(NumericMatrix x,bool value=false){
   vector<double> F(p);
   vector<double>::iterator FF=F.begin();
   if(value){
-  	rowvec f=min(X,1);
-  	rowvec::iterator ff=f.begin();
+  	colvec f=min(X,1);
+  	colvec::iterator ff=f.begin();
   	for(;FF!=F.end();++FF,++ff)
       *FF=*ff;
   }else

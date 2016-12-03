@@ -43,4 +43,8 @@ void min_d(double *start,double *end, double &mn);
 void min_i(int *start,int *end, int &mn);
 void copy_sexp_d(double *x,double y[],int &len);
 void copy_sexp_i(int *x,int y[],int &len);
+colvec Digamma_v(colvec x,int &p);
+colvec Trigamma_v(colvec x,int &p);
+void fill_m(double *start,double *end,double v);
+
 #endif

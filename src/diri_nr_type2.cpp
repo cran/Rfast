@@ -11,35 +11,35 @@ using namespace Rcpp;
 using namespace std;
 
 //[[Rcpp::export]]
-NumericVector diri_nr_type2(NumericVector a1, NumericVector a2, NumericVector ma,double tol){
-  int n=a1.size(),i;
-  NumericVector f,tr1(n),dg1(n),der;
-  double sa,trsa,dgsa;
-  while(sum(abs(a2-a1))>tol){
-    a1=a2;
-    sa=sum(a1);
-    dgsa=digamma(sa);
-    trsa=trigamma(sa);
-    for(i=0;i<n;++i){
-      tr1(i)=-trigamma(a1(i))+trsa;
-      dg1(i)=ma(i)-digamma(a1(i))+dgsa;
-    }
-    a2=a1-dg1/tr1;
+colvec diri_nr_type2(SEXP ii,colvec a1,colvec a2,colvec ma,int p,double tol){
+  mat f2(p,p),slv;
+  double sa,*i=REAL(ii);
+  colvec f;
+  while ( sum( abs( a2 - a1 ) ) > tol ) {
+    a1 = a2;
+    sa = sum(a1);
+    f = ma - Digamma_v(a1,p) + digamma(sa);
+    fill_m(f2.memptr(),f2.memptr()+p*p,trigamma(sa));
+    f2.diag() = f2.diag() - Trigamma_v(a1,p);
+    slv = solve(f2, f);
+    a2 = a1 - slv.each_col();
+    (*i)++;
   }
   return a2;
 }
 
 // part of the Compositional::diri.nr
-NumericVector diri_nr_type2(NumericVector a1, NumericVector a2, NumericVector ma,double tol);
-RcppExport SEXP Rfast_diri_nr_type2(SEXP a1SEXP,SEXP a2SEXP,SEXP maSEXP,SEXP tolSEXP) {
+colvec diri_nr_type2(SEXP ii,colvec a1,colvec a2,colvec ma,int p,double tol);
+RcppExport SEXP Rfast_diri_nr_type2(SEXP ii,SEXP a1SEXP,SEXP a2SEXP,SEXP maSEXP,SEXP pSEXP,SEXP tolSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< NumericVector >::type a1(a1SEXP);
-    traits::input_parameter< NumericVector >::type a2(a2SEXP);
-    traits::input_parameter< NumericVector >::type ma(maSEXP);
+    traits::input_parameter< colvec >::type a1(a1SEXP);
+    traits::input_parameter< colvec >::type a2(a2SEXP);
+    traits::input_parameter< colvec >::type ma(maSEXP);
+    traits::input_parameter< int >::type p(pSEXP);
     traits::input_parameter< double >::type tol(tolSEXP);
-    __result = wrap(diri_nr_type2(a1,a2,ma,tol));
+    __result = wrap(diri_nr_type2(ii,a1,a2,ma,p,tol));
     return __result;
 END_RCPP
 }

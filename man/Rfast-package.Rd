@@ -16,8 +16,8 @@ Note 3: In general, make sure you give the correct input, in order to get the co
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.7 \cr
-Date: \tab 2016-11-30\cr
+Version: \tab 1.7.1 \cr
+Date: \tab 2016-12-3\cr
 License: \tab GPL-2\cr
 }
 }
@@ -34,7 +34,7 @@ Manos Papadakis <papadakm95@gmail.com>
 \note{
 Acknowledgments:
 
-We would like to acknowledge Professor Kurt Hornik for his invaluable help with this R package.
+We would like to acknowledge Professor Kurt Hornik for his invaluable help with this R package and Erich Studerus for his invaliable comments.
 }
 
 \keyword{ Mahalanobis distance }
