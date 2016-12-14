@@ -35,7 +35,7 @@ univglms <- function(y, x, oiko = NULL, logged = FALSE) {
            stat[i] <- ini - a$deviance
          }
        }      
-       pval <- pchisq(stat, 1, lower.tail = FALSE, logged)
+       pval <- pchisq(stat, 1, lower.tail = FALSE, log.p = logged)
        
    } else if ( oiko == "poisson" ) {
        
@@ -51,7 +51,7 @@ univglms <- function(y, x, oiko = NULL, logged = FALSE) {
            stat[i] <- ini - a
          }
        }
-       pval <- pchisq(stat, 1, lower.tail = FALSE, logged)
+       pval <- pchisq(stat, 1, lower.tail = FALSE, log.p = logged)
 
    } else if ( oiko == "normal" ) { 
       mn_mx <- min_max(y)
@@ -64,7 +64,7 @@ univglms <- function(y, x, oiko = NULL, logged = FALSE) {
       stat <- rho * sqdof / sqrt(1 - rho^2)
       
       if ( logged ) {
-        pval <- log(2) + pt( abs(stat), n - 2, lower.tail = FALSE, logged)
+        pval <- log(2) + pt( abs(stat), n - 2, lower.tail = FALSE, log.p = TRUE)
       } else  pval <- 2 * pt( abs(stat), n - 2, lower.tail = FALSE)
    }
    

@@ -1,8 +1,7 @@
-standardise <- function (x, center = TRUE, scale = TRUE) 
-{
+standardise <- function (x, center = TRUE, scale = TRUE) {
     if (center & scale) {
-        y <- t(x) 
-        y <- ( y - colmeans(x) ) / sqrt( rowsums(y^2) ) 
+        y <- t(x) - colmeans(x)
+        y <- y / sqrt( rowsums(y^2) ) * sqrt( (dim(x)[1] - 1) )
     }
     else if (center & !scale) {
         m <- colmeans(x)

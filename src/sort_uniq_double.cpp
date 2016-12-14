@@ -13,18 +13,18 @@ using namespace std;
 using namespace arma;
 
 //[[Rcpp::export]]
-vector<double> sort_double(vector<double> x){
+vector<double> sort_uniq_double(vector<double> x){
   sort(x.begin(),x.end());
   x.erase( unique( x.begin(), x.end() ), x.end() );
   return x;
 }
 
-RcppExport SEXP Rfast_sort_double(SEXP xSEXP){
+RcppExport SEXP Rfast_sort_uniq_double(SEXP xSEXP){
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< vector<double> >::type x(xSEXP);
-    __result = wrap(sort_double(x));
+    __result = wrap(sort_uniq_double(x));
     return __result;
 END_RCPP
 }

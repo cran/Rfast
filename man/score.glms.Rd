@@ -83,7 +83,7 @@ mean(a1 - a2)
 
 ## x <- matrix( rnorm(500 * 2000), ncol = 2000 )
 ## y <- rbinom(500, 3, 0.5)   
-## a <- score.multinomegs(y, x)
+## a <- score.multinomregs(y, x)
 ## hist(a[, 2])
 ## sum(a < 0.05) / 2000  ## estimated type I error 
 }

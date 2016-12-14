@@ -6,6 +6,8 @@
 #include <RcppArmadillo.h>
 #include "mn.h"
 #include <vector>
+#include <R.h>
+#include <Rinternals.h>
 
 using namespace Rcpp;
 using namespace std;
@@ -23,7 +25,8 @@ vector<double> colmin_indices(NumericMatrix x){
 }
 
 //[[Rcpp::export]]
-SEXP colmin(SEXP x,int ncol,int nrow){
+SEXP colmin(SEXP x){
+  int ncol=Rf_ncols(x),nrow=Rf_nrows(x);
   SEXP F;
   switch(TYPEOF(x)){
     case REALSXP:{
@@ -45,7 +48,7 @@ SEXP colmin(SEXP x,int ncol,int nrow){
   return F;
 }
 
-// find the minimum value/index of its collumn
+// find the minimum index of its collumn
 RcppExport SEXP Rfast_colmin_indices(SEXP xSEXP) {
 BEGIN_RCPP
     RObject __result;
@@ -56,14 +59,12 @@ BEGIN_RCPP
 END_RCPP
 }
 
-// find the minimum value/index of its collumn
-RcppExport SEXP Rfast_colmin(SEXP x,SEXP nrowSEXP,SEXP ncolSEXP) {
+// find the minimum value of its collumn
+RcppExport SEXP Rfast_colmin(SEXP x) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< int >::type nrow(nrowSEXP);
-    traits::input_parameter< int >::type ncol(ncolSEXP);
-    __result = colmin(x,nrow,ncol);
+    __result = colmin(x);
     return __result;
 END_RCPP
 }

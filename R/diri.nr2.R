@@ -10,10 +10,9 @@
 
 diri.nr2 <- function(x, tol = 1e-07) {
   ## x is compositional data
-  
-    x <- x / rowsums(x)  ## makes sure x is compositional data
-    n <- dim(x)[1]  ## sample size
-    p <- dim(x)[2]
+  	dm <- dim(x)
+    n <- dm[1]  ## sample size
+    p <- dm[2]
     zx <- t( log(x) )
     
     ma <- rowmeans(zx)
@@ -25,9 +24,8 @@ diri.nr2 <- function(x, tol = 1e-07) {
     f <- ma - Digamma(a1) + digamma( sa )
     der <-  - Trigamma(a1) + trigamma( sa )
     a2 <- a1 - f / der
-    i <- 2
     
-    a<-as.vector(.Call('Rfast_diri_nr_type2',i,a1,a2,ma,p,tol))
+    a<-as.vector(.Call('Rfast_diri_nr_type2',a1,a2,ma,p,tol))
     
     loglik <- n * lgamma( sum(a) ) - n * sum( Lgamma(a) ) +
       sum( zx * (a - 1) )
@@ -37,6 +35,6 @@ diri.nr2 <- function(x, tol = 1e-07) {
     names(a) <- paste("X", 1:p, sep = "")
   } else  names(a) <- colnames(x)
   
-  list(iters = i, loglik = loglik, param = a)
+  list(loglik = loglik, param = a)
   
 }

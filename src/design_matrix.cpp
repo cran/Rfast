@@ -25,6 +25,8 @@ arma::mat design_matrix(CharacterVector x,bool ones_c=true) {
     Final.at((*a).second,lower_bound(leksi.begin(),leksi.end(),(*a).first)-leksi.begin())=1;
   if(ones_c)
     Final.col(0)=ones(n);
+  else
+  	Final.shed_col(leksi.size()-1); 
   return Final;
 }
 

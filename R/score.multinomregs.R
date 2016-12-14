@@ -10,16 +10,15 @@ score.multinomregs <- function(y, x, logged = FALSE) {
   } else {
     
     m0 <- numeric(dof)
-    y1 <- design_matrix(y, ones = FALSE)
+    y1 <- design_matrix(y,FALSE)
     m <- colmeans(y1)   
     sx <- colsums(x)
     sx2 <- colsums(x^2)
-    vp <- diag(m) - tcrossprod(m) 
-    
+    vp <- diag(m) - tcrossprod(m)  
     mx <- matrix( rep( m, rep(p, dof) ), ncol = dof )
-    ni <- as.vector( table(y) )
+    ni <- tabulate(y)
     u <- t( rowsum( x, y ) )[, -1] - sx * mx
-	
+  
     stat <- mahala(u, m0, vp ) / sx2
     pvalue <- pchisq( stat, dof, lower.tail = FALSE, log.p = logged )
     res <- cbind(stat, pvalue)
@@ -28,5 +27,3 @@ score.multinomregs <- function(y, x, logged = FALSE) {
 
   res
 }  
-
-

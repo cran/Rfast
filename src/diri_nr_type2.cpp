@@ -11,9 +11,9 @@ using namespace Rcpp;
 using namespace std;
 
 //[[Rcpp::export]]
-colvec diri_nr_type2(SEXP ii,colvec a1,colvec a2,colvec ma,int p,double tol){
+colvec diri_nr_type2(colvec a1,colvec a2,colvec ma,int p,double tol){
   mat f2(p,p),slv;
-  double sa,*i=REAL(ii);
+  double sa;
   colvec f;
   while ( sum( abs( a2 - a1 ) ) > tol ) {
     a1 = a2;
@@ -23,14 +23,13 @@ colvec diri_nr_type2(SEXP ii,colvec a1,colvec a2,colvec ma,int p,double tol){
     f2.diag() = f2.diag() - Trigamma_v(a1,p);
     slv = solve(f2, f);
     a2 = a1 - slv.each_col();
-    (*i)++;
   }
   return a2;
 }
 
 // part of the Compositional::diri.nr
-colvec diri_nr_type2(SEXP ii,colvec a1,colvec a2,colvec ma,int p,double tol);
-RcppExport SEXP Rfast_diri_nr_type2(SEXP ii,SEXP a1SEXP,SEXP a2SEXP,SEXP maSEXP,SEXP pSEXP,SEXP tolSEXP) {
+colvec diri_nr_type2(colvec a1,colvec a2,colvec ma,int p,double tol);
+RcppExport SEXP Rfast_diri_nr_type2(SEXP a1SEXP,SEXP a2SEXP,SEXP maSEXP,SEXP pSEXP,SEXP tolSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
@@ -39,7 +38,7 @@ BEGIN_RCPP
     traits::input_parameter< colvec >::type ma(maSEXP);
     traits::input_parameter< int >::type p(pSEXP);
     traits::input_parameter< double >::type tol(tolSEXP);
-    __result = wrap(diri_nr_type2(ii,a1,a2,ma,p,tol));
+    __result = wrap(diri_nr_type2(a1,a2,ma,p,tol));
     return __result;
 END_RCPP
 }

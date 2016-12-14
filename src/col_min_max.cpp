@@ -11,7 +11,8 @@
 using namespace Rcpp;
 
 //[[Rcpp::export]]
-SEXP col_min_max(SEXP x,int nrow,int ncol){
+SEXP col_min_max(SEXP x){
+  int ncol=Rf_ncols(x),nrow=Rf_nrows(x);
   SEXP F;
   switch(TYPEOF(x)){
   	case REALSXP:{
@@ -39,13 +40,11 @@ SEXP col_min_max(SEXP x,int nrow,int ncol){
 }
 
 
-RcppExport SEXP Rfast_col_min_max(SEXP x,SEXP nrowSEXP,SEXP ncolSEXP) {
+RcppExport SEXP Rfast_col_min_max(SEXP x) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< int >::type nrow(nrowSEXP);
-    traits::input_parameter< int >::type ncol(ncolSEXP);
-    __result = col_min_max(x,nrow,ncol);
+    __result = col_min_max(x);
     return __result;
 END_RCPP
 }

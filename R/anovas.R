@@ -1,7 +1,7 @@
 anovas <- function(x, ina, logged = FALSE) {
   
   k <- max(ina)
-  ni <- as.vector( table(ina) )
+  ni <- tabulate(ina)
   n <- dim(x)[1]
   
   sx2 <- colsums(x^2) 
@@ -11,14 +11,11 @@ anovas <- function(x, ina, logged = FALSE) {
   treat <- a - b
   error <- sx2 - a
   total <- sx2 - b
+  fa <- ( treat / (k - 1) ) / ( error / (n - k) )
   
-  mst <- treat / (k - 1)  
-  mse <- error / (n - k)
-  f <- mst / mse
+  pvalue <- pf(fa, k - 1, n - k, lower.tail = TRUE, log.p = logged)
   
-  pvalue <- pf(f, k - 1, n - k, lower.tail = TRUE, log.p = logged)
-  
-  tab <- cbind(treat, error, total, f, pvalue)
+  tab <- cbind(treat, error, total, fa, pvalue)
   colnames(tab) <- c( "SStreatment", "SSerror", "SStotal", "F value", "p-value" )
   if ( !is.null( colnames(x) ) )  rownames(tab) <- colnames(x)
   

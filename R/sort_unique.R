@@ -3,7 +3,7 @@
 
 sort_unique <- function(x) {
   if(is.double(x)){
-  	return (.Call('Rfast_sort_double',x))
+  	return (.Call('Rfast_sort_uniq_double',x))
   }
-  .Call('Rfast_sort_int',x)
+  .Call('Rfast_sort_uniq_int',x)
 }

@@ -5,6 +5,8 @@
 
 #include <RcppArmadillo.h>
 #include <vector>
+#include <R.h>
+#include <Rinternals.h>
 #include "mn.h"
 
 using namespace Rcpp;
@@ -23,7 +25,8 @@ vector<double> colmax_indices(NumericMatrix x){
 }
 
 //[[Rcpp::export]]
-SEXP colmax(SEXP x,int ncol,int nrow){
+SEXP colmax(SEXP x){
+  int ncol=Rf_ncols(x),nrow=Rf_nrows(x);
   SEXP F;
   switch(TYPEOF(x)){
   	case REALSXP:{
@@ -45,7 +48,7 @@ SEXP colmax(SEXP x,int ncol,int nrow){
   return F;
 }
 
-// find the maximum value/index of its collumn
+// find the maximum index of its collumn
 RcppExport SEXP Rfast_colmax_indices(SEXP xSEXP) {
 BEGIN_RCPP
     RObject __result;
@@ -56,14 +59,12 @@ BEGIN_RCPP
 END_RCPP
 }
 
-// find the maximum value/index of its collumn
-RcppExport SEXP Rfast_colmax(SEXP x,SEXP nrowSEXP,SEXP ncolSEXP) {
+// find the maximum value of its collumn
+RcppExport SEXP Rfast_colmax(SEXP x) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< int >::type nrow(nrowSEXP);
-    traits::input_parameter< int >::type ncol(ncolSEXP);
-    __result = colmax(x,nrow,ncol);
+    __result = colmax(x);
     return __result;
 END_RCPP
 }
