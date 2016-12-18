@@ -1,4 +1,4 @@
-58235c9585f5c16c11ac162b307fa424 *DESCRIPTION
+7e669d7910da8d6473a3a1a0e298a811 *DESCRIPTION
 f33667e6b6adb99eb4cb99be6fde8979 *NAMESPACE
 955a3cfb472228fa0d8db93f3a95e5b5 *R/Digamma.R
 9f3c99775519989deba0c378815ee25c *R/Lgamma.R
@@ -57,7 +57,7 @@ fa710cadd7c6ac9ab74b2473254cf6e1 *R/rowVars.R
 9051ea535cc2d1453a3708cd05931d74 *R/rowrange.R
 6a845f4a111b34f35a336734e167c9bd *R/rowsums.R
 24f40af8c6c47bace3362ca4ab47329b *R/score.glms.R
-bb15fffff17ca455c0669b39da05853c *R/score.multinomregs.R
+aed145a2ffdf75f3b68549e00bb25cc4 *R/score.multinomregs.R
 de5846140c0a531a83e6dc7d49324f40 *R/sort_cor_vectors.R
 b4c3d80d4c7d95f6526e4f5774dcdaee *R/sort_index.R
 ab979062ab0094fa32024a24634ad17d *R/sort_mat.R
@@ -71,7 +71,7 @@ f66d1826462420ffb4bd760700dfa996 *R/which_isFactor.R
 7344bb355215242f75bdfb359416f034 *man/Lgamma.Rd
 4b27647038670ffa19946f1f9b432197 *man/Match.Rd
 83ceb0bd8e3caaceda4aa17967e12f22 *man/Order.Rd
-01451240d3fe1876ccec3f6caf41a7e2 *man/Rfast-package.Rd
+c28a506b7b120a5636cdeb9f29f3efbe *man/Rfast-package.Rd
 2d5604c5f8b526a99bc6bcdf76a2d10f *man/all_equals.Rd
 83eddec5b0f030bf1070dbac86e922c7 *man/allbetas.Rd
 c1ec1f91d43517d75d1999b7c551a21f *man/beta.mle.Rd
@@ -122,7 +122,7 @@ f75fe6a5339daa6553bccdb6ff91b0fd *man/ttests.Rd
 aeb0e34388d7782a4fbc16a0fabf8449 *man/zip.mle.Rd
 1db87b3329b5e6e365f7603deacc8bb1 *src/Digamma.cpp
 1d844b9b37934f761d6e41a72684f073 *src/Hash_list.cpp
-8ccc08272cf4440e534e7c2c3fb0eed8 *src/Lgamma.cpp
+7951666c93e6cc4b09699db7ccf20515 *src/Lgamma.cpp
 85eff5ae3db554fba9db8be6653ae061 *src/Makevars
 d7736c23d50800e9d2ded893450736f3 *src/Makevars.win
 2448b58dd694e34f17eee70aabde8641 *src/Match.cpp
@@ -151,8 +151,8 @@ df19d1e24286745408181c9711596ac7 *src/k_comb_n.cpp
 a2e36a055c598d153251e0cb6964db9d *src/maha_ex.cpp
 62465639b8c94f032a44f3881cebb61d *src/med.cpp
 74d29569da1efb3710daa728a6ac9954 *src/min_max.cpp
-f0176d4f64ec5d95e1ffcf21c0b3c529 *src/mn.cpp
-c90fb64126146b89e572fa8e7895579d *src/mn.h
+b6db744e20c73f953efe9bf3eb9dc49f *src/mn.cpp
+e65805051827f9b5bacc61c17d55209b *src/mn.h
 4847ce2ed73b1ee8440a78afe9ebadc6 *src/nth.cpp
 2af44038bfd7739bb4c99a134e522a83 *src/permutation.cpp
 17d5c5315b700ae7352aa42eecb1c91c *src/permutation_next.cpp
@@ -168,5 +168,5 @@ dca86e168e14528f6b88e8ba108da1f5 *src/rowsums.cpp
 dc7d0c2da9858b26ed99296eee9a295a *src/sort_index.cpp
 143d636418a710f7c5da4488785e55fe *src/sort_mat.cpp
 57bf6b7a3b4e94a9aa69a97d551151ac *src/sort_uniq_double.cpp
-597d02eb40583b365d2cbce4163764c6 *src/sort_uniq_int.cpp
+4ac39efc4d8eca6152c84433b462fbe5 *src/sort_uniq_int.cpp
 e28b218baf8ddf2b4979b71bf1eb0171 *src/which_isFactor.cpp

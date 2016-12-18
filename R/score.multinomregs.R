@@ -10,7 +10,7 @@ score.multinomregs <- function(y, x, logged = FALSE) {
   } else {
     
     m0 <- numeric(dof)
-    y1 <- design_matrix(y,FALSE)
+    y1 <- design_matrix(y)[,-1]
     m <- colmeans(y1)   
     sx <- colsums(x)
     sx2 <- colsums(x^2)

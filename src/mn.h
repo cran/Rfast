@@ -2,6 +2,8 @@
 
 // [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
+#include <utility>
+#include <vector>
 
 using namespace std;
 using namespace arma;
@@ -31,20 +33,20 @@ vec regression_only(mat, colvec);
 double regression_only_col(colvec , colvec );
 double digamma(double);
 double trigamma(double);
-void i4mat_floyd ( int n, vector<double> &a );
-void min(double *start,double *end,double &mn);
-void max(double *start,double *end, double &mx);
-void min_max2(double *start,double *end,double &min, double &max);
-void min_max2(double *start,double *end,double &min, double &max);
-void min_max3(int *start,int *end,int &min, int &max);
-void max_d(double *start,double *end, double &mx);
-void max_i(int *start,int *end, int &mx);
-void min_d(double *start,double *end, double &mn);
-void min_i(int *start,int *end, int &mn);
-void copy_sexp_d(double *x,double y[],int &len);
-void copy_sexp_i(int *x,int y[],int &len);
-colvec Digamma_v(colvec x,int &p);
-colvec Trigamma_v(colvec x,int &p);
-void fill_m(double *start,double *end,double v);
+void i4mat_floyd ( int, vector<double> &);
+void min(double *,double *,double &);
+void max(double *,double *, double &);
+void min_max2(double *,double *,double &, double &);
+void min_max2(double *,double *,double &, double &);
+void min_max3(int *,int *,int &, int &);
+void max_d(double *,double *, double &);
+void max_i(int *,int *, int &);
+void min_d(double *,double *, double &);
+void min_i(int *,int *, int &);
+void copy_sexp_d(double *,double y[],int &);
+void copy_sexp_i(int *,int y[],int &);
+colvec Digamma_v(colvec ,int &);
+colvec Trigamma_v(colvec ,int &);
+void fill_m(double *,double *,double);
 
 #endif

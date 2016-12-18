@@ -2,11 +2,13 @@
 #include <RcppArmadillo.h>
 #include <vector>
 #include <algorithm>
+#include <utility>
 #include <string>
 #include "mn.h"
 
 using namespace Rcpp;
 using namespace arma;
+using namespace std;
 
 bool my_compare1(const pair<string,int>& a,const pair<string,int>& b){
   return a.first<b.first;
@@ -150,12 +152,7 @@ double trigamma ( double x)
   //
   y = 1.0 / z / z;
   
-  value = value + 0.5 *
-    y + ( 1.0
-            + y * ( b2
-                      + y * ( b4
-                      + y * ( b6
-                      + y *   b8 )))) / z;
+  value = value + 0.5 * y + ( 1.0+ y * ( b2+ y * ( b4+ y * ( b6+ y * b8 )))) / z;
                       
                       return value;
 }

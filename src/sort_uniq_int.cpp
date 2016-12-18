@@ -11,48 +11,41 @@ using namespace std;
 
 //[[Rcpp::export]]
 vector<int> sort_uniq_int(vector<int> x){
-  int aa,szn=1,szp=1,i,t=0,how_many_neg=0,how_many_pos=0;
-  vector<int> f(1),neg(1),fi(x.size());
-  vector<int>::iterator a=x.begin(),F=f.begin(),nn=neg.begin(),ffi=fi.begin();
+  int aa,szn=1,szp=1,how_many_neg=0,how_many_pos=0;
+  vector<int> f(1,INT_MAX),neg(1,INT_MAX),ff;
+  vector<int>::iterator a=x.begin(),F=f.begin(),nn=neg.begin();
   vector<int>::reverse_iterator nr;
   for(;a!=x.end();++a){
     aa=*a;
     if(aa<0){
-      if(-aa>szn){
-        neg.resize(-aa+1);
+      if(-aa>=szn){
+        neg.resize(-aa+1,INT_MAX);
         nn=neg.begin();
         szn=neg.size();
       }
-      *(nn-aa)+=1;
+      *(nn-aa)=aa;
       how_many_neg++;
     }else{
-      if(aa>szp){
-        f.resize(aa+1);
+      if(aa>=szp){
+        f.resize(aa+1,INT_MAX);
         F=f.begin();
         szp=f.size();
       }
-      *(F+aa)+=1;
+      *(F+aa)=aa;
       how_many_pos++;
     }
   }
   if(how_many_neg)
     for(nr=neg.rbegin();nr!=neg.rend();++nr){
-      if(*nr){
-        t=nr-neg.rend()+1;
-        for(i=0;i<*nr;++i,++ffi)
-          *ffi=t;
-      }
+      if(*nr!=INT_MAX)
+      	ff.push_back(*nr);
     }
   if(how_many_pos)
     for(a=f.begin();a!=f.end();++a){
-      if(*a){
-        t=a-f.begin();
-        for(i=0;i<*a;++i,++ffi){
-          *ffi=t;
-        }
-      }
+      if(*a!=INT_MAX)
+      	ff.push_back(*a);
     }
-  return fi;
+  return ff;
 }
 
 RcppExport SEXP Rfast_sort_uniq_int(SEXP xSEXP) {
