@@ -4,8 +4,6 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include <RcppArmadillo.h>
-#include <Rcpp.h>
-#include <vector>
 #include <algorithm>
 #include "mn.h"
 
@@ -13,27 +11,30 @@ using namespace Rcpp;
 using namespace std;
 
 //[[Rcpp::export]]
-vector<int> Order(vec x){
-  int n=x.size(),i=0;
-  vector< pair<double,int> > y(n);
-  vector< pair<double,int> >::iterator a;
-  vector<int>::iterator b;
-  vector<int> f(n);
+IntegerVector Order(NumericVector x,const bool stable){
+  const int n=x.size();
+  int i=0;
+  pr *y=new pr[n];
+  IntegerVector f(n);
+  IntegerVector::iterator b=f.begin();
   NumericVector::iterator xx=x.begin();
-  for(a=y.begin();a!=y.end();++a,++i,++xx)
-    *a=pair<double,int>(*xx,i);
-  sort(y.begin(),y.end(),my_compare_order);
-  for(a=y.begin(),b=f.begin();a!=y.end();++a,++b)
-    *b=a->second+1;
+  for(;i!=n;++i,++xx){
+    y[i].first=*xx;
+    y[i].second=i;
+  }
+  stable ? stable_sort(y,y+n,my_compare_order) : sort(y,y+n,my_compare_order);
+  for(i=0;i!=n;++i,++b)
+    *b=y[i].second+1;
   return f;
 }
 
-RcppExport SEXP Rfast_Order(SEXP xSEXP){
+RcppExport SEXP Rfast_Order(SEXP xSEXP,SEXP stableSEXP){
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< vec >::type x(xSEXP);
-    __result = wrap(Order(x));
+    traits::input_parameter< NumericVector >::type x(xSEXP);
+    traits::input_parameter< const bool >::type stable(stableSEXP);
+    __result = wrap(Order(x,stable));
     return __result;
 END_RCPP
 }

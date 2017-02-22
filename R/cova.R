@@ -1,4 +1,4 @@
+
 cova <- function(x) {
-    mat <- t(x) - colmeans(x)
-    tcrossprod(mat) / ( dim(x)[1] - 1 )
+	.Call('Rfast_cova', PACKAGE = 'Rfast',x)
 }

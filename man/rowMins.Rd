@@ -19,7 +19,7 @@ rowMaxs(x, value = FALSE)
 A numerical matrix with data.
 }
 \item{value}{
-If the value is TRUE it returns the indices of the minimum/maximum, otherwise it returns the minimum and maximum values.
+If the value is FALSE it returns the indices of the minimum/maximum, otherwise it returns the minimum and maximum values.
 }
 }
 

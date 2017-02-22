@@ -5,7 +5,7 @@ Match
 }
 
 \description{
-Match.
+Return the positions of its first argument that matches in its second.
 }
 
 \usage{
@@ -17,9 +17,8 @@ Match(x,key)
 A numeric vector.
 }
 \item{key}{
-The value for searching the key.
+The value/vector for searching in vector x.
 }
-
 }
 
 \details{
@@ -27,7 +26,7 @@ This function implements the R's "match" function.
 }
 
 \value{
-Returns the position of the given key in the x vector.
+Returns the position/positions of the given key/keys in the x vector.
 }
 
 \author{

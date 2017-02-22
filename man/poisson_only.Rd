@@ -56,12 +56,11 @@ y = rpois(100, 10)
 system.time( poisson_only(x, y) )
 
 b1 = poisson_only(x, y) 
-b1 = as.vector(b1)
 
 b2 = numeric(500)
 system.time( for (i in 1:500) b2[i] = glm(y ~ x[, i], poisson)$deviance )
 
-b2 = as.vector(glm(y ~ 1, poisson)$null.dev) - as.vector(b2)
+all.equal(b1, b2)
 }
 
 \keyword{ Poisson regressions }

@@ -14,10 +14,10 @@ comb_n(n, k, trans = FALSE)
 
 \arguments{
 \item{n}{
-A stirctly (greater than zero) positive integer number.
+A stirctly (greater than zero) positive integer number or a vector with numbers. 
 }
 \item{k}{
-A positive integer number at most equal to n.
+A positive integer number at most equal to n or at most equal to the length of n, if n is a vector.
 }
 \item{trans}{
 A boolean value for returning the matrix transposed.
@@ -29,17 +29,17 @@ A boolean value for returning the matrix transposed.
 %}
 
 \value{
-A matrix with k columns and rows equal to the number of possible unique combinations with k elements. 
+A matrix with k columns and rows equal to the number of possible unique combinations of n with k elements. 
 }
 
 \references{
-Nijenhuis, A. and Wilf, H.S. (1978). Combinatorial Algorithms for Computers and Calculators. Academic Press, NY. 
+Nijenhuis A. and Wilf H.S. (1978). Combinatorial Algorithms for Computers and Calculators. Academic Press, NY. 
 }
 
 \author{
-Manos Papadakis
+Manos Papadakis and Marios Dimitriadis
 
-R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
+R implementation and documentation: Manos Papadakis <papadakm95@gmail.com> and Marios Dimitriadis <kmdimitriadis@gmail.com>.
 }
 
 %\note{
@@ -54,6 +54,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 system.time( comb_n(20, 4) )
 system.time( combn(20, 4) )
+x <- rnorm(5)
+comb_n(x, 3)
 }
 
 \keyword{ Combinatorics }

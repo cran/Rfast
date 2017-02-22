@@ -1,0 +1,1 @@
+colhameans <- function(x)  dim(x)[1]/ colsums(1/x)

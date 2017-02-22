@@ -22,12 +22,14 @@ The tolerance level idicating no further increase in the log-likelihood.
 }
 
 \details{
-Maximum likelihood estimation of the parameters of a Dirichlet distribution is performed via Newton-Raphson.
-Initial values suggested by Minka (2003) are used. 
+Maximum likelihood estimation of the parameters of a Dirichlet distribution is performed via Newton-Raphson. Initial values suggested by Minka (2012) are used. 
 }
 
 \value{
 A list including:
+\item{iters}{
+The number of iterations required.
+}
 \item{loglik}{
 The value of the log-likelihood.
 }
@@ -36,15 +38,17 @@ The estimated parameters.
 }
 }
 
+\references{
+Minka Thomas (2012). Estimating a Dirichlet distribution. Technical report.
+
+Ng Kai Wang, Guo-Liang Tian, and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
+}
+
 \author{
 Michail Tsagris and Manos Papadakis
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>
 }
-
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{\link{beta.mle}

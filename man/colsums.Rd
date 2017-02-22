@@ -26,7 +26,7 @@ A numerical matrix with data.
 %}
 
 \value{
-A vector with column sums or a column vector with the row sums.
+A vector with sums.
 }
 
 
@@ -41,7 +41,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
     %}
 
 \seealso{
-\code{\link{colsums}, \link{colmeans}, \link{colVars}
+\code{\link{colMedians}, \link{colmeans}, \link{colVars}
 }
 }
 
@@ -57,4 +57,4 @@ all.equal(x1,x2)
 }
 
 \keyword{ Column sums }
-\keyword{ row sums }
+\keyword{ Row sums }

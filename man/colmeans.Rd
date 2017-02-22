@@ -1,6 +1,8 @@
 \name{Column and row-wise means of a matrix}
 \alias{colmeans}
 \alias{rowmeans}
+\alias{colhameans}
+\alias{rowhameans}
 \title{
 Column and row-wise means of a matrix
 }
@@ -12,6 +14,8 @@ Column and row-wise means of a matrix.
 \usage{
 colmeans(x)
 rowmeans(x)
+colhameans(x)
+rowhameans(x)
 }
 
 \arguments{
@@ -25,7 +29,7 @@ A numerical matrix with data.
 %}
 
 \value{
-A vector with column means or a column vector with the row means.
+A vector with the column or row arithmetic or harmonic means.
 }
 
 %\references{
@@ -56,8 +60,11 @@ all.equal(x1,x2)
 x1 <- rowmeans(x)
 x2 <- rowMeans(x)
 all.equal(x1,x2)
+system.time( colhameans(x) )
+system.time( rowhameans(x) ) 
 }
 
 \keyword{ Column means }
 \keyword{ row means }
+\keyword{ harmonic means }
 

@@ -1,13 +1,13 @@
 \name{Column-wise minimum and maximum }
 \alias{colMins}
 \alias{colMaxs}
-\alias{col_Mins_Maxs}
+\alias{colMinsMaxs}
 \title{
 Column-wise minimum and maximum of a matrix
 }
 
 \description{
-Column-wise minimum and maximum of a matrix in parallel.
+Column-wise minimum and maximum of a matrix.
 }
 
 \usage{
@@ -15,7 +15,7 @@ colMins(x, value = FALSE)
 
 colMaxs(x, value = FALSE)
 
-col_Mins_Maxs(x)
+colMinsMaxs(x)
 }
 
 \arguments{
@@ -23,7 +23,7 @@ col_Mins_Maxs(x)
 A numerical matrix with data.
 }
 \item{value}{
-If the value is TRUE it returns the indices of the minimum/maximum, otherwise it returns the minimum and maximum values.
+If the value is FALSE it returns the indices of the minimum/maximum, otherwise it returns the minimum and maximum values.
 }
 }
 
@@ -63,11 +63,12 @@ system.time( s2 <- apply(x, 2, min) )
 system.time( s1 <- colMaxs(x) )
 system.time( s2 <- apply(x, 2, max) )
 
-system.time( s1 <- col_Mins_Maxs(x) )
+system.time( s1 <- colMinsMaxs(x) )
 system.time( s2 <- c(apply(x, 2, min), apply(x, 2, max)) )
 
 }
 
 \keyword{ Column-wise minimum }
 \keyword{ column-wise maximum }
+\keyword{ column-wise minimum-maximum }
 

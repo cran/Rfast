@@ -1,7 +1,7 @@
 \name{ Permutation }
 \alias{permutation}
-\alias{permutation_next}
-\alias{permutation_prev}
+\alias{permutation.next}
+\alias{permutation.prev}
 \title{
 Permutation
 }
@@ -11,9 +11,9 @@ Permute the given vector.
 }
 
 \usage{
-permutation(x, all)
-permutation_next(x, all_next=TRUE)
-permutation_prev(x, all_prev=TRUE)
+permutation(x, all=TRUE)
+permutation.next(x, all.next=TRUE)
+permutation.prev(x, all.prev=TRUE)
 }
 
 \arguments{
@@ -23,20 +23,21 @@ A numeric vector with data.
 \item{all}{
 A logical value for returning all or one possible combinations. 
 }
-\item{all_next}{
-A logical value for returning all the next or one possible combinations. 
+\item{all.next}{
+A logical value for returning all the next or one possible combinations, if there are. 
 }
-\item{all_prev}{
-A logical value for returning all the previous or one possible combinations. 
+\item{all.prev}{
+A logical value for returning all the previous or one possible combinations, if there are. 
 }
 }
 
 \details{
-This function implements "Permutation" which means all the possible combinations.
+This function implements "Permutation", which means all the possible combinations. In the permutation.next and permutation.prev
+if there aren't possible combinations it returns the same vector.
 }
 
 \value{
-Returns a matrix with all possible combinations of the given vector.
+Returns a matrix with all possible combinations of the given vector or a matrix row with one possible combinations.
 }
 
 \author{
@@ -57,8 +58,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 \examples{
 y <- rnorm(5)
 b <- permutation(y)
-b <- permutation_next(y)
-b <- permutation_prev(y)
+b <- permutation.next(y)
+b <- permutation.prev(y)
 }
 
 \keyword{ Permutation Function }

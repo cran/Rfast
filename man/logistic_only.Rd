@@ -55,14 +55,12 @@ x = matrix( rnorm(100 * 500), ncol = 500 )
 ## 100 observations in total
 y = rbinom(100, 1, 0.6)   ## binary logistic regression
 system.time( logistic_only(x, y) )
-
 a1 = logistic_only(x, y)
-a1 = as.vector(a1)
  
 a2 <- numeric(500)
 system.time( for (i in 1:500) a2[i] = glm(y ~ x[, i], binomial)$deviance )
-
-a2 = as.vector( glm(y ~ 1, binomial)$null.dev ) - as.vector(a2)
+a2 = as.vector(a2)
+all.equal(a1, a2)
 }
 
 \keyword{ Logistic regressions }

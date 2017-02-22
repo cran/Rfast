@@ -25,7 +25,7 @@ diri.nr2 <- function(x, tol = 1e-07) {
     der <-  - Trigamma(a1) + trigamma( sa )
     a2 <- a1 - f / der
     
-    a<-as.vector(.Call('Rfast_diri_nr_type2',a1,a2,ma,p,tol))
+    a<-as.vector(.Call('Rfast_diri_nr_type2', PACKAGE = 'Rfast',a1,a2,ma,p,tol))
     
     loglik <- n * lgamma( sum(a) ) - n * sum( Lgamma(a) ) +
       sum( zx * (a - 1) )

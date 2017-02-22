@@ -5,7 +5,7 @@ Binary search algorithm
 }
 
 \description{
-Binary search algorithm. 
+Search a value in an ordered vector. 
 }
 
 \usage{
@@ -49,7 +49,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- rnorm(10000)
+x <- sort(rnorm(10000))
 v <- x[500]
 system.time( b <- binary_search(x,v) )
 system.time( b1 <- binary_search(x,v,TRUE) )

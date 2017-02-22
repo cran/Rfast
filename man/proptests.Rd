@@ -62,6 +62,13 @@ n1 <- rpois(10000, 40)
 n2 <- rpois(10000, 40)
 a <- proptests(x1, x2, n1, n2)
 system.time( proptests(x1, x2, n1, n2) )
+hist(a[, 4])
+
+x1 <- rbinom(10000, 1000, 0.6)
+x2 <- rbinom(10000, 1000, 0.6)
+b <- proptests(x1, x2, 1000, 1000)
+system.time( b <- proptests(x1, x2, 1000, 1000) ) 
+hist(b[, 4])
 }
 
 \keyword{ 2 sample proportions tests }

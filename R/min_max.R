@@ -1,3 +1,5 @@
 min_max<-function(x,index=FALSE){
-	.Call('Rfast_min_max',x,index)
+	x <- .Call('Rfast_min_max', PACKAGE = 'Rfast',x,index)
+	names(x) <- c("min","max")
+	x
 }

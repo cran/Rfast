@@ -31,17 +31,24 @@ A boolean variable; it will return the logarithm of the pvalue if set to TRUE.
 }
 
 \details{
-Instead of maximising the log-likelihood via the Newton-Raphson algorithm in order to perform the hypothesis testing that \eqn{\beta_i=0} we use the score test. 
-This is dramatcially faster as no model need to be fitted. The first derivative of the log-likelihood is known in closed form and under the null hypothesis the 
-fitted values are all equal to the mean of the response variable y. The testis not the same as the likelihood ratio test. It is size correct nonetheless but it 
-is a bit less efficient and less powerful. For big sample sizes though (5000 or more) the results are the same. It is also much faster then the classical likelihood ratio test.  
+Instead of maximising the log-likelihood via the Newton-Raphson algorithm in order to perform the hypothesis testing 
+that \eqn{\beta_i=0} we use the score test. This is dramatcially faster as no model needs to be fitted. The first 
+derivative (score) of the log-likelihood is known and in closed form and under the null hypothesis the fitted values 
+are all equal to the mean of the response variable y. The variance of the score is also known in closed form. 
+The test is not the same as the likelihood ratio test. It is size correct nonetheless but it is a bit less efficient and less powerful. For big 
+sample sizes though (5000 or more) the results are the same. It is also much faster then the classical 
+log-likelihood ratio test.  
 }
 
 \value{
-A matrix with two columns, the test statistic and its associated p-value. For the Poisson and logistic regression the p-value is derived via the t distribution, whereas for the multinomial regression via the \eqn{\chi^2} distribution. 
+A matrix with two columns, the test statistic and its associated p-value. 
 }
 
 \references{
+
+Campbell, M.J. (2001). Statistics at Square Two: Understand Modern Statistical Applications in Medicine, pg. 112.
+London, BMJ Books. 
+ 
 Draper, N.R. and Smith H. (1988). Applied regression analysis. New York, Wiley, 3rd edition.
 
 McCullagh, Peter, and John A. Nelder. Generalized linear models.  CRC press, USA, 2nd edition, 1989.
@@ -59,7 +66,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{ \link{univglms}, \link{logistic_only},  \link{poisson_only}, \link{regression}
+\code{ \link{univglms}, \link{logistic_only},\link{poisson_only}, \link{regression}
 }
 }
 
@@ -83,7 +90,7 @@ mean(a1 - a2)
 
 ## x <- matrix( rnorm(500 * 2000), ncol = 2000 )
 ## y <- rbinom(500, 3, 0.5)   
-## a <- score.multinomregs(y, x)
+## a <- score.multinomegs(y, x)
 ## hist(a[, 2])
 ## sum(a < 0.05) / 2000  ## estimated type I error 
 }

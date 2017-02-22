@@ -25,7 +25,9 @@ The Floyd-Warshall algorithm is designed to find the shortest path (if it exists
 }
 
 \value{
-A matrix, say z, with 0 and positive numbers. If z[i, j] is zero it  means that there is no path going from i to j. If z[i, j] has a positive value it means that there is a path from i to j and its value is equal to the cost of going from i to j. 
+A matrix, say z, with 0 and positive numbers. The elements denote the length of the shortest path between 
+each pair of points. If z[i, j] is zero it  means that there is no cost from i to j. If z[i, j] has a positive 
+value it means that the length of going from i to j is equal to that value. 
 }
 
 \references{

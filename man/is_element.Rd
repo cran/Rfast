@@ -5,7 +5,7 @@ Find element
 }
 
 \description{
-Find element. 
+Search a value in an unordered vector.
 }
 
 \usage{
@@ -22,11 +22,11 @@ A value to check if exists in the vector x.
 }
 
 \details{
-The functions is written in C++ in order to be as fast as possible.
+Find if the key exists in the vector and return returns TRUE/FALSE if the value is been found. If the vector is unordered  it is fast but if the vector is ordered then use binary_search. The functions is written in C++ in order to be as fast as possible. 
 }
 
 \value{
-Search if the v exists in x linear time. Then returns TRUE/FALSE if the value is been found.
+TRUE/FALSE if the value is been found.
 }
 
 %\references{
@@ -52,4 +52,5 @@ system.time( b <- is_element(x,key) )
 
 \keyword{ Find element }
 \keyword{ Divide and Qonquer }
+\keyword{ Linear time }
 

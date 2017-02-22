@@ -14,10 +14,10 @@ min_max(x,index=FALSE)
 
 \arguments{
 \item{x}{
-A numerical vector with data.
+A numerical vector with data. NAs are handled naturally.
 }
 \item{index}{
-A boolean value for the indices fo the minimum and the maximum value.
+A boolean value for the indices of the minimum and the maximum value.
 }
 }
 

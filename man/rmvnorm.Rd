@@ -69,7 +69,7 @@ x <- as.matrix(iris[, 1:4])
 m <- colmeans(x)
 s <- var(x)
 y <- rmvt(1000, m, s, 10)
-## MASS::cov.trob(y, nu = 10)
+#MASS::cov.trob(y, nu = 10)
 }
 
 \keyword{ multivariate normal distribution }

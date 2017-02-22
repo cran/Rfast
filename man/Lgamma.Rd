@@ -3,7 +3,7 @@
 \alias{Digamma}
 \alias{Trigamma}
 \title{
-Sorting of the columns of a matrix
+Natural logarithm of the gamma function and its derivatives.
 }
 
 \description{
@@ -22,9 +22,9 @@ A numerical matrix or vector with positive numbers in either case.
 }
 }
 
-%\details{
-%
-%}
+\details{
+We have spotted that the time savings come when there are more than 50 elements, with vector or matrix.
+}
 
 \value{
 The matrix or the vector with the resulting values.

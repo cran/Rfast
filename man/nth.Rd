@@ -1,11 +1,11 @@
-\name{The nth largest value of a vector}
+\name{The nth smallest value of a vector}
 \alias{nth}
 \title{
-The nth largest value of a vector
+The nth smallest value of a vector
 }
 
 \description{
-The nth largest value of a vector.
+The nth smallest value of a vector.
 }
 
 \usage{
@@ -17,7 +17,7 @@ nth(x, k)
 A numerical vector.
 }
 \item{k}{
-The kth largest number to be returned. 
+The kth smallest number to be returned. 
 }
 }
 
@@ -54,4 +54,4 @@ sort(x)[5000]
 }
 
 \keyword{ nth elements }
-\keyword{ sorting } 
+\keyword{ partial sorting } 

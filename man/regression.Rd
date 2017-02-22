@@ -48,7 +48,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{\link{allbetas}, \link{correls}, \link{univglms}, \link{mvbetas}
+\code{\link{univglms}, \link{allbetas}, \link{correls}, \link{univglms}, \link{mvbetas}
 }
 }
 
@@ -56,12 +56,16 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 ## 500 variables, hence 500 univariate regressions are to be fitted
 x = matrix( rnorm(100 * 500), ncol = 500 )
 x = as.data.frame(x)
-
-
-## 100 observations in total
-y = rnorm(100)   ## binary logistic regression
+y = rnorm(100)   
 system.time( a1 <- regression(x, y) )
 
+x = matrix( rnorm(150 * 500), ncol = 500 )
+x = as.data.frame(x)
+y = rnorm(150)   
+for (i in 1:500) x[, i] <- iris[, 5]
+system.time( a <- regression(x, y) )
+a[, 1:5]
+summary(lm(y ~ x[, 1]) )  ## check the F-test
 }
 
 \keyword{ Simple linear regressions }

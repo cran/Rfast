@@ -16,14 +16,14 @@ Note 3: In general, make sure you give the correct input, in order to get the co
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.7.3 \cr
-Date: \tab 2016-12-16\cr
+Version: \tab 1.7.4 \cr
+Date: \tab 2017-02-22\cr
 License: \tab GPL-2\cr
 }
 }
 
 \author{
-Manos Papadakis <papadakm95@gmail.com>, Michail Tsagris <mtsagris@yahoo.gr>, Ioannis Tsamardinos <tsamard@csd.uoc.gr> , Matteo Fasiolo <matteo.fasiolo@gmail.com>, Giorgos Borboudakis 
+Manos Papadakis <papadakm95@gmail.com>, Michail Tsagris <mtsagris@yahoo.gr>, Marios Dimitriadis <kmdimitriadis@gmail.com>, Ioannis Tsamardinos <tsamard@csd.uoc.gr> , Matteo Fasiolo <matteo.fasiolo@gmail.com>, Giorgos Borboudakis 
 <borbudak@gmail.com> and John Burkardt <jburkardt@fsu.edu>
 }
 
@@ -34,11 +34,11 @@ Manos Papadakis <papadakm95@gmail.com>
 \note{
 Acknowledgments:
 
-We would like to acknowledge Professor Kurt Hornik for his invaluable help with this R package and Erich Studerus for his invaliable comments.
+We would like to acknowledge Professor Kurt Hornik and Doctor Uwe Ligges for his invaluable help with this R package, Erich Studerus for his invaluable comments and Neal Fultz for his suggestions.
 }
 
-\keyword{ Mahalanobis distance }
 \keyword{ G^2 test }
 \keyword{ variances }
 \keyword{ t-tests }
 \keyword{ univariate regressions }
+\keyword{ Mahalanobis distance }

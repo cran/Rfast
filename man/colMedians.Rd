@@ -6,7 +6,7 @@ Column and row-wise medians
 }
 
 \description{
-Column and row-wise medians of a matrix
+Column and row-wise medians of a matrix.
 }
 
 \usage{
@@ -33,9 +33,7 @@ A vector with the column medians.
 %}
 
 \author{
-Michail Tsagris
-
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
+R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 
@@ -52,5 +50,4 @@ all.equal(as.vector(a), b1)
 }
 
 \keyword{ Column-wise medians }
-\keyword{ parallel computations }
 

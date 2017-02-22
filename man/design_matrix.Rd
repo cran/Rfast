@@ -47,6 +47,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 \examples{
 a <- design_matrix( iris[, 5] )
 b <- model.matrix( ~ iris[,5] )  ## R's built-in funciton
+all.equal(as.vector(a),as.vector(b)) ## true
 }
 
 \keyword{ Design Matrix }

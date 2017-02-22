@@ -1,25 +1,14 @@
-﻿// [[Rcpp::depends(RcppArmadillo)]]
+// [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
 #include <vector>
 #include <algorithm>
-#include <utility>
-#include <string>
 #include "mn.h"
 
 using namespace Rcpp;
 using namespace arma;
-using namespace std;
 
-bool my_compare1(const pair<string,int>& a,const pair<string,int>& b){
+bool my_compare_order(const pr& a,const pr& b){
   return a.first<b.first;
-}
-
-bool my_compare_order(const pair<double,int>& a,const pair<double,int>& b){
-  return a.first<b.first;
-}
-
-bool descending(const double& a,const double& b){
-  return a>b;
 }
 
 bool cor_vecs(const pair<double,double>& a,const pair<double,double>& b){
@@ -91,21 +80,28 @@ colvec operator^(const char a,const colvec y){
   return Y;
 }
 
-vec loga(vec &x){
-  int n=x.size();
-  vec F(n);
-  for(int i=0;i<n;i++)
-    F(i)=log(x(i));
-  return F;
+rowvec operator/(colvec x,double s){
+  rowvec f(x.n_elem);
+  for(rowvec::iterator ff=f.begin(),xx=x.begin();ff!=f.end();++ff,++xx)
+    *ff=*xx/s;
+  return f;
 }
 
-double regression_only_col(colvec x, colvec y) {
+mat operator^(mat x,const int y){
+  int n=x.n_rows,p=x.n_cols;
+  mat Y(n,p);
+  mat::iterator YY=Y.begin(),xx=x.begin();
+  for(;YY!=Y.end();++YY,++xx)
+    *YY=*xx**xx;
+  return Y;
+}
+
+double regression_only_col(colvec x, colvec &y) {
   int n=x.size();
   double SSO=var(y)*(double)(n-1),SS1=0.0,F1=0.0;
-  mat z(n,2),tr_z(2,n);
+  mat z(n,2,fill::ones),tr_z(2,n);
   colvec b(2);
   vec res(n);
-  z.col(0)=ones(n);
   z.col(1)=x;
   tr_z=z.t();
   b=inv(tr_z*z)*tr_z*y;
@@ -152,7 +148,12 @@ double trigamma ( double x)
   //
   y = 1.0 / z / z;
   
-  value = value + 0.5 * y + ( 1.0+ y * ( b2+ y * ( b4+ y * ( b6+ y * b8 )))) / z;
+  value = value + 0.5 *
+    y + ( 1.0
+            + y * ( b2
+                      + y * ( b4
+                      + y * ( b6
+                      + y *   b8 )))) / z;
                       
                       return value;
 }
@@ -171,9 +172,7 @@ double digamma(double x) {
 }
 
 int i4_min ( double i1, double i2 ){ 
-  if ( i1 < i2 )
-    return i1;
-  return i2;
+	return i1 < i2 ? i1 : i2;
 }
   
 void i4mat_floyd ( int n, vector<double> &a ){
@@ -187,7 +186,7 @@ void i4mat_floyd ( int n, vector<double> &a ){
             a[i+j*n] = i4_min ( a[i+j*n], a[i+k*n] + a[k+j*n] );
 }
 
-void min_max2(double *start,double *end,double &min, double &max){
+void min_max_d(double *start,double *end,double &min, double &max){
   double xxx;
   min=max=*start;
   start++;
@@ -200,7 +199,7 @@ void min_max2(double *start,double *end,double &min, double &max){
   }
 }
 
-void min_max3(int *start,int *end,int &min, int &max){
+void min_max_i(int *start,int *end,int &min, int &max){
   int xxx;
   min=max=*start;
   start++;
@@ -257,18 +256,6 @@ void min_i(int *start,int *end, int &mn){
   }
 }
 
-void copy_sexp_d(double *x,double y[],int &len){
-  double *end=x+len,*yy=y;
-  for(;x!=end;++x,++yy)
-    *yy=*x;
-}
-
-void copy_sexp_i(int *x,int y[],int &len){
-  int *end=x+len,*yy=y;
-  for(;x!=end;++x,++yy)
-    *yy=*x;
-}
-
 colvec Digamma_v(colvec x,int &p){
   double *start=x.memptr(),*end=start+p;
   for(;start!=end;++start)
@@ -286,4 +273,38 @@ colvec Trigamma_v(colvec x,int &p){
 void fill_m(double *start,double *end,double v){
   for(;start!=end;++start)
     *start=v;
+}
+
+rowvec colMedians(mat& x){
+  int i,p=x.n_cols,sz=x.n_rows,middle=sz/2-1,step=sz;
+  mat::iterator first=x.begin(),last=first+step;
+  rowvec F(p);
+  rowvec::iterator FF=F.begin();
+  if(sz%2==0)
+    for(i=0;i<p;++i,++FF,first=last,last+=step){
+      nth_element(first,first+middle,last);
+      *FF=(x(middle,i)+*(min_element(first+middle+1,last)))/2.0;
+    }
+  else 
+    for(i=0;i<p;++i,++FF,first=last,last+=step){
+      nth_element(first,first+middle+1,last);
+      *FF=x(middle+1,i);
+    }
+  return F;
+}
+
+void combn(Rcpp::NumericVector& data, const int n,
+       const int start_idx, std::vector<double>& combn_data,
+       Rcpp::NumericMatrix& combn_dataset, int& combn_col) {
+  if (!n) {
+    for (size_t i = 0; i < combn_data.size(); ++i) {
+      combn_dataset(i, combn_col) = combn_data[i];
+    }
+    combn_col++;
+    return;
+  }
+  for (int i = start_idx; i <= (data.size() - n); ++i) {
+    combn_data[combn_data.size() - n] = data[i];
+    combn(data, n - 1, i + 1, combn_data, combn_dataset, combn_col);
+  }
 }

@@ -7,46 +7,35 @@ ttests <- function(x, y = NULL, ina, paired = FALSE, logged = FALSE) {
       x2 <- x[ ina == 2, ]
       n1 <- sum( ina == 1 )
       n2 <- length(ina) - n1
-	
-    }	else {
+    } else {
       x1 <- x     ;    n1 <- dim(x1)[1]
-	x2 <- y     ;    n2 <- dim(x2)[1]
+	  x2 <- y     ;    n2 <- dim(x2)[1]
     }
 
     m1 <- colmeans(x1)
     m2 <- colmeans(x2)
     f1 <- colVars(x1) / n1
     f2 <- colVars(x2) / n2
-
     fac <- f1 + f2
     dof <- fac^2 / ( f1^2 / (n1 - 1) + f2^2 / (n2 - 1) )
-
     stat <- ( m1 - m2 ) / sqrt(fac)
-    if ( logged == FALSE ) {
-      pvalue <- 2 * pt( abs(stat), dof, lower.tail = FALSE )
-    } else {
+    if ( logged ) {
       pvalue <- log(2) + pt( abs(stat), dof, lower.tail = FALSE, log.p = TRUE )
-    }  
+    } else  pvalue <- 2 * pt( abs(stat), dof, lower.tail = FALSE )  
     result <- cbind(stat, pvalue, dof)
 
   } else {
-
     n <- dim(x)[1]
-
     if ( is.null(y) ) {
       z <- x[ ina == 1, ] - x[ ina == 2, ]
-    }	else  z <- x - y    
-
+    } else  z <- x - y    
     m <- colmeans(z)
-    s <- colVars(z)
-    stat <- m / sqrt(s/n)
-    if ( logged == FALSE ) { 
-      pvalue <- 2 * pt( abs(stat), n - 1, lower.tail = FALSE )
-    } else {
+    s <- colVars(z, std = TRUE)
+    stat <- sqrt(n) * m / s
+    if ( logged ) {
       pvalue <- log(2) + pt( abs(stat), n - 1, lower.tail = FALSE, log.p = TRUE )  
-    }	
+    } else  pvalue <- 2 * pt( abs(stat), n - 1, lower.tail = FALSE )    	
     result <- cbind(stat, pvalue)
-
   }
 
   result
