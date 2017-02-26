@@ -275,7 +275,7 @@ void fill_m(double *start,double *end,double v){
     *start=v;
 }
 
-rowvec colMedians(mat& x){
+rowvec colMedians(mat x){
   int i,p=x.n_cols,sz=x.n_rows,middle=sz/2-1,step=sz;
   mat::iterator first=x.begin(),last=first+step;
   rowvec F(p);

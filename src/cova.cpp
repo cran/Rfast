@@ -8,10 +8,11 @@ using namespace Rcpp;
 //[[Rcpp::export]]
 mat cova(NumericMatrix X){
   mat x = mat(X.begin(), X.nrow(), X.ncol());
+  const int nrow1=x.n_rows-1;
   rowvec m=mean(x,0);
   x=x.each_row()-m;
   x=x.t()*x;
-  return x/(x.n_rows-1);
+  return x/nrow1;
 }
 
 RcppExport SEXP Rfast_cova(SEXP xSEXP){

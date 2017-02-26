@@ -50,7 +50,7 @@ void min_i(int *,int *, int &);
 colvec Digamma_v(colvec ,int &);
 colvec Trigamma_v(colvec ,int &);
 void fill_m(double *,double *,double);
-rowvec colMedians(mat&);
+rowvec colMedians(mat);
 void combn(NumericVector&,const int,const int, vector<double>&,
        NumericMatrix&,int&);
 #endif

@@ -1,4 +1,4 @@
-1bba1f4f6980f3322ae7eb26b1503a83 *DESCRIPTION
+6f79ea01a30fcc6d27658cf8cf94cb91 *DESCRIPTION
 2f15c9d8961d68d47454cdb10c232839 *NAMESPACE
 5044009408fa364eb0787e07cb08f444 *R/Digamma.R
 5cdf1ae02771af2ae880a96c2b11c5be *R/Dist.R
@@ -12,7 +12,7 @@ c34d4eb978fcefcd7c0c56c79de350b5 *R/Lgamma.R
 34ae40e0eb45ba2854cacf0a319dfa8b *R/anovas.R
 8573e0331288d3c1bae52f6a0232d3bf *R/beta.mle.R
 e2e7961ee35c066adfda9799e6492a35 *R/binary_search.R
-5d184151aae2d44479e454b87c2c46ba *R/check_data.R
+0c1e2371dd36f29e32fef7d889227c32 *R/check_data.R
 482befe2b79f9271d6cc5aa1fdc861ea *R/colMads.R
 4516cee34a14b68076c009ee1bc6051b *R/colMaxs.R
 06d328ab9ad279f25a261f23ea0162ab *R/colMedians.R
@@ -86,7 +86,7 @@ cf392f042c5b80c1bbd9cecaa793eb56 *R/ztp.mle.R
 0ce159f5129ea9c7b158d88cda3fd0d2 *man/Lgamma.Rd
 358c749fcbbdf62f822f97dfc8b84b73 *man/Match.Rd
 a6e0b5051bfd474ae61463c0ce180c8f *man/Order.Rd
-d5274468240bcccbd58ce9368abc34a6 *man/Rfast-package.Rd
+59b58f9729ea3d802b004717de766908 *man/Rfast-package.Rd
 c70a7a2b5c5015653aefb4e85863288b *man/Var.Rd
 2d5604c5f8b526a99bc6bcdf76a2d10f *man/all_equals.Rd
 83eddec5b0f030bf1070dbac86e922c7 *man/allbetas.Rd
@@ -100,7 +100,7 @@ d63940dbec0eb45cf91a3ac7c4e08beb *man/colMins.Rd
 e7455b60c99782f253cf0df082f9ae0b *man/colmeans.Rd
 402f78e012cf20f49f0bfc12a746fe87 *man/colrange.Rd
 a85c09ccc8703c66a4d64708e42fbeea *man/colsums.Rd
-de200f643dcf772bf105bd04d2c29b7a *man/comb_n.Rd
+7ea5b0d21bfe52d2ae114e339d3a7465 *man/comb_n.Rd
 ace484ef21923b91b68a15c4bf83bd3d *man/cor.fsreg.Rd
 cb1e403c60aee41d40c464ec0bbbaa93 *man/correls.Rd
 d238dd367c0ffd618ca52dcf938fecb3 *man/count_value.Rd
@@ -159,12 +159,12 @@ d8301d3cb7a174ecfccb1974ab5dca69 *src/Trigamma.cpp
 fc08f9f95c10fdd8ff8ba451316daedd *src/col_min_max.cpp
 297fd9794b863e580d0240110825e6b3 *src/colmaxs.cpp
 efd4ce95d84d4b5974410b9ac06c6546 *src/colmeans.cpp
-b3235fe2d8e10b6c667411fa4d096a92 *src/colmeds.cpp
+01f87bd0ca8d8c5f7d44741516d72771 *src/colmeds.cpp
 f4c4b552714140887ada194acf90e2a1 *src/colmins.cpp
 b33ec046edf7b48956799d87c3c3023c *src/colsums.cpp
 175f01d754d47bf9e5511fb0e4930d24 *src/comb_n.cpp
 61f5f653e0d9bdd506b12b135abe2b18 *src/count_value.cpp
-ffa21dd6735e11adc5243be59280cd97 *src/cova.cpp
+c8cde4c8adb1096c8c84c904e99f2013 *src/cova.cpp
 88b0f8ea9883ef8c37e7b8a410e1913c *src/design_matrix.cpp
 9f5624f03282acd0ea3ba722e5d6930e *src/diri_nr_type2.cpp
 55f906b000fe5607d64e4d355cf23117 *src/euclidean_dist.cpp
@@ -174,7 +174,7 @@ ffa21dd6735e11adc5243be59280cd97 *src/cova.cpp
 19bb344613d5d9f75791812c8fb21429 *src/g2t.h
 152a0ac60e79b85b88e81c3b9945cc14 *src/gsquare_ex.cpp
 c0d29a06117994e7ec85a17d58c94e8c *src/hash_find.cpp
-e8d742f6d311b51506c15eae561463ca *src/init.c
+940ecd1e252df0a63bedb89b35ec6e17 *src/init.c
 548bbf7f306674bdfcf41d4d166e92f8 *src/is_element.cpp
 362c03fef62d470930bb4c6660419113 *src/logistic_only.cpp
 6275e00d3c4d9d9892034de02131bee6 *src/maha.cpp
@@ -183,8 +183,8 @@ a2e36a055c598d153251e0cb6964db9d *src/maha_ex.cpp
 f1ea4c4a11de31cf83c27dfef5ed87f3 *src/max_dist.cpp
 0d5b7a5b1474c51c0554de52eb6cdc8c *src/med.cpp
 504d134f584490db5d4bd96d705dff99 *src/min_max.cpp
-7df4b15c1a89ac94014f10229dd3b21c *src/mn.cpp
-e3b4df58eff303bc6170307011379daa *src/mn.h
+f6d4f6cea6fba8ad430e5a164e9bc6f6 *src/mn.cpp
+60b1d77722557943d366a13ecedd980c *src/mn.h
 f5e4478d2ec24d4bac29484a3159b9a9 *src/nth.cpp
 95aa413672c7c6f236025eaec34d7a60 *src/permutation.cpp
 23e63472e70a910de8d40591331b3488 *src/permutation_next.cpp

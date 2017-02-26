@@ -60,4 +60,3 @@ comb_n(x, 3)
 
 \keyword{ Combinatorics }
 \keyword{ All possibe combinations }
-

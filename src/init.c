@@ -26,7 +26,6 @@ SEXP Rfast_rowsums(SEXP xSEXP);
 SEXP Rfast_sort_unique_double(SEXP xSEXP);
 SEXP Rfast_sort_mat(SEXP xSEXP);
 SEXP Rfast_sort_unique_int(SEXP xSEXP);
-SEXP Rfast_spat_med(SEXP xSEXP,SEXP tolSEXP);
 SEXP Rfast_symmetric(SEXP xSEXP);
 SEXP Rfast_Trigamma(SEXP x);
 SEXP Rfast_var_c(SEXP xSEXP);
@@ -59,6 +58,7 @@ SEXP Rfast_g2Test_univariate(SEXP dataSEXP,SEXP dcSEXP);
 SEXP Rfast_g2Test_perm(SEXP dataSEXP,SEXP xSEXP,SEXP ySEXP,SEXP csSEXP,SEXP dcSEXP,SEXP npermSEXP);
 SEXP Rfast_hash_find(SEXP xSEXP,SEXP valueSEXP);
 SEXP Rfast_Hash_list(SEXP keySEXP,SEXP xSEXP);
+SEXP Rfast_spat_med(SEXP xSEXP,SEXP tolSEXP);
 
 static const R_CallMethodDef CallEntries[] = {
   {"Rfast_logistic_only", (DL_FUNC) &Rfast_logistic_only, 2},
@@ -86,7 +86,6 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_sort_unique_double", (DL_FUNC) &Rfast_sort_unique_double, 1},
   {"Rfast_sort_mat", (DL_FUNC) &Rfast_sort_mat, 1},
   {"Rfast_sort_unique_int", (DL_FUNC) &Rfast_sort_unique_int, 1},
-  {"Rfast_spat_med", (DL_FUNC) &Rfast_spat_med, 2},
   {"Rfast_symmetric", (DL_FUNC) &Rfast_symmetric, 1},
   {"Rfast_Trigamma", (DL_FUNC) &Rfast_Trigamma, 1},
   {"Rfast_var_c", (DL_FUNC) &Rfast_var_c, 1},
@@ -119,6 +118,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_g2Test_perm", (DL_FUNC) &Rfast_g2Test_perm, 6},
   {"Rfast_hash_find", (DL_FUNC) &Rfast_hash_find, 2},
   {"Rfast_Hash_list", (DL_FUNC) &Rfast_Hash_list, 2},
+  {"Rfast_spat_med", (DL_FUNC) &Rfast_spat_med, 2},
   {NULL, NULL, 0}
 };
 

@@ -13,18 +13,20 @@ using namespace arma;
 SEXP colmeds(NumericMatrix x){
   const int p=x.ncol(),step=x.nrow(),middle=step/2-1;
   int i;
-  NumericMatrix::iterator first=x.begin(),last=first+step;
+  NumericVector tmp(step);
   SEXP F=Rf_allocVector(REALSXP,p);
   double *FF=REAL(F);
   if(step%2==0)
-    for(i=0;i<p;++i,++FF,first=last,last+=step){
-      nth_element(first,first+middle,last);
-      *FF=(x(middle,i)+*(min_element(first+middle+1,last)))/2.0;
+    for(i=0;i<p;++i,++FF){
+      tmp=x.column(i);
+      nth_element(tmp.begin(),tmp.begin()+middle,tmp.end());
+      *FF=(tmp[middle]+*(min_element(tmp.begin()+middle+1,tmp.end())))/2.0;
     }
     else 
-      for(i=0;i<p;++i,++FF,first=last,last+=step){
-        nth_element(first,first+middle+1,last);
-        *FF=x(middle+1,i);
+      for(i=0;i<p;++i,++FF){
+        tmp=x.column(i);
+        nth_element(tmp.begin(),tmp.begin()+middle+1,tmp.end());
+        *FF=tmp[middle+1];
       }
       return F;
 }
