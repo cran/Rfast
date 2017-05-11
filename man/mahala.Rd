@@ -21,7 +21,7 @@ The mean vector.
 The covariance or any square symmetric matrix.
 }
 \item{ischol}{
-A boolean variable set to true if the Cholesky decomposition of the covariance matrix is supplied in the argument "sigma".
+A boolean variable set to true if the Cholesky decomposition of the covariance matrix is supplied in the argument \"sigma\".
 }
 
 }
@@ -52,12 +52,10 @@ C++ and R implementation and documentation: Matteo Fasiolo <matteo.fasiolo@gmail
 }
 
 \examples{
-x <- matrix( rnorm(1000 * 200), ncol = 200 )
+x <- matrix( rnorm(100 * 50), ncol = 50 )
 m <- colmeans(x)
 s <- cov(x)
-system.time( a1 <- mahala(x, m, s) )
-system.time( a2 <- mahalanobis(x, m, s) )
-all.equal(as.vector(a1), as.vector(a2))
+a1 <- mahala(x, m, s) 
 }
 
 \keyword{ Mahalanobis distance }

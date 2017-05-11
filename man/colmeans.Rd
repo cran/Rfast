@@ -52,7 +52,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- matrix(rpois(1000 * 1000,10),ncol = 1000)
+x <- matrix(rpois(100 * 100, 10),ncol = 100)
 x1 <- colmeans(x)
 x2 <- colMeans(x)
 all.equal(x1,x2)

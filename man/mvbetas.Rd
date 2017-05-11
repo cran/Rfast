@@ -50,15 +50,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-y <- matrix( rnorm(100 * 1000), ncol = 1000 )
+y <- matrix( rnorm(100 * 100), ncol = 100 )
 x <- rnorm(100)
 a <- mvbetas(y, x, pvalue = FALSE)
-b <- matrix(nrow = 1000, ncol = 2)
+b <- matrix(nrow = 100, ncol = 2)
 z <- cbind(1, x)
-for (i in 1:1000) b[i, ] = coef( lm.fit( z, y[, i] ) )
 
-system.time( mvbetas(y, x) )
-system.time(  for (i in 1:1000) b[i, ] = coef( lm.fit( z, y[, i] ) )  )
+system.time( a <- mvbetas(y, x) )
+system.time(  for (i in 1:100) b[i, ] = coef( lm.fit( z, y[, i] ) )  )
 
 }
 

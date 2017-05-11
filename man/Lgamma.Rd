@@ -51,17 +51,13 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- matrix( rnorm(1000 * 500), ncol = 500 )
-system.time( a1 <- Lgamma(x) )
-system.time( a2 <- lgamma(x) )
+x <- matrix( rnorm(500 * 500), ncol = 500 )
+ a1 <- Lgamma(x) 
+a2 <- lgamma(x) 
 all.equal(as.vector(a1), as.vector(a2))
 
-system.time( a1 <- Digamma(x) )
-system.time( a2 <- digamma(x) )
-all.equal(as.vector(a1), as.vector(a2))
-
-system.time( a1 <- Trigamma(x) )
-system.time( a2 <- trigamma(x) )
+a1 <- Digamma(x) 
+a2 <- digamma(x) 
 all.equal(as.vector(a1), as.vector(a2))
 }
 

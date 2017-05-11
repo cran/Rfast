@@ -1,5 +1,5 @@
 \name{ Order }
-\alias{Order}
+\alias{ Order }
 \title{
 Order
 }
@@ -22,7 +22,7 @@ A boolean value for using a stable sorting algorithm.
 }
 
 \details{
-This function implements the R's "Order" function. If you want the same results as R's, then set "stable=TRUE" because "stable=FALSE" uses a sorting algorithm that it is not stable like R's sort. But it is faster to use the default.
+This function implements the R's "Order" function. If you want the same results as R's, then set "stable=TRUE" because "stable=FALSE" uses a sorting algorithm that it is not stable like R's sort. But it is faster to use the default. This verion is faster for large data, more than 1000.
 }
 
 \value{

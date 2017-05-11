@@ -5,7 +5,7 @@ Standardisation
 }
 
 \description{
-Standardisation
+Standardisation.
 }
 
 \usage{
@@ -25,7 +25,7 @@ Should the columns have unit variance, yes (TRUE) or no (FALSE)?
 }
 
 \details{
-Similar to R's built in functions "scale" there is the option for centering or scaling only or both (default).
+Similar to R's built in functions \"scale\" there is the option for centering or scaling only or both (default).
 }
 
 \value{
@@ -51,9 +51,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <-matrix( rnorm( 10000 * 100), ncol = 100 )
-system.time( a1 <- scale(x)[1:10000, ] )
-system.time( a2 <- standardise(x) )
+x <-matrix( rnorm( 100 * 100), ncol = 100 )
+a1 <- scale(x)[1:100, ] 
+a2 <- standardise(x) 
 all.equal(as.vector(a1), as.vector(a2))
 
 }

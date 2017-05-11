@@ -1,5 +1,6 @@
 \name{Distance matrix}
 \alias{Dist}
+\alias{vecdist}
 \title{
 Distance matrix
 }
@@ -9,21 +10,26 @@ Distance matrix.
 }
 
 \usage{
-Dist(x, method = "euclidean", square = FALSE)
+Dist(x, method = "euclidean", square = FALSE, p = 0)
+vecdist(x)
 }
 
 \arguments{
 \item{x}{
 A matrix with data. The distances will be calculated between pairs of rows. 
+In the case of \bold{vecdist} this is a vector.
 }
 \item{method}{
-This is either "euclidean", "mahnatatan" or "maximum". the "euclidean" is the usual Euclidean distance,
-the "manhattan" is the absolute distance between the two vectors. The "maximum" refers to the 
-maximum distance between the elements of two vectors x and y (supremum norm).
+This is either "euclidean", "mahnatatan", "canberra1", "canberra2", "minimum", "maximum", "minkowski",
+"bhattacharyya", "hellinger", "total_variation" or "kullback_leibler" or "jensen_shannon". 
+The last two options are basically the same. 
 }
 \item{square}{
-If you choose "euclidean" as the method, then you can have the optino to return the 
+If you choose "euclidean" or "hellinger" as the method, then you can have the optino to return the 
 squared Euclidean distances by setting this argument to TRUE. 
+}
+\item{p}{
+This is for the the Mikowski, the power of the metric. 
 }
 }
 
@@ -51,16 +57,18 @@ Manos Papadakis <papadakm95@gmail.com>
 %}
 
 \seealso{
-\code{\link{colMedians}
+\code{\link{dista}, \link{colMedians}
 }
 }
 
 \examples{
-x <- matrix(rnorm(200*100),ncol=100)
-system.time(a1 <- Dist(x))
-system.time(a2 <- dist(x))
+x <- matrix(rnorm(50 * 10), ncol = 10)
+a1 <- Dist(x)
+a2 <- as.matrix( dist(x) )
 }
 
 \keyword{ Distance matrix }
 \keyword{ Euclidean distance }
 \keyword{ Manhattan distance }
+\keyword{ Canberra distance }
+\keyword{ Hellinger distance }

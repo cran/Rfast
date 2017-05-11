@@ -45,13 +45,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- rnorm(10000)
-system.time( for (i in 1:1000) med(x) )
-system.time( for (i in 1:1000) median(x) )
-
-x <- rnorm(10001)
-system.time( for (i in 1:1000) med(x) )
-system.time( for (i in 1:1000) median(x) )
+x <- rnorm(1000)
+system.time( for (i in 1:100) med(x) )
+system.time( for (i in 1:100) median(x) )
 }
 
 \keyword{ nth elements }

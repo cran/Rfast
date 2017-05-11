@@ -46,7 +46,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- matrix(rpois(1000 * 1000,10),ncol = 1000)
+x <- matrix(rpois(500 * 100, 10),ncol = 100)
 x1 <- colsums(x)
 x2 <- colSums(x)
 all.equal(x1,x2)

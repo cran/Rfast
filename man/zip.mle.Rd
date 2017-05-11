@@ -77,13 +77,13 @@ zip.mle(x)
 sum(dpois(x, mean(x), log = TRUE))
 ## small difference in the two log-likelihoods as expected.
 
-x <- rpois(1000, 10)
+x <- rpois(100, 10)
 x[x == 0 ] <- 1
 ztp.mle(x)
 sum(dpois(x, mean(x), log = TRUE))
 ## significant difference in the two log-likelihoods. 
 
-x <- rnbinom(1000, 10, 0.6)
+x <- rnbinom(100, 10, 0.6)
 sum(dpois(x, mean(x), log = TRUE))
 negbin.mle(x)
 }

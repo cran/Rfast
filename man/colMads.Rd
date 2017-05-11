@@ -43,7 +43,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rnorm(100 * 1000), ncol = 1000 )
+x <- matrix( rnorm(100 * 100), ncol = 100 )
 system.time( a <- colMads(x) )
 
 }

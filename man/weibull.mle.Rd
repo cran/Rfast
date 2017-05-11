@@ -55,9 +55,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- rweibull(1000, 1, 2)
-system.time( for (i in 1:10) weibull.mle(x) )
-#system.time( for (i in 1:10)  MASS::fitdistr(x,"weibull") )
+x <- rweibull(100, 1, 2)
+for (i in 1:10) weibull.mle(x) 
+# for (i in 1:10)  MASS::fitdistr(x, "weibull") )
 }
 
 \keyword{ Weibull distribution }

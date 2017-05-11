@@ -22,7 +22,7 @@ mat regression(DataFrame x, colvec y){
   }
   NumericMatrix strtonum_des;
   int pos_f=0,ptf=0, n=x.nrows(),p;
-  mat strtonum,tr_strtonum,b;
+  mat tr_strtonum,b,strtonum;
   double SSO=var(y)*(double)(n-1),SS1;
   vec res;
   CharacterVector leksi;
@@ -30,7 +30,7 @@ mat regression(DataFrame x, colvec y){
   for(i=0;i<size_F;++i,++xx){
     if(pos_f==i){
       leksi=*xx;
-      strtonum_des=design_matrix(leksi,true);
+      strtonum_des=design_matrix_regr(leksi);
       strtonum=mat(strtonum_des.begin(),strtonum_des.nrow(),strtonum_des.ncol(),false);
       tr_strtonum=strtonum.t();
       b=inv(tr_strtonum*strtonum)*tr_strtonum*y; 

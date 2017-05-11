@@ -18,7 +18,7 @@ score.glms <- function(y, x, oiko = NULL, logged = FALSE ) {
   
   stat <- up / sqrt(down)
   
-  if ( logged == TRUE ) {
+  if ( logged ) {
     pvalue <- log(2) + pt( abs(stat), n - 2, lower.tail = FALSE, log.p = TRUE )
   } else  pvalue <- 2 * pt( abs(stat), n - 2, lower.tail = FALSE )
         

@@ -45,14 +45,15 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 %}
 
 \seealso{
-\code{\link{rmvnorm}, \link{rmvlaplace}, \link{rmvt}
+\code{\link{acg.mle}, \link{rmvnorm}, \link{rmvlaplace}, \link{rmvt}
 }
 }
 
 \examples{
 s <- cov( iris[, 1:4] )
 x <- racg(100, s)
-## Directional::acg(x)  ## fitting is done in the Directional package 
+acg.mle(x)  
+vmf.mle(x)  ## the concentration parameter, kappa, is very low, close to zero, as expected.
 }
 
 \keyword{ Angular central Gaussian distribution }

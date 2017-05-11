@@ -9,7 +9,7 @@ Minimum and maximum of a vector.
 }
 
 \usage{
-min_max(x,index=FALSE)
+min_max(x,index=FALSE, percent = FALSE)
 }
 
 \arguments{
@@ -18,6 +18,9 @@ A numerical vector with data. NAs are handled naturally.
 }
 \item{index}{
 A boolean value for the indices of the minimum and the maximum value.
+}
+\item{percent}{
+A boolean value for the percent of the positive and negative numbers.
 }
 }
 
@@ -49,10 +52,9 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- rnorm(1000 * 2000)
-
-system.time( s1 <- min_max(x) )
-system.time( s2 <- c(min(x), max(x)) )
+x <- rnorm(100 * 500)
+s1 <- min_max(x) 
+s2 <- c(min(x), max(x)) 
 
 }
 

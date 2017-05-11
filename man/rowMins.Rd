@@ -1,6 +1,7 @@
 \name{Row-wise minimum and maximum}
 \alias{rowMins}
 \alias{rowMaxs}
+\alias{rowMinsMaxs}
 \title{
 Row-wise minimum and maximum of a matrix.
 }
@@ -12,6 +13,7 @@ Row-wise minimum and maximum of a matrix.
 \usage{
 rowMins(x, value = FALSE)
 rowMaxs(x, value = FALSE)
+rowMinsMaxs(x)
 }
 
 \arguments{
@@ -50,13 +52,16 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- matrix( rnorm(1000 * 2000), ncol = 2000 )
+x <- matrix( rnorm(500 * 500), ncol = 500 )
 
 system.time( s1 <- rowMins(x) )
-system.time( s1 <- apply(x, 1, min) )
+system.time( s2 <- apply(x, 1, min) )
 
 system.time( s1 <- rowMaxs(x) )
-system.time( s1 <- apply(x, 1, max) )
+system.time( s2 <- apply(x, 1, max) )
+
+system.time( s1 <- c(apply(x, 1, min),apply(x, 1, max) ))
+system.time( s2 <- rowMinsMaxs(x) )
 }
 
 \keyword{ Row-wise minimum }

@@ -54,17 +54,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rnorm(100 * 1000), ncol = 1000 )
+x <- matrix( rnorm(100 * 500), ncol = 500 )
 y <- rnorm(100)
 r <- cor(y, x)  ## correlation of y with each of the xs
 a <- allbetas(y, x)  ## the coefficients of each simple linear regression of y with x
-b <- matrix(nrow = 1000, ncol = 2)
-for (i in 1:1000) b[i, ] = coef( lm.fit( cbind(1,x[,i]), y ) )
-
-x <- matrix( rnorm(100 * 1000), ncol = 1000 )
-y <- rnorm(100)
-system.time( allbetas(y, x) )
-system.time(  for (i in 1:1000) b[i, ] = coef( lm.fit( cbind(1, x[,i]), y ) )  )
 
 }
 

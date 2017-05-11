@@ -1,49 +1,67 @@
 //Author: Manos Papadakis
 
 #include <RcppArmadillo.h>
-#include <Rcpp.h>
 #include <vector>
+#include "mn.h"
 
 using namespace Rcpp;
 using namespace std;
 
 //[[Rcpp::export]]
 vector<int> sort_unique_int(vector<int> x){
-  bool count_neg=false,count_pos=false;
-  int aa,szn=1,szp=1;
-  vector<int> f(1,INT_MAX),ff,neg(1,INT_MAX);
-  vector<int>::iterator a=x.begin(),F=f.begin(),nn=neg.begin();
-  for(;a!=x.end();++a){
-    aa=*a;
-    if(aa<0){
-      if(-aa>=szn){
-        szn=-aa+1;
-        neg.resize(szn,INT_MAX);
-        nn=neg.begin();
-      }
-      count_neg=true;
+  int aa,mx,mn,count_not_zero=0;
+  int count_pos=0;
+  max_neg_pos(&x[0],&(*x.end()),mx,mn,count_pos);
+  const int count_neg=x.size()-count_pos;
+  vector<int> pos,f,neg;
+  vector<int>::iterator a=x.begin(),pp,nn,F;
+  if(count_pos>0)
+    pos.resize(mx+1,INT_MAX);
+  if(count_neg>0)
+    neg.resize(1-mn,INT_MAX);
+  if(count_pos && count_neg){
+    for(nn=neg.begin(),pp=pos.begin();a!=x.end();++a){
+      aa=*a;
+      if(aa<0)
+        *(nn-aa)=aa;
+      else
+        *(pp+aa)=aa;
+    }
+  }else if(count_pos){
+    for(pp=pos.begin();a!=x.end();++a){
+      aa=*a;
+      *(pp+aa)=aa;
+    }
+    
+  }else{ 
+    for(nn=neg.begin();a!=x.end();++a){
+      aa=*a;
       *(nn-aa)=aa;
-    }else{
-      if(aa>=szp){
-        szp=aa+1;
-        f.resize(szp,INT_MAX);
-        F=f.begin();
-      }
-      count_pos=true;
-      *(F+aa)=aa;
     }
   }
+  if(count_neg)
+    for(nn=neg.begin();nn!=neg.end();++nn)
+      if(*nn!=INT_MAX)
+        count_not_zero++;
+  if(count_pos)
+    for(pp=pos.begin();pp!=pos.end();++pp)
+      if(*pp!=INT_MAX)
+        count_not_zero++;
+  f.resize(count_not_zero,INT_MAX);
+  F=f.begin();
   if(count_neg){
-    vector<int>::reverse_iterator nr;
-    for(nr=neg.rbegin();nr!=neg.rend();++nr)
-      if(*nr!=INT_MAX)
-        ff.push_back(*nr);
+    vector<int>::reverse_iterator nr=neg.rbegin();
+    for(;nr!=neg.rend();++nr)
+      if(*nr!=INT_MAX){
+        *F++=*nr;
+      }
   }
   if(count_pos)
-    for(a=f.begin();a!=f.end();++a)
-      if(*a!=INT_MAX)
-        ff.push_back(*a);
-  return ff;
+    for(a=pos.begin();a!=pos.end();++a)
+      if(*a!=INT_MAX){
+        *F++=*a;
+      }
+  return f;
 }
 
 RcppExport SEXP Rfast_sort_unique_int(SEXP xSEXP){

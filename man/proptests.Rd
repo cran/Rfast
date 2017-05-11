@@ -56,18 +56,16 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 ## 10000 variables, hence 10000 t-tests will be performed
 set.seed(12345)
-x1 <- rpois(10000, 5)
-x2 <- rpois(10000, 5)
-n1 <- rpois(10000, 40)
-n2 <- rpois(10000, 40)
+x1 <- rpois(1000, 5)
+x2 <- rpois(1000, 5)
+n1 <- rpois(1000, 40)
+n2 <- rpois(1000, 40)
 a <- proptests(x1, x2, n1, n2)
-system.time( proptests(x1, x2, n1, n2) )
 hist(a[, 4])
 
-x1 <- rbinom(10000, 1000, 0.6)
-x2 <- rbinom(10000, 1000, 0.6)
-b <- proptests(x1, x2, 1000, 1000)
-system.time( b <- proptests(x1, x2, 1000, 1000) ) 
+x1 <- rbinom(1000, 500, 0.6)
+x2 <- rbinom(1000, 500, 0.6)
+b <- proptests(x1, x2, 500, 500)
 hist(b[, 4])
 }
 

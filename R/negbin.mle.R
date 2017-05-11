@@ -7,10 +7,9 @@ negbin.mle <- function(x, type = 1, tol = 1e-09) {
   p <- 1 - m / (m2 - m^2)
   expr1 <- m / p - m 
   mess <- NULL
-
   if ( expr1 < 0 )  mess <- c("Negative estimate of number of failures. A geometric or a binomial distribution is perhaps more suitable.")
-  
   expr1 <- abs(expr1)  
+  
   if ( type == 1 ) {
     r1 <- log(expr1)
     a <- x + expr1
@@ -61,8 +60,7 @@ negbin.mle <- function(x, type = 1, tol = 1e-09) {
     param <- c( p, expr2, m )
     names(param) <- c("success probability", "number of failures", "mean")
     loglik <- sum( Lgamma(x + expr2) ) - sum( Lgamma(x + 1) ) - n * lgamma(expr2) +
-              sx * log( 1- p) + n * expr2 * log(p)  
-  
+              sx * log( 1- p) + n * expr2 * log(p)   
   list(mess = mess, iters = i, loglik = loglik, param = param)
 }
 

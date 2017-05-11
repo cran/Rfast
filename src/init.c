@@ -1,7 +1,7 @@
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
 
-SEXP Rfast_logistic_only(SEXP xSEXP,SEXP ySEXP);
+SEXP Rfast_logistic_only(SEXP xSEXP,SEXP ySEXP,SEXP tolSEXP);
 SEXP Rfast_mahaCpp(SEXP X, SEXP mu, SEXP sigma, SEXP isChol);
 SEXP Rfast_manhattan_dist(SEXP xSEXP);
 SEXP Rfast_Match(SEXP xSEXP,SEXP keySEXP);
@@ -13,7 +13,7 @@ SEXP Rfast_Order(SEXP xSEXP,SEXP stableSEXP);
 SEXP Rfast_permutation(SEXP xSEXP,SEXP allSEXP,SEXP fnSEXP);
 SEXP Rfast_permutation_next(SEXP xSEXP,SEXP all_nextSEXP,SEXP fnSEXP);
 SEXP Rfast_permutation_prev(SEXP xSEXP,SEXP all_prevSEXP,SEXP fnSEXP);
-SEXP Rfast_poisson_only(SEXP xSEXP,SEXP ySEXP,SEXP ylogySEXP);
+SEXP Rfast_poisson_only(SEXP xSEXP,SEXP ySEXP,SEXP ylogySEXP,SEXP tolSEXP);
 SEXP Rfast_regression(SEXP xSEXP,SEXP ySEXP);
 SEXP Rfast_rowmeans(SEXP xSEXP);
 SEXP Rfast_rowMaxs(SEXP xSEXP,SEXP valueSEXP);
@@ -24,7 +24,8 @@ SEXP Rfast_sort_cor_vecs(SEXP xSEXP,SEXP ySEXP);
 SEXP Rfast_sort_index(SEXP xSEXP,SEXP descendingSEXP);
 SEXP Rfast_rowsums(SEXP xSEXP);
 SEXP Rfast_sort_unique_double(SEXP xSEXP);
-SEXP Rfast_sort_mat(SEXP xSEXP);
+SEXP Rfast_sort_row(SEXP xSEXP,SEXP descendSEXP);
+SEXP Rfast_sort_col(SEXP xSEXP,SEXP descendSEXP);
 SEXP Rfast_sort_unique_int(SEXP xSEXP);
 SEXP Rfast_symmetric(SEXP xSEXP);
 SEXP Rfast_Trigamma(SEXP x);
@@ -59,9 +60,55 @@ SEXP Rfast_g2Test_perm(SEXP dataSEXP,SEXP xSEXP,SEXP ySEXP,SEXP csSEXP,SEXP dcSE
 SEXP Rfast_hash_find(SEXP xSEXP,SEXP valueSEXP);
 SEXP Rfast_Hash_list(SEXP keySEXP,SEXP xSEXP);
 SEXP Rfast_spat_med(SEXP xSEXP,SEXP tolSEXP);
+SEXP Rfast_len_sort_unique_double(SEXP xSEXP);
+SEXP Rfast_len_sort_unique_int(SEXP xSEXP);
+SEXP Rfast_Log(SEXP x);
+SEXP Rfast_rmdp(SEXP ySEXP,SEXP hSEXP,SEXP rndSEXP,SEXP itertimeSEXP);
+SEXP Rfast_Sort(SEXP x,SEXP descendSEXP);
+SEXP Rfast_colnth(SEXP xSEXP,SEXP ySEXP);
+SEXP Rfast_col_len_sort_un_int(SEXP xSEXP);
+SEXP Rfast_kron(SEXP xSEXP,SEXP ySEXP);
+SEXP Rfast_min_dist(SEXP xSEXP);
+SEXP Rfast_min_max_perc(SEXP x);
+SEXP Rfast_minkowski_dist(SEXP xSEXP,SEXP pSEXP);
+SEXP Rfast_coltabulate(SEXP xSEXP,SEXP nrowwSEXP);
+SEXP Rfast_rowtabulate(SEXP xSEXP,SEXP ncollSEXP);
+SEXP Rfast_rep_col(SEXP xSEXP,SEXP nSEXP);
+SEXP Rfast_rownth(SEXP xSEXP,SEXP ySEXP);
+SEXP Rfast_row_min_max(SEXP x);
+SEXP Rfast_row_shuffle(SEXP xSEXP);
+SEXP Rfast_design_matrix_big(SEXP xSEXP);
+SEXP Rfast_partial_sort(SEXP x,SEXP nSEXP,SEXP descendSEXP);
+SEXP Rfast_sort_string(SEXP xSEXP,SEXP descendSEXP);
+SEXP Rfast_stable_sort(SEXP x,SEXP descendSEXP);
+SEXP Rfast_total_variation_dist(SEXP xSEXP);
+SEXP Rfast_group_sum(SEXP xSEXP,SEXP groupSEXP);
+SEXP Rfast_varcomps_mle(SEXP xSEXP,SEXP inaSEXP,SEXP nSEXP,SEXP tolSEXP);
+SEXP Rfast_vecdist(SEXP x);
+SEXP Rfast_dista(SEXP XnewSEXP,SEXP XSEXP,SEXP typeSEXP);
+SEXP Rfast_col_shuffle(SEXP lenSEXP,SEXP nSEXP);
+SEXP Rfast_glm_logistic(SEXP xSEXP,SEXP ySEXP,SEXP tolSEXP);
+SEXP Rfast_glm_poisson(SEXP xSEXP,SEXP ySEXP,SEXP ylogySEXP,SEXP tolSEXP);
+SEXP Rfast_canberra1_dist(SEXP xSEXP);
+SEXP Rfast_canberra2_dist(SEXP xSEXP);
+SEXP Rfast_mat_mat(SEXP xSEXP,SEXP ySEXP);
+SEXP Rfast_hellinger_dist(SEXP xSEXP,SEXP sqrSEXP);
+SEXP Rfast_prop_reg(SEXP xSEXP,SEXP ySEXP);
+SEXP Rfast_prop_regs(SEXP xSEXP,SEXP ySEXP,SEXP tolSEXP,SEXP varbSEXP);
+SEXP Rfast_Lbeta(SEXP x,SEXP y);
+SEXP Rfast_Choose(SEXP x,SEXP kSEXP);
+SEXP Rfast_Lchoose(SEXP x,SEXP kSEXP);
+SEXP Rfast_Round(SEXP x,SEXP dgSEXP);
+SEXP Rfast_fs_reg(SEXP ySEXP,SEXP dsSEXP,SEXP sigSEXP,SEXP tolSEXP,SEXP typeSEXP);
+SEXP Rfast_add_functions_to_export(SEXP dir_to_exportSEXP,SEXP dir_to_fileSEXP);
+SEXP Rfast_read_directory(SEXP pathSEXP);
+SEXP Rfast_logistic_only_b(SEXP xSEXP,SEXP ySEXP,SEXP tolSEXP);
+SEXP Rfast_poisson_only_b(SEXP xSEXP,SEXP ySEXP,SEXP ylogySEXP,SEXP tolSEXP);
+SEXP Rfast_squareform_c(SEXP xSEXP);
+SEXP Rfast_rvmf_h(SEXP xSEXP,SEXP caSEXP,SEXP d1SEXP,SEXP x0SEXP,SEXP mSEXP,SEXP kSEXP,SEXP bSEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-  {"Rfast_logistic_only", (DL_FUNC) &Rfast_logistic_only, 2},
+  {"Rfast_logistic_only", (DL_FUNC) &Rfast_logistic_only, 3},
   {"Rfast_mahaCpp", (DL_FUNC) &Rfast_mahaCpp, 4},
   {"Rfast_manhattan_dist", (DL_FUNC) &Rfast_manhattan_dist, 1},
   {"Rfast_Match", (DL_FUNC) &Rfast_Match, 2},
@@ -73,7 +120,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_permutation", (DL_FUNC) &Rfast_permutation, 3},
   {"Rfast_permutation_next", (DL_FUNC) &Rfast_permutation_next, 3},
   {"Rfast_permutation_prev", (DL_FUNC) &Rfast_permutation_prev, 3},
-  {"Rfast_poisson_only", (DL_FUNC) &Rfast_poisson_only, 3},
+  {"Rfast_poisson_only", (DL_FUNC) &Rfast_poisson_only, 4},
   {"Rfast_regression", (DL_FUNC) &Rfast_regression, 2},
   {"Rfast_rowmeans", (DL_FUNC) &Rfast_rowmeans, 1},
   {"Rfast_rowMaxs", (DL_FUNC) &Rfast_rowMaxs, 2},
@@ -84,7 +131,8 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_sort_index", (DL_FUNC) &Rfast_sort_index, 2},
   {"Rfast_rowsums", (DL_FUNC) &Rfast_rowsums, 1},
   {"Rfast_sort_unique_double", (DL_FUNC) &Rfast_sort_unique_double, 1},
-  {"Rfast_sort_mat", (DL_FUNC) &Rfast_sort_mat, 1},
+  {"Rfast_sort_row", (DL_FUNC) &Rfast_sort_row, 2},
+  {"Rfast_sort_col", (DL_FUNC) &Rfast_sort_col, 2},
   {"Rfast_sort_unique_int", (DL_FUNC) &Rfast_sort_unique_int, 1},
   {"Rfast_symmetric", (DL_FUNC) &Rfast_symmetric, 1},
   {"Rfast_Trigamma", (DL_FUNC) &Rfast_Trigamma, 1},
@@ -119,6 +167,52 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_hash_find", (DL_FUNC) &Rfast_hash_find, 2},
   {"Rfast_Hash_list", (DL_FUNC) &Rfast_Hash_list, 2},
   {"Rfast_spat_med", (DL_FUNC) &Rfast_spat_med, 2},
+  {"Rfast_len_sort_unique_double", (DL_FUNC) &Rfast_len_sort_unique_double, 1},
+  {"Rfast_len_sort_unique_int", (DL_FUNC) &Rfast_len_sort_unique_int, 1},
+  {"Rfast_Log", (DL_FUNC) &Rfast_Log, 1},
+  {"Rfast_rmdp", (DL_FUNC) &Rfast_rmdp, 4},
+  {"Rfast_Sort", (DL_FUNC) &Rfast_Sort, 2},
+  {"Rfast_colnth", (DL_FUNC) &Rfast_colnth, 2},
+  {"Rfast_col_len_sort_un_int", (DL_FUNC) &Rfast_col_len_sort_un_int, 1},
+  {"Rfast_kron", (DL_FUNC) &Rfast_kron, 2},
+  {"Rfast_min_dist", (DL_FUNC) &Rfast_min_dist, 1},
+  {"Rfast_min_max_perc", (DL_FUNC) &Rfast_min_max_perc, 1},
+  {"Rfast_minkowski_dist", (DL_FUNC) &Rfast_minkowski_dist, 2},
+  {"Rfast_rowtabulate", (DL_FUNC) &Rfast_rowtabulate, 2},
+  {"Rfast_coltabulate", (DL_FUNC) &Rfast_coltabulate, 2},
+  {"Rfast_rep_col", (DL_FUNC) &Rfast_rep_col, 2},
+  {"Rfast_rownth", (DL_FUNC) &Rfast_rownth, 2},
+  {"Rfast_row_min_max", (DL_FUNC) &Rfast_row_min_max, 1},
+  {"Rfast_row_shuffle", (DL_FUNC) &Rfast_row_shuffle, 1},
+  {"Rfast_design_matrix_big", (DL_FUNC) &Rfast_design_matrix_big, 1},
+  {"Rfast_partial_sort", (DL_FUNC) &Rfast_partial_sort, 3},
+  {"Rfast_sort_string", (DL_FUNC) &Rfast_sort_string, 2},
+  {"Rfast_stable_sort", (DL_FUNC) &Rfast_stable_sort, 2},
+  {"Rfast_total_variation_dist", (DL_FUNC) &Rfast_total_variation_dist, 1},
+  {"Rfast_group_sum", (DL_FUNC) &Rfast_group_sum, 2},
+  {"Rfast_varcomps_mle", (DL_FUNC) &Rfast_varcomps_mle, 4},
+  {"Rfast_vecdist", (DL_FUNC) &Rfast_vecdist, 1},
+  {"Rfast_dista", (DL_FUNC) &Rfast_dista, 3},
+  {"Rfast_col_shuffle", (DL_FUNC) &Rfast_col_shuffle, 2},
+  {"Rfast_glm_logistic", (DL_FUNC) &Rfast_glm_logistic, 3},
+  {"Rfast_glm_poisson", (DL_FUNC) &Rfast_glm_poisson, 4},
+  {"Rfast_canberra1_dist", (DL_FUNC) &Rfast_canberra1_dist, 1},
+  {"Rfast_canberra2_dist", (DL_FUNC) &Rfast_canberra2_dist, 1},
+  {"Rfast_mat_mat", (DL_FUNC) &Rfast_mat_mat, 2},
+  {"Rfast_hellinger_dist", (DL_FUNC) &Rfast_hellinger_dist, 2},
+  {"Rfast_prop_reg", (DL_FUNC) &Rfast_prop_reg, 2},
+  {"Rfast_prop_regs", (DL_FUNC) &Rfast_prop_regs, 4},
+  {"Rfast_Lbeta", (DL_FUNC) &Rfast_Lbeta, 2},
+  {"Rfast_Choose", (DL_FUNC) &Rfast_Choose, 2},
+  {"Rfast_Lchoose", (DL_FUNC) &Rfast_Lchoose, 2},
+  {"Rfast_Round", (DL_FUNC) &Rfast_Round, 2},
+  {"Rfast_fs_reg", (DL_FUNC) &Rfast_fs_reg, 5},
+  {"Rfast_add_functions_to_export", (DL_FUNC) &Rfast_add_functions_to_export, 2},
+  {"Rfast_read_directory", (DL_FUNC) &Rfast_read_directory, 1},
+  {"Rfast_poisson_only_b", (DL_FUNC) &Rfast_poisson_only_b, 4},
+  {"Rfast_logistic_only_b", (DL_FUNC) &Rfast_logistic_only_b, 3},
+  {"Rfast_squareform_c", (DL_FUNC) &Rfast_squareform_c, 1},
+  {"Rfast_rvmf_h", (DL_FUNC) &Rfast_rvmf_h, 7},
   {NULL, NULL, 0}
 };
 

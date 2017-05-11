@@ -1,17 +1,18 @@
 Package: Rfast
 Type: Package
 Title: Fast R Functions
-Version: 1.7.5
-Date: 2017-02-26
-Author: Manos Papadakis, Michail Tsagris, Marios Dimitriadis, Ioannis Tsamardinos, Matteo Fasiolo, Giorgos Borboudakis and John Burkardt
+Version: 1.8.0
+Date: 2017-05-09
+Author: Manos Papadakis, Michail Tsagris, Marios Dimitriadis, Ioannis Tsamardinos, Matteo Fasiolo, Giorgos Borboudakis, John Burkardt and Changliang Zou
 Maintainer: Manos Papadakis <papadakm95@gmail.com>
 Depends: R (>= 3.2.2), Rcpp (>= 0.12.3), RcppZiggurat
 LinkingTo: Rcpp (>= 0.12.3), RcppArmadillo
 SystemRequirements: C++11
-Description: A collection of fast (utility) functions for data analysis. Column- and row- wise means, medians, variances, minimums, maximums, many t, F and G-square tests, many regressions (normal, logistic, Poisson), Mahalanobis distance are some of the many fast functions.
-License: GPL-2
+URL: https://rfast.eu
+Description: A collection of fast (utility) functions for data analysis. Column- and row- wise means, medians, variances, minimums, maximums, many t, F and G-square tests, many regressions (normal, logistic, Poisson), are some of the many fast functions.
+License: GPL (>= 2.0)
 LazyData: TRUE
 NeedsCompilation: yes
-Packaged: 2017-02-26 17:43:44 UTC; MANOS
+Packaged: 2017-05-10 13:11:19 UTC; MANOS
 Repository: CRAN
-Date/Publication: 2017-02-27 00:04:39
+Date/Publication: 2017-05-11 13:43:01 UTC

@@ -48,9 +48,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- rnorm(10000)
-nth(x, 5000)
-sort(x)[5000]
+x <- rnorm(1000)
+nth(x, 500)
+sort(x)[500]
 }
 
 \keyword{ nth elements }

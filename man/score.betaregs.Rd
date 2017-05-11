@@ -65,11 +65,11 @@ x <- matrix( rnorm(100 * 200), ncol = 200 )
 y <- rbeta(100, 3, 2)   
 system.time( score.betaregs(y, x) )
 
-## x <- matrix( rnorm(100 * 2000), ncol = 2000 )
+## x <- matrix( rnorm(100 * 500), ncol = 500 )
 ## y <- rbeta(100, 3, 2)   
 ## a <- score.betaregs(y, x)
 ## hist(a[, 2])
-## sum(a < 0.05) / 2000  ## estimated type I error 
+## sum(a < 0.05) / 500  ## estimated type I error 
 }
 
 \keyword{ Beta regressions }

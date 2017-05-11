@@ -52,14 +52,14 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- matrix( rnorm(1000 * 1000), ncol = 1000 )
+x <- matrix( rnorm(100 * 100), ncol = 100 )
 
-system.time( a1 <- colrange(x) )
-system.time( a2 <- apply(x, 2, function(x) diff( range(x)) ) )
+a1 <- colrange(x) 
+a2 <- apply(x, 2, function(x) diff( range(x)) ) 
 all.equal(a1, a2)
 
-system.time( a1 <- rowrange(x) )
-system.time( a2 <- apply(x, 1, function(x) diff( range(x)) ) )
+a1 <- rowrange(x) 
+a2 <- apply(x, 1, function(x) diff( range(x)) ) 
 all.equal(a1, a2)
 }
 

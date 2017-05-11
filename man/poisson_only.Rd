@@ -9,7 +9,7 @@ It performs very many univariate simple poisson regressions.
 }
 
 \usage{
-poisson_only(x, y)
+poisson_only(x, y, tol = 1e-09, b_values = FALSE)
 }
 
 \arguments{
@@ -18,6 +18,12 @@ A matrix with the data, where the rows denote the samples (and the two groups) a
 }
 \item{y}{
 The dependent variable; a numerical vector with many discrete values (count data). 
+}
+\item{tol}{
+The tolerance value to terminate the Newton-Raphson algorithm.
+}
+\item{b_values}{
+Do you want the values of the coefficients returned? If yes, set this to TRUE.
 }
 }
 
@@ -49,8 +55,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-## 500 variables, hence 500 univariate regressions are to be fitted
-x = matrix( rnorm(100 * 500), ncol = 500 )
+## 200 variables, hence 200 univariate regressions are to be fitted
+x = matrix( rnorm(100 * 200), ncol = 200 )
 
 y = rpois(100, 10)
 system.time( poisson_only(x, y) )
@@ -58,7 +64,7 @@ system.time( poisson_only(x, y) )
 b1 = poisson_only(x, y) 
 
 b2 = numeric(500)
-system.time( for (i in 1:500) b2[i] = glm(y ~ x[, i], poisson)$deviance )
+system.time( for (i in 1:200) b2[i] = glm(y ~ x[, i], poisson)$deviance )
 
 all.equal(b1, b2)
 }

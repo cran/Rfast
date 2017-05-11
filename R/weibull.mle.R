@@ -23,7 +23,7 @@ weibull.mle <- function(x, tol = 1e-09) {
     b2 <- b1 - fb / fb2
   }
   theta <- ( sy / n )^( 1 / b2 )
-  lik <- n * log(b2) - n * b2 * log(theta) + (b2 - 1) * n * mlx - sum( (x / theta)^b2 )
+  lik <- n * log(b2) - n * b2 * log(theta) + (b2 - 1) * n * mlx - sum(x^b2)/theta^b2 
   param <- c(b2, theta)
   names(param) <- c("shape", "scale" )
   list(iters = i, loglik = lik, param = param)

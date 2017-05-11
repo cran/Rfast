@@ -1,14 +1,28 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
 #include <vector>
+#include <string>
 #include <algorithm>
 #include "mn.h"
 
 using namespace Rcpp;
 using namespace arma;
+using namespace std;
 
 bool my_compare_order(const pr& a,const pr& b){
   return a.first<b.first;
+}
+
+bool descending_int(const int& a,const int& b){
+  return a<b;
+}
+
+bool descending_double(const double& a,const double& b){
+  return a<b;
+}
+
+bool descending_string(const string& a,const string& b){
+  return a<b;
 }
 
 bool cor_vecs(const pair<double,double>& a,const pair<double,double>& b){
@@ -307,4 +321,196 @@ void combn(Rcpp::NumericVector& data, const int n,
     combn_data[combn_data.size() - n] = data[i];
     combn(data, n - 1, i + 1, combn_data, combn_dataset, combn_col);
   }
+}
+
+mat sqrt_mat(mat x){
+  colvec f(x.n_elem);
+  for(double *start=&x[0],*startf=&f[0],*end=&(*x.end());start!=end;++start,++startf){
+    *startf=std::sqrt(*start);    
+  }
+  return f;
+}
+
+void fill_with_log(double *start,double *end,double *startf){
+  for(;start!=end;++start,++startf)
+    *startf=std::log(*start);
+}
+
+void max_neg_pos(int* start, int *end,int &mx,int &mn,int &pos){
+  mn=mx=*start;
+  int x;
+  for(;start!=end;++start){
+    x=*start;
+    if(x<0){
+      if(mn>x)
+        mn=x;
+    }else{ 
+      pos++;
+      if(mx<x)
+        mx=x;
+    }
+  }
+}
+
+uvec Order_rmdp(colvec& x){
+  const int n=x.size();
+  int i=0;
+  pr *y=new pr[n];
+  uvec f(n);
+  uvec::iterator b=f.begin();
+  colvec::iterator xx=x.begin();
+  for(;i!=n;++i,++xx){
+    y[i].first=*xx;
+    y[i].second=i;
+  }
+  stable_sort(y,y+n,my_compare_order);
+  for(i=0;i!=n;++i,++b)
+    *b=y[i].second;
+  return f;
+}
+
+rowvec colvar_rmdp(mat& x){
+  rowvec nyr1=x.row(0),nyr2=x.row(1);
+  return 0.5*(square(nyr1) + square(nyr2)) - nyr1%nyr2;
+}
+
+double sum_pow(colvec x,const double p){
+  const int sz=x.size();
+  double s=0;
+  for(double *startx=&x[0],*end=startx+sz;startx!=end;++startx)
+    s+=std::pow(*startx,p);
+  return s;
+}
+
+NumericVector Tabulate(NumericVector x,int &nroww){
+  int aa;
+  NumericVector f(nroww);
+  NumericVector::iterator F=f.begin();
+  NumericVector::iterator a=x.begin();
+  for(;a!=x.end();++a){
+    aa=*a;
+    F[aa-1]++;
+  }
+  return f;
+}
+
+NumericMatrix design_matrix_regr(CharacterVector x) {
+  int i=0;
+  const int n=x.size();
+  CharacterVector tmp=sort_unique(x);
+  CharacterVector::iterator xx=x.begin(),leksi_bg,leksi_en;
+  NumericMatrix Final(n,tmp.size());
+  for(leksi_bg=tmp.begin(),leksi_en=tmp.end(),i=0;xx!=x.end();++xx,++i)
+    Final(i,lower_bound(leksi_bg,leksi_en,*xx)-leksi_bg)=1;
+  return Final;
+}
+
+umat design_matrix_helper_big(CharacterVector x) {
+  int i=0;
+  const int n=x.size();
+  CharacterVector tmp=sort_unique(x);
+  CharacterVector::iterator xx=x.begin(),leksi_bg,leksi_en;
+  umat Final(n,tmp.size());
+  for(leksi_bg=tmp.begin(),leksi_en=tmp.end(),i=0;xx!=x.end();++xx,++i)
+    Final(i,lower_bound(leksi_bg,leksi_en,*xx)-leksi_bg)=1;
+  return Final;
+}
+
+colvec my_pow(colvec x,const double p){
+  const int sz=x.size();
+  for(double *startx=&x[0],*end=startx+sz;startx!=end;++startx)
+    *startx=std::pow(*startx,p);
+  return x;
+}
+
+NumericVector minus_mean(NumericVector& x,const double k){
+  NumericVector y(x.size());
+  double v;
+  for(NumericVector::iterator xx=x.begin(),yy=y.begin();x.end()-xx;++xx,++yy){
+    v=*xx;
+    *yy=v-k;
+  }
+  return y;
+}
+
+NumericVector sqr(NumericVector& x){
+  NumericVector y(x.size());
+  double v;
+  for(NumericVector::iterator xx=x.begin(),yy=y.begin();x.end()-xx;++xx,++yy){
+    v=*xx;
+    *yy=v*v;
+  }
+  return y;
+}
+
+int increment_maybe(int value, double vec_i){
+  return vec_i == 0 ? value : ( value +1 ) ;  
+}
+
+void minus_c(double f[],double &x,double *y,int offset,int &len){
+  double *ff=f;
+  for(int i=0;i<len;++i,ff+=offset,++y)
+    *ff=abs(x-*y);
+}
+
+int my_round(const double x){
+  const int y=x*10;
+  return y%10>4 ? int(x)+1 : x;
+}
+
+double my_round_gen(double x,const int dg){
+  if(x==Rcpp::NA)
+    return x;
+  int t=10;
+  for(int i=0;i<dg;++i)
+    t= (t<<3) + (t<<1);
+  const bool nx=x<0;
+  int y= nx ? -x*t : x*t;
+  const int m=y%10;
+  y= m>4 ? y+10-m : y-m ;
+  x=y;
+  return nx ? -x/t : x/t ; 
+}
+
+int len_sort_unique_int(IntegerVector x){
+  int aa,mx,mn,count_not_zero=0;
+  int count_pos=0;
+  max_neg_pos(&x[0],&(*x.end()),mx,mn,count_pos);
+  const int count_neg=x.size()-count_pos;
+  vector<int> pos,f,neg;
+  vector<int>::iterator pp,nn,F;
+  IntegerVector::iterator a=x.begin();
+  if(count_pos>0)
+    pos.resize(mx+1,INT_MAX);
+  if(count_neg>0)
+    neg.resize(1-mn,INT_MAX);
+  if(count_pos && count_neg){
+    for(nn=neg.begin(),pp=pos.begin();a!=x.end();++a){
+      aa=*a;
+      if(aa<0)
+        *(nn-aa)=aa;
+      else
+        *(pp+aa)=aa;
+    }
+  }else if(count_pos){
+    for(pp=pos.begin();a!=x.end();++a){
+      aa=*a;
+      *(pp+aa)=aa;
+    }
+    
+  }else{ 
+    for(nn=neg.begin();a!=x.end();++a){
+      aa=*a;
+      *(nn-aa)=aa;
+    }
+  }
+  if(count_neg)
+    for(nn=neg.begin();nn!=neg.end();++nn)
+      if(*nn!=INT_MAX)
+        count_not_zero++;
+  if(count_pos)
+    for(pp=pos.begin();pp!=pos.end();++pp)
+      if(*pp!=INT_MAX)
+        count_not_zero++;
+  return count_not_zero;
 }

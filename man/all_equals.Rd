@@ -7,7 +7,7 @@
 }
 
 \usage{
-all_equals(x, y)
+all_equals(x,y,round_digits = FALSE,without_attr=FALSE,fast_result=FALSE)
 }
 
 \arguments{
@@ -16,6 +16,15 @@ A Matrix, List, Dataframe or Vector.
 }
 \item{y}{
 A Matrix, List, Dataframe or Vector.
+}
+\item{round_digits}{
+The digit for rounding numbers.
+}
+\item{without_attr}{
+A boolean value (TRUE/FALSE) for deleting attributes. Be carefull although because some atributes are very important for you item.
+}
+\item{fast_result}{
+A boolean value (TRUE/FALSE) for using just identical.But you can combine only with round_digits argument.
 }
 }
 
@@ -42,15 +51,15 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 %}
 
 \seealso{
-\code{ \link{mvbetas}, \link{correls}, \link{univglms}, \link{colsums}, \link{colVars}
+\code{ \link{Match}, \link{mvbetas}, \link{correls}, \link{univglms}, \link{colsums}, \link{colVars}
 }
 }
 
 \examples{
-x <- matrix( rnorm(100 * 1000), ncol = 1000 )
-y <- matrix( rnorm(100 * 1000), ncol = 1000 )
+x <- matrix( rnorm(100 * 100), ncol = 100 )
+y <- matrix( rnorm(100 * 100), ncol = 100 )
 all_equals(x,y) 
-all_equals(x,x)
+all_equals(x, x)
 }
 
 \keyword{ Equality check }

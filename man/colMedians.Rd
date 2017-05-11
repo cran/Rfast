@@ -43,11 +43,11 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- matrix( rnorm(100 * 1000), ncol = 1000 )
-system.time( a <- apply(x, 2, median) )
-system.time( b1 <- colMedians(x) )
+x <- matrix( rnorm(100 * 100), ncol = 100 )
+a <- apply(x, 2, median) 
+b1 <- colMedians(x) 
 all.equal(as.vector(a), b1)
 }
 
 \keyword{ Column-wise medians }
-
+\keyword{ Row-wise medians }

@@ -5,7 +5,7 @@ Find the given value in a hash table
 }
 
 \description{
-Find the given value in a hash table.
+Find the given value in a hash table or list.
 }
 
 \usage{
@@ -14,7 +14,7 @@ hash.find(x,key)
 
 \arguments{
 \item{x}{
-A hash table.
+A hash table or list.
 }
 
 \item{key}{

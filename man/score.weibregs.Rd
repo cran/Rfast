@@ -60,11 +60,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rnorm(2000 * 2000), ncol = 2000 )
-y <- rweibull(2000, 2, 3)   
+x <- matrix( rnorm(100 * 200), ncol = 200 )
+y <- rweibull(200, 2, 3)   
 a <- score.weibregs(y, x) 
 hist(a[, 2])
-sum(a[, 2] < 0.05) / 2000
+sum(a[, 2] < 0.05) / 200
 }
 
 \keyword{ Weibull regressions }

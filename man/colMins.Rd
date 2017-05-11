@@ -55,16 +55,16 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- matrix( rnorm(1000 * 2000), ncol = 2000 )
+x <- matrix( rnorm(100 * 200), ncol = 200 )
 
-system.time( s1 <- colMins(x) )
-system.time( s2 <- apply(x, 2, min) )
+s1 <- colMins(x) 
+s2 <- apply(x, 2, min) 
 
-system.time( s1 <- colMaxs(x) )
-system.time( s2 <- apply(x, 2, max) )
+s1 <- colMaxs(x) 
+s2 <- apply(x, 2, max) 
 
-system.time( s1 <- colMinsMaxs(x) )
-system.time( s2 <- c(apply(x, 2, min), apply(x, 2, max)) )
+s1 <- colMinsMaxs(x)
+s2 <- c(apply(x, 2, min), apply(x, 2, max)) 
 
 }
 

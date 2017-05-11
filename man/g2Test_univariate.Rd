@@ -75,7 +75,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 nvalues <- 3
 nvars <- 10
-nsamples <- 10000
+nsamples <- 2000
 data <- matrix( sample( 0:(nvalues - 1), nvars * nsamples, replace = TRUE ), nsamples, nvars )
 dc <- rep(nvalues, nvars)
 system.time( g2Test_univariate(data = data, dc = dc) )
@@ -87,12 +87,6 @@ g[ cbind(a$x, a$y) ] <- a$statistic
 g <- g + t(g)
 diag(g) <- 0
 g  ## matrix of G^2 test statistics
-
-pv <- matrix(0, nvars, nvars)
-pv[ cbind(a$x, a$y) ] <- pval
-pv <- pv + t(pv)
-diag(pv) <- 1
-pv  ## matrix of the corresponding p-values
 }
 
 \keyword{ G^2 test of independence }

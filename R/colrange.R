@@ -1,10 +1,9 @@
 
 
 colrange <- function(x, cont = TRUE){
-	x <- Rfast::colMinsMaxs(x)
-	x <- x[2,]-x[1,]
-	if(!cont){
-  		return (x + 1)
-  	}
-  	x
+	if(cont){
+		x <- .Call('Rfast_col_min_max', PACKAGE = 'Rfast',x)
+		return(x[2,]-x[1,])
+	}
+	.Call('Rfast_col_len_sort_un_int', PACKAGE = 'Rfast',x)
 }

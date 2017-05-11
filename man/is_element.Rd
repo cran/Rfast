@@ -45,12 +45,11 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- rnorm(10000)
-key <- x[500]
-system.time( b <- is_element(x,key) )
+x <- rnorm(500)
+key <- x[50]
+b <- is_element(x, key) 
 }
 
 \keyword{ Find element }
 \keyword{ Divide and Qonquer }
 \keyword{ Linear time }
-

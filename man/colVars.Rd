@@ -1,6 +1,7 @@
 \name{Column and row-wise variances and standard deviations}
 \alias{colVars}
 \alias{rowVars}
+\alias{groupcolVars}
 \title{
 Column and row-wise variances and standard deviations of a matrix
 }
@@ -12,6 +13,7 @@ Column and row-wise variances and standard deviations of a matrix
 \usage{
 colVars(x, suma = NULL, std = FALSE)
 rowVars(x, suma = NULL, std = FALSE)
+groupcolVars(x, ina, std = FALSE)
 }
 
 \arguments{
@@ -23,6 +25,9 @@ If you already have the column sums vector supply it, otherwise leave it NULL.
 }
 \item{std}{
 A boolean variable specyfying whether you want the variances (FALSE) or the standard deviations (TRUE) of each column.
+}
+\item{ina}{
+A numerical vector specifying the groups. If you have numerical values, do not put zeros, but 1, 2, 3 and so on. 
 }
 }
 
@@ -45,12 +50,18 @@ Michail Tsagris
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
 
+\seealso{
+\code{ \link{colmeans}, \link{colMedians}, \link{colrange}
+}
+}
+
 \examples{
-x <- matrix( rnorm(100 * 10000), ncol = 10000 )
-system.time( a1 <- apply(x, 2, var) )
-system.time( a2 <- colVars(x) )
-all.equal(as.vector(a1), as.vector(a2))
+x <- matrix( rnorm(100 * 100), ncol = 100 )
+a2 <- colVars(x)
+groupcolVars( as.matrix(iris[, 1:4]), as.numeric(iris[, 5]) )
+
 }
 
 \keyword{ Column-wise variances }
 \keyword{ row-wise variances }
+\keyword{ variances of many samples }

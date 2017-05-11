@@ -1,20 +1,30 @@
-\name{Sorting of the columns of a matrix}
+\name{Sorting of the columns-rows of a matrix}
 \alias{sort_mat}
 \title{
-Sorting of the columns of a matrix 
+Sorting of the columns-rows of a matrix 
 }
 
 \description{
-Fast sorting of the columns of a matrix.
+Fast sorting of the columns-rows of a matrix.
 }
 
 \usage{
-sort_mat(x)
+sort_mat(x, by.row = FALSE, descending = FALSE, stable = FALSE)
 }
 
 \arguments{
 \item{x}{
 A numerical matrix with data.
+}
+\item{by.row}{
+If you want to sort the rows of the matrix set this to TRUE.
+}
+\item{descending}{
+If you want the sorting in descending order, set this to TRUE.
+}
+\item{stable}{
+If you the stable version, so that the results are the same as R's (in the case of ties) set this to TRUE.
+If this is TRUE, the algorithm is a bit slower.
 }
 }
 
@@ -23,7 +33,7 @@ A numerical matrix with data.
 %}
 
 \value{
-The matrix with its columns independently sorted.
+The matrix with its columns-rows (or rows) independently sorted.
 }
 
 %\references{
@@ -47,7 +57,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- matrix( rnorm(1000 * 500), ncol = 500 )
+x <- matrix( rnorm(100 * 500), ncol = 500 )
 system.time( s1 <- sort_mat(x) )
 system.time( s2 <- apply(x, 2, sort)  )
 all.equal(as.vector(s1), as.vector(s2))

@@ -45,8 +45,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- rnorm(10000)
-value <- x[500]
+x <- rnorm(1000)
+value <- x[50]
 system.time( b <- count_value(x,value) )
 }
 

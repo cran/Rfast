@@ -63,11 +63,11 @@ x <- matrix( rnorm(200 * 200), ncol = 200 )
 y <- rnbinom(200, 5, 0.6)   
 system.time( score.negbinregs(y, x) )
 
-## x <- matrix( rnorm(500 * 2000), ncol = 2000 )
+## x <- matrix( rnorm(500 * 200), ncol = 200 )
 ## y <- rnbinon(500, 7, 0.6)   
 ## a <- score.negbinregs(y, x)
 ## hist(a[, 2])
-## sum(a < 0.05) / 2000  ## estimated type I error 
+## sum(a < 0.05) / 200  ## estimated type I error 
 }
 
 \keyword{ Negative binomial regressions }

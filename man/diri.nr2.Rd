@@ -58,7 +58,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 x <- matrix( rgamma(100 * 4, c(5, 6, 7, 8), 1), ncol = 4)
 x <- x / rowsums(x)
-system.time( for(i in 1:1000) diri.nr2(x) )
+diri.nr2(x) 
 }
 
 \keyword{ Dirichlet distribution }

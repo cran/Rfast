@@ -1,11 +1,11 @@
-\name{MLE of the Beta distribution}
+\name{MLE of the beta distribution}
 \alias{beta.mle}
 \title{
-MLE of the Beta distribution
+MLE of the beta distribution
 }
 
 \description{
-MLE of the Beta distribution.
+MLE of the beta distribution.
 }
 
 \usage{
@@ -22,7 +22,8 @@ The tolerance level up to which the maximisation stops.
 }
 
 \details{
-Maximum likelihood estimation of the parameters of the beta  distribution is performed via Newton-Raphson. The distribution and hence the function does not accept zeros. 
+Maximum likelihood estimation of the parameters of the beta  distribution is performed via Newton-Raphson. The distributions and hence the functions 
+does not accept zeros. 
 }
 
 \value{
@@ -34,7 +35,7 @@ The number of iterations required by the Newton-Raphson.
 The value of the log-likelihood.
 }
 \item{param}{
-The estimated parameters.
+The estimated parameters. 
 }
 }
 
@@ -49,17 +50,15 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{\link{diri.nr2}, 
+\code{ \link{diri.nr2} 
 }
 }
 
 \examples{
 x <- rbeta(1000, 1, 4)
-system.time( for(i in 1:1000) beta.mle(x) )
 beta.mle(x)
 }
 
 \keyword{ Beta distribution }
-\keyword{ maximum likelihood estimation }
 \keyword{ Newton-Raphson }
 \keyword{ proportions }

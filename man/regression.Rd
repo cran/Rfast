@@ -54,15 +54,15 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 ## 500 variables, hence 500 univariate regressions are to be fitted
-x = matrix( rnorm(100 * 500), ncol = 500 )
+x = matrix( rnorm(100 * 200), ncol = 200 )
 x = as.data.frame(x)
 y = rnorm(100)   
 system.time( a1 <- regression(x, y) )
 
-x = matrix( rnorm(150 * 500), ncol = 500 )
+x = matrix( rnorm(150 * 200), ncol = 200 )
 x = as.data.frame(x)
 y = rnorm(150)   
-for (i in 1:500) x[, i] <- iris[, 5]
+for (i in 1:200) x[, i] <- iris[, 5]
 system.time( a <- regression(x, y) )
 a[, 1:5]
 summary(lm(y ~ x[, 1]) )  ## check the F-test

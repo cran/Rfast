@@ -14,7 +14,7 @@ design_matrix(x, ones = TRUE)
 
 \arguments{
 \item{x}{
-A character vector or a factor type vector. Do not supply a numerical vector. 
+A character vector or a factor type vector or a dataframe. Do not supply a numerical vector. 
 }
 \item{ones}{
 A boolean variable specifying whether to include the ones in the design matrix or not. The default value is TRUE. 
@@ -22,7 +22,7 @@ A boolean variable specifying whether to include the ones in the design matrix o
 }
 
 \details{
-This function implements the R's "model.matrix" function and is used only when the x is a factor. 
+This function implements the R's "model.matrix" function and is used only when the x is a factor/charactervector or Dataframe. 
 }
 
 \value{

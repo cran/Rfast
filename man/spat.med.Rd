@@ -41,7 +41,7 @@ FLM, Munich. http://users.jyu.fi/~samiayr/pdf/ayramo_eurogen05.pdf
 }
 
 \author{
-Manos Papadakis ans Michail Tsagris
+Manos Papadakis and Michail Tsagris
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>
 }

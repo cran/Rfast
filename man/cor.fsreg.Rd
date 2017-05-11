@@ -9,7 +9,7 @@ Correlation based forward regression.
 }
 
 \usage{
-cor.fsreg(y, x, threshold = 0.05, tol = 2) 
+cor.fsreg(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = "BIC") 
 }
 
 \arguments{
@@ -24,11 +24,19 @@ The significance level, set to 0.05 by default. Bear in mind that the logarithm 
 logarithm of the p-values is calculated at every point. This will avoid numerical overflows and
 small p-values, less than the machine epsilon, being returned as zero.
 }
-\item{tol}{
+\item{tolb}{
 If we see only the significane of the variables, many may enter the linear regression model. For this reason, 
 we also use the BIC as a way to validate the inclusion of a candidate variable. If the BIC difference between 
 two successive models is less than the tolerance value, the variable will not enter the model, even if it 
 statistically significant. Set it to 0 if you do not want this extra check. 
+}
+\item{tolr}{
+This is an alternative to the BIC change and it uses the adjusted coefficient of determination. If the increase in the 
+adjusted \eqn{R^2} is more than the tolr continue.
+}
+\item{stopping}{
+This refers to the type of extra checking to do. If you want the BIC check, set it to "BIC". If you want the adjusted \eqn{R^2} check 
+set this to "ar2". Or, if you want both of them to take place, both of these criteria to be satisfied make this "BICR2".
 }
 }
 
@@ -39,13 +47,14 @@ variable. Alternatively the correlation can be used and this case the partial co
 a direct relationship between the t-test statistic and the partial correlation coefficient. Now, instead of 
 having to calculate the test statistic, we calculate the partial correlation coefficient. Using Fisher's 
 z-transform we get the variance imediately. The partial correlation coefficient, using Fisher's z-transform, 
-and the partial F-test (or the coefficient's t-test statistic) are not identical. They will be idencital for 
+and the partial F-test (or the coefficient's t-test statistic) are not identical. They will be identical for 
 large sample sizes though.
 }
 
 \value{
-A matrix with four columns, the index of the selected variables, the logged p-value, the test 
-statistic and the BIC of each model.   
+A matrix with three columns, the index of the selected variables, the logged p-value and the the test 
+statistic value and the BIC or adjusted \eqn{R^2} of each model. In the case of stopping="BICR2" both of 
+these criteria will be returned.
 }
 
 \references{
@@ -67,14 +76,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-## 200 variables, hence 200 univariate regressions are to be fitted
-x <- matrix( rnorm(200 * 200), ncol = 200 )
+x <- matrix( rnorm(200 * 100), ncol = 100 )
 y <- rnorm(200)
-system.time( cor.fsreg(y, x) )
-
-## 200 variables, hence 200 univariate regressions are to be fitted
-x <- matrix( rnorm(1000 * 500), ncol = 500 )
-y <- rnorm(1000)
 system.time( cor.fsreg(y, x) )
 }
 

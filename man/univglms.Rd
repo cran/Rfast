@@ -61,29 +61,15 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-## 500 variables, hence 200 univariate regressions are to be fitted
 x = matrix( rnorm(100 * 200), ncol = 200 )
-
 ## 100 observations in total
 y = rbinom(100, 1, 0.6)   ## binary logistic regression
 system.time( univglms(y, x) )
-
 a1 = univglms(y, x) 
-
 a2 <- numeric(200)
 system.time( for (i in 1:200) a2[i] = glm(y ~ x[, i], binomial)$deviance )
 
 a2 = glm(y ~ 1, binomial)$null.dev - a2
-
-### poisson regression
-y = rpois(100, 10)
-system.time(  univglms(y, x) )
-
-b1 = univglms(y, x) 
-b2 <- numeric(200)
-system.time( for (i in 1:200) b2[i] = glm(y ~ x[, i], poisson)$deviance )
-
-b2 = glm(y ~ 1, poisson)$null.dev - b2
 
 }
 

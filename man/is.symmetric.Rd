@@ -46,10 +46,10 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <-matrix( rnorm( 1000 * 700), ncol = 700 )
+x <-matrix( rnorm( 100 * 400), ncol = 400 )
 s1 <- cor(x)
 is.symmetric(s1)
-x <- x[1:700, ]
+x <- x[1:100, ]
 is.symmetric(x)
 }
 

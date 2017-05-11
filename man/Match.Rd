@@ -22,7 +22,7 @@ The value/vector for searching in vector x.
 }
 
 \details{
-This function implements the R's "match" function.
+This function implements the R's \"match\" function.
 }
 
 \value{
@@ -47,7 +47,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 \examples{
 y <- rnorm(100)
 a <- Match(y,50)
-b <- match(50,y)
+b <-50%in%y
 all.equal(as.vector(a),as.vector(b))
 }
 

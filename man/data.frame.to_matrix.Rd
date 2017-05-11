@@ -39,8 +39,6 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 }
 
 \examples{
-y <- as.data.frame(matrix(rnorm(100*100),100,100))
-data.frame.to_matrix(y)
 data.frame.to_matrix(iris)
 }
 

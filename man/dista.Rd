@@ -7,7 +7,7 @@
 }
 
 \usage{
-dista(xnew, x, type = "euclidean")
+dista(xnew, x, type = "euclidean", trans = TRUE)
 }
 
 \arguments{
@@ -19,6 +19,9 @@ A matrix with the data, where rows denotes observations (vectors) and the column
 }
 \item{type}{
 This can be either "euclidean" or "manhattan".
+}
+\item{trans}{
+Do you wan the returned matrix to be transposed? TRUE or FALSE.
 }
 }
 

@@ -6,16 +6,16 @@
 using namespace Rcpp;
 
 //[[Rcpp::export]]
-NumericMatrix design_matrix(CharacterVector x,bool ones_c) {
+IntegerMatrix design_matrix(CharacterVector x,bool ones_c) {
   int i=0;
   const int n=x.size();
   CharacterVector tmp=sort_unique(x);
   CharacterVector::iterator xx=x.begin(),leksi_bg,leksi_en;
-  NumericMatrix Final(n,tmp.size());
+  IntegerMatrix Final(n,tmp.size());
   for(leksi_bg=tmp.begin(),leksi_en=tmp.end(),i=0;xx!=x.end();++xx,++i)
     Final(i,lower_bound(leksi_bg,leksi_en,*xx)-leksi_bg)=1;
   if(ones_c){
-    NumericVector ones(n,1.0);
+    IntegerVector ones(n,true);
     Final.column(0)=ones;
   }
   return Final;

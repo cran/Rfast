@@ -84,7 +84,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 nvalues <- 3
 nvars <- 10
-nsamples <- 10000
+nsamples <- 5000
 data <- matrix( sample( 0:(nvalues - 1), nvars * nsamples, replace = TRUE ), nsamples, nvars )
 dc <- rep(nvalues, nvars)
 

@@ -2,20 +2,23 @@
 
 #include <RcppArmadillo.h>
 #include <algorithm>
-#include <vector>
 
 using namespace Rcpp;
 using namespace std;
 
 //[[Rcpp::export]]
-vector<int> Match(NumericVector x,IntegerVector key){
-  vector<int> f(key.size());
-  vector<int>::iterator F=f.begin();
+IntegerVector Match(NumericVector x,IntegerVector key){
+  const int n=key.size()+1;
+  IntegerVector f(n-1);
+  IntegerVector::iterator F=f.begin();
   IntegerVector::iterator a=key.begin();
   NumericVector::iterator bg=x.begin();
+  int t;
   sort(x.begin(),x.end());
-  for(;a!=key.end();++a,++F)
-    *F=lower_bound(bg,x.end(),*a)-bg+1;
+  for(;a!=key.end();++a,++F){
+    t=lower_bound(bg,x.end(),*a)-bg+1;
+    *F = (t!=n && *a>=*bg) ? t : NA_INTEGER;
+  }
   return f;
 }
 

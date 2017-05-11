@@ -49,10 +49,10 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- sort(rnorm(10000))
-v <- x[500]
-system.time( b <- binary_search(x,v) )
-system.time( b1 <- binary_search(x,v,TRUE) )
+x <- sort(rnorm(1000))
+v <- x[50]
+b <- binary_search(x,v) 
+b1 <- binary_search(x,v,TRUE) 
 }
 
 \keyword{ Binary search Algorithm }

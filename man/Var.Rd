@@ -1,11 +1,11 @@
 \name{Variance of a vector}
 \alias{Var}
 \title{
-Variance of a vector
+Variance (and standard deviation)  of a vector
 }
 
 \description{
-Variance of a vector.
+Variance (and standard deviation)  of a vector.
 }
 
 \usage{
@@ -49,9 +49,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- rnorm(10000)
-system.time( for (i in 1:1000) Var(x) )
-system.time( for (i in 1:1000) var(x) )
+x <- rnorm(1000)
+system.time( for (i in 1:100) Var(x) )
+#system.time( for (i in 1:100) var(x) )
 }
 
 \keyword{ Variance }
