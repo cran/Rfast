@@ -13,7 +13,7 @@ NumericMatrix kullback_leibler_dist(NumericMatrix x){
   NumericMatrix f(ncl,ncl),log_x(nrw,ncl);
   mat xx(x.begin(),nrw,ncl,false),log_xx(log_x.begin(),nrw,ncl,false);
   colvec xv(nrw),log_xv(nrw);
-  register double a;
+  double a;
   int i,j;
   fill_with_log(x.begin(),x.end(),log_xx.begin());
   for(i=0;i<ncl-1;++i){

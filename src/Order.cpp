@@ -23,8 +23,10 @@ IntegerVector Order(NumericVector x,const bool stable){
     y[i].second=i;
   }
   stable ? stable_sort(y,y+n,my_compare_order) : sort(y,y+n,my_compare_order);
-  for(i=0;i!=n;++i,++b)
+  for(i=0;i!=n;++i,++b){
     *b=y[i].second+1;
+  }
+  delete[] y;
   return f;
 }
 

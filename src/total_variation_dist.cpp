@@ -12,7 +12,7 @@ NumericMatrix total_variation_dist(NumericMatrix x){
   mat xx(x.begin(),nrw,ncl,false);
   NumericMatrix f(ncl,ncl);
   colvec xv(nrw);
-  register double a;
+  double a;
   int i,j;
   for(i=0;i<ncl-1;++i){
     xv=xx.col(i);
