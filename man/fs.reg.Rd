@@ -29,7 +29,8 @@ The difference bewtween two successive values of the stopping rule. By default t
 succesive models is less than 2, the process stops and the last variable, even though significant does not enter the model.
 }
 \item{type}{
-If you have a binary dependent variable, put "logistic".  If you have count data put "poisson".
+If you have a binary dependent variable, put "logistic" or "quasibinomial". If you have percentages, values between 0 and 1, including 0 and or 1, use "quasibinomial" as well. 
+If you have count data put "poisson".
 }
 }
 
@@ -75,4 +76,5 @@ b <- fs.reg(y, x, sig = 0.05, tol = 2, type = "logistic")
 \keyword{ Forward regression }
 \keyword{ variable selection }
 \keyword{ binary data }
+\keyword{ proportions }
 \keyword{ Poisson }

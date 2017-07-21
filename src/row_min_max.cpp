@@ -8,17 +8,22 @@ using namespace Rcpp;
 using namespace arma;
 
   //[[Rcpp::export]]
-SEXP row_min_max(SEXP X){
-  NumericMatrix y(X);
-  const int n=y.nrow();
-  mat x(y.begin(),n,y.ncol(),false);
-  colvec mn=min(x,1),mx=max(x,1);
-  SEXP F=Rf_allocMatrix(REALSXP,2,n);
-  double *f=REAL(F),*end=f+2*n,*mnp=&mn[0],*mxp=&mx[0];
-  for(int i=0;f!=end;f+=2,++i,++mxp,++mnp){
-    *f=*mnp;
-    f[1]=*mxp;
-  }
+SEXP row_min_max(SEXP x){
+  int ncol=Rf_ncols(x),nrow=Rf_nrows(x);
+  SEXP F;
+  F=PROTECT(Rf_allocMatrix(REALSXP,2,nrow));
+  double *xx=REAL(x),*end=xx+ncol*nrow,*f=REAL(F),*x3,*ff;
+  const double *endf=f+(nrow<<1);
+  for(ff=f;ff!=endf;ff+=2,++xx)
+    *ff=ff[1]=*xx;
+  for(;xx!=end;)
+    for(ff=f,x3=xx,xx+=nrow;x3!=xx;ff+=2,++x3){
+      if(*ff>*x3)
+        *ff=*x3;
+      else if(ff[1]<*x3)
+        ff[1]=*x3;
+    }
+    UNPROTECT(1);
   return F;
 }
 

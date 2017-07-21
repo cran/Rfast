@@ -14,7 +14,7 @@ Round(x,digit=0)
 
 \arguments{
 \item{x}{
-A numeric matrix/vector with data or NA. Not integer values. 
+A numeric matrix/vector with data or NA. NOT integer values. 
 }
 \item{digit}{
 An integer value for 0...N-1 where N is the number of the digits. By default is 0.
@@ -26,7 +26,7 @@ Round is a very fast C++ implementation. Especially for large data. It handles N
 }
 
 \value{
-A vector/matrix where each element is been round in the given digit.
+A vector/matrix where each element is been rounded in the given digit.
 }
 
 %\references{

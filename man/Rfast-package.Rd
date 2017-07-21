@@ -16,8 +16,8 @@ Note 3: In general, make sure you give the correct input, in order to get the co
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.8.1 \cr
-Date: \tab 2017-05-13\cr
+Version: \tab 1.8.2 \cr
+Date: \tab 2017-07-21\cr
 License: \tab GPL-2\cr
 }
 }
@@ -34,9 +34,11 @@ Manos Papadakis <papadakm95@gmail.com>
 \note{
 Acknowledgments:
 
-We would like to acknowledge Professor Kurt Hornik and Doctor Uwe Ligges for their invaluable help with this R package. Erich Studerus for his invaluable 
-comments and Neal Fultz for his suggestions. Vassilis Vasdekis for his invaluable help with the random effects models. Marios Dimitriadis work was funded by the Special Account for Research 
-Funds of the University of Crete, Department of Computer Science. 
+We would like to acknowledge Professor Kurt Hornik, Doctor Uwe Ligges (and the rest of R core team) for their 
+invaluable help with this R package. Erich Studerus for his invaluable comments and Neal Fultz for his suggestions. 
+Vassilis Vasdekis for his invaluable help with the random effects models. Marios Dimitriadis work was funded by the 
+Special Account for Research Funds of the University of Crete, Department of Computer Science. Phillip Sai is 
+greatly acknowledged for his help with the Floyd-Warshal algorithm. 
 }
 
 \keyword{ G^2 test }

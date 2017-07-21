@@ -14,13 +14,13 @@ rowvec spat_med(NumericMatrix Y,const double tol = 0.000000001){
   mat z;
   u1=colMedians(y);
   z=y.each_row()-u1;
-  ww =1/sqrt(sum(z^2,1));
+  ww =1/sqrt(sum(square(z),1));
   wei=ww/sum(ww);
   u2=wei*y;
   while(sum(abs(u2-u1))>tol){
     z=y.each_row()-u2;
     u1=u2;
-    ww=1/sqrt(sum(z^2,1));
+    ww=1/sqrt(sum(square(z),1));
     if(is_finite(ww.max())){
       wei=ww/sum(ww);
       u2=wei*y;

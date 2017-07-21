@@ -3,10 +3,11 @@
 \alias{g2Test_univariate_perm}
 
 \title{
-G-square test of indepdence
+Matrix with G-square tests of indepdence
 }
 
-\description{G-square test of indepdence with and without permutations.
+\description{
+Matrix with G-square tests of indepdence with and without permutations.
 }
 
 \usage{
@@ -17,7 +18,8 @@ g2Test_univariate_perm(data, dc, nperm)
 
 \arguments{
 \item{data}{
-A numerical matrix with the data.
+A numerical matrix with the data. \bold{The minimum must be 0, otherwise the function can crash or will produce 
+wrong results}.
 }
 \item{dc}{
 A numerical value equal to the number of variables (or columns of the data matrix) indicating the number of distinct, unique values (or levels) of each variable.
@@ -41,6 +43,9 @@ A list including:
 \item{statistic}{
 The \eqn{G^2} test statistic for each pair of variables.
 }
+\item{pvalue}{
+This is returned when you have selected the permutation based \eqn{G^2} test.
+}
 \item{x}{
 The row or variable of the data.
 }
@@ -53,6 +58,9 @@ The degrees of freedom of each test.
 }
 
 \references{
+Tsagris M. (2017). Conditional independence test for categorical data using Poisson log-linear model. 
+Journal of Data Science, 15(2):347-356.
+
 Tsamardinos, I., & Borboudakis, G. (2010). Permutation testing improves Bayesian network learning. 
 In Joint European Conference on Machine Learning and Knowledge Discovery in Databases (pp. 322-337). Springer Berlin Heidelberg
 }

@@ -37,7 +37,8 @@ Should the p-values be returned (FALSE) or their logarithm (TRUE)?
 \details{
 We are using the Newton-Raphson, but unlike R's built-in function "glm" we do no checks and no extra calculations, 
 or whatever. Simply the model. The "prop.regs" is to be used for very many univariate regressions. The "x" is a 
-matrix in this case and the significance of each variable (column of the matrix) is tested.
+matrix in this case and the significance of each variable (column of the matrix) is tested. The function accepts binary 
+responses as well (0 or 1).
 }
 
 \value{
@@ -47,6 +48,9 @@ The number of iterations required by the Newton-Raphson.
 }
 \item{varb}{
 The covariance matrix of the regression coefficients.
+}
+\item{phi}{
+The phi parameter is returned if the input argument "varb" was set to "glm", othwerise this is NULL.
 }
 \item{info}{
 A table similar to the one produced by "glm" with the estimated regression coefficients, their standard error,

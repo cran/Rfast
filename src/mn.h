@@ -68,5 +68,16 @@ NumericVector sqr(NumericVector&);
 NumericVector group_sum(NumericVector, IntegerVector);
 int increment_maybe(int, double);
 void minus_c(double f[],double &,double *,int,int &);
+double sumsqr(NumericMatrix &);
+IntegerVector Order(NumericVector ,const bool);
+int True(int *,int *);
+bool my_all(int* ,int *);
+bool my_any(int* ,int *);
+double total_dista(NumericMatrix, NumericMatrix);
+double total_dist(NumericMatrix);
+double sum_sqrt_mat(mat);
+colvec pnormc(colvec);
+double sum_abs(mat,mat);
+NumericVector toNumbers(string,char );
 
 #endif

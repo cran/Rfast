@@ -1,5 +1,4 @@
-\name{Many random intercepts LMMs for balanced data with a single identical covariate.
-}
+\name{Many random intercepts LMMs for balanced data with a single identical covariate.}
 \alias{colrint.regbx}
 \title{
 Many random intercepts LMMs for balanced data with a single identical covariate

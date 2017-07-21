@@ -1,4 +1,5 @@
 \name{Moment and maximum likelihood estimation of variance components}
+\alias{rint.mle}
 \alias{varcomps.mom}
 \alias{varcomps.mle}
 \title{
@@ -10,6 +11,7 @@ Moment and maximum likelihood estimation of variance components.
 }
 
 \usage{
+rint.mle(x, ina, ranef = FALSE, tol = 1e-09)
 varcomps.mom(x, ina)
 varcomps.mle(x, ina, tol = 1e-09)
 }
@@ -17,6 +19,9 @@ varcomps.mle(x, ina, tol = 1e-09)
 \arguments{
 \item{x}{
 A numerical vector with the data.
+}
+\item{ranef}{
+Should the random effects be returned as well? The default value is FALSE.
 }
 \item{ina}{
 A numerical vector with 1s, 2s, 3s and so one indicating the two groups. Be careful, the function is desinged to 

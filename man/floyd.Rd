@@ -14,9 +14,9 @@ floyd(x)
 
 \arguments{
 \item{x}{
-The adjacency matrix of a directed graph. A positive number in x[i, j] indicates that there is an arrow
-from i to j and it also shows the cost of going from i to j. Hence, the algorithm will find not only the shortest path but also the with the smallest cost. A value of zero means that there is no path. 
-Put positive number only, as negative will cause problems.
+The adjacency matrix of a directed graph. A positive number (including) in x[i, j] indicates that there is an arrow
+from i to j and it also shows the cost of going from i to j. Hence, the algorithm will find not only the shortest path but also the with the smallest cost. 
+A value of NA means that there is no path. Put positive number only, as negative will cause problems.
 }
 }
 
@@ -53,13 +53,8 @@ Ported into R and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- matrix(0, 5, 5)
-x[1, 2] <- 2 ; x[1, 3] <- 2
-x[2, 4] <- 6 ; x[2, 5] <- 5
-x[3, 4] <- 5 ; x[3, 5] <- 4
-x[4, 5] <- 7
-x[5, 4] <- 8 
-
+x <- matrix(NA, 10, 10)
+x[sample(1:100, 10)] <- rpois(10, 3)
 floyd(x)
 }
 

@@ -1,0 +1,7 @@
+poisson.mle <- function(x) {
+   n <- length(x)
+   sx <- sum(x)
+   lambda <- sx / n
+   loglik <-  - sx + sx * log(lambda) - sum( Lgamma(x + 1) )
+   list(loglik = loglik, lambda = lambda)
+ }

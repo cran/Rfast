@@ -196,8 +196,9 @@ void i4mat_floyd ( int n, vector<double> &a ){
     for ( j = 0; j < n; j++ )
       if ( a[k+j*n] < i4_huge )
         for ( i = 0; i < n; i++ )
-          if ( a[i+k*n] < i4_huge )
+          if ( a[i+k*n] < i4_huge ){
             a[i+j*n] = i4_min ( a[i+j*n], a[i+k*n] + a[k+j*n] );
+          }
 }
 
 void min_max_d(double *start,double *end,double &min, double &max){
@@ -513,4 +514,73 @@ int len_sort_unique_int(IntegerVector x){
       if(*pp!=INT_MAX)
         count_not_zero++;
   return count_not_zero;
+}
+
+double sumsqr(NumericMatrix &x){
+  double s=0,v;
+  for(double *start=&x[0],*end=&(*x.end());start!=end;++start){
+    v=*start;
+    s+=v*v;
+  }
+  return std::sqrt(s);    
+}
+
+int True(int *start,int *end){
+  int t=0;
+  for(;start!=end;++start)
+    if(*start) 
+      ++t;
+    return t;
+}
+
+bool my_all(int* start,int *end){
+  for(;start!=end;++start){
+    if(!(*start)){
+      return false;
+    }
+  }
+  return true;
+}
+
+bool my_any(int* start,int *end){
+  for(;start!=end;++start){
+    if(*start){
+      return true;
+    }
+  }
+  return false;
+}
+
+double sum_sqrt_mat(mat x){
+  double *xx=&x[0],a=0,*endx=&(*x.end());
+  for(;xx!=endx;++xx)
+    a+=std::sqrt(*xx);
+  return a;
+}
+
+colvec pnormc(colvec x){
+  for(double *xx=&x[0],*endx=&x[x.n_elem];xx!=endx;++xx){
+    *xx=R::pnorm5(*xx,0,1,1,0);
+  }
+  return x;
+}
+
+double sum_abs(mat x,mat y){
+  double s=0;
+  for(unsigned int i=0;i<x.n_elem;++i){
+    s+=abs(x[i]-y[i]);
+  }
+  return s;
+}
+
+NumericVector toNumbers(string x,char spliter){
+  NumericVector f;
+  x+=spliter;
+  const char *split=&spliter;
+  char *token = strtok(&x[0], split);
+  while (token != NULL) {
+    f.push_back(atof(token));
+    token = strtok(NULL, split);
+  }
+  return f;
 }

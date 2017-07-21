@@ -1,4 +1,7 @@
 
 rowMaxs <- function(x,value=FALSE) {
-	.Call('Rfast_rowMaxs', PACKAGE = 'Rfast',x,value)
+	if(value){
+		.Call('Rfast_row_max', PACKAGE = 'Rfast',x)
+	}
+	.Call('Rfast_row_max_indices', PACKAGE = 'Rfast',x)
 }

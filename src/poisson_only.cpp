@@ -17,8 +17,8 @@ NumericVector poisson_only(NumericMatrix X, NumericVector Y,const double ylogy){
   NumericVector F(pcols);
   double dif,sm=0.0,szm=0.0,sz2m=0.0,t,lgmeany=log(mean(y));
   for(i=0;i<pcols;++i){
-    b_old(0)=lgmeany;
-    b_old(1)=0;
+    b_old[0]=lgmeany;
+    b_old[1]=0;
     z_col_1=x.col(i);
     z.col(1)=z_col_1;
     z_tr.row(1)=mat(z_col_1.begin(),1,n,false);

@@ -14,8 +14,8 @@ vm.mle <- function(x, tol = 1e-09) {
     mu <- atan(S/C)
   } else  mu <- atan(S/C) + pi
   con <- sum( cos(x - mu) ) 
-  k1 <- sqrt( C^2 + S^2 ) / sqrt(n)
-
+  R <- sqrt( C^2 + S^2 ) 
+  k1 <- (1.28 - 0.53 * R^2) * tan(0.5 * pi * R)
   if ( k1 < 710 ) { 
     der <- con - n *  besselI(k1, 1, expon.scaled = TRUE) / besselI(k1, 0, expon.scaled = TRUE)
     a <- besselI(k1, 0)^2 / 2  + besselI(k1, 2) * besselI(k1, 0) / 2 - besselI(k1, 1)^2
@@ -29,7 +29,7 @@ vm.mle <- function(x, tol = 1e-09) {
       k2 <- k1 + der/ der2
     }
       
-  } else k1 <- 710
+  } else k1 <- k1
 
   param <- c(mu, k2) 
   names(param) <- c("mean", "concentration")

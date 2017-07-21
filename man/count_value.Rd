@@ -14,19 +14,19 @@ count_value(x, value)
 
 \arguments{
 \item{x}{
-A vector with the data.
+A vector with the data (numeric or character).
 }
 \item{value}{
-A value to check how many times v exists in the vector x.
+The value to check its frequency in the vector \"x\".
 }
 }
 
 \details{
-The functions is written in C++ in order to be as fast as possible.
+The functions is written in C++ in order to be as fast as possible. The \"x\" and \"value\" must have the same type. The type can be numeric or character.
 }
 
 \value{
-Counts how many times a value exists in a vector in linear time.
+The frequency of a value in a vector in linear time.
 }
 
 %\references{
@@ -40,15 +40,17 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 
 \seealso{
-\code{\link{med}, \link{binary_search} 
+\code{\link{med}, \link{binary_search}, \link{Order}, \link{nth} 
 }
 }
 
 \examples{
-x <- rnorm(1000)
+x <- rnorm(100)
 value <- x[50]
 system.time( b <- count_value(x,value) )
+x <- sample(letters,replace=TRUE)
+value <- "r"
+system.time( g <- count_value(x,value) )
 }
 
 \keyword{ Count the frequency of a value }
-

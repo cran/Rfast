@@ -1,4 +1,3 @@
-
 rmdp <- function(y, alpha = 0.05, itertime = 100) {
   ## y is the data
   ## alpha is the significance level
@@ -24,9 +23,8 @@ rmdp <- function(y, alpha = 0.05, itertime = 100) {
   sama <- ( ty - mu_t ) / var_t
   disa <- colsums(sama^2) 
   disa <- disa * p / med(disa) 
-  z <- t(sama[, submcd])
-  b <- prcomp(z)
-  tr2_h <- sum(b$sdev^4)
+  b <- hd.eigen(y[submcd, ], center = TRUE, scale = TRUE)
+  tr2_h <- sum(b^2)
   tr2 <- tr2_h - p^2 / h
   cpn_0 <- 1 + (tr2_h) / p^1.5
   w0 <- (disa - p) / sqrt( 2 * tr2 * cpn_0 ) < qnorm(1 - delta)
@@ -36,9 +34,8 @@ rmdp <- function(y, alpha = 0.05, itertime = 100) {
   var_t <- colVars( y[sub, ], suma = nw * mu_t, std = TRUE )
   sama <- ( ty - mu_t ) / var_t
   disa <- colsums(sama^2)
-  z <- t(sama[, sub])
-  b <- prcomp(z)
-  tr2_h <- sum(b$sdev^4) 
+  b <- hd.eigen(y[sub, ], center = TRUE, scale = TRUE)
+  tr2_h <- sum(b^2) 
   tr2 <- tr2_h - p^2 / nw
   scal <- 1 + exp( - qnorm(1 - delta)^2 / 2 ) / (1 - delta) * sqrt( tr2) / p / sqrt(pi)
   disa <- disa / scal

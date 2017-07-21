@@ -35,8 +35,8 @@ This is an alternative to the BIC change and it uses the adjusted coefficient of
 adjusted \eqn{R^2} is more than the tolr continue.
 }
 \item{stopping}{
-This refers to the type of extra checking to do. If you want the BIC check, set it to "BIC". If you want the adjusted \eqn{R^2} check 
-set this to "ar2". Or, if you want both of them to take place, both of these criteria to be satisfied make this "BICR2".
+This refers to the type of extra checking to do. If you want the BIC check, set it to \"BIC\". If you want the adjusted \eqn{R^2} check 
+set this to \"ar2\". Or, if you want both of them to take place, both of these criteria to be satisfied make this \"BICR2\".
 }
 }
 
@@ -76,7 +76,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rnorm(200 * 100), ncol = 100 )
+## 200 variables, hence 200 univariate regressions are to be fitted
+x <- matrix( rnorm(200 * 200), ncol = 200 )
 y <- rnorm(200)
 system.time( cor.fsreg(y, x) )
 }

@@ -23,7 +23,7 @@ bool binarysearch(SEXP x,double v){
 }
 
 //[[Rcpp::export]]
-bool lowerbound(SEXP x,double v){
+int lowerbound(SEXP x,double v){
 	switch(TYPEOF(x)){
 		case INTSXP:{
 			int *start=INTEGER(x);

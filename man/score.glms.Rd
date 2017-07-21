@@ -1,6 +1,7 @@
 \name{Many score based GLM regressions}
 \alias{score.glms}
 \alias{score.multinomregs}
+\alias{score.negbinregs}
 \title{
 Many score based GLM regressions
 }
@@ -12,11 +13,12 @@ Many score based GLM regressions.
 \usage{
 score.glms(y, x, oiko = NULL, logged = FALSE ) 
 score.multinomregs(y, x, logged = FALSE ) 
+score.negbinregs(y, x, logged = FALSE ) 
 }
 
 \arguments{
 \item{y}{
-A vector with either discrete or binary data for the Poisson and binary logistic regression respectively. 
+A vector with either discrete or binary data for the Poisson or negative binomial and binary logistic regression respectively. 
 Otherwise it is a vector with discrete values or factor values for the multinomial regression. If the vector 
 is binary and choose multinomial regression the function checks and transfers to the binary logistic regression.
 }
@@ -49,7 +51,6 @@ via the \eqn{\chi^2} distribution.
 }
 
 \references{
-
 Campbell, M.J. (2001). Statistics at Square Two: Understand Modern Statistical Applications in Medicine, pg. 112.
 London, BMJ Books. 
  
@@ -58,6 +59,8 @@ Draper, N.R. and Smith H. (1988). Applied regression analysis. New York, Wiley, 
 McCullagh, Peter, and John A. Nelder. Generalized linear models.  CRC press, USA, 2nd edition, 1989.
 
 Agresti Alan (1996). An introduction to categorical data analysis. New York: Wiley.
+
+Joseph M.H. (2011). Negative Binomial Regression. Cambridge University Press, 2nd edition.
 }
 
 \author{

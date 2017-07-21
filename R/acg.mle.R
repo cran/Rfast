@@ -1,4 +1,4 @@
-acg.mle <- function (x, tol = 1e-09) {
+acg.mle <- function (x, tol = 1e-07) {
     p <- dim(x)[2]
     n <- dim(x)[1]
     mu <- numeric(p)

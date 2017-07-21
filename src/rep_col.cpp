@@ -9,17 +9,38 @@ using namespace Rcpp;
 using namespace arma;
 
 //[[Rcpp::export]]
-mat rep_col(colvec x,const int n){
-  return repmat(x,1,n);
+SEXP rep_col(SEXP x,const int n){
+	const int p=Rf_length(x);
+	SEXP f;
+	int i,j;
+	switch(TYPEOF(x)){
+		case INTSXP:{
+			f=PROTECT(Rf_allocMatrix(INTSXP,n,p));
+			int *ff=INTEGER(f),*xx=INTEGER(x),*start=xx;;
+			for(i=0;i<n;++i)
+				for(start=xx,j=0;j<p;++j,++ff,++start)
+					*ff=*start;
+			break;
+		}
+		default:{
+			f=PROTECT(Rf_allocMatrix(REALSXP,n,p));
+			double *ff=REAL(f),*xx=REAL(x),*start=xx;
+		  	for(i=0;i<n;++i)
+				for(start=xx,j=0;j<p;++j,++ff,++start)
+					*ff=*start;
+		 	break;
+		}
+	}
+	UNPROTECT(1);
+  	return f;
 }
 
-RcppExport SEXP Rfast_rep_col(SEXP xSEXP,SEXP nSEXP){
+RcppExport SEXP Rfast_rep_col(SEXP x,SEXP nSEXP){
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< colvec >::type x(xSEXP);
     traits::input_parameter< const int >::type n(nSEXP);
-    __result = wrap(rep_col(x,n));
+    __result = rep_col(x,n);
     return __result;
 END_RCPP
 }

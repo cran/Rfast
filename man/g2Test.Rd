@@ -17,7 +17,8 @@ g2Test_perm(data, x, y, cs, dc, nperm)
 
 \arguments{
 \item{data}{
-A numerical matrix with the data.
+A numerical matrix with the data. \bold{The minimum must be 0, otherwise the function can crash or will produce 
+wrong results}.
 }
 \item{x}{
 A number between 1 and the number of columns of data. This indicates which variable to take. 

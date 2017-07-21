@@ -1,7 +1,3 @@
 colMads <- function(x) {
-  
-    m <- colMedians(x)
-    y <- t( t(x) - m )
-    colMedians( abs(y) ) / qnorm(3/4)
-
+	.Call("Rfast_col_mads",PACKAGE = "Rfast",x)
 }

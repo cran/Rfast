@@ -6,6 +6,7 @@ floyd<-function(x){
   dm<-ncol(x)
   y<-.Call('Rfast_floyd_john', PACKAGE = 'Rfast',dm,y)
   y[y==i4_huge]<-NA
+  y[seq.int(1,length(y),dim(x)[2L]+1)]<-0
   dim(y)<-c(dm,dm)
   y
 }

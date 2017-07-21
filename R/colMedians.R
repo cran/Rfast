@@ -1,4 +1,4 @@
 
 colMedians <- function(x) {
-	.Call('Rfast_colmeds', PACKAGE = 'Rfast',x)
+	.Call('Rfast_col_meds', PACKAGE = 'Rfast',x)
 }

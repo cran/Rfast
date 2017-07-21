@@ -1,5 +1,5 @@
 \name{ Order }
-\alias{ Order }
+\alias{Order}
 \title{
 Order
 }

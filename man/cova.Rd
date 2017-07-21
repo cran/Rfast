@@ -22,17 +22,13 @@ A matrix with data. It has to be matrix, if it is data.frame for example the fun
 }
 
 \details{
-The calculations take place faster than the built-in functions \code{\link{cov}}\code{\link{cor}} as the number of variables increases. For a few tens of variables
-This is true if the number of variables is high, say from 500 and above. For less variables, it's better to use the R's built-in function.
-We found this method in \href{http://stackoverflow.com/questions/18964837/fast-correlation-in-r-using-c-and-parallelization}{stackoverflow} 
+The calculations take place faster than the built-in functions \code{\link{cor}} 
+as the number of variables increases. For a few tens of variables. This is true if the number of variables is high, 
+say from 500 and above. The "cova" on the other hand is always faster. 
 }
 
 \value{
 The covariance or correlation matrix.
-}
-
-\references{
-Shabalin, A.A. (2012). Matrix eQTL: Ultra fast eQTL analysis via large matrix operations. Bioinformatics 28(10): 1353-1358.
 }
 
 \author{
@@ -51,9 +47,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <-matrix( rnorm( 1000 * 300), ncol = 300 )
-s1 <- cor(x) 
-s2 <- cora(x)
+x <-matrix( rnorm( 1000 * 100), ncol = 100 )
+s1 <- cov(x) 
+s2 <- cova(x)
 all.equal(s1, s2)
 }
 

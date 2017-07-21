@@ -3,7 +3,8 @@
 \title{Distance between vectors and a matrix
 }
 
-\description{Distance between vectors and a matrix.
+\description{
+Distance between vectors and a matrix.
 }
 
 \usage{
@@ -18,7 +19,7 @@ A matrix with some data or a vector.
 A matrix with the data, where rows denotes observations (vectors) and the columns contain the variables.
 }
 \item{type}{
-This can be either "euclidean" or "manhattan".
+This can be either \"euclidean\" or \"manhattan\".
 }
 \item{trans}{
 Do you wan the returned matrix to be transposed? TRUE or FALSE.
@@ -45,7 +46,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 
 \seealso{
-\code{\link{mahala}
+\code{\link{mahala}, \link{Dist}, \link{total.dist}, \link{total.dista}
 }
 }
 

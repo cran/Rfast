@@ -66,3 +66,32 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+
+List g2tests_perm(NumericMatrix data,NumericVector x, int y, NumericVector dc, int nperm);
+RcppExport SEXP Rfast_g2tests_perm(SEXP dataSEXP,SEXP xSEXP,SEXP ySEXP,SEXP dcSEXP,SEXP npermSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericMatrix >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type y(ySEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dc(dcSEXP);
+    Rcpp::traits::input_parameter< int >::type nperm(npermSEXP);
+    __result = Rcpp::wrap(g2tests_perm(data,x,y,dc,nperm));
+    return __result;
+END_RCPP
+}
+
+List g2tests(NumericMatrix data, NumericVector x, int y, NumericVector dc);
+RcppExport SEXP Rfast_g2tests(SEXP dataSEXP,SEXP xSEXP,SEXP ySEXP,SEXP dcSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericMatrix >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type y(ySEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dc(dcSEXP);
+    __result = Rcpp::wrap(g2tests(data,x,y,dc));
+    return __result;
+END_RCPP
+}

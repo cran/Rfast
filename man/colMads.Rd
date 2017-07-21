@@ -1,5 +1,6 @@
 \name{Column and rows-wise mean absolute deviations}
 \alias{colMads}
+\alias{rowMads}
 \title{
 Column and row-wise mean absolute deviations
 }
@@ -10,6 +11,7 @@ Column and row-wise mean absolute deviations.
 
 \usage{
 colMads(x)
+rowMads(x)
 }
 
 \arguments{
