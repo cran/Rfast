@@ -10,7 +10,7 @@ Distance matrix.
 }
 
 \usage{
-Dist(x, method = "euclidean", square = FALSE, p = 0)
+Dist(x, method = "euclidean", square = FALSE, p = 0,vector = FALSE)
 vecdist(x)
 }
 
@@ -20,16 +20,18 @@ A matrix with data. The distances will be calculated between pairs of rows.
 In the case of \bold{vecdist} this is a vector.
 }
 \item{method}{
-This is either "euclidean", "mahnatatan", "canberra1", "canberra2", "minimum", "maximum", "minkowski",
-"bhattacharyya", "hellinger", "total_variation" or "kullback_leibler" or "jensen_shannon". 
+This is either "euclidean", "manhattan", "canberra1", "canberra2", "minimum", "maximum", "minkowski","bhattacharyya", "hellinger", "total_variation" or "kullback_leibler/jensen_shannon".
 The last two options are basically the same. 
 }
 \item{square}{
-If you choose "euclidean" or "hellinger" as the method, then you can have the optino to return the 
+If you choose "euclidean" or "hellinger" as the method, then you can have the option to return the 
 squared Euclidean distances by setting this argument to TRUE. 
 }
 \item{p}{
-This is for the the Mikowski, the power of the metric. 
+This is for the the Minkowski, the power of the metric. 
+}
+\item{vector}{
+For return a vector instead a matrix.
 }
 }
 

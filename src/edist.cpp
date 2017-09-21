@@ -9,7 +9,7 @@ using namespace arma;
 //[[Rcpp::export]]
 double edist(NumericMatrix x,NumericMatrix y){
 	const int n1=x.ncol(),n2=y.ncol();
-	double mij=total_dista(x, y),mii=total_dist(x),mjj=total_dist(y);
+	double mij=total_dista(x, y,false),mii=total_euclidean_dist(x,false),mjj=total_euclidean_dist(y,false);
 	return (2 * mij - n2 * mii / n1 - n1 * mjj/n2 ) / (n1 + n2);
 }
 

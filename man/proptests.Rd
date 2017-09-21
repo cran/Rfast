@@ -56,17 +56,17 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 ## 10000 variables, hence 10000 t-tests will be performed
 set.seed(12345)
-x1 <- rpois(1000, 5)
-x2 <- rpois(1000, 5)
+x1 <- rpois(500, 5)
+x2 <- rpois(500, 5)
 n1 <- rpois(1000, 40)
 n2 <- rpois(1000, 40)
 a <- proptests(x1, x2, n1, n2)
-hist(a[, 4])
+mean(a[, 4]<0.05)
 
-x1 <- rbinom(1000, 500, 0.6)
-x2 <- rbinom(1000, 500, 0.6)
+x1 <- rbinom(500, 500, 0.6)
+x2 <- rbinom(500, 500, 0.6)
 b <- proptests(x1, x2, 500, 500)
-hist(b[, 4])
+mean(b[, 4]<0.05)
 }
 
 \keyword{ 2 sample proportions tests }

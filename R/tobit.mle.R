@@ -1,14 +1,17 @@
 tobit.mle <- function(y, tol = 1e-09) {
   y1 <- y[y >0]  ;  n1 <- length(y1)
-  n0 <- length(y) - n1
-  m <- mean(y)   ;  s <- sd(y)
-  z <- (y1 - m)
+  n <- length(y)
+  n0 <- n - n1
+  sy12 <- sum(y1^2)
+  m <- mean(y)   ;  s <- sqrt( sy12/n - m^2 )
+  sy1 <- n * m
+  z <- y1 - m
   com <- dnorm(m, 0, s) / pnorm(-m/s)
-  derm <- sum(z)/s^2 - n0 * com
+  derm <- (sy1 - n1 * m)/s^2 - n0 * com
   derm2 <-  -n1/s^2 - n0 * ( -m /s^2 * com + com^2 ) 
-  ders <-  -n1 + sum(z^2)/s^2 + n0 * m * com
-  ders2 <-  - 2 * sum(z^2)/s^2 + n0 * m * ( - com + m^2/s^2 * com - com^2 * m ) 
-  derms <-  - 2 * sum(z)/s^2 - n0 * ( - com + m^2/s^2 * com - com^2 * m ) 
+  ders <-  - n1 + (sy12 - 2 * m * sy1 + n1 * m^2)/s^2 + n0 * m * com
+  ders2 <-  - 2 * (sy12 - 2 * m * sy1 + n1 * m^2)/s^2 + n0 * m * ( - com + m^2/s^2 * com - com^2 * m ) 
+  derms <-  - 2 * (sy1 - n1 * m)/s^2 - n0 * ( - com + m^2/s^2 * com - com^2 * m ) 
   aold <- c(m, log(s))
   anew <- aold - c( ders2 * derm - derms * ders, - derms * derm + derm2 * ders ) / ( derm2 * ders2 - derms^2 )
   i <- 2
@@ -16,13 +19,13 @@ tobit.mle <- function(y, tol = 1e-09) {
     i <- i + 1
     aold <- anew   
     m <- anew[1]     ;    s <- exp( anew[2] )
-    z <- (y1 - m)
+    z <- y1 - m
     com <- dnorm(m, 0, s) / pnorm(-m/s, 0, 1)
-    derm <- sum(z)/s^2 - n0 * com
+    derm <- (sy1 - n1 * m)/s^2 - n0 * com
     derm2 <-  - n1/s^2 - n0 * ( -m /s^2 * com + com^2 ) 
-    ders <-  - n1 + sum(z^2)/s^2 + n0 * m * com
-    ders2 <-  - 2 * sum(z^2)/s^2 + n0 * m * ( - com + m^2/s^2 * com - com^2 * m ) 
-    derms <-  - 2 * sum(z)/s^2 + n0 * ( com - m^2/s^2 * com + com^2 * m ) 
+    ders <-  - n1 + (sy12 - 2 * m * sy1 + n1 * m^2)/s^2 + n0 * m * com
+    ders2 <-  - 2 * (sy12 - 2 * m * sy1 + n1 * m^2)/s^2 + n0 * m * ( - com + m^2/s^2 * com - com^2 * m ) 
+    derms <-  - 2 * (sy1 - n1 * m)/s^2 + n0 * ( com - m^2/s^2 * com + com^2 * m ) 
     anew <- aold - c( ders2 * derm - derms * ders, - derms * derm + derm2 * ders ) / ( derm2 * ders2 - derms^2 )
   }
   s <- exp(anew[2])
@@ -31,5 +34,3 @@ tobit.mle <- function(y, tol = 1e-09) {
   names(param) <- c("location", "scale")
   list(iters = i, loglik = loglik, param = param)
 } 
-
-

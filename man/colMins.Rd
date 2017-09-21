@@ -11,9 +11,9 @@ Column-wise minimum and maximum of a matrix.
 }
 
 \usage{
-colMins(x, value = FALSE)
+colMins(x, value = FALSE, parallel = FALSE)
 
-colMaxs(x, value = FALSE)
+colMaxs(x, value = FALSE, parallel = FALSE)
 
 colMinsMaxs(x)
 }
@@ -24,6 +24,9 @@ A numerical matrix with data.
 }
 \item{value}{
 If the value is FALSE it returns the indices of the minimum/maximum, otherwise it returns the minimum and maximum values.
+}
+\item{parallel}{
+Do you want to do it in parallel in C++? TRUE or FALSE. The parallel will return the minimum/maximum value only. It will never return the indices.
 }
 }
 

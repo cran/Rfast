@@ -9,8 +9,8 @@ k nearest neighbours algorithm (k-NN).
 }
 
 \usage{
-knn(xnew, y, x, k, dist.type = "euclidean", type = "C", 
-method = "average", freq.option = 0)
+knn(xnew, y, x, k, dist.type = "euclidean", type = "C", method = "average", 
+freq.option = 0)
 }
 
 \arguments{
@@ -19,7 +19,7 @@ The new data, new predictor variable values. A matrix with numerical data.
 }
 \item{y}{
 A vector with the response variable, whose values for the new data we wish to predict. This can be 
-numerical data, or discrete, 0, 1, ... The latter is for classification.
+numerical data, factor or discrete, 0, 1, ... The latter two cases are for classification.
 }
 \item{x}{
 The dataset. A matrix with numerical data.

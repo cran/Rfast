@@ -11,7 +11,6 @@ using namespace std;
 NumericVector prop_regs(NumericMatrix X, NumericVector Y,const double tol,const string varb){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=2;
   unsigned int j,i;
-  char e='e';
   colvec b_old(d),b_new(d),L1(d),yhat(n),expyhat,y(Y.begin(),n,false),W(n,fill::zeros),p(n),z_tr_i(n),x2_col,u(n,fill::zeros),u2(n);
   mat z(n,2,fill::ones),inv_L2(d,d),z_tr(2,n,fill::ones),x(X.begin(),n,pcols,false);
   NumericVector F(pcols);
@@ -26,7 +25,7 @@ NumericVector prop_regs(NumericMatrix X, NumericVector Y,const double tol,const 
     for(dif=1.0,s=0.0;dif>tol;){
       sw=szw=sz2w=0.0;
       yhat = z*b_old;
-      expyhat=(e^yhat);
+      expyhat=exp(yhat);
       p = expyhat / ( 1 + expyhat );
       for(j=0;j<n;j++){
         t=p.at(j);

@@ -29,7 +29,7 @@ The tolerance level up to which the maximisation stops.
 
 \details{
 Maximum likelihood estimation of the parameters of the beta  distribution is performed via Newton-Raphson. The distributions and hence the functions 
-does not accept zeros. \"logitnorm.mle\" fits the logistic normal, hence no nwewton-Raphson is required and the \"hypersecant01.mle\" uses the golden ratio 
+does not accept zeros. "logitnorm.mle" fits the logistic normal, hence no nwewton-Raphson is required and the "hypersecant01.mle" uses the golden ratio 
 search as is it faster than the Newton-Raphson (less calculations)
 }
 
@@ -42,7 +42,7 @@ The number of iterations required by the Newton-Raphson.
 The value of the log-likelihood.
 }
 \item{param}{
-The estimated parameters. In the case of \"hypersecant01.mle\" this is called \"theta\" as there is only one parameter.
+The estimated parameters. In the case of "hypersecant01.mle" this is called "theta" as there is only one parameter.
 }
 }
 
@@ -115,7 +115,7 @@ ibeta.mle(x)
 #   a <- anew[1]
 #   b <- anew[2]
 #   loglik <- -n * lbeta(a, b) + (a - 1) * sly1 + (b - 1) * sly2
-#   names(anew) <- c(\"alpha\", \"beta\")
+#   names(anew) <- c("alpha", "beta")
 #   list(iters = i, loglik = loglik, param = anew)
 # }
 

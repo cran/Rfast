@@ -2,6 +2,7 @@
 
 #include <RcppArmadillo.h>
 #include "system_files.h"
+#include <algorithm>
 
 using namespace arma;
 using namespace std;
@@ -86,13 +87,13 @@ bool is_alias(const char *s,int len){
 bool next_alias(ifstream &file,string &res){
   string s;
   getline(file,s);
-  if(is_alias(s.c_str(),s.size())==false){
-    return false;
+  bool ok_alias=is_alias(s.c_str(),s.size());
+  if(ok_alias){
+    s.erase(s.end()-1);
+    s.erase(s.begin(),s.begin()+7);
+    res=s;
   }
-  s.erase(s.end()-1);
-  s.erase(s.begin(),s.begin()+7);
-  res=s;
-  return true;
+  return ok_alias;
 }
 
 vector<string> read_aliases(ifstream &file){
@@ -129,8 +130,6 @@ vector<string> find_duplis(vector<string> x){
     return f;
 }
 
-
-
 bool is_example(const char *s,int len){
   return (len>7 && s[0]=='\\' && s[1]=='e' && s[2]=='x' 
             && s[3]=='a' && s[4]=='m' && s[5]=='p' 
@@ -145,12 +144,15 @@ bool get_example(ifstream &file,string &res){
   return is_e;
 }
 
-string read_example(ifstream &file){
+string read_example(ifstream &file,int& long_lines){
   string als;
   string s;
   while(!get_example(file,s));
   getline(file,s);
   while(!file.eof() && s[0]!='}'){
+    if(s.size()>99){ // 100 max lines
+      ++long_lines;
+    }
     s+="\n";
     als+=s;
     getline(file,s);
@@ -164,7 +166,19 @@ bool binary_help(vector<string>::iterator first,vector<string>::iterator last,st
   bool found=false;
   if(tt!=last-first && val>=*first){
     res=t;
-    found=true; 
+    found=true;
   }
   return  found;
+}
+
+void dont_read_man(vector<string>& all_rd_files,vector<string>& no_read){
+  if(no_read[0]!=""){
+    sort(all_rd_files.begin(),all_rd_files.end());
+    vector<string>::iterator fv;
+    for(unsigned int i=0;i<no_read.size();++i){
+      if(binary_help(all_rd_files.begin(),all_rd_files.end(),no_read[i],fv)){
+        all_rd_files.erase(fv);
+      }
+    }
+  }
 }

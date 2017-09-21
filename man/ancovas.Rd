@@ -18,7 +18,7 @@ A matrix with the data, where the rows denote the observations and the columns a
 }
 \item{ina}{
 A numerical vector with 1s, 2s, 3s and so one indicating the two groups. Be careful, the function 
-is desinged to accept numbers greater than zero. Alternatively it can a factor variable.
+is desinged to accept numbers greater than zero. 
 }
 \item{x}{
 A numerical vector whose length is equal to the number of rows of y. This is the covariate. 
@@ -59,7 +59,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 ## 100 variables, hence 100 F-tests will be performed
 y <- matrix( rnorm(90 * 100), ncol = 100 )
-ina <- factor( rbinom(90, 2, 0.5) )
+ina <- rbinom(90, 2, 0.5) + 1
 x <- rnorm(90)
 system.time( a <- ancovas(y, ina, x) )
 m1 <- lm(y[, 15] ~ factor(ina) + x)

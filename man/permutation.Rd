@@ -2,6 +2,7 @@
 \alias{permutation}
 \alias{permutation.next}
 \alias{permutation.prev}
+\alias{bincomb}
 \title{
 Permutation
 }
@@ -14,6 +15,7 @@ Permute the given vector.
 permutation(x, all=TRUE)
 permutation.next(x, all.next=TRUE)
 permutation.prev(x, all.prev=TRUE)
+bincomb(n)
 }
 
 \arguments{
@@ -29,11 +31,14 @@ A logical value for returning all the next or one possible combinations, if ther
 \item{all.prev}{
 A logical value for returning all the previous or one possible combinations, if there are. 
 }
+\item{n}{
+An integer value for the length of the binary number.
+}
 }
 
 \details{
 This function implements "Permutation", which means all the possible combinations. In the permutation.next and permutation.prev
-if there aren't possible combinations it returns the same vector.
+if there aren't possible combinations it returns the same vector. "Binary Combinations" for "bincomb", means all the possible combinations for the binary number with length "n".
 }
 
 \value{
@@ -60,6 +65,7 @@ y <- rnorm(5)
 b <- permutation(y)
 b <- permutation.next(y)
 b <- permutation.prev(y)
+g <- bincomb(4)
 }
 
 \keyword{ Permutation Function }

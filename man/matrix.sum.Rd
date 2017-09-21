@@ -23,7 +23,7 @@ A matrix with data.
 %}
 
 \value{
-The sum of the matrix \"x\".
+The sum of the matrix "x".
 }
 
 %\references{

@@ -81,7 +81,6 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 x <- matrix( rnorm(500 * 200), ncol = 200 )
 y <- rweibull(500, 2, 3)   
 a <- score.weibregs(y, x) 
-hist(a[, 2])
 sum(a[, 2] < 0.05) / 200
 }
 

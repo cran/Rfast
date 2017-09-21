@@ -19,11 +19,11 @@ A vector with data.
 }
 
 \details{
-Check all the column if any has all its elements zeros. If found, return \"TRUE\". Otherwise continues with rows. If columns and rows hasn't any zero vector then return \"FALSE\". Even if it returns \"FALSE\" that doesn't mean the determinant can't be zero. It might be but if check before and found any zero vector then for sure the determinant it'll be zero.
+Check all the column if any has all its elements zeros. If found, return "TRUE". Otherwise continues with rows. If columns and rows hasn't any zero vector then return "FALSE". Even if it returns "FALSE" that doesn't mean the determinant can't be zero. It might be but if check before and found any zero vector then for sure the determinant it'll be zero.
 }
 
 \value{
-A boolean value, \"TRUE\" if any column OR row is zero. \"FALSE\" otherwise.
+A boolean value, "TRUE" if any column OR row is zero. "FALSE" otherwise.
 }
 
 %\references{

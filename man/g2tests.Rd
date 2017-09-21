@@ -35,7 +35,7 @@ freedom will be wrong.
 }
 \item{nperm}{
 The number of permutations. The permutations test is slower than without permutations and should be used with small 
-sample sizes or when the contigency tables have zeros. When there are few variables, R's \"chisq.test\" function is 
+sample sizes or when the contigency tables have zeros. When there are few variables, R's "chisq.test" function is 
 faster, but as the number of variables increase the time difference with R's procedure becomes larger and larger.
 }
 }

@@ -1,10 +1,15 @@
-
 spml.reg <- function(y, x, tol = 1e-07, seb = FALSE) {
   ## y is the angular dependent variable
   ## x contains the independent variable(s)
   x <- model.matrix(~., data.frame(x) )
-  ci <- cos(y)  ;   si <- sin(y)
-  u <- cbind(ci, si)  ## bring the data onto the circle
+  if ( is.matrix(y) )  {
+    u <- y
+	ci <- u[, 1]
+	si <- u[, 2]
+  } else {
+    ci <- cos(y)  ;   si <- sin(y)
+    u <- cbind(ci, si)  ## bring the data onto the circle
+  }
   n <- dim(u)[1]
   XX <- solve( crossprod(x), t(x) )
   B1 <-  XX %*% u 
@@ -18,12 +23,12 @@ spml.reg <- function(y, x, tol = 1e-07, seb = FALSE) {
   tau <- Rfast::rowsums(u * mu)
   ptau <- pnorm(tau)
   ## mono th while
-  l<-.Call('Rfast_spml_reg_helper', PACKAGE = 'Rfast',B1,B2,x,u,ci,si,con,tol)
-  B2<-l$B2
-  der2<-l$der2
-  tau<-l$tau
-  ptau<-l$ptau
-  mu<-l$mu
+  l <- .Call('Rfast_spml_reg_helper', PACKAGE = 'Rfast',B1,B2,x,u,ci,si,con,tol)
+  B2 <- l$B2
+  der2 <- l$der2
+  tau <- l$tau
+  ptau <- l$ptau
+  mu <- l$mu
   ###
   if ( seb ) {
     seb <-  sqrt( diag( solve( -der2 ) ) )

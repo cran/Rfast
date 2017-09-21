@@ -10,7 +10,7 @@ Logistic and Poisson regression models.
 }
 
 \usage{
-glm_logistic(x, y, full = FALSE,tol = 1e-09)
+glm_logistic(x, y, full = FALSE,tol = 1e-09, maxiters = 100)
 glm_poisson(x, y, full = FALSE,tol = 1e-09)
 }
 
@@ -28,6 +28,9 @@ If this is FALSE, the coefficients and the deviance will be returned only. If th
 }
 \item{tol}{
 The tolerance value to terminate the Newton-Raphson algorithm.
+}
+\item{maxiters}{
+The max number of iterations that can take place in each regression.
 }
 }
 

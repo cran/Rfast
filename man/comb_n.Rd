@@ -9,7 +9,7 @@ All k possible combinations from n elements.
 }
 
 \usage{
-comb_n(n, k, trans = FALSE)
+comb_n(n, k)
 }
 
 \arguments{
@@ -19,14 +19,8 @@ A stirctly (greater than zero) positive integer number or a vector with numbers.
 \item{k}{
 A positive integer number at most equal to n or at most equal to the length of n, if n is a vector.
 }
-\item{trans}{
-A boolean value for returning the matrix transposed.
-}
 }
 
-%\details{
-%
-%}
 
 \value{
 A matrix with k columns and rows equal to the number of possible unique combinations of n with k elements. 

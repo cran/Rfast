@@ -16,17 +16,17 @@ SEXP partial_sort(SEXP x,const int n,const bool descend){
 	  case INTSXP:{
 	    int *F=INTEGER(f);
 	    if(descend)
-	    	nth_element(F,F+n,F+len,descending_int);
+	    	nth_element(F,F+n-1,F+len,descending_int);
 	    else 
-	    	nth_element(F,F+n,F+len);
+	    	nth_element(F,F+n-1,F+len);
 	    break;
 	  }
 	  default:{
 	    double *F=REAL(f);
 	    if(descend)
-	    	nth_element(F,F+n,F+len,descending_double);
+	    	nth_element(F,F+n-1,F+len,descending_double);
 	    else 
-	    	nth_element(F,F+n,F+len);
+	    	nth_element(F,F+n-1,F+len);
 	    break;
 	  }
   }

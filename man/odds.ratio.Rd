@@ -1,11 +1,12 @@
-\name{Odds ratio}
+\name{Odds ratio and relative risk}
 \alias{odds.ratio}
+\alias{rel.risk}
 \title{
-Odds ratio
+Odds ratio and relative risk
 }
 
 \description{
-Odds ratio.
+Odds ratio and relative risk.
 }
 
 \usage{

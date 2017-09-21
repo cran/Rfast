@@ -10,13 +10,16 @@ Column and row-wise medians of a matrix.
 }
 
 \usage{
-colMedians(x)
+colMedians(x, parallel = FALSE)
 rowMedians(x)
 }
 
 \arguments{
 \item{x}{
 A matrix with the data.
+}
+\item{parallel}{
+Do you want to do it in parallel in C++? TRUE or FALSE.
 }
 }
 

@@ -39,18 +39,6 @@ A vector of correlations in the case of "rho" being NULL, or a matrix with two e
 statistic and the (logged) p-value.
 }
 
-\references{
-Lambert Diane (1992). Zero-Inflated Poisson Regression, with an Application to Defects in 
-Manufacturing. Technometrics. 34(1):1-14.
-
-Johnson Norman L., Kotz Samuel and Kemp Adrienne W. (1992). Univariate Discrete 
-Distributions (2nd ed.). Wiley
-
-Cohen, A. Clifford (1960). Estimating parameters in a conditional Poisson distribution. Biometrics. 16:203-211.
-
-Johnson, Norman L. Kemp, Adrianne W. Kotz, Samuel (2005). Univariate Discrete Distributions (third edition). 
-Hoboken, NJ: Wiley-Interscience.
-}
 
 \author{
 Michail Tsagris

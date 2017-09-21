@@ -22,7 +22,7 @@ A matrix with data.
 Number of columns or rows.
 }
 \item{v}{
-Value to initialize the diagonal of a matrix.
+Value or vector to initialize the diagonal of a matrix.By default "v=0".
 }
 }
 
@@ -31,7 +31,9 @@ Value to initialize the diagonal of a matrix.
 %}
 
 \value{
-Diag.fill returns a diagonal matrix where all the elements in the diagonal are equal to \"v\". Diag.matrix returns a diagonal matrix where has dimension \"len,len\" and all the elements in the diagonal are equal to \"v\". 
+Diag.fill returns a diagonal matrix where all the elements in the diagonal are equal to "v". 
+
+Diag.matrix returns a diagonal matrix where has dimension "len,len" and all the elements in the diagonal are equal to "v".
 }
 
 %\references{
@@ -54,12 +56,12 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-x <- matrix( as.logical(rbinom(100*100,1,0.5),100,100))
+x <- matrix(rbinom(100*100,1,0.5),100,100)
 
 f <- Diag.fill(x,1)
-all(diag(f)==1)
+f <- Diag.fill(x,1:100) ##equals to diag(x)<-1:100
 f <- Diag.matrix(100,1) ##equals to diag(1,100,100)
-
+f <- Diag.matrix(100,1:100) ##equals to diag(1:100,100,100)
 }
 
 \keyword{ Diagonal Matrix }

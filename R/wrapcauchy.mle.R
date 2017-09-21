@@ -1,5 +1,4 @@
 wrapcauchy.mle <- function(x, tol = 1e-09) {
-  
   n <- length(x)
   cx <- cos(x)   
   sx <- sin(x)
@@ -25,7 +24,7 @@ wrapcauchy.mle <- function(x, tol = 1e-09) {
   a <- ( atan(m2[2] / m2[1]) + pi * I(m2[1] < 0) ) %% (2 * pi) 
   k <- m2[1] / cos(a)
   rho <- ( 1 - sqrt(1 - k^2) )/abs(k)
-  loglik <-  - n * log(2 * pi) + n * log(1 - rho^2) - sum( log(1 + rho^2 - 2 * rho * cos(x - a)) )
+  loglik <-  - n * log(2 * pi) + n * log(1 - rho^2) - sum( log1p(rho^2 - 2 * rho * cos(x - a)) )
   param <- c(a, rho)
   names(param) <- c("mean direction", "rho" )
   list(iters = i, loglik = loglik, param = param)

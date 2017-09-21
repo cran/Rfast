@@ -81,5 +81,5 @@ system.time( eel.test2(x, y) )
 }
 
 \keyword{ Hypothesis testing }
-\keyword{ one sample }
+\keyword{ two samples }
 \keyword{ non parametric test }

@@ -25,7 +25,7 @@ The functions is written in C++ in order to be as fast as possible.
 }
 
 \value{
-A vector where item \"i\" is true if found Any true in column/row \"i\". Otherwise false.
+A vector where item "i" is true if found Any true in column/row "i". Otherwise false.
 }
 
 %\references{

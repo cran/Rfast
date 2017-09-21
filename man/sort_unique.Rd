@@ -40,7 +40,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 %}
 
 \seealso{
-\code{\link{sort_mat}, \link{sort_index}, \link{sort_cor_vectors}
+\code{\link{sort_mat}, \link{sort_cor_vectors}
 }
 }
 

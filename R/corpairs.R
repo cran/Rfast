@@ -15,8 +15,8 @@ corpairs <- function(x, y, rho = NULL, logged = FALSE) {
     se <- 1 / sqrt(n - 3)
     test <- as.vector( (zh1 - zh0) / se )
     if ( logged ) { 
-       pvalue <- log(2) + pt( -abs(test), n - 3, lower.tail = FALSE, log.p = TRUE)
-    } else  pvalue <- 2 * pt( -abs(test), n - 3, lower.tail = FALSE )
+       pvalue <- log(2) + pt( abs(test), n - 3, lower.tail = FALSE, log.p = TRUE)
+    } else  pvalue <- 2 * pt( abs(test), n - 3, lower.tail = FALSE )
     r <- cbind(r, test, pvalue)
     colnames(r) <- c("correlation", "z-stat", "p-value") 
   }

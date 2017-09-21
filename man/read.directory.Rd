@@ -46,6 +46,9 @@ A character vector with the examples of each Rd file.
 \item{files}{
 A character vector with the name of the file that each examples belongs.
 }
+\item{long_lines}{
+A character vector with the name of the file that has large examples.
+}
 }
 
 %\references{

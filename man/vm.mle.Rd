@@ -18,7 +18,8 @@ wrapcauchy.mle(x, tol = 1e-09)
 
 \arguments{
 \item{x}{
-A numerical vector with the circular data. They must be expressed in radians. 
+A numerical vector with the circular data. They must be expressed in radians. For the "spml.mle" this can also
+be a matrix with two columns, the cosinus and the sinus of the circular data. 
 }
 \item{tol}{
 The tolerance level to stop the iterative process of finding the MLEs. 

@@ -1,7 +1,8 @@
 
-dista <- function(xnew,x,type = "euclidean",trans=TRUE) {
+dista <- function(xnew,x,type = "euclidean",trans = TRUE,square = FALSE) {
+	x <- .Call('Rfast_dista',t(xnew),t(x),square,type)
 	if(trans){
-		return(t(.Call('Rfast_dista',t(xnew),t(x),type)	))
+		x <- t(x)
 	}
-	.Call('Rfast_dista',t(xnew),t(x),type)
+	x
 }

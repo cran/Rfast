@@ -14,8 +14,8 @@ ttests <- function(x, y = NULL, ina, paired = FALSE, logged = FALSE) {
 
     m1 <- colmeans(x1)
     m2 <- colmeans(x2)
-    f1 <- colVars(x1) / n1
-    f2 <- colVars(x2) / n2
+    f1 <- colVars(x1, suma = n1 * m1) / n1
+    f2 <- colVars(x2, suma = n2 * m2) / n2
     fac <- f1 + f2
     dof <- fac^2 / ( f1^2 / (n1 - 1) + f2^2 / (n2 - 1) )
     stat <- ( m1 - m2 ) / sqrt(fac)
@@ -30,7 +30,7 @@ ttests <- function(x, y = NULL, ina, paired = FALSE, logged = FALSE) {
       z <- x[ ina == 1, ] - x[ ina == 2, ]
     } else  z <- x - y    
     m <- colmeans(z)
-    s <- colVars(z, std = TRUE)
+    s <- colVars(z, suma = n * m, std = TRUE)
     stat <- sqrt(n) * m / s
     if ( logged ) {
       pvalue <- log(2) + pt( abs(stat), n - 1, lower.tail = FALSE, log.p = TRUE )  

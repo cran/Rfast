@@ -1,23 +1,25 @@
-\name{Significance testing for the coefficients of Quasi binomial regression for proportions}
+\name{Significance testing for the coefficients of Quasi binomial or the quasi Poisson regression}
 \alias{anova_propreg}
+\alias{anova_qpois.reg}
 \title{
-Significance testing for the coefficients of Quasi binomial regression for proportions
+Significance testing for the coefficients of Quasi binomial or the quasi Poisson regression
 }
 
 \description{
-Significance testing for the coefficients of Quasi binomial regression for proportions.
+Significance testing for the coefficients of Quasi binomial or the quasi Poisson regression.
 }
 
 \usage{
 anova_propreg(mod, poia = NULL)
+anova_qpois.reg(mod, poia = NULL)
 }
 
 \arguments{
 \item{mod}{
-An object as returned by the "prop.reg" function.
+An object as returned by the "prop.reg" or the "qpois.reg" function.
 }
 \item{poia}{
-If you want to test the significance of a single coefficient this must be a number. In this case, the "prop.reg" function contains
+If you want to test the significance of a single coefficient this must be a number. In this case, the "prop.reg" or the "qpois.reg" function contains
 this information. If you want more coefficients to be testes simultaneously, e.g. for a categorical predictor, then this must 
 contain the positions of the coefficients. If you want to see if all coefficients are zero, like an overall F-test, leave this NULL. 
 }
@@ -48,7 +50,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{ \link{prop.reg}, \link{univglms}, \link{score.glms}, \link{logistic_only}
+\code{ \link{prop.reg}, \link{qpois.reg}, \link{univglms}, \link{score.glms}, \link{logistic_only}
 }
 }
 

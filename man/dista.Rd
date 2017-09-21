@@ -8,7 +8,7 @@ Distance between vectors and a matrix.
 }
 
 \usage{
-dista(xnew, x, type = "euclidean", trans = TRUE)
+dista(xnew, x,type = "euclidean",trans = TRUE,square = FALSE)
 }
 
 \arguments{
@@ -18,11 +18,15 @@ A matrix with some data or a vector.
 \item{x}{
 A matrix with the data, where rows denotes observations (vectors) and the columns contain the variables.
 }
+\item{square}{
+If you choose \"euclidean\" as the method, then you can have the optino to return the 
+squared Euclidean distances by setting this argument to TRUE. 
+}
 \item{type}{
 This can be either \"euclidean\" or \"manhattan\".
 }
 \item{trans}{
-Do you wan the returned matrix to be transposed? TRUE or FALSE.
+Do you want the returned matrix to be transposed? TRUE or FALSE.
 }
 }
 

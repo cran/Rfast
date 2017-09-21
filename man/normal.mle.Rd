@@ -36,9 +36,15 @@ The tolerance level up to which the maximisation stops set to 1e-09 by default.
 }
 
 \details{
-Instead of maximising the log-likelihood via a numerical optimiser we have used a Newton-Raphson algorithm which is faster. See wikipedia for the equation to be solved. For the t distribution we need the degrees of freedom and estimate the location and scatter parameters. 
+Instead of maximising the log-likelihood via a numerical optimiser we have used a Newton-Raphson algorithm which 
+is faster. See wikipedia for the equation to be solved. For the t distribution we need the degrees of freedom and 
+estimate the location and scatter parameters. 
 
-The Cauchy is the t distribution with 1 degree of freedom. If you want to fit such a distribution used the cauchy.mle and not the t.mle with 1 degree of freedom as it's faster. The Laplace distribution is also called double exponential distribution.
+The Cauchy is the t distribution with 1 degree of freedom. If you want to fit such a distribution used the
+cauchy.mle and not the t.mle with 1 degree of freedom as it's faster. The Laplace distribution is also called 
+double exponential distribution.
+
+The wigner.mle refers to the wigner semicircle distribution.
 }
 
 \value{
@@ -49,7 +55,10 @@ Usually a list with three elements, but this is not for all cases.
 }
 
 \references{
-Johnson, Norman L. Kemp, Adrianne W. Kotz, Samuel (2005). Univariate Discrete Distributions (third edition). Hoboken, NJ: Wiley-Interscience.
+Johnson, Norman L. Kemp, Adrianne W. Kotz, Samuel (2005). Univariate Discrete Distributions (third edition). 
+Hoboken, NJ: Wiley-Interscience.
+
+https://en.wikipedia.org/wiki/Wigner_semicircle_distribution
 }
 
 \author{
@@ -77,7 +86,6 @@ logistic.mle(x)
 n <- 100
 x <- 5 - 0.005 *log( - log (runif(n) ) )
 gumbel.mle(x)
-
 }
 
 \keyword{ Continuous distributions }

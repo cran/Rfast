@@ -9,7 +9,6 @@ using namespace arma;
 //[[Rcpp::export]]
 List qpois_reg(NumericMatrix X, NumericVector Y,const double ylogy,const double tol){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=pcols;
-  char e='e';
   colvec b_old(d,fill::zeros),b_new(d),L1(d),yhat(n),y(Y.begin(),n,false),m(n),phi(n);
   mat L2,x(X.begin(),n,pcols,false),x_tr(n,pcols);
   double dif;
@@ -17,7 +16,7 @@ List qpois_reg(NumericMatrix X, NumericVector Y,const double ylogy,const double 
   x_tr=x.t();
   for(dif=1.0;dif>tol;){
     yhat=x*b_old;
-    m=(e^yhat);
+    m=exp(yhat);
     phi=y-m;
     L1=x_tr*phi;
     L2=x.each_col()%m;

@@ -33,7 +33,7 @@ negbin.mle <- function(x, type = 1, tol = 1e-09) {
 
   } else {
     z <- sort_unique(x) 
-    nz <- as.vector( table(x) )  
+    nz <- Table(x)  
     r1 <- log(expr1)
     a <- z + expr1
     f <- sum( Digamma(a) * nz) * expr1 - n * Digamma(expr1) * expr1 + 

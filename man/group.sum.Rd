@@ -9,7 +9,7 @@ Sums of a vector for each level of a grouping variable.
 }
 
 \usage{
-group.sum(x, ina)
+group.sum(x, ina, ina.max = max(ina))
 }
 
 \arguments{
@@ -19,6 +19,9 @@ A numerical vector whose sums are to be calculated for each value of "ina".
 \item{ina}{
 A numerical vector or a factor variable. For evey distinct value of "ina" the sum of "x" will be calculated. 
 Note that negative values are not allowed as this can cause R to run forever. 
+}
+\item{ina.max}{
+Maximum number for vector ina. 
 }
 }
 

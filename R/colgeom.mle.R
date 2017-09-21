@@ -10,5 +10,7 @@ colgeom.mle <- function (x, type = 1) {
         prob <- n/colsums(x)
         loglik <- n * log(prob) + (n/prob - n) * log(1 - prob)
     }
-    list(loglik = loglik, prob = prob)
+    res <- cbind(prob, loglik)
+	colnames(res) <- c("prob of success", "log-likelihood")
+	res
 }

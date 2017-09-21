@@ -1,11 +1,11 @@
-\name{Energy distance between two matrices}
+\name{Energy distance between matrices}
 \alias{edist}
 \title{
-Energy distance between two matrices
+Energy distance between matrices
 }
 
 \description{
-Energy distance between two matrices.
+Energy distance between matrices.
 }
 
 \usage{
@@ -14,27 +14,29 @@ edist(x, y)
 
 \arguments{
 \item{x}{
-A matrix with numbers.
+A matrix with numbers or a list with matrices. 
 }
 \item{y}{
-A second matrix with data. The number of comlumns of this matrix must be the same with the matrix x. The number of rows can be different. 
+A second matrix with data. The number of comlumns of this matrix must be the same with the matrix x. 
+The number of rows can be different. 
 }
 }
 
 \details{
-This calculates the energy distance between two matrices. It will work even for tens of thousands of rows, it will just take some time. 
-See the references for more information.
+This calculates the energy distance between two matrices. It will work even for tens of thousands of rows, 
+it will just take some time. See the references for more information. If you have many matrices and want to 
+calculate the distance matrix, then put them in a list and use eDist.
 }
 
 \value{
-A numerical value, the energy distance. 
+If "x" is matrix, a numerical value, the energy distance. If "x" is list, a matrix with all pairwsie distances of the matrices.
 }
 
 \references{
 Szekely G. J. and Rizzo M. L. (2004) Testing for Equal Distributions in High Dimension, InterStat, November (5).
 
-Szekely G. J. (2000) Technical Report 03-05, E-statistics: Energy of Statistical Samples, Department of Mathematics and 
-Statistics, Bowling Green State University. 
+Szekely G. J. (2000) Technical Report 03-05, E-statistics: Energy of Statistical Samples, Department of 
+Mathematics and Statistics, Bowling Green State University. 
 
 Sejdinovic D., Sriperumbudur B., Gretton A. and Fukumizu, K. (2013). Equivalence of distance-based and
 RKHS-based statistics in hypothesis testing. The Annals of Statistics, 41(5), 2263-2291.
@@ -50,16 +52,21 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 %}
 
 \seealso{
-\code{ \link{total.dist}, \link{total.dista}, \link{Dist}, \link{dista}
+\code{ \link{dvar}, \link{total.dist}, \link{total.dista}, \link{Dist}, \link{dista}
 }
 }
 
 \examples{
-x <- matrix( rnorm(50 * 10), ncol = 10 )
-y <- matrix( rnorm(20 * 10), ncol = 10 ) 
+x <- as.matrix( iris[1:50, 1:4] )
+y <- as.matrix( iris[51:100, 1:4] )
 edist(x, y)
-edist(y, x)
+z <- as.matrix(iris[101:150, 1:4])
+a <- list()
+a[[ 1 ]] <- x
+a[[ 2 ]] <- y
+a[[ 3 ]] <- z
+edist(a)
 }
 
-\keyword{ Distances}
+\keyword{ Energy distances }
 \keyword{ total sum }

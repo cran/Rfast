@@ -27,7 +27,7 @@ A logical matrix with data.
 %}
 
 \value{
-An integer vector where item \"i\" is the number of the true/false values of \"i\" column.
+An integer vector where item "i" is the number of the true/false values of "i" column.
 }
 
 %\references{

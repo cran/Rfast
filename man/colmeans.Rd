@@ -12,15 +12,18 @@ Column and row-wise means of a matrix.
 }
 
 \usage{
-colmeans(x)
+colmeans(x, parallel = FALSE)
 rowmeans(x)
-colhameans(x)
+colhameans(x, parallel = FALSE)
 rowhameans(x)
 }
 
 \arguments{
 \item{x}{
 A numerical matrix with data.
+}
+\item{parallel}{
+Do you want to do it in parallel in C++? TRUE or FALSE.
 }
 }
 
@@ -67,4 +70,3 @@ system.time( rowhameans(x) )
 \keyword{ Column means }
 \keyword{ row means }
 \keyword{ harmonic means }
-

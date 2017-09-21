@@ -25,7 +25,8 @@ vector<string> find_duplis(vector<string>);
 bool is_example(const char *,int);
 bool get_example(ifstream&,string&);
 vector<string> read_directory(string);
-string read_example(ifstream &);
+string read_example(ifstream &file,int& long_lines);
 bool binary_help(vector<string>::iterator,vector<string>::iterator,string&,vector<string>::iterator&);
+void dont_read_man(vector<string>&,vector<string>&);
 
 #endif

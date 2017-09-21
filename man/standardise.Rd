@@ -25,7 +25,7 @@ Should the columns have unit variance, yes (TRUE) or no (FALSE)?
 }
 
 \details{
-Similar to R's built in functions \"scale\" there is the option for centering or scaling only or both (default).
+Similar to R's built in functions "scale" there is the option for centering or scaling only or both (default).
 }
 
 \value{

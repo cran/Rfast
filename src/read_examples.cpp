@@ -1,38 +1,36 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
 #include <fstream>
+#include <dirent.h>
 #include "system_files.h"
 
 using namespace std;
 using namespace Rcpp;
 
-
 //[[Rcpp::export]]
 List read_examples(string path_man,vector<string> no_read){
   ifstream file;
-  vector<string> examples,all_rd_files=read_directory(path_man);
+  vector<string> examples,all_rd_files=read_directory(path_man),files_long_lines;
   string tmp;
-  if(no_read[0]!=""){
-    sort(all_rd_files.begin(),all_rd_files.end());
-    vector<string>::iterator fv;
-    for(unsigned int i=0;i<no_read.size();++i){
-      if(binary_help(all_rd_files.begin(),all_rd_files.end(),no_read[i],fv)){
-        all_rd_files.erase(fv);
-      }
-    }
-  }
+  int longlines=0;
+  dont_read_man(all_rd_files,no_read);
   for(unsigned int i=0;i<all_rd_files.size();++i){
     file.open(path_man+all_rd_files[i]);
     if(!file.is_open()){
       stop("Can't open file \"%s\".",all_rd_files[i]);
     }
-    tmp=read_example(file);
+    longlines=0;
+    tmp=read_example(file,longlines);
+    if(longlines){
+    	files_long_lines.push_back(all_rd_files[i]);
+    }
     file.close();
     examples.push_back(tmp);
   }
   List l;
   l["examples"]=examples;
   l["files"]=all_rd_files;
+  l["long_lines"]=files_long_lines;
   return l;
 }
 

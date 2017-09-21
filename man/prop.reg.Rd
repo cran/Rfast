@@ -10,7 +10,7 @@ Quasi binomial regression for proportions.
 }
 
 \usage{
-prop.reg(y, x, varb = "quasi", tol = 1e-09) 
+prop.reg(y, x, varb = "quasi", tol = 1e-09, maxiters = 100) 
 prop.regs(y, x, varb = "quasi", tol = 1e-09, logged = FALSE) 
 }
 
@@ -31,6 +31,9 @@ There are two options, either "quasi" (default value) or "glm". See the referenc
 }
 \item{logged}{
 Should the p-values be returned (FALSE) or their logarithm (TRUE)?  
+}
+\item{maxiters}{
+The maximum number of iterations before the Newton-Raphson is terminated automatically.
 }
 }
 
@@ -89,7 +92,6 @@ y <- rbeta(100, 1, 4)
 x <- matrix(rnorm(400 * 100), ncol = 400)
 b <- prop.regs(y, x)
 mean(b[, 2] < 0.05)
-hist(b[, 2])
 }
 
 \keyword{ GLMs }

@@ -7,7 +7,6 @@
 using namespace Rcpp;
 using namespace std;
 
-//[[Rcpp::export]]
 NumericMatrix sort_col(NumericMatrix x,const bool descend){
   const int n=x.nrow(),p=x.ncol();
   NumericVector coli(n);
@@ -27,7 +26,6 @@ NumericMatrix sort_col(NumericMatrix x,const bool descend){
   return f;
 }
 
-//[[Rcpp::export]]
 NumericMatrix sort_row(NumericMatrix x,const bool descend){
   const int sz=x.ncol(),p=x.nrow();
   NumericVector rowi(sz);
@@ -42,30 +40,32 @@ NumericMatrix sort_row(NumericMatrix x,const bool descend){
       rowi=x.row(i);
       sort(rowi.begin(),rowi.end());
       x.row(i)=rowi;
-    } 
+    }
   return x;
 }
 
-// sort_col
-RcppExport SEXP Rfast_sort_col(SEXP xSEXP,SEXP descendSEXP) {
-BEGIN_RCPP
-    RObject __result;
-    RNGScope __rngScope;
-    traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    traits::input_parameter< const bool >::type descend(descendSEXP);
-    __result = wrap(sort_col(x,descend));
-    return __result;
-END_RCPP
+//[[Rcpp::export]]
+NumericMatrix sort_mat(NumericMatrix x,const bool descend,const bool by_row){
+	switch(by_row){
+		case true:{
+			return sort_row(x,descend);
+		}
+		default:{
+			return sort_col(x,descend);
+		}
+	}
+	stop("Error in sort matrix.\n");
 }
 
-// sort_row
-RcppExport SEXP Rfast_sort_row(SEXP xSEXP,SEXP descendSEXP) {
+// sort_mat
+RcppExport SEXP Rfast_sort_mat(SEXP xSEXP,SEXP descendSEXP,SEXP by_rowSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
-    __result = wrap(sort_row(x,descend));
+    traits::input_parameter< const bool >::type by_row(by_rowSEXP);
+    __result = wrap(sort_mat(x,descend,by_row));
     return __result;
 END_RCPP
 }

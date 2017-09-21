@@ -18,7 +18,7 @@ A numerical vector with the data, the response variable.
 }
 \item{ina}{
 A numerical vector with 1s, 2s, 3s and so one indicating the two groups. Be careful, the function 
-is desinged to accept numbers greater than zero. Alternatively it can a factor variable.
+is desinged to accept numbers greater than zero. 
 }
 \item{x}{
 A numerical vector whose length is equal to the number of rows of y. This is the covariate. 
@@ -58,7 +58,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 y <- rnorm(90)
-ina <- factor( rbinom(90, 2, 0.5) )
+ina <- rbinom(90, 2, 0.5) + 1
 x <- rnorm(90)
 system.time( a <- ancova1(y, ina, x) )
 m1 <- lm(y ~ factor(ina) + x)

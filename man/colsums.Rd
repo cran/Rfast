@@ -10,7 +10,7 @@ Column and row-wise sums of a matrix.
 }
 
 \usage{
-colsums(x)
+colsums(x, parallel = FALSE)
 
 rowsums(x)
 }
@@ -18,6 +18,9 @@ rowsums(x)
 \arguments{
 \item{x}{
 A numerical matrix with data.
+}
+\item{parallel}{
+Do you want to do it in parallel in C++? TRUE or FALSE.
 }
 }
 

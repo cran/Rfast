@@ -1,6 +1,6 @@
 
 
-checkExamples<-function(path.man,dont.read = "",print.errors = FALSE){
+checkExamples<-function(path.man,dont.read = "",print.errors = FALSE,print.names = FALSE){
   examples_files <- .Call("Rfast_read_examples",PACKAGE = "Rfast",path.man,dont.read)
   error_files<-vector("character")
   examples <- examples_files$examples
@@ -15,8 +15,15 @@ checkExamples<-function(path.man,dont.read = "",print.errors = FALSE){
       error_files <<- c(error_files,file_names[i])
     }
   }
-  for(i in 1:length(examples)){
-    tryCatch(eval(parse(text=examples[i])),error=warning_error_function, warning=warning_error_function)
+  if(print.names){
+    for(i in 1:length(examples)){
+      print(file_names[i])
+      tryCatch(eval(parse(text=examples[i])),error=warning_error_function, warning=warning_error_function)
+    }
+  }else{
+    for(i in 1:length(examples)){
+      tryCatch(eval(parse(text=examples[i])),error=warning_error_function, warning=warning_error_function)
+    }
   }
-  error_files
+  list("Errors"=error_files,"Big Examples"=examples_files$long_lines)
 }

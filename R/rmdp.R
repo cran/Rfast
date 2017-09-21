@@ -19,11 +19,13 @@ rmdp <- function(y, alpha = 0.05, itertime = 100) {
   ####################### 
   submcd <- seq(1, n)[final_vec != 0]
   mu_t <- colmeans( y[submcd, ] ) 
-  var_t <- colVars( y[submcd, ], std = TRUE )
+  nw <- length(submcd)
+  var_t <- colVars( y[submcd, ], suma = nw * mu_t, std = TRUE )
   sama <- ( ty - mu_t ) / var_t
   disa <- colsums(sama^2) 
   disa <- disa * p / med(disa) 
-  b <- hd.eigen(y[submcd, ], center = TRUE, scale = TRUE)
+  yxx <-  crossprod( sama[, submcd] ) / (nw - 1)
+  b <- eigen(yxx)$values
   tr2_h <- sum(b^2)
   tr2 <- tr2_h - p^2 / h
   cpn_0 <- 1 + (tr2_h) / p^1.5
@@ -34,7 +36,8 @@ rmdp <- function(y, alpha = 0.05, itertime = 100) {
   var_t <- colVars( y[sub, ], suma = nw * mu_t, std = TRUE )
   sama <- ( ty - mu_t ) / var_t
   disa <- colsums(sama^2)
-  b <- hd.eigen(y[sub, ], center = TRUE, scale = TRUE)
+  yxx <-  crossprod( sama[, sub] ) / (nw - 1)
+  b <- eigen(yxx)$values
   tr2_h <- sum(b^2) 
   tr2 <- tr2_h - p^2 / nw
   scal <- 1 + exp( - qnorm(1 - delta)^2 / 2 ) / (1 - delta) * sqrt( tr2) / p / sqrt(pi)

@@ -9,7 +9,7 @@ Fast sorting of the columns-rows of a matrix.
 }
 
 \usage{
-sort_mat(x, by.row = FALSE, descending = FALSE, stable = FALSE)
+sort_mat(x, by.row = FALSE, descending = FALSE, stable = FALSE,parallel=FALSE)
 }
 
 \arguments{
@@ -25,6 +25,9 @@ If you want the sorting in descending order, set this to TRUE.
 \item{stable}{
 If you the stable version, so that the results are the same as R's (in the case of ties) set this to TRUE.
 If this is TRUE, the algorithm is a bit slower.
+}
+\item{parallel}{
+Do you want to do it in parallel in C++? TRUE or FALSE. Works with every other argument.
 }
 }
 
@@ -52,7 +55,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \seealso{
 \code{\link{nth}, \link{colMaxs}, \link{colMins}, \link{colrange}, \link{sort_cor_vectors}, 
-\link{sort_index}, \link{sort_unique}
+\link{sort_unique}
 }
 }
 

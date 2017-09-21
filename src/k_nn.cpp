@@ -1,15 +1,13 @@
-
-// [[Rcpp::depends("RcppArmadillo")]]
-#include <RcppArmadillo.h>
 #include "calc_k_nn.h"
 
-using namespace std;
-using namespace arma;
 using namespace Rcpp;
-
+using namespace arma;
+using namespace std;
 
 // [[Rcpp::export]]
-mat k_nn(mat ds_extra, vec y, mat ds, uvec idxs,const string dist_type, const string type, const string method,const unsigned int freq_option) {
+arma::mat k_nn(mat ds_extra,vec y,mat ds,uvec idxs,const string dist_type, const string type, const string method,
+		const unsigned int freq_option) {
+	idxs -= 1;
 	return calc_k_nn(ds_extra, y, ds, idxs, dist_type, type, method, freq_option);
 }
 

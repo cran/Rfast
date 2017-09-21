@@ -31,7 +31,7 @@ static arma::mat sqrt_mat(arma::mat x){
 }
 
 // Author: Manos Papadakis
-static arma::mat dist(arma::mat xnew, arma::mat x,const bool is_euclidean) {
+static arma::mat calc_dist(arma::mat xnew, arma::mat x,const bool is_euclidean) {
   	const int n=x.n_cols,nu=xnew.n_cols;
   	arma::mat disa(n,nu,arma::fill::zeros);
   	if(is_euclidean) 
@@ -312,16 +312,15 @@ bool is_dist_type(const std::string dist_type) {
 arma::mat calc_k_nn(arma::mat& ds_extra, arma::vec& y, arma::mat& ds, arma::uvec& idxs,
 		const std::string dist_type, const std::string type, const std::string method,
 		const unsigned int freq_option) {
-	method_t md={0};
+	method_t md = {0};
 	const bool is_euclidean = is_dist_type(dist_type);
 	const bool is_type_c = is_type(type);
 	if (!is_type_c) {
 		store_method(method, md);
 	}
 	db_print("Adjusting indexes.\n");
-	idxs -= 1;
 	db_print("Calculating distance.\n");
-	arma::mat dists = arma::trans(dist(arma::trans(ds_extra), arma::trans(ds), is_euclidean));
+	arma::mat dists = arma::trans(calc_dist(arma::trans(ds_extra), arma::trans(ds), is_euclidean));
 	db_print("Calculating max n distance.\n");
 	arma::umat max_dist_idxs = calc_n_min(dists, idxs[idxs.size() - 1] + 1);
 	db_print("Calculating estimates.\n");

@@ -22,17 +22,17 @@ A boolean value for return vector.
 }
 
 \details{
-Like R's \"table\".
+Like R's "table".
 }
 
 \value{
-if is.vector is \"TRUE\" then return a vector with names the discrete values of \"x\" and values there frequencies. 
+if is.vector is "TRUE" then return a vector with names the discrete values of "x" and values there frequencies. 
 Otherwise, a list with 2 fields:
 \item{freqs}{
-The frequency of each value from vector \"x\".
+The frequency of each value from vector "x".
 }
 \item{values}{
-The discrete values from vector \"x\" sorted. 
+The discrete values from vector "x" sorted. 
 } 
 }
 

@@ -3,14 +3,14 @@ lomax.mle <- function(x, tol = 1e-09) {
   x2 <- x^2
   m <- sum(x) / n
   s2 <- sum(x2) / n - m^2
-  expa <- abs( 2 * Var(x) / (s2 - m^2) )
+  expa <- abs( 2 * s2 / (s2 - m^2) )
   explam <- abs( expa - 1 ) * m
   dera2 <-  - expa * sum( log1p( x / explam) )
   dera <-  n + dera2
   com <- sum( x / (explam + x) )
   derlama <- expa * com
   derlam <-  - n + derlama + com
-  derlam2 <-  - ( expa + 1)* sum( x * explam / (explam + x)^2 )
+  derlam2 <-  - ( expa + 1)* explam * sum( x / (explam + x)^2 )
   aold <- log( c(expa, explam) )
   anew <- aold - c( derlam2 * dera - derlama * derlam, - derlama * dera + dera2 * derlam ) / ( dera2 * derlam2 - derlama^2 )
   
@@ -24,7 +24,7 @@ lomax.mle <- function(x, tol = 1e-09) {
     com <- sum( x / (explam + x) )
     derlama <- expa * com
     derlam <-  - n + derlama + com
-    derlam2 <-  - ( expa + 1) * sum( x * explam / (explam + x)^2 )
+    derlam2 <-  - ( expa + 1) * explam * sum( x / (explam + x)^2 )
     anew <- aold - c( derlam2 * dera - derlama * derlam, - derlama * dera + dera2 * derlam ) / ( dera2 * derlam2 - derlama^2 )
   } 
 

@@ -14,7 +14,10 @@ spml.reg(y, x, tol = 1e-07, seb = FALSE)
 
 \arguments{
 \item{y}{
-The dependent variable,  a numerical vector, it can be in radians or degrees.
+The dependent variable, it can be a numerical vector with data expressed in radians or it can be a matrix with
+two columns, the cosinus and the sinus of the circular data. The benefit of the matrix is that if the function 
+is to be called multiple times with the same response, there is no need to transform the vector every time into 
+a matrix. 
 }
 \item{x}{
 The independent variable(s). Can be Euclidean or categorical (factor variables).
@@ -75,8 +78,10 @@ x <- rnorm(100)
 z <- cbind(3 + 2 * x, 1 -3 * x)
 y <- cbind( rnorm(100,z[ ,1], 1), rnorm(100, z[ ,2], 1) )
 y <- y / sqrt( rowsums(y^2) )
+a1 <- spml.reg(y, x)
 y <- atan( y[, 2] / y[, 1] ) + pi * I(y[, 1] < 0) 
-spml.reg(y, x)
+a2 <- spml.reg(y, x)
+
 }
 
 \keyword{ Circular regression }

@@ -17,12 +17,12 @@ count_value(x, value)
 A vector with the data (numeric or character).
 }
 \item{value}{
-The value to check its frequency in the vector \"x\".
+The value to check its frequency in the vector "x".
 }
 }
 
 \details{
-The functions is written in C++ in order to be as fast as possible. The \"x\" and \"value\" must have the same type. The type can be numeric or character.
+The functions is written in C++ in order to be as fast as possible. The "x" and "value" must have the same type. The type can be numeric or character.
 }
 
 \value{

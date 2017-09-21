@@ -11,7 +11,8 @@ using namespace std;
 
 //[[Rcpp::export]]
 vector<double> lower_tri(NumericMatrix x){
-  int ncl=x.ncol(),nrw=x.nrow(),i,j;
+  const int ncl=x.ncol(),nrw=x.nrow();
+  int i,j;
   vector<double> f;
   if(ncl<nrw)
   	f.resize(ncl*(nrw-1)*0.5);
@@ -22,6 +23,17 @@ vector<double> lower_tri(NumericMatrix x){
     for(j=i+1;j<nrw;++j,++ff)
       *ff=x(j,i);
   return f;
+}
+
+
+double sum_lower_tri(NumericMatrix x){
+  const int ncl=x.ncol(),nrw=x.nrow();
+  int i,j;
+  double s=0.0;
+  for(i=0;i<ncl;++i)
+    for(j=i+1;j<nrw;++j)
+      s+=x(j,i);
+  return s;
 }
 
 //[[Rcpp::export]]
@@ -51,6 +63,16 @@ BEGIN_RCPP
     traits::input_parameter< int >::type ncl(nclSEXP);
     traits::input_parameter< int >::type nrw(nrwSEXP);
     __result = wrap(lower_tri_b(nrw,ncl));
+    return __result;
+END_RCPP
+}
+
+RcppExport SEXP Rfast_sum_lower_tri(SEXP xSEXP){
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    __result = wrap(sum_lower_tri(x));
     return __result;
 END_RCPP
 }

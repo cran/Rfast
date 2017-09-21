@@ -22,7 +22,7 @@ An full path to the directory where R file are.
 TRUE, FALSE or an environment, determining where the parsed expressions are evaluated. FALSE (the default) corresponds to the user's workspace (the global environment) and TRUE to the environment from which source is called.
 }
 \item{encode}{
-Character vector. The encoding(s) to be assumed when file is a character string: see file. A possible value is \"unknown\" when the encoding is guessed: see the \"Encodings\" section.
+Character vector. The encoding(s) to be assumed when file is a character string: see file. A possible value is "unknown" when the encoding is guessed: see the "Encodings" section.
 }
 \item{print.errors}{
 A boolean value (TRUE/FALSE) for printing the errors, if exists, for every file.
@@ -51,9 +51,9 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-# for example: path="C:\\some_file\\R\\" where is R files are
+# for example: path="C:\\some_file\\R\" where is R files are
 # system.time( a<-sourceR(path) )
-# for example: path="C:\\some_file\\man\\" where is Rd files are
+# for example: path="C:\\some_file\\man\" where is Rd files are
 # system.time( a<-sourceRd(path) )
 }
 

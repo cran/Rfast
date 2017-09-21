@@ -9,8 +9,8 @@ using namespace std;
 // [[Rcpp::export]]
 List varcomps_mle(NumericVector x,IntegerVector ina,const int n,const double tol) {
   const double pi=3.14159265359;
-  const int N=x.size(),d=N/n; 
-  NumericVector y=minus_mean(x,mean(x)),syina=group_sum(y,ina); 
+  const int N=x.size(),d=N/n;
+  NumericVector y=minus_mean(x,mean(x)),syina=group_sum(y,ina,n);
   double sy2=sum(sqr(syina)),a=0,ratio=2.0/(sqrt(5) + 1),sy=sum(sqr(y)),b=sy/N,s=b;
   double x1=b-ratio*b,x2=ratio*b;
   double se=s-x1;

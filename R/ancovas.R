@@ -1,6 +1,6 @@
 ancovas <- function(y, ina, x, logged = FALSE) {
   ni <- tabulate(ina)
-  a <- sort_unique.length(ina) 
+  a <- length(ni) 
   N <- length(ina)
   sy <- colsums(y)
   sx <- sum(x)
@@ -10,8 +10,8 @@ ancovas <- function(y, ina, x, logged = FALSE) {
   sxx <- sum(x^2) - sx^2/N
   sxy <- colsums(x * y) - com2
   tyy <- colsums( rowsum(y, ina)^2/ni ) - com
-  txx <- sum( rowsum(x, ina)^2/ni ) - sx^2/N
-  txy <- colsums( as.vector( rowsum(x, ina)/ni ) * rowsum(y, ina) ) - com2
+  txx <- sum( group.sum(x, ina)^2/ni ) - sx^2/N
+  txy <- colsums( as.vector( group.sum(x, ina)/ni ) * rowsum(y, ina) ) - com2
   eyy <- syy - tyy
   exx <- sxx - txx
   exy <- sxy - txy

@@ -41,7 +41,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
     %}
 
 \seealso{
-\code{\link{colVars}, \link{cor}, \link{cov}
+\code{\link{cholesky}, \link{cora}, \link{cova}
 }
 }
 

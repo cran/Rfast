@@ -2,34 +2,45 @@
 \alias{gaussian.nb}
 \alias{poisson.nb}
 \alias{multinom.nb}
+\alias{geom.nb}
 \title{
 Naive Bayes classifiers
 }
 
 \description{
-Gaussian, Poisson and multinomial naive Bayes classifiers.
+Gaussian, Poisson, geometric and multinomial naive Bayes classifiers.
 }
 
 \usage{
 gaussian.nb(xnew = NULL, x, ina)
 poisson.nb(xnew, x, ina)
-multinom.nb(xnew, x, ina)  
+multinom.nb(xnew, x, ina) 
+geom.nb(xnew, x, ina, type = 1)  
 }
 
 \arguments{
 \item{xnew}{
-A numerical matrix with new predictor variables whose group is to be predicted. For the Gaussian naive Bayes, this is set to NUUL, 
-as you might want just the model and not to predict the membership of new observations. For the Gaussian case this contains any numbers, but for the multinomial 
-and Poisson cases, the matrix must contain integer valued numbers only. 
+A numerical matrix with new predictor variables whose group is to be predicted. For the Gaussian naive Bayes, 
+this is set to NUUL, as you might want just the model and not to predict the membership of new observations. 
+For the Gaussian case this contains any numbers, but for the multinomial and Poisson cases, the matrix must 
+contain integer valued numbers only. 
 }
 \item{x}{
-A numerical matrix with the observed predictor variable values. For the Gaussian case this contains any numbers, but for the multinomial and Poisson
+A numerical matrix with the observed predictor variable values. For the Gaussian case this contains any numbers, 
+but for the multinomial and Poisson
 cases, the matrix must contain integer valued numbers only. 
 }
 \item{ina}{
 A numerical vector with strictly positive numbers, i.e. 1,2,3 indicating the groups of the dataset. 
 Alternatively this can be a factor variable.
 }
+\item{type}{
+Type 1 refers to the case where the minimum is zero and type 2 for the case of the minimum being 1. This 
+is for the geometric distribution.
+}
+
+This argument is for the geometric distribution. Type 1 refers to the case where the minimum is zero and type 2 for 
+the case of the minimum being 1. 
 }
 
 %\details{
@@ -80,6 +91,7 @@ x2 <- matrix( rpois(50 * 4, 10), ncol = 4)
 x <- rbind(x1, x2)
 ina <- c( rep(1, 100), rep(2, 50) )
 poisson.nb(x, x, ina)
+geom.nb(x, x, ina)
 multinom.nb(x, x, ina)
 }
 

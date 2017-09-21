@@ -1,7 +1,6 @@
-//Author: Manos Papadakis
+ //Author: Manos Papadakis
 
 #include <RcppArmadillo.h>
-#include "mn.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -9,7 +8,6 @@ using namespace arma;
 //[[Rcpp::export]]
 List glm_poisson(NumericMatrix X, NumericVector Y,const double ylogy,const double tol){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=pcols;
-  char e='e';
   colvec b_old(d,fill::zeros),b_new(d),L1(d),yhat(n),y(Y.begin(),n,false),m(n);
   mat L2,x(X.begin(),n,pcols,false),x_tr(n,pcols);
   double dif;
@@ -17,7 +15,7 @@ List glm_poisson(NumericMatrix X, NumericVector Y,const double ylogy,const doubl
   x_tr=x.t();
   for(dif=1.0;dif>tol;){
     yhat=x*b_old;
-    m=(e^yhat);
+    m=exp(yhat);
     L1=x_tr*(y-m);
     L2=x.each_col()%m;
     L2=x_tr*L2;

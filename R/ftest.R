@@ -1,6 +1,6 @@
 ftest <- function (x, ina, logged = FALSE) {
-  k <- max(ina)
   ni <- tabulate(ina)
+  k <- length(ni)
   m <- group.sum(x, ina)/ni
   s <- group.sum(x^2, ina)
   s <- (s - m^2 * ni)/(ni - 1)

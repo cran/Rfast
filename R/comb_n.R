@@ -1,16 +1,21 @@
 
 
-comb_n <- function(n,k,trans = FALSE) {
-	len<-length(n)
-	if((len==1 && n<0) || k<0)
-	  	stop("N and K must be positive numbers.")
-	if(len==1){
-	  x <- .Call('Rfast_k_comb_n', PACKAGE = 'Rfast',n,k)
-	  dim(x)<-c(k,length(x)/k)
-	  if(trans){
-	  	return(t(x))
-	  }
-	  return(x)
+comb_n <- function(n,k) {
+	if(k<0){
+	  	stop("K must be a positive number.")
+	}
+	if(length(n)==1 && is.integer(n)){
+		neg<-FALSE
+		if(n<0){
+			neg<-TRUE
+			n<- -n
+		}
+	  	x <- .Call('Rfast_k_comb_n', PACKAGE = 'Rfast',n,k)
+	  	if(neg){
+	  		x<- -x
+	  	}
+	  	dim(x)<-c(k,length(x)/k)
+	  	return(x)
 	}
 	.Call('Rfast_vec_comb_n', PACKAGE = 'Rfast',n,k)
 }

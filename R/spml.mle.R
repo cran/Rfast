@@ -2,8 +2,14 @@
 #### Presnell, Morrison and Littell (1998), JASA
 ################################
 spml.mle <- function(x, tol = 1e-09) {
-  ci <- cos(x)  ;   si <- sin(x)
-  u <- cbind(ci, si)  ## bring the data onto the circle
+  if ( is.matrix(x) ) {
+    u <- x
+	ci <- u[, 1]
+	si <- u[, 2]
+  } else {	
+    ci <- cos(x)  ;   si <- sin(x)
+    u <- cbind(ci, si)  ## bring the data onto the circle
+  }
   su <- colsums(u)
   n <- dim(u)[1]
   ini <- vmf.mle(u)
@@ -25,7 +31,7 @@ spml.mle <- function(x, tol = 1e-09) {
   while ( sum( abs(mu2 - mu1) ) > tol ) {
     i <- i + 1
     mu1 <- mu2
-    tau <-  as.vector( u %*% mu1 )
+    tau <- as.vector( u %*% mu1 )
     ptau <- pnorm(tau)
     rat <- ptau / ( exp(f * tau^2)/con + tau * ptau )
     psit <- tau + rat    

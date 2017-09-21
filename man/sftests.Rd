@@ -59,7 +59,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 x <- matrix( rnorm(200 * 100), ncol = 100 )
 system.time( sftests(x) )
 a <- sftests(x)
-hist(a[, 3]) 
+mean(a[, 3]<0.05) 
 x <- rnorm(100)
 sftest(x)
 }

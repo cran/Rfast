@@ -22,7 +22,7 @@ A boolean value for parallel version.
 }
 
 \details{
-The Cholesky decomposition of a square positive definite matrix is computed.
+The Cholesky decomposition of a square positive definite matrix is computed. The use of parallel is suggested for matrices with dimensions of 1000 or more.  
 }
 
 \value{
@@ -34,7 +34,7 @@ An upper triangular matrix.
 %}
 
 \author{
-Michail Tsagris
+Manos Papadakis
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>
 }

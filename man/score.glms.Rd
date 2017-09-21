@@ -26,7 +26,7 @@ is binary and choose multinomial regression the function checks and transfers to
 A matrix with data, the predictor variables. 
 }
 \item{oiko}{
-This can be either \"poisson\" or \"binomial\". If you are not sure leave it NULL and the function will check 
+This can be either "poisson" or "binomial". If you are not sure leave it NULL and the function will check 
 internally. 
 }
 \item{logged}{

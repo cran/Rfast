@@ -1,5 +1,5 @@
-#ifndef _k_nn_h_
-#define _k_nn_h_
+#ifndef _calc_k_nn_h_
+#define _calc_k_nn_h_
 
 #include <algorithm>
 #include <vector>
@@ -7,7 +7,6 @@
 #include <random>
 #include <RcppArmadillo.h>
 
-// [[Rcpp::plugins("cpp11")]]
 // [[Rcpp::depends("RcppArmadillo")]]
 
 arma::mat calc_k_nn(arma::mat& ds_extra, arma::vec& y, arma::mat& ds, arma::uvec& idxs,

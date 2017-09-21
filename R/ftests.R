@@ -1,6 +1,6 @@
 ftests <- function(x, ina, logged = FALSE) {
-  k <- max(ina)  ## number of groups
   ni <- tabulate(ina)  ## sample sizes
+  k <- length(ni)  ## number of groups
   m <- rowsum(x, ina) / ni
   s <- rowsum(x^2, ina)  
   s <- ( s - m^2 * ni ) / (ni - 1)

@@ -12,6 +12,7 @@
 \alias{lognorm.mle}
 \alias{pareto.mle}
 \alias{expmle}
+\alias{exp2.mle}
 \alias{maxboltz.mle}
 \alias{rayleigh.mle}
 \alias{normlog.mle}
@@ -37,6 +38,7 @@ invgauss.mle(x)
 lognorm.mle(x)
 pareto.mle(x)
 expmle(x)
+exp2.mle(x)
 maxboltz.mle(x)
 rayleigh.mle(x)
 normlog.mle(x)

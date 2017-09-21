@@ -19,12 +19,12 @@ ttests.pairs(x, logged = FALSE)
 A numerical matrix with the data.
 }
 \item{y}{
-For the case of \"all.tests\", if you have the second group or sample provide it here, otherwise leave it NULL.
-For the case of \"ttests.pairs\" this is not required.
+For the case of "all.tests", if you have the second group or sample provide it here, otherwise leave it NULL.
+For the case of "ttests.pairs" this is not required.
 }
 \item{ina}{
 If you have the data in one matric then provide this indicator variable separating the samples. 
-This numerical vector must contain 1s and 2s only as values. For the case of \"ttests.pairs\" this is not required.
+This numerical vector must contain 1s and 2s only as values. For the case of "ttests.pairs" this is not required.
 }
 \item{logged}{
 Should the p-values be returned (FALSE) or their logarithm (TRUE)?
@@ -32,8 +32,8 @@ Should the p-values be returned (FALSE) or their logarithm (TRUE)?
 }
 
 \details{
-The function does all the pairwise t-tests assuming unequal variances (Welch's t-test). The \"all.ttests\" does all the pairs
-formed by \"cutting\" the matrices x and y in two and everything between them. The \"ttests.pairs\" accepts a matrix x
+The function does all the pairwise t-tests assuming unequal variances (Welch's t-test). The "all.ttests" does all the pairs
+formed by "cutting" the matrices x and y in two and everything between them. The "ttests.pairs" accepts a matrix x
 and does all the pairs of t-tests. This is similar to the correlation matrix style. 
 }
 

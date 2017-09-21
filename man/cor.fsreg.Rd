@@ -35,8 +35,8 @@ This is an alternative to the BIC change and it uses the adjusted coefficient of
 adjusted \eqn{R^2} is more than the tolr continue.
 }
 \item{stopping}{
-This refers to the type of extra checking to do. If you want the BIC check, set it to \"BIC\". If you want the adjusted \eqn{R^2} check 
-set this to \"ar2\". Or, if you want both of them to take place, both of these criteria to be satisfied make this \"BICR2\".
+This refers to the type of extra checking to do. If you want the BIC check, set it to "BIC". If you want the adjusted \eqn{R^2} check 
+set this to "ar2". Or, if you want both of them to take place, both of these criteria to be satisfied make this "BICR2".
 }
 }
 

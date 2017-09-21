@@ -45,26 +45,28 @@ NumericMatrix stable_sort_row(NumericMatrix x,const bool descend){
   return x;
 }
 
-// sort_col
-RcppExport SEXP Rfast_stable_sort_col(SEXP xSEXP,SEXP descendSEXP) {
-BEGIN_RCPP
-    RObject __result;
-    RNGScope __rngScope;
-    traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    traits::input_parameter< const bool >::type descend(descendSEXP);
-    __result = wrap(stable_sort_col(x,descend));
-    return __result;
-END_RCPP
+//[[Rcpp::export]]
+NumericMatrix stable_sort_mat(NumericMatrix x,const bool descend,const bool by_row){
+	switch(by_row){
+		case true:{
+			return stable_sort_row(x,descend);
+		}
+		default:{
+			return stable_sort_col(x,descend);
+		}
+	}
+	stop("Error in sort matrix.\n");
 }
 
-// sort_row
-RcppExport SEXP Rfast_stable_sort_row(SEXP xSEXP,SEXP descendSEXP) {
+// sort_mat
+RcppExport SEXP Rfast_stable_sort_mat(SEXP xSEXP,SEXP descendSEXP,SEXP by_rowSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
-    __result = wrap(stable_sort_row(x,descend));
+    traits::input_parameter< const bool >::type by_row(by_rowSEXP);
+    __result = wrap(stable_sort_mat(x,descend,by_row));
     return __result;
 END_RCPP
 }

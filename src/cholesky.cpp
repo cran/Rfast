@@ -5,6 +5,10 @@
 #include <Rinternals.h>
 #include "mn.h"
 
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
 using namespace Rcpp;
 
 //[[Rcpp::export]]
@@ -21,7 +25,9 @@ SEXP cholesky_par(SEXP AA) {
       s += L[nj + k] * L[nj + k];
     }
     L[nj + j] = sqrt(A[nj + j] - s);
+    #ifdef _OPENMP
     #pragma omp parallel for
+  	#endif
     for (i = j+1; i <n; ++i) {
       s=0;
       ni=i*n;

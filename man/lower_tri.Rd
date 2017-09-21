@@ -10,13 +10,17 @@ Lower/upper triangular matrix/vector.
 }
 
 \usage{
-lower_tri(x)
-upper_tri(x)
+lower_tri(x, suma = FALSE)
+upper_tri(x, suma = FALSE)
 }
 
 \arguments{
 \item{x}{
-A matrix with data.
+A matrix with data \bold{or} a vector with 2 values which is the dimension of the logical matrix to be returned with the upper or lower triangular filled with \"TRUE\".
+}
+\item{suma}{
+A logical value for returning the sum of the upper or lower triangular. By default is \"FALSE\".
+Works only \bold{if} argument "x" is matrix.
 }
 }
 
@@ -25,7 +29,7 @@ A matrix with data.
 %}
 
 \value{
-Get a lower/upper trinagular matrix or a vector with the values of a lower/upper triangular.
+Get a lower/upper triangular logical matrix with values \"TRUE\"/\"FALSE\"" or a vector with the values of a lower/upper triangular or the sum of the upper/lower triangular if suma is set \"TRUE\".
 }
 
 %\references{

@@ -10,7 +10,7 @@ Random intercepts linear mixed models (for balanced data with a single identical
 }
 
 \usage{
-rint.reg(y, x, id ,tol = 1e-08)
+rint.reg(y, x, id ,tol = 1e-08, ranef = FALSE, maxiters = 100)
 rint.regbx(y, x, id)  
 }
 
@@ -28,6 +28,12 @@ A numerical variable with 1, 2, ... indicating the subject.
 }
 \item{tol}{
 The tolerance level to terminate the generalised elast squares algorithm. 
+}
+\item{ranef}{
+If you want to obtain the random effects (random intercepts) set this equal to TRUE.
+}
+\item{maxiters}{
+The max number of iterations that can take place in a regression.
 }
 }
 
@@ -78,7 +84,7 @@ y <- rnorm(100)
 x <- rnorm(10)
 x <- rep(x, 10)
 id <- id <- rep(1:10, each = 10)
-system.time( for (i in 1:50) a <- rint.regbx(y, x, id) )
+system.time( for (i in 1:50) a <- rint.reg(y, x, id) )
 }
 
 \keyword{ Linear mixed models }

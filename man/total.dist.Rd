@@ -10,8 +10,8 @@ Sum of all pairwise distances in a distance matrix.
 }
 
 \usage{
-total.dist(x)
-total.dista(x, y)  
+total.dist(x, method = "euclidean", square = FALSE, p = 0)
+total.dista(x, y, square = FALSE)  
 }
 
 \arguments{
@@ -20,6 +20,17 @@ A matrix with numbers.
 }
 \item{y}{
 A second matrix with data. The number of comlumns of this matrix must be the same with the matrix x. The number of rows can be different. 
+}
+\item{method}{
+This is either "euclidean", "manhattan", "canberra1", "canberra2", "minimum", "maximum", "minkowski","bhattacharyya", "hellinger", "total_variation" or "kullback_leibler/jensen_shannon".
+The last two options are basically the same. 
+}
+\item{square}{
+If you choose "euclidean" or "hellinger" as the method, then you can have the option to return the 
+squared Euclidean distances by setting this argument to TRUE. 
+}
+\item{p}{
+This is for the the Minkowski, the power of the metric. 
 }
 }
 

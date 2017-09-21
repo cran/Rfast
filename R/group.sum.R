@@ -1,4 +1,4 @@
 
-group.sum <- function(x, ina) {
-	.Call('Rfast_group_sum', PACKAGE = 'Rfast',x,ina)
+group.sum <- function(x, ina,ina.max = max(ina)) {
+	.Call('Rfast_group_sum', PACKAGE = 'Rfast',x,ina,ina.max)
 }

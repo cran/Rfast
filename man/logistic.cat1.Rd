@@ -21,7 +21,7 @@ A numerical vector with values 0 or 1.
 \item{x}{
 A numerical vector with discrete numbers or a factor variable. This is suppose to be a categorical predictor. 
 If you supply a continuous valued vector the function will obviously provide wrong results. 
-\bold{Note:} For the \"binomial.anova\" if this is a numerical vector it must contain strictly positive numbers, i.e.
+\bold{Note:} For the "binomial.anova" if this is a numerical vector it must contain strictly positive numbers, i.e.
 1, 2, 3, 4, ..., no zeros are allowed. 
 }
 \item{logged}{

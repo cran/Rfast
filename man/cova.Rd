@@ -23,8 +23,13 @@ A matrix with data. It has to be matrix, if it is data.frame for example the fun
 
 \details{
 The calculations take place faster than the built-in functions \code{\link{cor}} 
-as the number of variables increases. For a few tens of variables. This is true if the number of variables is high, 
-say from 500 and above. The "cova" on the other hand is always faster. 
+as the number of variables increases. For a few tens of variables. This is true if the 
+number of variables is high, say from 500 and above. The "cova" on the other hand is always 
+faster. 
+
+For the correlation matrix we took the code from here
+
+https://stackoverflow.com/questions/18964837/fast-correlation-in-r-using-c-and-parallelization/18965892#18965892
 }
 
 \value{

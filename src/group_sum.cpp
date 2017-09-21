@@ -3,52 +3,39 @@
 
 #include <RcppArmadillo.h>
 #include "mn.h"
-#include <algorithm>
 
 using namespace Rcpp;
 using namespace arma;
 
-// [[Rcpp::export]]
-NumericVector group_sum(NumericVector x, IntegerVector f){
-  std::vector<double> vec(10) ;
-  vec.reserve(1000); 
-  const int n=x.size();
-  unsigned int index,vecsz=vec.size();
-  for( int i=0; i<n; i++){
-    index=f[i]; 
-    while( index >= vecsz ){
-      vec.resize( vecsz * 2 ) ; 
-      vecsz=vec.size();
-    }
-    vec[ index ] += x[i] ;
+//[[Rcpp::export]]
+NumericVector group_sum(NumericVector x,IntegerVector key,const int n){
+  IntegerVector::iterator kk=key.begin();
+  NumericVector f(n);
+  NumericVector::iterator xx=x.begin(),ff=f.begin(),rr;
+  for(;xx!=x.end();++xx,++kk){
+      f[*kk-1]+=*xx;
   }
-  // count the number of non zeros
-  int s = std::accumulate( vec.begin(), vec.end(), 0, increment_maybe) ; 
-  NumericVector result(s) ;
-  CharacterVector names(s) ;
-  
-  std::vector<double>::iterator it = vec.begin() ;
-  for( int i=0, j=0 ; j<s; j++ ,++it, ++i ){
-    // move until the next non zero value
-    while( ! *it ){ 
-    	++i ; 
-    	++it ;
-    }
-    result[j] = *it ;
-    names[j]  = i ;
+  int count_not_zero=0;
+  for(;ff!=f.end();++ff){
+    if(*ff!=0)
+      ++count_not_zero;
   }
-  result.attr( "dim" ) = IntegerVector::create(s, 1) ;
-  result.attr( "dimnames" ) = List::create(names, R_NilValue) ; 
-  return result ;
+  NumericVector res(count_not_zero);
+  for(rr=res.begin(),ff=f.begin();ff!=f.end();++ff){
+    if(*ff!=0)
+      *rr++=*ff;
+  }
+  return res;
 }
 
-RcppExport SEXP Rfast_group_sum(SEXP xSEXP,SEXP groupSEXP) {
+RcppExport SEXP Rfast_group_sum(SEXP xSEXP,SEXP groupSEXP,SEXP max_nSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type group(groupSEXP);
-    __result = wrap(group_sum(x,group));
+    traits::input_parameter< const int >::type max_n(max_nSEXP);
+    __result = wrap(group_sum(x,group,max_n));
     return __result;
 END_RCPP
 }

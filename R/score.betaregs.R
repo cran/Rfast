@@ -1,6 +1,5 @@
 score.betaregs <- function(y, x, logged = FALSE) {
   param <- beta.mle(y)$param
-  n <- length(y)
   z <- log(y) - log(1 - y)
   m1 <- digamma(param[1]) - digamma(param[2])
   u <- colsums( x * (z - m1) )  ## score function

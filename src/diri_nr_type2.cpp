@@ -15,7 +15,7 @@ colvec diri_nr_type2(colvec a1,colvec a2,colvec ma,int p,const double tol){
     a1 = a2;
     sa = sum(a1);
     f = ma - Digamma_v(a1,p) + digamma(sa);
-    fill_m(f2.memptr(),f2.memptr()+p*p,trigamma(sa));
+    fill_with_value(f2.memptr(),f2.memptr()+p*p,trigamma(sa));
     f2.diag() = f2.diag() - Trigamma_v(a1,p);
     slv = solve(f2, f);
     a2 = a1 - slv.each_col();

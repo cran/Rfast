@@ -1,23 +1,25 @@
-\name{ Replicate columns }
+\name{ Replicate columns/rows }
 \alias{rep_col}
+\alias{rep_row}
 \title{
-Replicate columns
+Replicate columns/rows
 }
 
 \description{
-Replicate columns.
+Replicate columns/rows.
 }
 
 \usage{
-rep_col(x,ncols)
+rep_col(x,n)
+rep_row(x,n)
 }
 
 \arguments{
 \item{x}{
 A vector with data.
 }
-\item{ncols}{
-Number of new columns.
+\item{n}{
+Number of new columns/rows.
 }
 }
 
@@ -26,12 +28,9 @@ Number of new columns.
 %}
 
 \value{
-A matrix where each column is equal to \"x\".
+A matrix where each column/row is equal to "x".
 }
 
-%\references{
-
-%}
 
 \author{
 Manos Papadakis
@@ -39,9 +38,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{rowMins}, \link{rowFalse}, \link{nth}, \link{colrange}, \link{colMedians}, \link{colVars}, \link{sort_mat}, \link{rowTrue}
@@ -51,6 +47,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- runif(10)
 all.equal(rep_col(x,10),matrix(x,nrow=length(x),ncol=10))
+all.equal(rep_row(x,10),matrix(x,ncol=length(x),nrow=10,byrow=TRUE))
 }
 
-\keyword{ Replicate in columns }
+\keyword{ Replicate in columns/rows }

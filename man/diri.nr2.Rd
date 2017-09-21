@@ -9,12 +9,18 @@ Fitting a Dirichlet distribution via Newton-Rapshon.
 }
 
 \usage{
-diri.nr2(x, tol = 1e-07)
+diri.nr2(x, type = 1, tol = 1e-07)
 }
 
 \arguments{
 \item{x}{
 A matrix containing the compositional data. Zeros are not allowed.
+}
+\item{type}{
+Type 1 uses a vectorised version of the Newton-Raphson (Minka, 2012). In high dimensions this is to be preferred. 
+If the data are too concentrated, regardless of the dimensions, this is also to be preferrred. 
+Type 2 uses the regular Newton-Raphson, with matrix multiplications. In small dimensions this can be considerably
+faster. 
 }
 \item{tol}{
 The tolerance level idicating no further increase in the log-likelihood.
@@ -22,14 +28,12 @@ The tolerance level idicating no further increase in the log-likelihood.
 }
 
 \details{
-Maximum likelihood estimation of the parameters of a Dirichlet distribution is performed via Newton-Raphson. Initial values suggested by Minka (2012) are used. 
+Maximum likelihood estimation of the parameters of a Dirichlet distribution is performed via Newton-Raphson. 
+Initial values suggested by Minka (2012) are used. 
 }
 
 \value{
 A list including:
-\item{iters}{
-The number of iterations required.
-}
 \item{loglik}{
 The value of the log-likelihood.
 }
@@ -41,7 +45,8 @@ The estimated parameters.
 \references{
 Minka Thomas (2012). Estimating a Dirichlet distribution. Technical report.
 
-Ng Kai Wang, Guo-Liang Tian, and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and applications. John Wiley & Sons.
+Ng Kai Wang, Guo-Liang Tian, and Man-Lai Tang (2011). Dirichlet and related distributions: Theory, methods and 
+applications. John Wiley & Sons.
 }
 
 \author{
