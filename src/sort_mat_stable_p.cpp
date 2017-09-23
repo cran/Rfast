@@ -67,15 +67,7 @@ NumericMatrix stable_sort_row_p(NumericMatrix& x,const bool descend){
 
 //[[Rcpp::export]]
 NumericMatrix stable_sort_mat_p(NumericMatrix x,const bool descend,const bool by_row){
-  switch(by_row){
-    case true:{
-      return stable_sort_row_p(x,descend);
-    }
-    default:{
-      return stable_sort_col_p(x,descend);
-    }
-  }
-  stop("Error in stable_sort matrix.\n");
+  return by_row ? stable_sort_row_p(x,descend) : stable_sort_col_p(x,descend);
 }
 
 // stable_sort_mat_p

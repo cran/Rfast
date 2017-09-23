@@ -1,4 +1,4 @@
-2af62b84caed78e88e871f908b08b119 *DESCRIPTION
+d7acc46cb8ffcf99c9ae132a7391e478 *DESCRIPTION
 f3ba1e63f930fafa78c0687a3c6afcb6 *NAMESPACE
 cb171b1df65dcee6a00e666e7f86145f *NEWS.md
 5147a3d7a6ffd20c39698cba75c011ba *R/AddToNamespace.R
@@ -353,7 +353,7 @@ dd9cee057505bf78cabca77f77ee8d90 *man/Log.Rd
 1f77ef9f15f7132e7f77abdb84405b46 *man/Match.Rd
 d326f8c24107e3fe1f7ef8b275ecaea2 *man/Norm.Rd
 6b030a57903647663446f5bcdb6c2318 *man/Pmax.Rd
-7be9b1c939b2d8180cb8d8359525c00d *man/Rfast-package.Rd
+90efcb8c8089f45c6d00f5aa093b4622 *man/Rfast-package.Rd
 50f9bb735d6aff969db07b8c5b28cae6 *man/Rnorm.Rd
 28c431241434b6b0671ef4926f0c6e19 *man/Round.Rd
 2a307b9fba8973bd25afac91cba8dcab *man/Sort.Rd
@@ -532,7 +532,7 @@ f349a6ac82d0093ee750491cd19018d9 *src/Hash_list.cpp
 d7736c23d50800e9d2ded893450736f3 *src/Makevars.win
 ee851a0ffdfdb64e8d8f46e702f8b9b3 *src/Match.cpp
 9dcd3517a09802d3396c83d37829ec0c *src/Norm.cpp
-30c19c9998a2e32093fa8f9d161fbded *src/Order.cpp
+891a22a3fa4d6c765bba9524fcca7890 *src/Order.cpp
 f85b269ed600b2cdf1b2fd5d40418db2 *src/Round.cpp
 9404b9d5f3d4dd7a5b5a53a4ed261132 *src/Sort.cpp
 60e3760e5cdf5ea342039540c5b655ec *src/Table.cpp
@@ -540,7 +540,7 @@ f85b269ed600b2cdf1b2fd5d40418db2 *src/Round.cpp
 176530af0809c597575e13841a608539 *src/add_to_namespace.cpp
 d3271ae71e03eb4076914a7702af0f1d *src/bcdcor.cpp
 9359da213f14b2d3e22b97507413116e *src/bic_fs_reg.cpp
-7a00ccb231270ea1b597af3b4581f0ba *src/binarysearch.cpp
+601fb5def7862a30536cdfde97ccd8c0 *src/binarysearch.cpp
 e905def383774ea3aaddceb654d281b2 *src/bincomb.cpp
 a6e6739d2ad6ac36d0136cb13f905864 *src/calc_bic_fs_reg.cpp
 eb60ec983e1d5b2f593f7d9f05e63df3 *src/calc_bic_fs_reg.h
@@ -605,7 +605,7 @@ c170b902e2b7384893fcd2676ecc35aa *src/fs_reg_st.cpp
 5a579fe0a937af36485e335a923f3e10 *src/g2t.cpp
 19bb344613d5d9f75791812c8fb21429 *src/g2t.h
 0b17c74c6917fc311112ab36f9b731c8 *src/gamma.cpp
-d9f933b538c28447173c52f7d5655c79 *src/geom_regs.cpp
+2914e17a47043c72ea01a6604bb8c31e *src/geom_regs.cpp
 45a2a72d4f764573f97eb5d5d8560cd4 *src/glm_logistic.cpp
 42a2e78195e684f6328b7314093d1363 *src/glm_poisson.cpp
 42bd6283ed1e43ee5441149ff2a007b1 *src/gold_rat2.cpp
@@ -667,10 +667,10 @@ a4b0e55d5450ffe84489bf632c8422ed *src/rint_reg.cpp
 3993c2d7ec3e06fa070a2410c774d0a1 *src/rint_regs.cpp
 47b5d04a76ce70691b1db5dfd56151d2 *src/rmdp.cpp
 5a964a918de7399143c3143ca0cc7c7a *src/rvmf_h.cpp
-b823b8a2f1a01eb4d929636f2b7444d4 *src/sort_mat.cpp
-198e6df29929137ac6e4f3f55ad4d38c *src/sort_mat_p.cpp
-2415f0174ff7db0f830f3b7cc5fdf6c7 *src/sort_mat_stable.cpp
-6dcea7e29897ee0697ff110c99bfd264 *src/sort_mat_stable_p.cpp
+1ef8c6f88aa9ec0eee6c27f90e88e228 *src/sort_mat.cpp
+7a29fc1cfe4c8bf3a8c08fe5305d64a3 *src/sort_mat_p.cpp
+011c6ed9fbda17b49e0490f589d7be80 *src/sort_mat_stable.cpp
+da5b06131767887b8ea0f14fd8d8c6c4 *src/sort_mat_stable_p.cpp
 5bd07052a5a7645f1b770655b23a1357 *src/sort_unique.cpp
 a875e8854f79e0851afd859d9723533a *src/spat_med.cpp
 aee6b3c960ca0da84ee7475e402eb67d *src/spml_mle.cpp

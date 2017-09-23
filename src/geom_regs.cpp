@@ -15,7 +15,7 @@ NumericMatrix geom_regs(NumericVector Y,NumericMatrix X,const double tol,const i
   vec y(Y.begin(),Y.size(),false);
   double a0 = mean(y);
   double p0, ini;
-  vec p;
+
   vec y1;
   if(type == 1){
     y1 = y + 1;
@@ -27,7 +27,6 @@ NumericMatrix geom_regs(NumericVector Y,NumericMatrix X,const double tol,const i
     ini = 2 * n * log(p0) + 2 * (n * a0 - n) * log(1 - p0);
   }
   vec yp0 = y1*p0;
-  vec yp, ypxp;
   double dera0 = n - sum(yp0);
   double dera20 = - sum(yp0 * (1 - p0) );
 

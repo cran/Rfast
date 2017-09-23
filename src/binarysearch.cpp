@@ -12,26 +12,36 @@ using namespace std;
 
 //[[Rcpp::export]]
 bool binarysearch(SEXP x,double v){
+	bool res;
 	switch(TYPEOF(x)){
 		case INTSXP:{
 			int *start=INTEGER(x);
-			return binary_search(start,start+LENGTH(x),v);
+			res = binary_search(start,start+LENGTH(x),v);
+			break;
+		}default:{
+			double *start=REAL(x);
+			res = binary_search(start,start+LENGTH(x),v);
+			break;
 		}
 	}
-	double *start=REAL(x);
-	return binary_search(start,start+LENGTH(x),v);
+	return res;
 }
 
 //[[Rcpp::export]]
 int lowerbound(SEXP x,double v){
+	bool res;
 	switch(TYPEOF(x)){
 		case INTSXP:{
 			int *start=INTEGER(x);
-			return lower_bound(start,start+LENGTH(x),v)-start+1;
+			res = lower_bound(start,start+LENGTH(x),v)-start+1;
+			break;
+		}default:{
+			double *start=REAL(x);
+			res = lower_bound(start,start+LENGTH(x),v)-start+1;
+			break;
 		}
 	}
-	double *start=REAL(x);
-	return lower_bound(start,start+LENGTH(x),v)-start+1;
+	return res;
 }
 
 RcppExport SEXP Rfast_binarysearch(SEXP x,SEXP vSEXP){

@@ -12,20 +12,15 @@ using namespace std;
 
 //[[Rcpp::export]]
 IntegerVector Order(NumericVector x,const bool stable,const bool descend){
-  IntegerVector ind=seq(1,x.size());
-  switch(descend){
-    case 1:{
-      auto descend_func = [&](int i,int j){return x[i-1]>x[j-1];};
-      stable ? stable_sort(ind.begin(),ind.end(),descend_func) : sort(ind.begin(),ind.end(),descend_func);
-      break;
-    }
-    default:{
-      auto func = [&](int i,int j){return x[i-1]<x[j-1];};
-      stable ? stable_sort(ind.begin(),ind.end(),func) : sort(ind.begin(),ind.end(),func);
-      break;
-    }
-  }
-  return ind;
+	IntegerVector ind=seq(1,x.size());
+	if(descend){
+		auto descend_func = [&](int i,int j){return x[i-1]>x[j-1];};
+		stable ? stable_sort(ind.begin(),ind.end(),descend_func) : sort(ind.begin(),ind.end(),descend_func);
+	}else{
+		auto func = [&](int i,int j){return x[i-1]<x[j-1];};
+		stable ? stable_sort(ind.begin(),ind.end(),func) : sort(ind.begin(),ind.end(),func);
+	}
+	return ind;
 }
 
 RcppExport SEXP Rfast_Order(SEXP xSEXP,SEXP stableSEXP,SEXP descendSEXP){
