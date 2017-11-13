@@ -24,9 +24,6 @@ to find out the number of unique numbers in each column set this to FALSE.
 }
 }
 
-%\details{
-%
-%}
 
 \value{
 A vector with the relevant values.
@@ -42,9 +39,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{colMins}, \link{colMaxs}, \link{rowMins}, \link{rowMaxs}, \link{nth}, \link{colMedians}, \link{colVars}, \link{sort_mat}
@@ -61,6 +55,8 @@ all.equal(a1, a2)
 a1 <- rowrange(x) 
 a2 <- apply(x, 1, function(x) diff( range(x)) ) 
 all.equal(a1, a2)
+
+x<-a1<-a2<-NULL
 }
 
 \keyword{ Column-wise ranges}

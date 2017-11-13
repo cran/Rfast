@@ -5,10 +5,11 @@
 #include <RcppArmadillo.h>
 #include "calc_k_nn.h"
 
+// [[Rcpp::plugins("cpp11")]]
 // [[Rcpp::depends("RcppArmadillo")]]
 
 Rcpp::List calc_k_nn_cv(Rcpp::List& folds, arma::vec& y, arma::mat& ds, arma::uvec& idxs, 
 		const std::string dist_type, const std::string type, const std::string method,
-		const unsigned int freq_option, const bool pred_ret);
+		const unsigned int freq_option, const bool pred_ret, const bool mem_eff);
 
 #endif

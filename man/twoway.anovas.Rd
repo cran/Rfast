@@ -70,9 +70,10 @@ anova( lm(y ~ x1 + x2) )
 twoway.anovas(y, x1, x2)
 anova( lm(y ~ x1*x2) )
 twoway.anovas(y, x1, x2, interact = TRUE) 
-y <- matrix(rnorm(125 * 1000), ncol = 1000)
+y <- matrnorm(125, 100)
 system.time( a1 <- twoway.anovas(y, x1, x2) )
 system.time( a2 <- twoway.anovas(y, x1, x2, interact = TRUE) )
+y <- NULL
 }
 
 \keyword{ Two-way ANOVA }

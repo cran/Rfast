@@ -11,7 +11,7 @@ Cross-Validation for the k-NN algorithm.
 \usage{
 knn.cv(folds = NULL, nfolds = 10, stratified = FALSE, seed = FALSE, y, x, k, 
 dist.type = "euclidean", type = "C", method = "average", freq.option = 0, 
-pred.ret = FALSE) 
+pred.ret = FALSE, mem.eff = FALSE) 
 }
 
 \arguments{
@@ -55,6 +55,10 @@ Option 1 randomly selects the most frequent value, in the case that there are du
 }
 \item{pred.ret}{
 If you want the predicted values returned set this to TRUE.
+}
+\item{mem.eff}{
+Boolean value indicating a conservative or not use of memory. Lower usage of memory/Having this option on will lead to a slight 
+decrease in execution speed and should ideally be on when the amount of memory in demand might be a concern.
 }
 }
 
@@ -115,7 +119,7 @@ x <- as.matrix(iris[, 1:4])
 y <- iris[, 5]
 mod <- knn.cv(folds = NULL, nfolds = 10, stratified = TRUE, seed = FALSE, y = y, x = x, 
 k = c(3, 4), dist.type = "euclidean", type = "C", method = "average", 
-freq.option = 0, pred.ret = FALSE) 
+freq.option = 0, pred.ret = FALSE, mem.eff = FALSE) 
 }
 
 \keyword{ k-NN algorithm }

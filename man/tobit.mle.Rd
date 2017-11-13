@@ -55,7 +55,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- rnorm(500, 3, 5)
+x <- rnorm(300, 3, 5)
 x[ x < 0 ] <- 0   ## left censoring. Values below zero become zero
 system.time( for (i in 1:100) tobit.mle(x) )
 }

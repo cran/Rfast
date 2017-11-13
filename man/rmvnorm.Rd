@@ -64,6 +64,7 @@ s <- cov(x)
 y <- rmvnorm(1000, m, s)
 colmeans(y)
 cov(y)
+y <- NULL
 }
 
 \keyword{ multivariate normal distribution }

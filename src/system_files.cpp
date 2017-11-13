@@ -89,7 +89,7 @@ bool next_alias(ifstream &file,string &res){
   getline(file,s);
   bool ok_alias=is_alias(s.c_str(),s.size());
   if(ok_alias){
-    s.erase(s.end()-1);
+    s.erase(s.find('}'));
     s.erase(s.begin(),s.begin()+7);
     res=s;
   }

@@ -73,10 +73,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 x <- rnorm(100)
 y <- rnorm(200)
 system.time( eel.test2(x, y) )
-x <- rnorm(1000)
+x <- rnorm(100)
 system.time( eel.test2(x, y) )
-x <- rnorm(500)
-y <- rexp(1000)
+x <- rnorm(50)
+y <- rexp(100)
 system.time( eel.test2(x, y) )
 }
 

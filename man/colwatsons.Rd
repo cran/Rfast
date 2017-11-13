@@ -49,8 +49,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 }
 
 \examples{
-x <- matrix( rvonmises(n = 50 * 10, m = 2, k = 0) )
+x <- matrix( rvonmises(n = 50 * 10, m = 2, k = 0), ncol = 10 )
 colwatsons(x)
+x <- NULL
 }
 
 \keyword{ Circular data}

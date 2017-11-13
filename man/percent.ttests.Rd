@@ -63,6 +63,7 @@ Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- matrix( rbeta(100 * 10, 3, 1), ncol = 10)
 y <- matrix( rbeta(50 * 10, 7.5, 2.5), ncol = 10)
+percent.ttests(x, y)
 }
 
 \keyword{ t-tests }

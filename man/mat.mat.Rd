@@ -29,17 +29,11 @@ as the x matrix. The y matrix is the whole of iris. We will see how many times, 
 A numerical vector of size equal to the number of columns of x. 
 }
 
-%\references{
-%}
-
 \author{
 Manos Papadakis 
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{\link{Match}, \link{colmeans}, \link{colMedians}
@@ -52,6 +46,8 @@ y <- iris
 y[, 5] <- as.numeric(y[, 5])
 y <- as.matrix(y)
 mat.mat(x, y)
+
+x<-y<-NULL
 }
 
 \keyword{ Matrices }

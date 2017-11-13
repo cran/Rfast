@@ -92,6 +92,7 @@ dc <- rep(nvalues, nvars)
 g2Test( data, 1, 2, 3, c(3, 3, 3) )
 g2Test_perm( data, 1, 2, 3, c(3, 3, 3), 1000 )
 
+dc<-data<-NULL
 }
 
 \keyword{ G^2 test of conditional independence }

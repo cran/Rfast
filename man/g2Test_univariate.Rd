@@ -94,7 +94,10 @@ g <- matrix(0, nvars, nvars)
 g[ cbind(a$x, a$y) ] <- a$statistic
 g <- g + t(g)
 diag(g) <- 0
-g  ## matrix of G^2 test statistics
+## g ## matrix of G^2 test statistics
+
+g<-a<-dc<-data<-NULL
+
 }
 
 \keyword{ G^2 test of independence }

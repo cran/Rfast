@@ -50,7 +50,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-y <- matrix( rnorm(100 * 100), ncol = 100 )
+y <- matrnorm(100, 100)
 x <- rnorm(100)
 a <- mvbetas(y, x, pvalue = FALSE)
 b <- matrix(nrow = 100, ncol = 2)
@@ -58,7 +58,7 @@ z <- cbind(1, x)
 
 system.time( a <- mvbetas(y, x) )
 system.time(  for (i in 1:100) b[i, ] = coef( lm.fit( z, y[, i] ) )  )
-
+y <- NULL
 }
 
 \keyword{ Many betas in regression }

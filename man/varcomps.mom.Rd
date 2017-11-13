@@ -11,7 +11,7 @@ Moment and maximum likelihood estimation of variance components.
 }
 
 \usage{
-rint.mle(x, ina, ranef = FALSE, tol = 1e-09)
+rint.mle(x, ina, ranef = FALSE, tol = 1e-09, maxiters = 100)
 varcomps.mom(x, ina)
 varcomps.mle(x, ina, tol = 1e-09)
 }
@@ -30,11 +30,14 @@ accept numbers greater than zero. Alternatively it can be a factor variable.
 \item{tol}{
 The tolerance level to terminate the golden ratio search. the default value is 10^(-9).
 }
+\item{maxiters}{
+The maximum number of iterations Newton-Raphson will implement.
+}
 }
 
 \details{
-Note that this formula works for \bold{balanced designs only}, i.e. for each subject the same number of
-measurements have been taken. 
+Note that the "varcomps.mle" and "varcomp.mom" work for \bold{balanced designs only}, i.e. for each subject the same number of
+measurements have been taken. The "rint.mle" works for both the balanced and unbalanced designs.
 
 The variance components, the variance of the between measurements and the 
 variance of the within are estimated using moment estimators. The "colvarcomsp.mom" 

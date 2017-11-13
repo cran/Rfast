@@ -62,11 +62,12 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-n <- 1000  ;  p <- 5
-X <- matrix(rnorm(n * p), n, p)
-y <- rnorm(1000)
+n <- 200  ;  p <- 5
+X <- matrnorm(n, p)
+y <- rnorm(200)
 a1 <- .lm.fit(X, y) 
 a2 <- lmfit(X, y) 
+x <- NULL
 }
 
 \keyword{ Linear models }

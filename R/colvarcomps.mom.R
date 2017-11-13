@@ -1,9 +1,9 @@
-colvarcomps.mom <- function(x, id) {
+colvarcomps.mom <- function(x, id, parallel = FALSE) {
   k <- sort_unique.length(id) 
   ni <- tabulate(id)
   sam <- length(ni)
   n <- dim(x)[1]
-  sx2 <- colsums(x^2)
+  sx2 <- colsums(x^2, parallel = parallel)
   m <- rowsum(x, id)
   a <- colsums(m^2/ni)
   b <- colsums(m)^2/n

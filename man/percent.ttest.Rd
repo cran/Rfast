@@ -63,6 +63,7 @@ Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- rbeta(100, 3, 1)
 y <- rbeta(100, 7.5, 2.5)
+percent.ttest(x, y)
 }
 
 \keyword{ t-test }

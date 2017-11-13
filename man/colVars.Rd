@@ -11,7 +11,7 @@ Column and row-wise variances and standard deviations of a matrix
 }
 
 \usage{
-colVars(x, suma = NULL, std = FALSE)
+colVars(x, suma = NULL, std = FALSE, parallel = FALSE)
 rowVars(x, suma = NULL, std = FALSE)
 groupcolVars(x, ina, std = FALSE)
 }
@@ -23,11 +23,14 @@ A matrix with the data.
 \item{suma}{
 If you already have the column sums vector supply it, otherwise leave it NULL.
 }
+\item{ina}{
+A numerical vector specifying the groups. If you have numerical values, do not put zeros, but 1, 2, 3 and so on. 
+}
 \item{std}{
 A boolean variable specyfying whether you want the variances (FALSE) or the standard deviations (TRUE) of each column.
 }
-\item{ina}{
-A numerical vector specifying the groups. If you have numerical values, do not put zeros, but 1, 2, 3 and so on. 
+\item{parallel}{
+Should parallel implentations take place in C++? The default value is FALSE.
 }
 }
 
@@ -37,12 +40,8 @@ We then modified the function to match the sums type formula of the variance, wh
 }
 
 \value{
-A vector with the colum variances or standard deviations.
+A vector with the column variances or standard deviations.
 }
-
-%\references{
-%Tsagris M.T., Preston S. and Wood A.T.A. (2011). A data-based power transformation for compositional data. In Proceedings of the 4th Compositional Data Analysis Workshop, Girona, Spain.
-%}
 
 \author{
 Michail Tsagris
@@ -60,6 +59,7 @@ x <- matrix( rnorm(100 * 100), ncol = 100 )
 a2 <- colVars(x)
 groupcolVars( as.matrix(iris[, 1:4]), as.numeric(iris[, 5]) )
 
+x<-a2<-NULL
 }
 
 \keyword{ Column-wise variances }

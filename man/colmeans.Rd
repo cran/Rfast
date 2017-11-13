@@ -27,9 +27,6 @@ Do you want to do it in parallel in C++? TRUE or FALSE.
 }
 }
 
-%\details{
-%
-%}
 
 \value{
 A vector with the column or row arithmetic or harmonic means.
@@ -45,9 +42,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{colsums}, \link{rowsums}, \link{colMins}, \link{colMedians}, \link{colMads}
@@ -65,6 +59,8 @@ x2 <- rowMeans(x)
 all.equal(x1,x2)
 system.time( colhameans(x) )
 system.time( rowhameans(x) ) 
+
+x<-x1<-x2<-NULL
 }
 
 \keyword{ Column means }

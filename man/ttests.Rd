@@ -11,7 +11,7 @@ It performs very many 2 sample tests.
 }
 
 \usage{
-ttests(x, y = NULL, ina, paired = FALSE, logged = FALSE)
+ttests(x, y = NULL, ina, paired = FALSE, logged = FALSE, parallel = FALSE)
 mcnemars(x, y = NULL, ina, logged = FALSE) 
 var2tests(x, y = NULL, ina, alternative = "unequal", logged = FALSE) 
 }
@@ -35,6 +35,9 @@ leave it FALSE. In this case, the two groups must have equal smaple sizes, other
 }
 \item{logged}{
 Should the p-values be returned (FALSE) or their logarithm (TRUE)?
+}
+\item{parallel}{
+Should parallel implentations take place in C++? The default value is FALSE.
 }
 }
 
@@ -70,14 +73,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 ## 1000 variables, hence 1000 t-tests will be performed
-x = matrix( rnorm(100 * 100), ncol = 100 )
+x = matrnorm(100, 100)
 ## 100 observations in total
 ina = rbinom(100, 1, 0.6) + 1   ## independent samples t-test
 system.time( ttests(x, ina = ina) )
 x1 = x[ina == 1, ]
 x2 = x[ina == 2, ]
 system.time( ttests(x1, x2) )
-
+x <- NULL
 }
 
 \keyword{ t-tests }

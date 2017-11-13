@@ -10,13 +10,13 @@ vartests <- function(x, ina, type = "levene", logged = FALSE) {
   if ( type == "levene" )  {
     for (i in 1:k) {
       xina <- x[ina == i, ]
-      z[ ,ina == i ] <- xina - colmeans(xina)
+      z[ ,ina == i ] <- t( xina - colmeans(xina) )
     }
 
   } else {
     for (i in 1:k) {  
       xina <- x[ina == i, ]
-      z[, ina == i ] <- xina - colMedians( xina )
+      z[, ina == i ] <- t( xina - colMedians( xina ) )
     }
   }
 

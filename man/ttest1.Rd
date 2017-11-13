@@ -60,7 +60,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 }
 
 \examples{
-x = rnorm(1000)
+x = rnorm(500)
 t.test(x, mu = 0)
 ttest1(x, 0, conf = 0.95)
 }

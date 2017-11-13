@@ -7,7 +7,6 @@
 #include <string>
 #include <fstream>
 #include <dirent.h>
-#include <fstream>
 
 using namespace std;
 using namespace Rcpp;

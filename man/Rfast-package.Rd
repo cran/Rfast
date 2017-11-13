@@ -16,8 +16,8 @@ Note 3: In general, make sure you give the correct input, in order to get the co
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.8.4 \cr
-Date: \tab 2017-09-24\cr
+Version: \tab 1.8.5 \cr
+Date: \tab 2017-11-09\cr
 License: \tab GPL-2\cr
 }
 }
@@ -41,6 +41,8 @@ Vassilis Vasdekis for his invaluable help with the random effects models. Marios
 Special Account for Research Funds of the University of Crete, Department of Computer Science. Phillip Si is 
 greatly acknowledged for his help with the Floyd-Warshal algorithm. 
 Keefe Murphy for his invaluable help with NEWS file and for his suggestions. 
+Zacharias Papadovassilakis gave us the inspiration for the memory efficient version of the k-NN algorithm.
+Yannis Pantazis explained us how the orhtogonal matching pursuit works. 
 }
 
 \keyword{ G^2 test }

@@ -9,12 +9,15 @@ Median of a vector.
 }
 
 \usage{
-med(x)
+med(x,na.rm=FALSE)
 }
 
 \arguments{
 \item{x}{
 A numerical vector.
+}
+\item{na.rm}{
+TRUE or FAlSE for remove NAs if exists.
 }
 }
 
@@ -26,18 +29,11 @@ The function is written in C++ and this is why it is very fast.
 The median of the vector of a numbers.
 }
 
-%\references{
-%Draper, N.R. and Smith H. (1988). Applied regression analysis. New York, Wiley, 3rd edition.
-%}
-
 \author{
 Manos Papadakis <papadakm95@gmail.com>
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{\link{nth}, \link{colMedians}

@@ -1,7 +1,11 @@
 
-Order<-function(x,stable=FALSE,descending=FALSE){
+Order<-function(x,stable=FALSE,descending=FALSE,partial=NULL){
 	if(is.character(x)){
 		x <- as.numeric(x)
 	}
-	.Call("Rfast_Order",x,stable,descending)
+	if(is.null(partial)){
+		.Call("Rfast_Order",x,stable,descending)
+	}else{
+		.Call('Rfast_partial_sort_index',PACKAGE = "Rfast",x,partial,descending)
+	}
 }

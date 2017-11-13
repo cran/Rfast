@@ -39,9 +39,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{colMedians}, \link{colmeans}, \link{colVars}
@@ -57,6 +54,8 @@ all.equal(x1,x2)
 x1 <- rowsums(x)
 x2 <- rowSums(x)
 all.equal(x1,x2)
+
+x<-x1<-x2<-NULL
 }
 
 \keyword{ Column sums }

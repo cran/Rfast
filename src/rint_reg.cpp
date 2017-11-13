@@ -10,21 +10,21 @@ using namespace Rcpp;
 using namespace std;
 
 //[[Rcpp::export]]
-List rint_reg(NumericMatrix X,NumericVector Y,NumericVector id,const double tol,const bool ranef,const int maxiters){
-  int n = X.nrow(), p = X.ncol(), idmx = get_max(id);
+List rint_reg(NumericMatrix X, NumericVector Y, NumericVector id, const double tol, const bool ranef, const int maxiters){
+  int n = X.nrow(), p = X.ncol(), idmx = max(id);
   mat x(X.begin(), n,p,false),xx(p,p),sx(idmx,p),sxy(p,1),mx(idmx,p);
   vec y(Y.begin(),n,false),my(idmx);
 
-  double logpitimes2 = 1.837877,logn = log(n);
+  double logpitimes2 = 1.83787706640935,logn = log(n);
   NumericVector tb = Tabulate(id,idmx);
-  
+
   vec ni(tb.begin(), tb.size(),false);
 
   xx = cross_x_2(x);
   for(int i=0;i<p;i++)
-    sx.col(i) = group_sum2(x.col(i), id);
+    sx.col(i) = group_sum2(x.col(i), id,idmx);
   sxy = cross_x_y_2(x,y);
-  colvec sy = group_sum2(y, id);
+  colvec sy = group_sum2(y, id,idmx);
   mx = sx.each_col()/ni;
   my = sy/ni;
 
@@ -36,30 +36,30 @@ List rint_reg(NumericMatrix X,NumericVector Y,NumericVector id,const double tol,
   vec ni2 = ni%ni;
 
   vec d(2);
-  d = gold_rat3(n, ni, ni2, S, hi2, tol);
+  d = gold_rat3(n, ni, ni2, S, hi2,idmx, tol);
   vec oneplnid = 1+ni*d(0);
-  vec b2 = solve(xx - d(0)* cross_x_y_2(sx.each_col()/oneplnid, sx), sxy - 
+  vec b2 = solve(xx - d(0)* cross_x_y_2(sx.each_col()/oneplnid, sx), sxy -
     d(0) * cross_x_y_2(sx, sy/oneplnid),solve_opts::fast);
   int i = 2;
 
   while(i++<maxiters && sum(abs(b2-b1.col(0))) > tol) {
     b1.col(0) = b2;
-    
+
     tmp = y - x*b1;
     S = accu(tmp%tmp);
     tmp2 = my-mx*b1;
     hi2 = tmp2%tmp2;
 
-    d = gold_rat3(n, ni, ni2, S, hi2, tol);
+    d = gold_rat3(n, ni, ni2, S, hi2,idmx, tol);
     oneplnid = 1+ni*d(0);
-    b2 = solve(xx - d(0) * cross_x_y_2(sx.each_col()/oneplnid, sx), sxy - 
+    b2 = solve(xx - d(0) * cross_x_y_2(sx.each_col()/oneplnid, sx), sxy -
       d(0) * cross_x_y_2(sx, sy/oneplnid),solve_opts::fast);
   }
-  
+
   mat eye;
   List l;
   NumericVector info(6);
-  info(0) = i;
+  info(0) = i-1;
   info(2) = (S-d(0)*sum(ni2%hi2/oneplnid))/n;
   info(1) = d(0)*info(2);
   info(3) = -0.5 * d(1)-0.5*n*(logpitimes2-logn+1);
@@ -71,11 +71,10 @@ List rint_reg(NumericMatrix X,NumericVector Y,NumericVector id,const double tol,
 
   if(ranef){
     mat er = y - x * (conv_to<colvec>::from(b2));
-    l["ranef"] =  d[0] * ni/(oneplnid) % group_sum2(er.col(0), id)/ni;
+    l["ranef"] =  as<NumericVector>(wrap(d[0] * ni/(oneplnid) % group_sum2(er.col(0), id,idmx)/ni));
   }
   return l;
 }
-
 
 RcppExport SEXP Rfast_rint_reg(SEXP XSEXP,SEXP YSEXP,SEXP idSEXP,SEXP tolSEXP,SEXP ranefSEXP,SEXP maxitersSEXP) {
 BEGIN_RCPP

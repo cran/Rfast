@@ -108,11 +108,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- rnorm(300)
-ina <- rbinom(300, 3, 0.5) + 1
+x <- rnorm(200)
+ina <- rbinom(200, 3, 0.5) + 1
 anova1(x, ina)
 ftest(x, ina)
-ina <- rbinom(300, 1, 0.5) + 1
+ina <- rbinom(200, 1, 0.5) + 1
 x1 <- x[ ina == 1 ]   ; x2 <- x[ ina == 2 ]
 ttest2(x1, x2)
 var2test(x1, x2)

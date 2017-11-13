@@ -26,14 +26,11 @@ Value or vector to initialize the diagonal of a matrix.By default "v=0".
 }
 }
 
-%\details{
-%
-%}
 
 \value{
 Diag.fill returns a diagonal matrix where all the elements in the diagonal are equal to "v". 
 
-Diag.matrix returns a diagonal matrix where has dimension "len,len" and all the elements in the diagonal are equal to "v".
+Diag.matrix returns a diagonal matrix where has dimension "len,len" and all the elements in the diagonal are equal to "v". It is fast for huge matrices with dimensions more than [row,col] = [500,500]
 }
 
 %\references{
@@ -45,10 +42,6 @@ Manos Papadakis
 
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
-
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{rowMins}, \link{colFalse}, \link{nth}, \link{rowrange}, \link{rowMedians}, \link{rowVars}, \link{sort_mat}, \link{colTrue}
@@ -62,6 +55,8 @@ f <- Diag.fill(x,1)
 f <- Diag.fill(x,1:100) ##equals to diag(x)<-1:100
 f <- Diag.matrix(100,1) ##equals to diag(1,100,100)
 f <- Diag.matrix(100,1:100) ##equals to diag(1:100,100,100)
+
+f<-x<-NULL
 }
 
 \keyword{ Diagonal Matrix }

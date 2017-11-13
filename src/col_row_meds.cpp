@@ -4,13 +4,14 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <algorithm>
+#include "templates.h"
 
 using namespace Rcpp;
 using namespace std;
 using namespace arma;
 
 //[[Rcpp::export]]
-SEXP col_meds(NumericMatrix x){
+SEXP col_meds_simple(NumericMatrix& x){
   const int p=x.ncol(),step=x.nrow(),middle=step/2-1;
   int i;
   NumericVector tmp(step);
@@ -31,13 +32,32 @@ SEXP col_meds(NumericMatrix x){
       return F;
 }
 
+//[[Rcpp::export]]
+SEXP col_meds_na_rm(NumericMatrix& x){
+  const int p=x.ncol();
+  int i;
+  NumericVector tmp;
+  SEXP F=Rf_allocVector(REALSXP,p);
+  double *FF=REAL(F);
+  for(i=0;i<p;++i,++FF){
+    tmp=x.column(i);
+    *FF=med_helper<NumericVector>(tmp.begin(),tmp.begin()+(int)(std::remove_if(tmp.begin(),tmp.end(),R_IsNA)-tmp.begin()));
+  }
+  return F;
+}
+
+SEXP col_meds(NumericMatrix x,const bool na_rm){
+  return na_rm ? col_meds_na_rm(x) : col_meds_simple(x);
+}
+
 // colMedians
-RcppExport SEXP Rfast_col_meds(SEXP xSEXP) {
+RcppExport SEXP Rfast_col_meds(SEXP xSEXP,SEXP na_rmSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    __result = col_meds(x);
+    traits::input_parameter< const bool >::type na_rm(na_rmSEXP);
+    __result = col_meds(x,na_rm);
     return __result;
 END_RCPP
 }

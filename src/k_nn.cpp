@@ -5,13 +5,14 @@ using namespace arma;
 using namespace std;
 
 // [[Rcpp::export]]
-arma::mat k_nn(mat ds_extra,vec y,mat ds,uvec idxs,const string dist_type, const string type, const string method,
-		const unsigned int freq_option) {
+arma::mat k_nn(mat ds_extra, vec y, mat ds, uvec idxs, const string dist_type, const string type, const string method,
+		const unsigned int freq_option, const bool mem_eff) {
 	idxs -= 1;
-	return calc_k_nn(ds_extra, y, ds, idxs, dist_type, type, method, freq_option);
+	return calc_k_nn(ds_extra, y, ds, idxs, dist_type, type, method, freq_option, mem_eff);
 }
 
-RcppExport SEXP Rfast_k_nn(SEXP ds_extraSEXP,SEXP ySEXP,SEXP dsSEXP,SEXP idxsSEXP,SEXP dist_typeSEXP,SEXP typeSEXP,SEXP methodSEXP,SEXP freq_optionSEXP) {
+
+RcppExport SEXP Rfast_k_nn(SEXP ds_extraSEXP,SEXP ySEXP,SEXP dsSEXP,SEXP idxsSEXP,SEXP dist_typeSEXP,SEXP typeSEXP,SEXP methodSEXP,SEXP freq_optionSEXP,SEXP mem_effSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
@@ -23,7 +24,9 @@ BEGIN_RCPP
     traits::input_parameter< const string >::type type(typeSEXP);
     traits::input_parameter< const string >::type method(methodSEXP);
     traits::input_parameter< const unsigned int >::type freq_option(freq_optionSEXP);
-    __result = wrap(k_nn(ds_extra,y,ds,idxs,dist_type,type,method,freq_option));
+    traits::input_parameter< const bool >::type mem_eff(mem_effSEXP);
+    __result = wrap(k_nn(ds_extra,y,ds,idxs,dist_type,type,method,freq_option,mem_eff));
     return __result;
 END_RCPP
 }
+

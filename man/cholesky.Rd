@@ -29,19 +29,12 @@ The Cholesky decomposition of a square positive definite matrix is computed. The
 An upper triangular matrix.
 }
 
-%\references{
-%
-%}
 
 \author{
 Manos Papadakis
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>
 }
-
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{\link{is.symmetric}
@@ -54,6 +47,10 @@ s = cov(x)
 system.time(a1 <- cholesky(s))
 system.time(a2 <- chol(s))
 all.equal(a1[upper.tri(a1)], a2[upper.tri(a2)])
+x <- NULL
+s <- NULL
+a1 <- NULL
+a2 <- NULL
 }
 
 \keyword{ Cholesky decomposition }

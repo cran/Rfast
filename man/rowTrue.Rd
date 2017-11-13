@@ -22,9 +22,6 @@ A logical matrix with data.
 }
 }
 
-%\details{
-%
-%}
 
 \value{
 An integer vector where item "i" is the number of the true/false values of "i" row.
@@ -40,9 +37,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{rowMins}, \link{colFalse}, \link{nth}, \link{rowrange}, \link{rowMedians}, \link{rowVars}, \link{sort_mat}, \link{colTrue}
@@ -58,6 +52,7 @@ s1 <- rowFalse(x)
 
 s1 <- rowTrueFalse(x)
 
+x<-s1<-NULL
 }
 
 \keyword{ Row-wise true }

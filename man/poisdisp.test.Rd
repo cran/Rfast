@@ -61,12 +61,12 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-y <- rnbinom(1000, 10, 0.6)
+y <- rnbinom(500, 10, 0.6)
 poisdisp.test(y, "either")
 poisdisp.test(y, "over")
 pois.test(y)
 
-y <- rpois(1000, 10)
+y <- rpois(500, 10)
 poisdisp.test(y, "either")
 poisdisp.test(y, "over")
 pois.test(y)

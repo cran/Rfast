@@ -54,11 +54,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rnorm(100 * 500), ncol = 500 )
+x <- matrix( rnorm(100 * 50), ncol = 50 )
 y <- rnorm(100)
 r <- cor(y, x)  ## correlation of y with each of the xs
 a <- allbetas(y, x)  ## the coefficients of each simple linear regression of y with x
-
+x <- NULL
 }
 
 \keyword{ Many betas in regression }

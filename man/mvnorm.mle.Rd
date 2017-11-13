@@ -51,8 +51,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rnorm(100 * 4), ncol = 4)
+x <- matrnorm(100, 4)
 mvnorm.mle(x)
+x <- NULL
 }
 
 \keyword{ Multivariate normal distribution }

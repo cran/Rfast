@@ -4,7 +4,7 @@ comb_n <- function(n,k) {
 	if(k<0){
 	  	stop("K must be a positive number.")
 	}
-	if(length(n)==1 && is.integer(n)){
+	if(length(n)==1 && (n%%2==1 || !(n%%2))){
 		neg<-FALSE
 		if(n<0){
 			neg<-TRUE

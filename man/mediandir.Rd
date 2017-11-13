@@ -44,5 +44,6 @@ m <- rnorm(3)
 m <- m / sqrt( sum(m^2) )
 x <- rvmf(100, m, 10)
 mediandir(x)
+x <- NULL
 }
 \keyword{ Median direction }

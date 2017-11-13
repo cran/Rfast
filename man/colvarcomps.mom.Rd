@@ -10,8 +10,9 @@ Many moment and maximum likelihood estimations of variance components.
 }
 
 \usage{
-colvarcomps.mom(x, id) 
-colvarcomps.mle(x, id, ranef = FALSE) 
+colvarcomps.mom(x, id, parallel = FALSE) 
+colvarcomps.mle(x, id, ranef = FALSE, tol= 1e-08, maxiters = 100, 
+parallel = FALSE)
 }
 
 \arguments{
@@ -25,11 +26,19 @@ Alternatively this can be a factor variable.
 \item{ranef}{
 Do you also want the random effects to be returned? TRUE or FALSE.
 }
+\item{tol}{
+The tolerance level to terminate the golden ratio search. 
+}
+\item{maxiters}{The maximum number of iterations to perform.
+}
+\item{parallel}{
+Should the computations run in parallel? TRUE or FALSE.
+}
 }
 
 \details{
-Note that this formula works for \bold{balanced designs only}, i.e. for each subject the same number of
-measurements have been taken. 
+Note that the "colvarcomp.mom" works for \bold{balanced designs only}, i.e. for each subject the same number of
+measurements have been taken. The "colvarcomps.mle" works for unbalanced as well.
 
 The variance components, the variance of the between measurements and the 
 variance of the within are estimated using moment estimators. The "colvarcomps.mom" 
@@ -86,17 +95,12 @@ y <- c(98, 97, 99, 96, 91, 90, 93, 92,
 y <- matrix(y)
 id <- rep(1:4, each = 4)
 
-
 x <- rmvnorm(100, numeric(100), diag(rexp(100)) )
 id <- rep(1:25, each = 4)
 n <- 25  ;  d <- 4
 a <- colvarcomps.mom(x, id) 
 mean(a[, 4]<0 & a[, 5]>0)  
 b <- colvarcomps.mle(x, id) 
+x <- NULL
 }
 
-\keyword{ Repeated measures }
-\keyword{ univariate approach }
-\keyword{ variance components }  
-\keyword{ moments estimation }
-\keyword{ maximum likelihood estimation }

@@ -22,6 +22,7 @@ A value of NA means that there is no path. Put positive number only, as negative
 
 \details{
 The Floyd-Warshall algorithm is designed to find the shortest path (if it exists) between two nodes in a graph. 
+
 }
 
 \value{
@@ -43,9 +44,6 @@ John Burkardt (C++ code)
 
 Ported into R and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{\link{sort_mat}

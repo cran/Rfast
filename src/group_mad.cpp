@@ -67,6 +67,7 @@ NumericVector group_mad(NumericVector x,IntegerVector group,const string method)
   delete[] ind;
   return F;
 }
+ 
 
 
 RcppExport SEXP Rfast_group_mad(SEXP xSEXP,SEXP groupSEXP,SEXP methodSEXP) {

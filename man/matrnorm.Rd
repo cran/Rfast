@@ -50,7 +50,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 }
 
 \examples{
-x <- matrnorm(100,100)
+x <- matrnorm(100, 100)
 }
 
 

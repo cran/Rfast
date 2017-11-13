@@ -7,24 +7,25 @@
 using namespace Rcpp;
 using namespace std;
 
-//[[Rcpp::export]]
 NumericMatrix stable_sort_col(NumericMatrix x,const bool descend){
-  int n=x.nrow(),p=x.ncol(),i;
-  NumericMatrix::iterator start=x.begin(),end=start+n;
-  if(descend)  
-    for(i=0;i<p;++i){
-      stable_sort(start,end,descending_double);
-      start=end;
-      end+=n;
+  const int n=x.nrow(),p=x.ncol();
+  NumericVector coli(n);
+  NumericMatrix f(n,p);
+  if(descend)
+    for(int i=0;i<p;++i){
+      coli=x.column(i);
+      stable_sort(coli.begin(),coli.end(),descending_double);
+      f.column(i)=coli;
     }
   else
-    for(i=0;i<p;++i){
-      stable_sort(start,end);
-      start=end;
-      end+=n;
-    }  
-  return x;
+    for(int i=0;i<p;++i){
+      coli=x.column(i);
+      stable_sort(coli.begin(),coli.end());
+      f.column(i)=coli;
+    }
+  return f;
 }
+
 
 //[[Rcpp::export]]
 NumericMatrix stable_sort_row(NumericMatrix x,const bool descend){

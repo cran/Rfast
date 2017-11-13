@@ -26,17 +26,11 @@ The function is written in C++ and this is why it is very fast.
 A vector with the column indices which are factor variables. If there are no factor variables it will return an empty vector. 
 }
 
-%\references{
-%}
-
 \author{
 Manos Papadakis <papadakm95@gmail.com>
 
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{ \link{nth}, \link{Match}

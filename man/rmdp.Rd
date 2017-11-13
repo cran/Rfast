@@ -59,10 +59,6 @@ C++ implementation: Manos Papadakis <papadakm95@gmail.com>
 Documentation: Michail Tsagris <mtsagris@yahoo.gr> and Changliang Zhou <nk.chlzou@gmail.com>
 }
 
-%\note{
-%%  ~~further notes~~
-%}
-
 \seealso{
 \code{ \link{colmeans}, \link{colVars}, \link{colMedians} 
 }
@@ -71,6 +67,8 @@ Documentation: Michail Tsagris <mtsagris@yahoo.gr> and Changliang Zhou <nk.chlzo
 \examples{
 x <- matrix(rnorm(50 * 400), ncol = 400)
 a <- rmdp(x, itertime = 500)
+
+x<-a<-NULL
 }
 
 \keyword{ High dimensional data }

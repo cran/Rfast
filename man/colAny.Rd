@@ -1,22 +1,29 @@
-\name{Column and row-wise Any}
+\name{Column and row-wise Any/All}
 \alias{colAny}
 \alias{rowAny}
+\alias{colAll}
+\alias{rowAll}
 \title{
 Column and row-wise Any
 }
 
 \description{
-Column and row-wise Any of a matrix.
+Column and row-wise Any/All of a matrix.
 }
 
 \usage{
 colAny(x)
 rowAny(x)
+colAll(x, parallel = FALSE)
+rowAll(x, parallel = FALSE)
 }
 
 \arguments{
 \item{x}{
 A logical matrix with the data.
+}
+\item{parallel}{
+Do you want the computations to take place in parallel? The default value is FALSE.
 }
 }
 
@@ -25,11 +32,9 @@ The functions is written in C++ in order to be as fast as possible.
 }
 
 \value{
-A vector where item "i" is true if found Any true in column/row "i". Otherwise false.
+A vector where item "i" is true if found Any/All true in column/row "i". Otherwise false.
 }
 
-%\references{
-%}
 
 \author{
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
@@ -50,6 +55,12 @@ all.equal(a,b)
 system.time( a<-rowAny(x) )
 system.time( b<-apply(x,1,any) )
 all.equal(a,b)
+
+system.time( a<-colAll(x) )
+system.time( b<-apply(x,2,all) )
+all.equal(a,b)
+
+a<-b<-x<-NULL
 }
 
 \keyword{ Column-wise Any }

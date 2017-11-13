@@ -70,7 +70,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- rnorm(5000)
+x <- rnorm(500)
 system.time(a1 <- eel.test1(x, 0) )
 system.time(a2 <- el.test1(x, 0) )
 }

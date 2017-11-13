@@ -9,7 +9,7 @@ Sums of a vector for each level of a grouping variable.
 }
 
 \usage{
-group.sum(x, ina, ina.max = max(ina))
+group.sum(x, ina,ina.max = NULL,ina.min = NULL)
 }
 
 \arguments{
@@ -20,8 +20,11 @@ A numerical vector whose sums are to be calculated for each value of "ina".
 A numerical vector or a factor variable. For evey distinct value of "ina" the sum of "x" will be calculated. 
 Note that negative values are not allowed as this can cause R to run forever. 
 }
+\item{ina.min}{
+Minimum \bold{INTEGER} number for vector ina as vector or NULL. 
+}
 \item{ina.max}{
-Maximum number for vector ina. 
+Maximum \bold{INTEGER} number for vector ina as vector or NULL. 
 }
 }
 

@@ -55,10 +55,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-ina <- as.factor( rbinom(1000, 3, 0.5) ) 
+ina <- rbinom(500, 3, 0.5) + 1 
 ## Poisson example
-y <- matrix( rpois(1000 * 100,10), ncol= 100 )
+y <- matrix( rpois(500 * 100, 10), ncol= 100 )
 system.time(a1 <- poisson.anovas(y, ina) )
+y <- NULL
 }
 
 \keyword{ Poisson distribution }

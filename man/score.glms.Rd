@@ -78,11 +78,12 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rnorm(500 * 500), ncol = 500 )
+x <- matrnorm(500, 500)
 y <- rbinom(500, 1, 0.6)   ## binary logistic regression
 a1 <- univglms(y, x) 
 system.time( score.glms(y, x) )
 a2 <- score.glms(y, x)
+x <- NULL
 cor(a1, a2)
 mean(a1 - a2)
 }

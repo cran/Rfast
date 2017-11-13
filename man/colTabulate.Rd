@@ -50,6 +50,8 @@ x <- matrix( rbinom(100 * 100, 4, 0.5), ncol = 100 )
 system.time( colTabulate(x) )
 x <- t(x)
 system.time( rowTabulate(x) )
+
+x<-NULL
 }
 
 \keyword{ Column-wise tabulate }

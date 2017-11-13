@@ -61,13 +61,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-y <- matrix(rnbinom(100* 100, 10, 0.6), ncol = 100)
+y <- matrix(rnbinom(100* 50, 10, 0.6), ncol = 50)
 a1 <- colpoisdisp.tests(y, "over")
 b1 <- colpois.tests(y)
 
-y <- matrix(rpois(100* 100, 10), ncol = 100)
+y <- matrix(rpois(100* 50, 10), ncol = 50)
 a2 <- colpoisdisp.tests(y, "either")
 b2 <- colpois.tests(y)
+y <- NULL
 }
 
 \keyword{ Poisson distribution }

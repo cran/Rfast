@@ -29,8 +29,13 @@ The tolerance value to terminate the Newton-Raphson algorithm. This is set to \e
 Should the p-values be returned (FALSE) or their logarithm (TRUE)?  
 }
 \item{parallel}{
-Do you want this to be executed in parallel or not. The parallel takes place in C++, and the number of threads is defined by each system's availiable cores.
+Do you want this to be executed in parallel or not. The parallel takes place in C++, and the number of threads 
+is defined by each system's availiable cores.
 }
+%\item{ret}{
+%This takes three values, 1, 2, or 3. The 1 returns the test statistic and the p-value. The 2 returns the BIC as 
+%well and the 3 returns the BIC only. 
+%}
 \item{maxiters}{
 The max number of iterations that can take place in each regression.
 }
@@ -42,7 +47,10 @@ usual F-test. This model allows for random intercepts only.
 }
 
 \value{
-A two-column matrix with the test statistics (Wald statistic) and the associated p-values (or their loggarithm). 
+A two-column matrix with the test statistics (Wald statistic) and the associated p-values 
+(or their loggarithm). 
+%If ret = 2 the matrix has three columns. The third one is the BIC.
+%If ret = 3 the BIC is only returned.
 }
 
 \references{
@@ -69,4 +77,5 @@ y <- rnorm(100)
 id <- sample(1:10, 100, replace = TRUE)
 x <- matrix( rnorm(100 * 100), ncol = 100)
 a <- rint.regs(y, x, id)
+x <- NULL
 }

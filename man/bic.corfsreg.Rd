@@ -64,6 +64,7 @@ x <- matrix( rnorm(200 * 200), ncol = 200 )
 y <- rnorm(200)
 system.time( a1 <- bic.corfsreg(y, x) )
 system.time( a2 <- cor.fsreg(y, x) )
+x <- NULL
 }
 
 \keyword{ Forward regression }

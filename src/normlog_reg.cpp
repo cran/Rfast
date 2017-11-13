@@ -11,20 +11,20 @@ using namespace arma;
 using namespace std;
 
 //[[Rcpp::export]]
-List normlog_reg(NumericVector Y,NumericMatrix X,const double tol,const int maxiters){
+List normlog_reg(NumericVector Y,NumericMatrix X, const double tol, const int maxiters){
   List l;
   int n = Y.size();
-  double con =  - n * 0.5 * 1.837877 - 0.5 * n;
+  double con =  - n * 0.5 * 1.83787706640935 - 0.5 * n;
   int pcols = X.ncol();
-  mat x(X.begin(),n,pcols,false);
+  mat x(X.begin(),n,pcols,false),xt = x.t();
   colvec y(Y.begin(),n,false);
-  colvec b1 = solve(x.t() * x, x.t() * log(y + 0.1),solve_opts::fast);
-  colvec yhat = exp(x * b1);
+  colvec b1 = solve(xt * x, xt * log(y + 0.1),solve_opts::fast);
+  colvec yhat = (exp(x * b1));
 
   mat com = x.each_col()%(yhat % yhat);
 
   mat com2 = x.each_col()%(yhat % y);
-  colvec der = colsumsVecminVec(com,com2,0);
+  colvec der = conv_to<colvec>::from(sum(com-com2));
 
   mat der2 = 2 * com.t() * x - com2.t() * x;
   colvec b2 = b1 - solve(der2, der,solve_opts::fast);
@@ -32,14 +32,14 @@ List normlog_reg(NumericVector Y,NumericMatrix X,const double tol,const int maxi
 
   while(i++<maxiters && sum(abs(b1-b2)) > tol){
     b1 = b2;
-    yhat = exp(x * b1);
+    yhat = (exp(x * b1));
     com = x.each_col()%(yhat % yhat);
     com2 = x.each_col()%(yhat % y);
-    der = colsumsVecminVec(com,com2,0);
+    der = conv_to<colvec>::from(sum(com-com2));
     der2 = 2 * com.t() * x - com2.t() * x;
     b2 = b1 - solve(der2, der,solve_opts::fast);
   }
-  
+
   colvec ymyhat = y - yhat;
   double deviance = sum((ymyhat % ymyhat));
   double loglik = con - n * 0.5 * log(deviance/n);

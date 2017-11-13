@@ -57,10 +57,11 @@ R implementation and documentation: Stefanos Fafalios <stefanosfafalios@gmail.co
 
 \examples{
 y <- abs( rnorm(100) )
-x <- matrix( rnorm(100 * 100), ncol = 100)
+x <- matrnorm(100, 100)
 a <- normlog.regs(y, x)
 b <- glm(y ~ x[, 1], family = gaussian(log) )
 anova(b, test= "Chisq")
 a[1, ]
+x <- NULL
 }
 

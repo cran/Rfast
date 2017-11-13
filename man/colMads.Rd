@@ -9,14 +9,18 @@ Column and row-wise mean absolute deviations
 Column and row-wise mean absolute deviations.
 }
 
+
 \usage{
-colMads(x)
-rowMads(x)
+colMads(x,parallel = FALSE)
+rowMads(x,parallel = FALSE)
 }
 
 \arguments{
 \item{x}{
 A matrix with the data.
+}
+\item{parallel}{
+A boolean value for parallel version.
 }
 }
 
@@ -48,6 +52,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 x <- matrix( rnorm(100 * 100), ncol = 100 )
 system.time( a <- colMads(x) )
 
+x<-NULL
 }
 
 \keyword{ Column-wise median absolute deviations }

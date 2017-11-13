@@ -77,9 +77,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 ## 200 variables, hence 200 univariate regressions are to be fitted
-x <- matrix( rnorm(200 * 200), ncol = 200 )
+x <- matrnorm(200,  100)
 y <- rnorm(200)
 system.time( cor.fsreg(y, x) )
+x <- NULL
 }
 
 \keyword{ Forward regression }

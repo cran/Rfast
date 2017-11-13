@@ -11,7 +11,7 @@ using namespace arma;
 using namespace std;
 
 static int proper_size(int nrw,int ncl){
-  return ncl<nrw ? ncl*(nrw-1)*0.5 : nrw*(nrw-1)*0.5;
+  return ncl*(ncl-1)*0.5;
 }
 
 NumericVector euclidean_dist_vec(NumericMatrix x,const bool sqr){

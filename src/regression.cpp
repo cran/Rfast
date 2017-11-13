@@ -8,25 +8,6 @@ using namespace std;
 using namespace arma;
 
 //[[Rcpp::export]]
-static mat cross(mat x){
-  const int ncl=x.n_cols,nrw=x.n_rows;
-  mat f(ncl,ncl);
-  colvec xv(nrw);
-  double a;
-  int i,j;
-  for(i=0;i<ncl;++i){
-    xv=x.col(i);
-    for(j=i;j<ncl;++j){
-      a=sum(x.col(j)%xv);
-      f(i,j)=a;
-      f(j,i)=a;
-    }
-  }
-  return f;
-}
-
-
-//[[Rcpp::export]]
 NumericMatrix regression(DataFrame x, NumericVector Y){
   const int size_F=x.length();
   colvec y(Y.begin(),Y.size(),false),cxx;
@@ -55,8 +36,7 @@ NumericMatrix regression(DataFrame x, NumericVector Y){
       strtonum_des=design_matrix_regr(leksi);
       strtonum=mat(strtonum_des.begin(),strtonum_des.nrow(),strtonum_des.ncol(),false);
       tr_strtonum=strtonum.t();
-      b=inv(cross(strtonum))*tr_strtonum*y;
-      //b=solve( tr_strtonum*strtonum,tr_strtonum)*y;
+      b=solve(tr_strtonum*strtonum,tr_strtonum)*y;
       res=y-strtonum*b; 
       SS1=var(res)*(n-1);
       p=strtonum.n_cols;
@@ -65,9 +45,7 @@ NumericMatrix regression(DataFrame x, NumericVector Y){
       if(ptf!=num_of_facs-1)
         pos_f=pos[++ptf]-1;
     }else{
-      NumericVector xxx=*xx;
-      cxx=colvec(xxx.begin(),strtonum_des.nrow(),strtonum_des.ncol(),false);
-      F.at(0,i)=regression_only_col(cxx,y);
+      F.at(0,i)=regression_only_col(as<colvec>(*xx),y);
       F.at(1,i)=1;
     }
   }

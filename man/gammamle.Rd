@@ -27,7 +27,7 @@ MLE of continuous univariate distributions defined on the positive line.
 \usage{
 gammamle(x, tol = 1e-09) 
 chisq.mle(x, tol = 1e-09)
-weibull.mle(x, tol = 1e-09)
+weibull.mle(x, tol = 1e-09, maxiters = 100)
 lomax.mle(x, tol = 1e-09)
 foldnorm.mle(x, tol = 1e-09)
 betaprime.mle(x, tol = 1e-09)
@@ -52,14 +52,17 @@ A vector with positive valued data (zeros are not allowed).
 \item{tol}{
 The tolerance level up to which the maximisation stops; set to 1e-09 by default.
 }
+\item{maxiters}{
+The maximum number of iterations the Newton-Raphson will perform. 
+}
 }
 
 \details{
 Instead of maximising the log-likelihood via a numerical optimiser we have used a Newton-Raphson algorithm which is faster. See wikipedia for the equations to be solved. 
 For the t distribution we need the degrees of freedom and estimate the location and scatter parameters. If you want to to fit an inverse gamma distribution simply do 
-\"gamma.mle(1/x)\". The log-likelihood and the parameters are for the inverse gamma. 
+"gamma.mle(1/x)". The log-likelihood and the parameters are for the inverse gamma. 
 
-The \"normlog.mle\" is simply the normal distribution where all values are positive. Note, this is not log-normal. It is the normal with a log link. Similarly to the inverse gaussian
+The "normlog.mle" is simply the normal distribution where all values are positive. Note, this is not log-normal. It is the normal with a log link. Similarly to the inverse gaussian
 distribution where the mean is an exponentiated. This comes from the GLM theory. 
  
 }
@@ -104,10 +107,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- rgamma(1000, 3, 4)
-system.time( for (i in 1:50) gammamle(x) )
-##system.time( for (i in 1:50) fitdistr(x,"gamma") )
-
+x <- rgamma(100, 3, 4)
+system.time( for (i in 1:20) gammamle(x) )
+## system.time( for (i in 1:20) fitdistr(x,"gamma") )
 a <- glm(x ~ 1, gaussian(log) )
 normlog.mle(x)
 }

@@ -41,9 +41,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{beta.mle}, \link{diri.nr2}
@@ -59,6 +56,8 @@ all.equal(as.vector(a1), as.vector(a2))
 a1 <- Digamma(x) 
 a2 <- digamma(x) 
 all.equal(as.vector(a1), as.vector(a2))
+
+x<-a1<-a2<-NULL
 }
 
 \keyword{ Logarithm of gamma function }

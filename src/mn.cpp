@@ -10,6 +10,8 @@ using namespace Rcpp;
 using namespace arma;
 using namespace std;
 
+//[[Rcpp::plugins(cpp11)]]
+
 bool my_compare_order2(const pr<double,int>& a,const pr<double,int>& b){
   return a.first<b.first;
 }
@@ -166,7 +168,7 @@ double digamma(double x) {
 }
 
 //floyd
-void i4mat_floyd ( int n, vector<double> &a ){
+void i4mat_floyd( int n, NumericVector &a ){
   int i,j,k;
   const double i4_huge = 2147483647;
   for ( k = 0; k < n; k++ )
@@ -175,6 +177,19 @@ void i4mat_floyd ( int n, vector<double> &a ){
         for ( i = 0; i < n; i++ )
           if ( a[i+k*n] < i4_huge ){
             a[i+j*n] = std::min( a[i+j*n], a[i+k*n] + a[k+j*n] );
+          }
+}
+
+void i4mat_floyd_with_paths( const int n, NumericVector &a,NumericVector &p ){
+  int i,j,k;
+  const double i4_huge = 2147483647;
+  for ( k = 0; k < n; k++ )
+    for ( j = 0; j < n; j++ )
+      if ( a[k+j*n] < i4_huge )
+        for ( i = 0; i < n; i++ )
+          if ( a[i+k*n] < i4_huge ){
+            a[i+j*n] = std::min( a[i+j*n], a[i+k*n] + a[k+j*n] );
+            p[i+j*n] = k;
           }
 }
 
@@ -336,7 +351,6 @@ void max_neg_pos(int* start, int *end,int &mx,int &mn,int &pos){
     }
   }
 }
-//[[Rcpp::plugins(cpp11)]]
 
 //rmdp
 uvec Order_rmdp(colvec& x){
@@ -545,4 +559,38 @@ double med_helper(NumericVector::iterator first,NumericVector::iterator last){
     F=*(first+middle+1);
   }
   return F;
+}
+
+//dista
+icolvec get_k_indices(rowvec x,const int& k){
+  icolvec ind=linspace<icolvec>(1,x.size(),x.size());
+  sort(ind.begin(),ind.end(),[&](int i,int j){return x[i-1]<x[j-1];});
+  return ind(span(0,k-1));
+}
+
+SEXP eachrow_min_abs(SEXP x,SEXP y){
+  int ncol=Rf_ncols(x),nrow=Rf_nrows(x);
+  SEXP mat=PROTECT(Rf_duplicate(x));
+  double *xx=REAL(mat),*end=xx+ncol*nrow,*yy=REAL(y),y3,*x3;
+  for(;xx!=end;++yy){
+    y3=*yy;
+    for(x3=xx,xx+=nrow;x3!=xx;++x3){
+      *x3=abs(*x3-y3);
+    }
+  }
+  UNPROTECT(1);
+  return mat;
+}
+
+SEXP eachcol_min_abs(SEXP x,SEXP y){
+  const int ncol=Rf_ncols(x),nrow=Rf_nrows(x),n=ncol*nrow;
+  SEXP mat=PROTECT(Rf_duplicate(x));
+  double *xx=REAL(mat),*end=xx+n,*yy=REAL(y),*yb,*endy=yy+nrow;
+  for(;xx!=end;){
+    for(yb=yy;yb!=endy;++xx,++yb){
+      *xx=abs(*xx-*yb);
+    }
+  }
+  UNPROTECT(1);
+  return mat;
 }

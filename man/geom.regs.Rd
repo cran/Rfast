@@ -60,7 +60,8 @@ R implementation and documentation: Stefanos Fafalios <stefanosfafalios@gmail.co
 
 \examples{
 y <- rgeom(100, 0.6)
-x <- matrix( rnorm(100 * 100), ncol = 100)
+x <- matrix( rnorm(100 * 50), ncol = 50)
 a <- geom.regs(y, x)
+x <- NULL
 }
 

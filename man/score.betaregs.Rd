@@ -78,10 +78,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rnorm(500 * 200), ncol = 200 )
-y <- rweibull(500, 2, 3)   
+x <- matrnorm(300, 100)
+y <- rweibull(300, 2, 3)   
 a <- score.weibregs(y, x) 
-sum(a[, 2] < 0.05) / 200
+sum(a[, 2] < 0.05) / 100
+x <- NULL
 }
 
 \keyword{ Weibull regressions }

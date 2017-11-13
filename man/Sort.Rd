@@ -52,9 +52,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{nth}, \link{colnth}, \link{rownth},\link{sort_unique}, \link{Round}
@@ -83,6 +80,8 @@ all.equal(s1,s2) #true
 
 y <- runif(1000)
 b <- sort_cor_vectors(x,y)
+
+x<-y<-y<-s1<-s2<-NULL
 }
 
 \keyword{ Sorting }

@@ -7,7 +7,7 @@ fish.kent <- function(x, logged = FALSE) {
   i3 <- diag(3)
   P <- i3 - tcrossprod(mu)/mu[1]
   y <- tcrossprod(x, P)[, 2:3]
-  lam <- eigen(crossprod(y)/n)$values
+  lam <- eigen( crossprod(y) )$values/n
   rat <- besselI(k, 0.5, expon.scaled = TRUE)/besselI(k, 2.5, 
       expon.scaled = TRUE)
   Ta <- n * (k/2)^2 * rat * (lam[1] - lam[2])^2

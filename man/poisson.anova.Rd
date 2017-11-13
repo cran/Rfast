@@ -58,13 +58,13 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-y <- rpois(500, 10)
-ina <- as.factor( rbinom(500, 4, 0.5) ) 
+y <- rpois(300, 10)
+ina <- rbinom(300, 3, 0.5) + 1 
 a1 <- poisson.anova(y, ina) 
 a2 <- glm(y ~ ina, poisson) 
 a1
 anova(a2, test = "Chisq")
-y <- rgeom(500, 0.7)
+y <- rgeom(300, 0.7)
 geom.anova(y, ina) 
 }
 

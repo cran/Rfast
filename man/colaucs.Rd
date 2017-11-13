@@ -52,6 +52,7 @@ x <- matrix( rnorm(100 * 200), ncol = 200 )
 ina <- rbinom(100, 1, 0.6)
 system.time( colaucs(ina, x) )
 a <- colaucs(ina, x) 
+x <- NULL
 }
 
 \keyword{ Area aunder the curve}

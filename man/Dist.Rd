@@ -54,9 +54,6 @@ R implementation and documentation:
 Manos Papadakis <papadakm95@gmail.com>
 }
 
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{\link{dista}, \link{colMedians}
@@ -67,6 +64,8 @@ Manos Papadakis <papadakm95@gmail.com>
 x <- matrix(rnorm(50 * 10), ncol = 10)
 a1 <- Dist(x)
 a2 <- as.matrix( dist(x) )
+
+x<-a1<-a2<-NULL
 }
 
 \keyword{ Distance matrix }

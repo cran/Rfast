@@ -9,7 +9,7 @@ Variance (and standard deviation)  of a vector.
 }
 
 \usage{
-Var(x, std = FALSE)
+Var(x, std = FALSE,na.rm = FALSE)
 }
 
 \arguments{
@@ -18,6 +18,9 @@ A vector with data.
 }
 \item{std}{
 If you want the standard deviation set this to TRUE, otherwise leave it FALSE.
+}
+\item{na.rm}{
+TRUE or FAlSE for remove NAs if exists.
 }
 }
 
@@ -29,9 +32,6 @@ This is a faster calculaiton of the usual variance of a matrix.
 The variance of the vector.
 }
 
-%\references{
-%
-%}
 
 \author{
 Michail Tsagris
@@ -39,9 +39,6 @@ Michail Tsagris
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{colVars}, \link{cova}
@@ -52,6 +49,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 x <- rnorm(1000)
 system.time( for (i in 1:100) Var(x) )
 #system.time( for (i in 1:100) var(x) )
+
+x<-NULL
 }
 
 \keyword{ Variance }

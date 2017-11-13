@@ -52,13 +52,15 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>.
 }
 
 \examples{
-x <- matrix( rnorm(300 * 500), ncol = 500 )
+x <- matrnorm(300, 500)
 ina <- rbinom(300, 2, 0.6) + 1
 a <- list()
 a[[ 1 ]] <- x[ina == 1, ]
 a[[ 2 ]] <- x[ina == 2, ]
 a[[ 3 ]] <- x[ina == 3, ]
 mod <- list.ftests(a)
+z <- NULL
+a <- NULL
 }
 
 \keyword{ F-tests }

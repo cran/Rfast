@@ -61,6 +61,8 @@ y <- matrix( rnorm(5 * 5), ncol = 5 )
 XopY.sum(x, y, oper = "*")
 y <- x[,1]
 eachrow(x,y)
+
+x<-y<-NULL
 }
 
 \keyword{ Sum }

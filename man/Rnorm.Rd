@@ -49,7 +49,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 }
 
 \examples{
-x <- Rnorm(2000)
+x <- Rnorm(500)
 }
 
 

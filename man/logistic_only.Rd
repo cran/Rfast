@@ -45,9 +45,6 @@ Manos Papadakis <papadakm95@gmail.com>
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{\link{allbetas}, \link{correls}, \link{poisson_only}, \link{regression}
@@ -67,6 +64,8 @@ a2 <- numeric(300)
 system.time( for (i in 1:300) a2[i] = glm(y ~ x[, i], binomial)$deviance )
 a2 = as.vector(a2)
 all.equal(a1, a2)
+
+a1<-a2<-y<-x<-NULL
 }
 
 \keyword{ Logistic regressions }

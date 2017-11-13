@@ -57,6 +57,7 @@ id <- rep(1:4, each = 25 )
 x[1:25, 2] <- 0
 check_data(x)  ## did not use the id variable
 check_data(x, id)  ## see now
+x <- NULL
 }
 
 \keyword{ Zero range }

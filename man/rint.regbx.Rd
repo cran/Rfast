@@ -83,8 +83,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 y <- rnorm(100) 
 x <- rnorm(10)
 x <- rep(x, 10)
-id <- id <- rep(1:10, each = 10)
-system.time( for (i in 1:50) a <- rint.reg(y, x, id) )
+id <- rep(1:10, each = 10)
+system.time( for (i in 1:40) a <- rint.reg(y, x, id) )
 }
 
 \keyword{ Linear mixed models }

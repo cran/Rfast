@@ -23,9 +23,6 @@ Number of new columns/rows.
 }
 }
 
-%\details{
-%
-%}
 
 \value{
 A matrix where each column/row is equal to "x".

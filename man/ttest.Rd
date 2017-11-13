@@ -79,13 +79,14 @@ a1 <- proptest(x, n, p, "unequal", logged = FALSE)
 sum( a1[, 2] < 0.05 ) / R
 
 ## vartest
-x <- matrix( rnorm(100 * 1000), ncol = R )
+x <- matrnorm(100, 100)
 a2 <- vartest(x, rep(1, R) )
 sum( a2[, 2] < 0.05 )
 
 ## ttest
 a4 <- ttest(x, numeric(R) )
 sum(a4[, 2] < 0.05) / R
+x <- NULL
 }
 
 \keyword{ Hypothesis testing }

@@ -29,9 +29,6 @@ The argument must be a matrix. For vector the time was the same as R's "log" fun
 A matrix where each element is the natural logarithm of the given argument.
 }
 
-%\references{
-%
-%}
 
 \author{
 Manos Papadakis
@@ -39,9 +36,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{Lbeta}, \link{Lchoose}, \link{Choose}
@@ -53,6 +47,8 @@ x <-matrix( runif( 100 * 100), ncol = 100 )
 a <- log(x) 
 b <- Log(x) 
 all.equal(a, b) # true
+
+x<-a<-b<-NULL
 }
 
 \keyword{ Log matrix }

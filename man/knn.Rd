@@ -10,7 +10,7 @@ k nearest neighbours algorithm (k-NN).
 
 \usage{
 knn(xnew, y, x, k, dist.type = "euclidean", type = "C", method = "average", 
-freq.option = 0)
+freq.option = 0, mem.eff = FALSE)
 }
 
 \arguments{
@@ -42,6 +42,10 @@ harmonic mean, type \"harmonic\".
 \item{freq.option}{
 If classification (type = \"C\") and ties occur in the prediction, more than one class has the same number 
 of k nearest neighbours, in which case there are two strategies available: Option 0 selects the first most frequent encountered. Option 1 randomly selects the most frequent value, in the case that there are duplicates. 
+}
+\item{mem.eff}{
+Boolean value indicating a conservative or not use of memory. Lower usage of memory/Having this option on will lead to a slight 
+decrease in execution speed and should ideally be on when the amount of memory in demand might be a concern.
 }
 }
 
@@ -93,7 +97,7 @@ R implementation and documentation: Marios Dimitriadis <kmdimitriadis@gmail.com>
 x <- as.matrix(iris[, 1:4])
 y <- as.numeric(iris[, 5])
 id <- sample(1:150, 120)
-mod <- knn(x[-id, ], y[id], x[id, ], k = c(4, 5, 6), type = "C")
+mod <- knn(x[-id, ], y[id], x[id, ], k = c(4, 5, 6), type = "C", mem.eff = FALSE)
 mod # Predicted values of y for 3 values of k. 
 table(mod[, 1], y[-id] )  # Confusion matrix for k = 4
 table(mod[, 2], y[-id] )  # Confusion matrix for k = 5

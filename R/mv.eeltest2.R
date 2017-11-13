@@ -13,12 +13,12 @@ mv.eeltest2 <- function(y1, y2, tol = 1e-07, R = 0) {
     fx1 <- numeric(n1)
     fx2 <- n1
     fx2a <- x
-    fx3 <- Rfast::colsums( fx2a )
+    fx3 <- colsums( fx2a )
     fx4 <- fx3 / fx2
     fy1 <- numeric(n2)
     fy2 <- n2
     fy2a <- y
-    fy3 <- Rfast::colsums( fy2a )
+    fy3 <- colsums( fy2a )
     fy4 <- fy3 / fy2
     f <- fx4 - fy4
     der <-  - tcrossprod( fx4 ) + crossprod(fx2a, x) / fx2 - tcrossprod( fy4 ) + crossprod(fy2a, y) / fy2
@@ -30,12 +30,12 @@ mv.eeltest2 <- function(y1, y2, tol = 1e-07, R = 0) {
       fx1 <- exp( as.vector( x %*% lam1 ) )
       fx2 <- sum(fx1)
       fx2a <- x * fx1
-      fx3 <- colSums( fx2a )
+      fx3 <- colsums( fx2a )
       fx4 <- fx3 / fx2
       fy1 <- exp( as.vector( - y %*% lam1 ) )
       fy2 <- sum(fy1)
       fy2a <- y * fy1
-      fy3 <- Rfast::colsums( fy2a )
+      fy3 <- colsums( fy2a )
       fy4 <- fy3 / fy2
       f <- fx4 - fy4
       der <-  - tcrossprod( fx4 ) + crossprod(fx2a, x) / fx2 - tcrossprod( fy4 ) + crossprod(fy2a, y) / fy2

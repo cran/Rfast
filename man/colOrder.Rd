@@ -11,9 +11,9 @@ Column and row-wise Order - Sort Indices.
 }
 
 \usage{
-colOrder(x,stable=FALSE,descending=FALSE)
-rowOrder(x,stable=FALSE,descending=FALSE)
-Order(x,stable=FALSE,descending=FALSE)
+colOrder(x,stable=FALSE,descending=FALSE, parallel = FALSE)
+rowOrder(x,stable=FALSE,descending=FALSE, parallel = FALSE)
+Order(x,stable=FALSE,descending=FALSE,partial = NULL)
 }
 
 \arguments{
@@ -26,6 +26,12 @@ A boolean value for using a stable sorting algorithm.
 \item{descending}{
 A boolean value (TRUE/FALSE) for sorting the vector in descending order. By default sorts the vector in ascending.
 }
+\item{parallel}{
+A boolean value for parallel version.
+}
+\item{partial}{
+A boolean value for partial sorting.
+}
 }
 
 \details{
@@ -33,9 +39,10 @@ The function applies "order" in a column or row-wise fashion or Order a vector. 
 }
 
 \value{
-For "colOrder" and "Order" a matrix with integer numbers. The result is the same as apply(x, 2, order) or apply(x, 1, order).
+For "colOrder" and "rowOrder" a matrix with integer numbers. The result is the same as apply(x, 2, order) or apply(x, 1, order).
 
 For "Order" sort the vector and returns the indices of each element that it has before the sorting.
+The result is the same as order(x) but for the same exactly results set argument "stable" to "TRUE".
 }
 
 \author{
@@ -43,9 +50,6 @@ Manos Papadakis
 
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{ \link{colsums}, \link{coldiffs}, \link{colMedians}, \link{colprods}
@@ -59,12 +63,14 @@ apply(x, 2, order)
 rowOrder(x)
 t(apply(x, 1, order))
 
-y <- sample(rnorm(100),100,TRUE)
+y <- rnorm(100)
 b <- Order(y)
 a <- order(y)
 all.equal(a,b) ## false because it is not stable
-a <- Order(y,stable=TRUE)
+b <- Order(y,stable=TRUE)
 all.equal(a,b) ## true because it is stable
+
+x<-y<-b<-a<-NULL
 }
 
 \keyword{ Orderings }

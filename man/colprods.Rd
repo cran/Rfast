@@ -33,9 +33,6 @@ Manos Papadakis
 
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{ \link{colsums}, \link{coldiffs}, \link{colMedians}
@@ -46,6 +43,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 x <- matrix( runif(100 * 10), ncol = 10 )
 colprods(x)
 rowprods(x)
+
+x<-NULL
 }
 
 \keyword{ Products }

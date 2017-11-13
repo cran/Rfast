@@ -1,5 +1,5 @@
-cova <- function(x) {
+cova <- function (x) {
   n <- dim(x)[1]
-  m <- colmeans(x)
-  ( crossprod(x) - n * tcrossprod(m) ) / (n - 1)
+  m <- sqrt(n) * colmeans(x)
+  (crossprod(x) - tcrossprod(m))/(n - 1)
 }

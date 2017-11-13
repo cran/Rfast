@@ -83,13 +83,13 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-## 1000 variables, hence 1000 F-tests will be performed
-x <- matrix( rnorm(300 * 500), ncol = 500 )
+x <- matrix( rnorm(300 * 50), ncol = 50 )
 ## 300 observations in total
 ina <- rbinom(300, 3, 0.6) + 1   
 a1 <- ftests(x, ina) 
 a2 <- anovas(x, ina) 
 a3 <- vartests(x, ina) 
+x <- NULL
 }
 
 \keyword{ F-tests }

@@ -35,9 +35,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 }
 
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{\link{model.matrix}
@@ -48,6 +45,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 a <- design_matrix( iris[, 5] )
 b <- model.matrix( ~ iris[,5] )  ## R's built-in funciton
 all.equal(as.vector(a),as.vector(b)) ## true
+
+a<-b<-NULL
 }
 
 \keyword{ Design Matrix }

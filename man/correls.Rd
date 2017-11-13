@@ -62,13 +62,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rnorm(60 * 100), ncol = 100 )
+x <- matrnorm(60, 100 )
 y <- rnorm(60)
 r <- cor(y, x)  ## correlation of y with each of the xs
 a <- allbetas(y, x)  ## the coefficients of each simple linear regression of y with x
 b <- correls(y, x)
 ina <- rep(1:2, each = 30)
 b2 <- groupcorrels(y, x, ina = ina) 
+x <- NULL
 }
 
 \keyword{ Correlations }

@@ -9,8 +9,6 @@
 #include <RcppArmadillo.h>
 #include <RcppArmadillo.h>
 
-// [[Rcpp::plugins("cpp11")]]
-// [[Rcpp::depends("RcppArmadillo")]]
 
 Rcpp::List g2_test_univ(arma::mat& data, arma::uvec& dc);
 

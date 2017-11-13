@@ -66,6 +66,7 @@ m1 <- lm(y[, 15] ~ factor(ina) + x)
 m2 <- lm(y[, 15] ~ x + factor(ina))
 anova(m1)
 anova(m2)
+y <- NULL
 a[15, ]  ## the same with the m2 model, but not the m1
 hist(a[, 3])
 hist(a[, 4])

@@ -48,9 +48,6 @@ Manos Papadakis
 
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{ \link{Dist}, \link{dista}
@@ -63,6 +60,8 @@ total.dist(x)
 y <- matrix( rnorm(40 * 10), ncol = 10)
 total.dista(x, y)
 total.dista(y, x)
+
+x<-y<-NULL
 }
 
 \keyword{ Distances}

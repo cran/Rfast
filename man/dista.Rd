@@ -8,7 +8,7 @@ Distance between vectors and a matrix.
 }
 
 \usage{
-dista(xnew, x,type = "euclidean",trans = TRUE,square = FALSE)
+dista(xnew,x,type = "euclidean",k=0,index=FALSE,trans = TRUE,square = FALSE)
 }
 
 \arguments{
@@ -18,15 +18,21 @@ A matrix with some data or a vector.
 \item{x}{
 A matrix with the data, where rows denotes observations (vectors) and the columns contain the variables.
 }
-\item{square}{
-If you choose \"euclidean\" as the method, then you can have the optino to return the 
-squared Euclidean distances by setting this argument to TRUE. 
-}
 \item{type}{
-This can be either \"euclidean\" or \"manhattan\".
+This can be either "euclidean" or "manhattan".
+}
+\item{k}{
+Should the k smaller distances or their indices be returned? If k > 0 this will happen.
+}
+\item{index}{
+In case k is greater than 0, you have the option to get the indices of the k smallest distances.
 }
 \item{trans}{
 Do you want the returned matrix to be transposed? TRUE or FALSE.
+}
+\item{square}{
+If you choose "euclidean" as the method, then you can have the optino to return the 
+squared Euclidean distances by setting this argument to TRUE. 
 }
 }
 
@@ -67,6 +73,7 @@ x <- matrix( rnorm(1000 * 4), ncol = 4 )
 system.time( dista(xnew, x) )
 system.time( as.matrix( dist( rbind(xnew, x) ) ) )
 
+x<-b<-a<-xnew<-NULL
 }
 
 \keyword{ Distances }

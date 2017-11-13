@@ -10,8 +10,6 @@ It performs very many univariate simple linear regressions with or without categ
 
 \usage{
 regression(x, y)
-
-
 }
 
 \arguments{
@@ -43,9 +41,6 @@ Manos Papadakis <papadakm95@gmail.com>
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{\link{univglms}, \link{allbetas}, \link{correls}, \link{univglms}, \link{mvbetas}
@@ -66,6 +61,8 @@ for (i in 1:200) x[, i] <- iris[, 5]
 system.time( a <- regression(x, y) )
 a[, 1:5]
 summary(lm(y ~ x[, 1]) )  ## check the F-test
+
+x<-y<-a<-NULL
 }
 
 \keyword{ Simple linear regressions }

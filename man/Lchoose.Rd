@@ -31,8 +31,6 @@ The binomial coefficient or its logarithm are evaluated.
 A vector with the answers.
 }
 
-%\references{
-%}
 
 \author{
 Manos Papadakis
@@ -40,9 +38,6 @@ Manos Papadakis
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> 
 }
 
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{ \link{comb_n}, \link{Lbeta}, \link{Lgamma} 
@@ -53,6 +48,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 x <- sample(20:30, 100, replace = TRUE)
 Choose(x, 4)
 Lchoose(x, 4)
+
+x<-NULL
 }
 
 \keyword{ Factorials }

@@ -106,8 +106,9 @@ R implementation and documentation: Marios Dimitriadis <kmdimitriadis@gmail.com>
 
 \examples{
 # simulate a dataset with continuous data
-dataset <- matrix(rnorm(1000 * 50, 1, 100), nrow = 1000) 
+dataset <- matrnorm(1000, 50) 
 a <- pc.skel(dataset, method = "pearson", alpha = 0.01) 
+x <- NULL
 }
 
 \keyword{ PC algorithm }

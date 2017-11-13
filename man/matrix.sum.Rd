@@ -18,17 +18,11 @@ A matrix with data.
 }
 }
 
-%\details{
-%
-%}
 
 \value{
 The sum of the matrix "x".
 }
 
-%\references{
-
-%}
 
 \author{
 Manos Papadakis
@@ -36,9 +30,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{rowMins}, \link{rowFalse}, \link{nth}, \link{colrange}, \link{colMedians}, \link{colVars}, \link{sort_mat}, \link{rowTrue}
@@ -49,6 +40,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 x <- matrix(runif(100*100),100,100)
 f <- matrix.sum(x)
 f==sum(x)
+
+f<-NULL
 }
 
 \keyword{ Replicate in columns }

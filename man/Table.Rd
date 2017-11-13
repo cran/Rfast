@@ -36,9 +36,6 @@ The discrete values from vector "x" sorted.
 } 
 }
 
-%\references{
-%}
-
 \author{
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
@@ -57,6 +54,8 @@ all.equal(y1,y2)
 y1<-Table(x,FALSE)
 all.equal(as.character(y1$values),names(y2))
 all.equal(y1$freqs,y2)
+
+x<-y1<-y2<-NULL
 }
 
 \keyword{ Table Creation }

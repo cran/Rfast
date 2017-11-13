@@ -64,13 +64,12 @@ Documentation: Marios Dimitriadis <kmdimitriadis@gmail.com>.
 set.seed(123)
 
 #simulate a dataset with continuous data
-x <- matrix(rnorm(100 * 50), ncol = 50)
+x <- matrnorm(100, 50)
 y <- rpois(100, 10)
 a <- fs.reg(y, x, sig = 0.05, tol = 2, type = "poisson") 
-
-x <- matrix(rnorm(100 * 50), ncol = 50)
 y <- rbinom(100, 1, 0.5)
 b <- fs.reg(y, x, sig = 0.05, tol = 2, type = "logistic") 
+x <- NULL
 }
 
 \keyword{ Forward regression }

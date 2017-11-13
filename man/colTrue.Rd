@@ -40,9 +40,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{rowMins}, \link{rowFalse}, \link{nth}, \link{colrange}, \link{colMedians}, \link{colVars}, \link{sort_mat}, \link{rowTrue}
@@ -58,6 +55,7 @@ s1 <- colFalse(x)
 
 s1 <- colTrueFalse(x)
 
+x<-s1<-NULL
 }
 
 \keyword{ Column-wise true }

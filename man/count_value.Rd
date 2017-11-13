@@ -1,23 +1,33 @@
-\name{Count the frequency of a value}
+\name{Row - Wise matrix/vector count the frequency of a value }
+\alias{colCountValues}
+\alias{rowCountValues}
 \alias{count_value}
 \title{
-Count the frequency of a value
+Row - Wise matrix/vector count the frequency of a value
 }
 
 \description{
-Count the frequency of a value. 
+Row - Wise matrix/vector count the frequency of a value. 
 }
 
 \usage{
 count_value(x, value)
+colCountValues(x, values, parallel = FALSE)
+rowCountValues(x, values, parallel = FALSE)
 }
 
 \arguments{
 \item{x}{
-A vector with the data (numeric or character).
+A vector with the data (numeric or character) or a numeric matrix.
 }
 \item{value}{
 The value to check its frequency in the vector "x".
+}
+\item{values}{
+a vector with the values to check its frequency in the matrix "x" by row or column.
+}
+\item{parallel}{
+Do you want to do it in parallel in C++? TRUE or FALSE. Works with every other argument.
 }
 }
 
@@ -26,11 +36,9 @@ The functions is written in C++ in order to be as fast as possible. The "x" and 
 }
 
 \value{
-The frequency of a value in a vector in linear time.
+The frequency of a value/values in a vector in linear time or by row/column in a matrix.
 }
 
-%\references{
-%}
 
 \author{
 Manos Papadakis
@@ -47,10 +55,15 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- rnorm(100)
 value <- x[50]
-system.time( b <- count_value(x,value) )
-x <- sample(letters,replace=TRUE)
+system.time( count_value(x,value) )
+y <- sample(letters,replace=TRUE)
 value <- "r"
-system.time( g <- count_value(x,value) )
+system.time( count_value(y,value) )
+values <- sample(x,100,replace=TRUE)
+x <- matrix(x,100,100)
+colCountValues(x,values)
+rowCountValues(x,values)
+x<-value<-values<-y<-NULL
 }
 
-\keyword{ Count the frequency of a value }
+\keyword{ Row - Wise matrix/vector count the frequency of a value }

@@ -51,11 +51,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <-matrix( rnorm( 100 * 100), ncol = 100 )
+x <- matrnorm( 100, 100 )
 a1 <- scale(x)[1:100, ] 
 a2 <- standardise(x) 
 all.equal(as.vector(a1), as.vector(a2))
-
+x <- NULL
 }
 
 \keyword{ Standardisation }

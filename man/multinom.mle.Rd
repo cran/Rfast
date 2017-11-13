@@ -1,5 +1,6 @@
 \name{MLE for multivariate discrete data}
 \alias{multinom.mle}
+\alias{dirimultinom.mle}
 \alias{colpoisson.mle}
 \alias{colgeom.mle}
 \title{
@@ -12,6 +13,7 @@ MLE for multivariate discrete data.
 
 \usage{
 multinom.mle(x)
+dirimultinom.mle(x, tol = 1e-07) 
 colpoisson.mle(x)
 colgeom.mle(x, type = 1)
 }
@@ -20,13 +22,17 @@ colgeom.mle(x, type = 1)
 \item{x}{
 A matrix with discrete valued non negative data.
 }
+\item{tol}{the tolerance level to terminate the Newton-Raphson algorithm for the Dirichlet multinomial distribution.
+}
 \item{type}{
-This is for the geometric distribution only. Type 1 refers to the case where the minimum is zero and type 2 for the case of the minimum being 1. 
+This is for the geometric distribution only. Type 1 refers to the case where the minimum is zero and type 2 for the 
+case of the minimum being 1. 
 }
 }
 
 \details{
-For the Poisson and geometric distributions we simply fit independent Poisson and geometric distributions respectively.
+For the Poisson and geometric distributions we simply fit independent Poisson and geometric distributions 
+respectively.
 }
 
 \value{
@@ -39,6 +45,8 @@ A list including:
 
 \references{
 Johnson Norman L., Kotz Samuel and Balakrishnan (1997). Discrete Multivariate Distributions. Wiley
+
+Minka Thomas (2012). Estimating a Dirichlet distribution. Technical report. 
 }
 
 \author{
@@ -59,6 +67,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 x <- t( rmultinom(1000, 20, c(0.4, 0.5, 0.1) ) )
 multinom.mle(x)
 colpoisson.mle(x)
+x <- NULL
 }
 
 \keyword{ Multinomial distribution }

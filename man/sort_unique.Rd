@@ -52,6 +52,8 @@ all.equal(as.vector(a),as.vector(b))
 x <- rpois(10000,10)
 sort_unique.length(x)
 length(sort_unique(x))
+
+x<-a<-b<-NULL
 }
 
 \keyword{ Sort function }

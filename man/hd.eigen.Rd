@@ -49,10 +49,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>.
 }
 
 \examples{
-x <- matrix( rnorm(40 * 200), ncol = 200)
+x <- matrix( rnorm(40 * 100), ncol = 100)
 a <- hd.eigen(x)
 b <- prcomp(x)
 b$sdev^2
+x <- NULL
 }
 
 \keyword{ Eigenvalues }

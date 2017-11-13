@@ -53,10 +53,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 ## 200 variables, hence 200 F-tests will be performed
-x = matrix( rnorm(200 * 200), ncol = 200 )
+x = matrix( rnorm(200 * 50), ncol = 50 )
 ## 200 observations in total
 system.time( colkurtosis(x) )
 system.time( colskewness(x) )
+x <- NULL
 }
 
 \keyword{ Skewness coefficient }

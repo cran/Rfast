@@ -22,6 +22,27 @@ static double calc_med(std::vector<double>& x){
 }
 
 // Author: Manos Papadakis
+static arma::uvec get_k_indices(arma::rowvec x, const int k){
+	arma::uvec ind=arma::linspace<arma::uvec>(1,x.size(),x.size());
+	std::sort(ind.begin(),ind.end(),[&](int i,int j){return x[i-1]<x[j-1];});
+  return ind(arma::span(0,k-1));
+}
+
+// Author: Manos Papadakis
+static arma::umat calc_dist_mem_eff(arma::mat xnew, arma::mat x, const unsigned int k, const bool is_euclidean) {
+  const unsigned int nu=xnew.n_cols;
+  arma::umat disa(k,nu);
+  if(is_euclidean){
+    for(unsigned int i=0;i<nu;++i)
+      disa.col(i)=get_k_indices(arma::sum(arma::square(x.each_col() - xnew.col(i)),0),k);
+  }else{
+    for(unsigned int i=0;i<nu;++i)
+      disa.col(i)=get_k_indices(arma::sum(arma::abs(x.each_col() - xnew.col(i)),0),k);
+  }
+  return disa;
+}
+
+// Author: Manos Papadakis
 static arma::mat sqrt_mat(arma::mat x){
 	arma::colvec f(x.n_elem);
   	for(double *start=&x[0],*startf=&f[0],*end=&(*x.end());start!=end;++start,++startf){
@@ -31,7 +52,7 @@ static arma::mat sqrt_mat(arma::mat x){
 }
 
 // Author: Manos Papadakis
-static arma::mat calc_dist(arma::mat xnew, arma::mat x,const bool is_euclidean) {
+static arma::mat calc_dist(arma::mat xnew, arma::mat x, const bool is_euclidean) {
   	const int n=x.n_cols,nu=xnew.n_cols;
   	arma::mat disa(n,nu,arma::fill::zeros);
   	if(is_euclidean) 
@@ -65,7 +86,7 @@ std::vector<double> ext_vals(arma::vec& y, arma::umat& max_dist_idxs, const unsi
 	return vals;
 }
 
-arma::mat calc_r_harm_ests(arma::vec& y, arma::mat& dists, arma::umat& max_dist_idxs, arma::uvec& idxs) {
+arma::mat calc_r_harm_ests(arma::vec& y, arma::umat& max_dist_idxs, arma::uvec& idxs) {
 	arma::mat ests(max_dist_idxs.n_rows, idxs.size()); 
 	for (unsigned int i = 0; i < max_dist_idxs.n_rows; ++i) {
 		for (unsigned int j = 0; j < idxs.size(); ++j) {
@@ -77,7 +98,7 @@ arma::mat calc_r_harm_ests(arma::vec& y, arma::mat& dists, arma::umat& max_dist_
 	return ests;
 }
 
-arma::mat calc_r_med_ests(arma::vec& y, arma::mat& dists, arma::umat& max_dist_idxs, arma::uvec& idxs) {
+arma::mat calc_r_med_ests(arma::vec& y, arma::umat& max_dist_idxs, arma::uvec& idxs) {
 	arma::mat ests(max_dist_idxs.n_rows, idxs.size()); 
 	for (unsigned int i = 0; i < max_dist_idxs.n_rows; ++i) {
 		for (unsigned int j = 0; j < idxs.size(); ++j) {
@@ -88,7 +109,7 @@ arma::mat calc_r_med_ests(arma::vec& y, arma::mat& dists, arma::umat& max_dist_i
 	return ests;
 }
 
-arma::mat calc_r_aver_ests(arma::vec& y, arma::mat& dists, arma::umat& max_dist_idxs, arma::uvec& idxs) {
+arma::mat calc_r_aver_ests(arma::vec& y, arma::umat& max_dist_idxs, arma::uvec& idxs) {
 	arma::mat ests(max_dist_idxs.n_rows, idxs.size()); 
 	for (unsigned int i = 0; i < max_dist_idxs.n_rows; ++i) {
 		for (unsigned int j = 0; j < idxs.size(); ++j) {
@@ -162,7 +183,7 @@ double find_first_freq(std::vector<double>& vals) {
 	return curr_count > max_count ? vals[vals_size - 1] : freq;
 }
 
-arma::mat calc_c_ests(arma::vec& y, arma::mat& dists, arma::umat& max_dist_idxs, arma::uvec& idxs, 
+arma::mat calc_c_ests(arma::vec& y, arma::umat& max_dist_idxs, arma::uvec& idxs, 
 		const unsigned int freq_option) {
 	std::random_device rd;
 	std::mt19937 rd_gen(rd());
@@ -311,36 +332,42 @@ bool is_dist_type(const std::string dist_type) {
 
 arma::mat calc_k_nn(arma::mat& ds_extra, arma::vec& y, arma::mat& ds, arma::uvec& idxs,
 		const std::string dist_type, const std::string type, const std::string method,
-		const unsigned int freq_option) {
+		const unsigned int freq_option, const bool mem_eff) {
 	method_t md = {0};
 	const bool is_euclidean = is_dist_type(dist_type);
 	const bool is_type_c = is_type(type);
 	if (!is_type_c) {
 		store_method(method, md);
 	}
-	db_print("Adjusting indexes.\n");
 	db_print("Calculating distance.\n");
-	arma::mat dists = arma::trans(calc_dist(arma::trans(ds_extra), arma::trans(ds), is_euclidean));
-	db_print("Calculating max n distance.\n");
-	arma::umat max_dist_idxs = calc_n_min(dists, idxs[idxs.size() - 1] + 1);
+	arma::umat max_dist_idxs;
+	if (!mem_eff) {
+		arma::mat dists = arma::trans(calc_dist(arma::trans(ds_extra), arma::trans(ds), is_euclidean));
+		db_print("Calculating max n distance.\n");
+		max_dist_idxs = calc_n_min(dists, idxs[idxs.size() - 1] + 1);
+	}
+	else {
+		max_dist_idxs = arma::trans(calc_dist_mem_eff(arma::trans(ds_extra), 
+				arma::trans(ds), idxs[idxs.size() - 1] + 1, is_euclidean)) - 1;
+	}
 	db_print("Calculating estimates.\n");
 	arma::mat ests;
 	if (is_type_c) {
 		db_print("Calculating C estimate.\n");
-		ests = calc_c_ests(y, dists, max_dist_idxs, idxs, freq_option);
+		ests = calc_c_ests(y, max_dist_idxs, idxs, freq_option);
 	}
 	else {
 		if (md.is_average) {
 			db_print("Calculating R-average estimate.\n");
-			ests = calc_r_aver_ests(y, dists, max_dist_idxs, idxs);
+			ests = calc_r_aver_ests(y, max_dist_idxs, idxs);
 		}
 		else if (md.is_median) {
 			db_print("Calculating R-median estimate.\n");
-			ests = calc_r_med_ests(y, dists, max_dist_idxs, idxs);
+			ests = calc_r_med_ests(y, max_dist_idxs, idxs);
 		}
 		else {
 			db_print("Calculating R-harmonic estimate.\n");
-			ests = calc_r_harm_ests(y, dists, max_dist_idxs, idxs);
+			ests = calc_r_harm_ests(y, max_dist_idxs, idxs);
 		}
 	}
 	return ests;

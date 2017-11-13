@@ -79,7 +79,7 @@ system.time( a1 <- poisson.cat1(y, x) )
 system.time( a2 <- glm(y ~ x, poisson) ) 
 a1   ;  a2
 
-
+x<-y<-a1<-a2<-NULL
 }
 
 \keyword{ Logistic regression }

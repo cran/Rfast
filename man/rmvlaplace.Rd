@@ -59,7 +59,7 @@ m <- colmeans( as.matrix( iris[, 1:4] ) )
 s <- cov(iris[,1:4])
 s <- s / det(s)^0.25
 lam <- 3
-x <- rmvlaplace(1000, lam, m, s)
+x <- rmvlaplace(100, lam, m, s)
 }
 
 \keyword{ multivariate Laplace distribution }

@@ -11,12 +11,11 @@ using namespace Rcpp;
 using namespace arma;
 using namespace std;
 
-vec gold_rat3(double n, vec ni, vec ni2, double S, vec hi2, const double tol=1e-07){
+vec gold_rat3(double n, vec ni, vec ni2, double S, vec hi2,const int size, const double tol){
   double a = 0, b = 50;
-  const double ratio=2.0/(sqrt(5) + 1);
+  const double ratio=0.618033988749895;
   double x1=b-ratio*b, x2=ratio*b;
-  int size = ni.size();
-  
+
   vec nix1(size),nix2(size), ni2hi2(size);
   nix1 = ni*x1;
   nix2 = ni*x2;
@@ -33,7 +32,7 @@ vec gold_rat3(double n, vec ni, vec ni2, double S, vec hi2, const double tol=1e-
       x1=b - ratio * (bmina);
       nix1 = ni*x1;
       f1 = calc_f(nix1, n, ni2hi2, S, x1, size);
-    } 
+    }
     else {
       a=x1;
       bmina = b - a;
@@ -49,4 +48,4 @@ vec gold_rat3(double n, vec ni, vec ni2, double S, vec hi2, const double tol=1e-
   ret(1) = (f1+f2)/2;
 
   return ret;
-} 
+}

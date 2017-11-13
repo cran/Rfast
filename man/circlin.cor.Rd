@@ -56,5 +56,6 @@ x <- 2 * phi + rnorm(50)
 y <- matrix(rnorm(50 * 5), ncol = 5)
 circlin.cor(phi, x)
 circlin.cor(phi, y)
+y <- NULL
 }
 \keyword{ Circular-linear correlation }

@@ -42,9 +42,6 @@ Manos Papadakis
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{ \link{dcov}, \link{dcor.ttest}, \link{edist}
@@ -56,6 +53,8 @@ x <- as.matrix(iris[1:50, 1:4])
 y <- as.matrix(iris[51:100, 1:4])
 dcor(x, y)
 bcdcor(x, y)
+
+x<-y<-NULL
 }
 
 \keyword{ Distance correlation }

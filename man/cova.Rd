@@ -52,10 +52,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <-matrix( rnorm( 1000 * 100), ncol = 100 )
+x <- matrnorm( 100, 100 )
 s1 <- cov(x) 
 s2 <- cova(x)
 all.equal(s1, s2)
+x <- NULL
 }
 
 \keyword{ Covariance matrix }

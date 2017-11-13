@@ -6,6 +6,7 @@
 using namespace Rcpp;
 using namespace std;
 
+
 //[[Rcpp::export]]
 colvec rmdp(NumericMatrix Y,const int h,umat rnd,const int itertime) {
   const int n = Y.nrow();
@@ -14,10 +15,11 @@ colvec rmdp(NumericMatrix Y,const int h,umat rnd,const int itertime) {
   int crit,l;
   double tempdet,bestdet=0;
   colvec jvec(n), ivec(n),final_vec(n),disa(n);
-  uvec dist_perm(n),indextony(h);
+  uvec dist_perm(n),indextony(h),t(h);
   rowvec mu_t,var_t;
+  span index(0,h-1);
   for (int A=0;A<itertime;++A) {
-    ny=y.rows(rnd.col(A));
+    ny=y.rows(rnd(span::all,A));
     mu_t = mean(ny,0); 
     var_t = colvar_rmdp(ny);
     tmp=y.each_row() - mu_t;
@@ -28,11 +30,14 @@ colvec rmdp(NumericMatrix Y,const int h,umat rnd,const int itertime) {
       l++;
       ivec.fill(0);
       dist_perm = Order_rmdp(disa);
-      for(int j=0;j<h;++j){
+      t=dist_perm(index);
+      indextony(index)=t;
+      ivec(t).fill(1);
+      /*for(int j=0;j<h;++j){
         indextony[j]=dist_perm[j];
         ivec[dist_perm[j]]=1;
-      }
-      crit = sum( abs(ivec - jvec) );
+      }*/
+      crit = accu( abs(ivec - jvec) );
       jvec = ivec;
       ny = y.rows(indextony);
       mu_t = mean(ny,0);

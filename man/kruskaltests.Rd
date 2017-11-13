@@ -62,14 +62,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix( rexp(300 * 500), ncol = 500 )
-## 300 observations in total
+x <- matrix( rexp(300 * 200), ncol = 200 )
 ina <- rbinom(300, 3, 0.6) + 1   
 system.time( kruskaltests(x, ina) ) 
-x <- matrix( rbinom(300 * 500, 1, 0.6), ncol = 500 )
+x <- matrix( rbinom(300 * 200, 1, 0.6), ncol = 200 )
 treat <- rep(1:3, each = 100)
 block <- rep(1:3, 100)  
 system.time( cqtests(x, treat, block) ) 
+x <- NULL
 }
 
 \keyword{ analysis of variance }

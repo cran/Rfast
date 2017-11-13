@@ -37,9 +37,6 @@ Manos Papadakis
 
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{ \link{sort_mat}, \link{Sort}, \link{colMins}
@@ -53,6 +50,8 @@ Pmax(x, y)
 pmax(x, y)
 Pmin(x, y)
 pmin(x, y)
+
+x<-y<-NULL
 }
 
 \keyword{ Pairs of vectors }

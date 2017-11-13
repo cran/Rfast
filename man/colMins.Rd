@@ -30,9 +30,6 @@ Do you want to do it in parallel in C++? TRUE or FALSE. The parallel will return
 }
 }
 
-%\details{
-%
-%}
 
 \value{
 A vector with the relevant values.
@@ -47,10 +44,6 @@ Manos Papadakis
 
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
-
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{rowMins}, \link{rowMaxs}, \link{nth}, \link{colrange}, \link{colMedians}, \link{colVars}, \link{sort_mat}
@@ -69,6 +62,7 @@ s2 <- apply(x, 2, max)
 s1 <- colMinsMaxs(x)
 s2 <- c(apply(x, 2, min), apply(x, 2, max)) 
 
+x<-s1<-s2<-NULL
 }
 
 \keyword{ Column-wise minimum }

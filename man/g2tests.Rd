@@ -98,6 +98,7 @@ dc <- rep(nvalues, nvars)
 a <- g2tests(data = data, x = 2:9, y = 1, dc = dc)
 pval <- pchisq(a$statistic, a$df, lower.tail = FALSE)  ## p-value
 b <- g2tests_perm(data = data, x = 2:9, y = 1, dc = dc, nperm = 1000)
+a<-b<-data<-NULL
 }
 
 \keyword{ G^2 tests of independence }

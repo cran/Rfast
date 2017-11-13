@@ -14,7 +14,7 @@ comb_n(n, k)
 
 \arguments{
 \item{n}{
-A stirctly (greater than zero) positive integer number or a vector with numbers. 
+A positive or negative \bold{INTEGER} number or a vector with numbers. 
 }
 \item{k}{
 A positive integer number at most equal to n or at most equal to the length of n, if n is a vector.
@@ -36,9 +36,6 @@ Manos Papadakis and Marios Dimitriadis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com> and Marios Dimitriadis <kmdimitriadis@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{nth}, \link{colMaxs}, \link{colMins}, \link{colrange}

@@ -9,7 +9,7 @@ Insert new function names in the NAMESPACE file.
 }
 
 \usage{
-AddToNamespace(path.namespace,path.rfolder)
+AddToNamespace(path.namespace,path.rfolder,sort = FALSE)
 }
 
 \arguments{
@@ -18,6 +18,9 @@ An full path to the NAMESPACE file.
 }
 \item{path.rfolder}{
 An full path to the directory the new files to be added are stored.
+}
+\item{sort}{
+An boolean value for sorting the exported functions in file NAMESPACE.
 }
 }
 

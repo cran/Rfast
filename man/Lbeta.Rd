@@ -43,10 +43,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
-
 \seealso{
 \code{\link{Lgamma}, \link{beta.mle}, \link{diri.nr2}
 }
@@ -56,6 +52,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 x <- rexp(1000)
 y <- rexp(1000)
 a1 <- Lbeta(x, y)
+
+x<-y<-a1<-NULL
 }
 
 \keyword{ Beta function }

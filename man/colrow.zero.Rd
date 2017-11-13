@@ -26,9 +26,6 @@ Check all the column if any has all its elements zeros. If found, return "TRUE".
 A boolean value, "TRUE" if any column OR row is zero. "FALSE" otherwise.
 }
 
-%\references{
-
-%}
 
 \author{
 Manos Papadakis
@@ -36,9 +33,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{rowMins}, \link{rowFalse}, \link{nth}, \link{colrange}, \link{colMedians}, \link{colVars}, \link{sort_mat}, \link{rowTrue}
@@ -48,6 +42,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- matrix(runif(10*10),10,10)
 colrow.zero(x) 
+
+x<-NULL
 }
 
 \keyword{ Column-Row wise checking }

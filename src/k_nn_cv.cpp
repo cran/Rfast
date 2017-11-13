@@ -1,17 +1,17 @@
 #include "calc_k_nn_cv.h"
 
-using namespace std;
 using namespace Rcpp;
 using namespace arma;
+using namespace std;
 
 // [[Rcpp::export]]
-List k_nn_cv(List folds,vec y,mat ds,uvec idxs,const string dist_type,const string type,const string method,
-		const unsigned int freq_option, const bool pred_ret) { 
-	return calc_k_nn_cv(folds, y, ds, idxs, dist_type, type, method, freq_option, pred_ret);
+Rcpp::List k_nn_cv(List folds, vec y, mat ds, uvec idxs, const string dist_type, const string type, const string method,
+		const unsigned int freq_option, const bool pred_ret, const bool mem_eff) { 
+	return calc_k_nn_cv(folds, y, ds, idxs, dist_type, type, method, freq_option, pred_ret, mem_eff);
 }
 
 
-RcppExport SEXP Rfast_k_nn_cv(SEXP foldsSEXP,SEXP ySEXP,SEXP dsSEXP,SEXP idxsSEXP,SEXP dist_typeSEXP,SEXP typeSEXP,SEXP methodSEXP,SEXP freq_optionSEXP,SEXP pred_retSEXP) {
+RcppExport SEXP Rfast_k_nn_cv(SEXP foldsSEXP,SEXP ySEXP,SEXP dsSEXP,SEXP idxsSEXP,SEXP dist_typeSEXP,SEXP typeSEXP,SEXP methodSEXP,SEXP freq_optionSEXP,SEXP pred_retSEXP,SEXP mem_effSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
@@ -24,7 +24,8 @@ BEGIN_RCPP
     traits::input_parameter< const string >::type method(methodSEXP);
     traits::input_parameter< const unsigned int >::type freq_option(freq_optionSEXP);
     traits::input_parameter< const bool >::type pred_ret(pred_retSEXP);
-    __result = wrap(k_nn_cv(folds,y,ds,idxs,dist_type,type,method,freq_option,pred_ret));
+    traits::input_parameter< const bool >::type mem_eff(mem_effSEXP);
+    __result = wrap(k_nn_cv(folds,y,ds,idxs,dist_type,type,method,freq_option,pred_ret,mem_eff));
     return __result;
 END_RCPP
 }

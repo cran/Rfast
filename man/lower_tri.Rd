@@ -1,17 +1,17 @@
-\name{ Lower and Upper triangular of a matrix/vector }
+\name{ Lower and Upper triangular of a matrix }
 \alias{lower_tri}
 \alias{upper_tri}
 \title{
- Lower and Upper triangular of a matrix/vector
+ Lower and Upper triangular of a matrix
 }
 
 \description{
-Lower/upper triangular matrix/vector.
+Lower/upper triangular matrix.
 }
 
 \usage{
-lower_tri(x, suma = FALSE)
-upper_tri(x, suma = FALSE)
+lower_tri(x, suma = FALSE, diag = FALSE)
+upper_tri(x, suma = FALSE, diag = FALSE)
 }
 
 \arguments{
@@ -22,29 +22,20 @@ A matrix with data \bold{or} a vector with 2 values which is the dimension of th
 A logical value for returning the sum of the upper or lower triangular. By default is \"FALSE\".
 Works only \bold{if} argument "x" is matrix.
 }
+\item{diag}{
+A logical value include the diagonal to the result.
 }
-
-%\details{
-%
-%}
+}
 
 \value{
-Get a lower/upper triangular logical matrix with values \"TRUE\"/\"FALSE\"" or a vector with the values of a lower/upper triangular or the sum of the upper/lower triangular if suma is set \"TRUE\".
+Get a lower/upper triangular logical matrix with values \"TRUE\"/\"FALSE\"" or a vector with the values of a lower/upper triangular or the sum of the upper/lower triangular if suma is set \"TRUE\". You can also include diagonal with any operation if argument diag is set to "TRUE".
 }
-
-%\references{
-%Shabalin, A.A. (2012). Matrix/vector eQTL: Ultra fast eQTL analysis %via large matrix/vector operations. Bioinformatics 28(10): 1353-1358.
-%}
 
 \author{
 Manos Papadakis
 
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
-
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{rowMins}, \link{colFalse}, \link{nth}, \link{rowrange}, \link{rowMedians}, \link{rowVars}, \link{sort_mat}, \link{colTrue}
@@ -63,7 +54,18 @@ all.equal(lower_tri(x),x[lower.tri(x)])
 
 #all.equal(upper_tri(x),x[upper.tri(x)])
 
+
+
+#all.equal(lower_tri(c(10,10),diag = TRUE),lower.tri(x,diag = TRUE))
+
+#all.equal(lower_tri(x,diag = TRUE),x[lower.tri(x,diag = TRUE)])
+
+#all.equal(upper_tri(c(10,10),diag = TRUE),upper.tri(x,diag = TRUE))
+
+#all.equal(upper_tri(x,diag = TRUE),x[upper.tri(x,diag = TRUE)])
+
+x<-NULL
 }
 
-\keyword{ Lower and Upper triangular of a matrix/vector }
+\keyword{ Lower and Upper triangular of a matrix }
 

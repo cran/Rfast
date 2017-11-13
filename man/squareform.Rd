@@ -27,8 +27,6 @@ A symmetric matrix. The vector is allocated in the upper and in the lower part o
 with zeros.
 }
 
-%\references{
-%}
 
 \author{
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.

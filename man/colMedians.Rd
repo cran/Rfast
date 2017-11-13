@@ -10,8 +10,8 @@ Column and row-wise medians of a matrix.
 }
 
 \usage{
-colMedians(x, parallel = FALSE)
-rowMedians(x)
+colMedians(x,na.rm = FALSE, parallel = FALSE)
+rowMedians(x, parallel = FALSE)
 }
 
 \arguments{
@@ -20,6 +20,9 @@ A matrix with the data.
 }
 \item{parallel}{
 Do you want to do it in parallel in C++? TRUE or FALSE.
+}
+\item{na.rm}{
+TRUE or FAlSE for remove NAs if exists.
 }
 }
 
@@ -50,6 +53,8 @@ x <- matrix( rnorm(100 * 100), ncol = 100 )
 a <- apply(x, 2, median) 
 b1 <- colMedians(x) 
 all.equal(as.vector(a), b1)
+
+x<-a<-b1<-NULL
 }
 
 \keyword{ Column-wise medians }

@@ -63,6 +63,7 @@ R implementation and documentation: Marios Dimitriadis <kmdimitriadis@gmail.com>
 x <- matrix(rnorm(200 * 200), ncol = 200)
 y <- rbinom(200, 1, 0.5)
 a <- bic.fs.reg(y, x)
+x <- NULL
 }
 
 \keyword{ Forward regression }

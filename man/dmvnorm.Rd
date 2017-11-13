@@ -58,11 +58,12 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- matrix(rnorm(100 * 20), ncol = 20)
+x <- matrnorm(100, 20)
 mu <- colmeans(x)
 s <- cova(x)
 a1 <- dmvnorm(x, mu, s) 
-a2 <- dmvt(x, mu, s, 1) 
+a2 <- dmvt(x, mu, s, 1)
+x <- NULL 
 }
 
 \keyword{ Multivariate normal distribution }

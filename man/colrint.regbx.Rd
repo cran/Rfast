@@ -74,10 +74,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-y <- matrix( rnorm(100 * 100), ncol = 100)
+y <- matrix( rnorm(100 * 50), ncol = 50)
 id <- rep(1:20, each = 5)
 x <- rep(1:10, 10)
 system.time( a<- colrint.regbx(y, x, id) )
+x <- NULL
 }
 
 \keyword{ Linear mixed models }

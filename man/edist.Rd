@@ -47,9 +47,6 @@ Manos Papadakis
 
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{ \link{dvar}, \link{total.dist}, \link{total.dista}, \link{Dist}, \link{dista}
@@ -66,6 +63,8 @@ a[[ 1 ]] <- x
 a[[ 2 ]] <- y
 a[[ 3 ]] <- z
 edist(a)
+
+x<-y<-z<-a<-NULL
 }
 
 \keyword{ Energy distances }

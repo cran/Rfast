@@ -38,9 +38,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{ \link{Match}, \link{mvbetas}, \link{correls}, \link{univglms}, \link{colsums}, \link{colVars}
@@ -50,6 +47,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- matrix( rnorm(100 * 100), ncol = 100 )
 submatrix(x,1,50,1,25) # x[1:50,1:25]
+
+x<-NULL
 }
 
 \keyword{ Sub-matrix }

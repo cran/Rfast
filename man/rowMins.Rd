@@ -25,16 +25,11 @@ If the value is FALSE it returns the indices of the minimum/maximum, otherwise i
 }
 }
 
-%\details{
-%
-%}
 
 \value{
 A vector with the relevant values.
 }
 
-%\references{
-%}
 
 \author{
 Manos Papadakis
@@ -42,9 +37,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{colMins}, \link{colMaxs}, \link{nth}, \link{rowrange} \link{colMedians}, \link{colVars}, \link{sort_mat}
@@ -62,6 +54,8 @@ system.time( s2 <- apply(x, 1, max) )
 
 system.time( s1 <- c(apply(x, 1, min),apply(x, 1, max) ))
 system.time( s2 <- rowMinsMaxs(x) )
+
+x<-s1<-s2<-NULL
 }
 
 \keyword{ Row-wise minimum }

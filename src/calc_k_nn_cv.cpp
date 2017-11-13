@@ -40,7 +40,7 @@ void store_idxs(arma::uvec& idxs, arma::uvec& idxs_exc, const unsigned int total
 
 Rcpp::List calc_k_nn_cv(Rcpp::List& folds, arma::vec& y, arma::mat& ds, arma::uvec& idxs, 
 		const std::string dist_type, const std::string type, const std::string method,
-		const unsigned int freq_option, const bool pred_ret) { 
+		const unsigned int freq_option, const bool pred_ret, const bool mem_eff) { 
 	Rcpp::List preds;
 	unsigned int curr_fold = 1;
 	arma::vec crit(idxs.size(), arma::fill::zeros);
@@ -56,7 +56,7 @@ Rcpp::List calc_k_nn_cv(Rcpp::List& folds, arma::vec& y, arma::mat& ds, arma::uv
 		arma::mat fd_ds_extra = ds.rows(curr_idxs);
 		arma::vec fd_y = y.elem(curr_idxs_exc);
 		arma::mat fd_ds = ds.rows(curr_idxs_exc);
-		arma::mat pred = calc_k_nn(fd_ds_extra, fd_y, fd_ds, idxs, dist_type, type, method, freq_option);
+		arma::mat pred = calc_k_nn(fd_ds_extra, fd_y, fd_ds, idxs, dist_type, type, method, freq_option, mem_eff);
 		db_print("Calculating column summaries.\n");
 		arma::vec fd_y_inc = y.elem(curr_idxs);
 		if (!type.compare("C")) {

@@ -45,9 +45,6 @@ Manos Papadakis <papadakm95@gmail.com>
 
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
-%\note{
-%%  ~~further notes~~
-%}
 
 \seealso{
 \code{\link{univglms}, \link{logistic_only}, \link{allbetas}, \link{regression}
@@ -67,6 +64,8 @@ b2 = numeric(500)
 system.time( for (i in 1:200) b2[i] = glm(y ~ x[, i], poisson)$deviance )
 
 all.equal(b1, b2)
+
+b1<-b2<-x<-y<-NULL
 }
 
 \keyword{ Poisson regressions }

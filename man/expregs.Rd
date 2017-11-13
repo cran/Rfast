@@ -57,9 +57,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 ## 200 variables, hence 200 univariate regressions are to be fitted
-x <- matrix( rnorm(200 * 200), ncol = 200 )
-y <- rexp(200, 4)
+x <- matrnorm(100, 100)
+y <- rexp(100, 4)
 system.time( expregs(y, x, di = rep(1, length(y))) )
+x <- NULL
 }
 
 \keyword{ Exponential regressions }
