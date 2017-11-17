@@ -48,9 +48,6 @@ double my_lchoose(int n, int k){
 }
 
 mat bindColsToMat(vec a, vec *vecs, int vecsz, mat ret){
-#ifdef _OPENMP
-#pragma omp simd
-#endif
   for(int i = 0; i < vecsz; i++){
     ret.col(i) = vecs[i];
   }
@@ -61,9 +58,6 @@ mat bindColsToMat(vec a, vec *vecs, int vecsz, mat ret){
 }
 
 mat bindColsToMat2(int exept, vec *vecs, int vecsz, mat ret){
-#ifdef _OPENMP
-#pragma omp simd
-#endif
   for(int i = 0; i < vecsz; i++){
     if(i < exept)
       ret.col(i) = vecs[i];
@@ -139,12 +133,10 @@ vec* removeVecIdx(int start, vec *array, int size){
 
 double calcylogy(vec y, int sz){
   double ret = 0.0;
-#ifdef _OPENMP
-#pragma omp simd reduction(+:ret)
-#endif
-  for(int i = 0; i< sz; i++)
-    if(y[i]>0)
-      ret+=y[i]*log(y[i]);
+  vec::iterator it, end = y.end();
+  for(it = y.begin(); it != end; it++)
+    if(*it>0)
+      ret+=(*it)*log(*it);
     return ret;
 }
 

@@ -22,10 +22,7 @@ vector<int> sort_unique_int(vector<int> x){
   if(count_pos && count_neg){
     for(nn=neg.begin(),pp=pos.begin();a!=x.end();++a){
       aa=*a;
-      if(aa<0)
-        *(nn-aa)=aa;
-      else
-        *(pp+aa)=aa;
+      aa<0 ? *(nn-aa)=aa : *(pp+aa)=aa;
     }
   }else if(count_pos){
     for(pp=pos.begin();a!=x.end();++a){

@@ -17,12 +17,12 @@ SEXP Sort(SEXP x,const bool descend){
   switch(TYPEOF(x)){
     case INTSXP:{
       int *F=INTEGER(f);
-      descend ? sort(F,F+len,descending_int) : sort(F,F+len);
+      descend ? sort(F,F+len,std::greater<int>()) : sort(F,F+len);
       break;
     }
     default:{
       double *F=REAL(f);
-      descend ? sort(F,F+len,descending_double) : sort(F,F+len);
+      descend ? sort(F,F+len,std::greater<double>()) : sort(F,F+len);
       break;
     }
   }
@@ -43,9 +43,10 @@ END_RCPP
 //[[Rcpp::export]]
 vector<string> sort_string(CharacterVector x,const bool descend){
   vector<string> f(x.begin(),x.end());
-  if(descend)
-  	sort(f.begin(),f.end(),descending_string);
-  else
+  descend 
+  ?
+  	sort(f.begin(),f.end(),std::greater<string>()) 
+  :
   	sort(f.begin(),f.end());
   return f;
 }

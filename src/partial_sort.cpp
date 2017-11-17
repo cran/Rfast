@@ -31,8 +31,8 @@ SEXP partial_sort(SEXP x,const int n,const bool descend){
 	  case INTSXP:{
 	    int *F=INTEGER(f);
 	    if(descend){
-	    	nth_element(F,F+n-1,F+len,descending_int);
-	    	sort(F,F+n,descending_int);
+	    	nth_element(F,F+n-1,F+len,std::greater<int>());
+	    	sort(F,F+n,std::greater<int>());
 	    }
 	    else {
 	    	nth_element(F,F+n-1,F+len);
@@ -43,8 +43,8 @@ SEXP partial_sort(SEXP x,const int n,const bool descend){
 	  default:{
 	    double *F=REAL(f);
 	    if(descend){
-	    	nth_element(F,F+n-1,F+len,descending_double);
-	    	sort(F,F+n,descending_double);
+	    	nth_element(F,F+n-1,F+len,std::greater<double>());
+	    	sort(F,F+n,std::greater<double>());
 	    }
 	    else {
 	    	nth_element(F,F+n-1,F+len);

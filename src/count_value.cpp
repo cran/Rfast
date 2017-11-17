@@ -18,7 +18,7 @@ int count_value(SEXP x,SEXP value){
       s=count_value_helper<IntegerVector,int,int*>(IntegerVector(x),Rf_asInteger(value));
       break;
     case STRSXP:
-      s=count_value_helper< CharacterVector,basic_string<char>,CharacterVector::iterator >(CharacterVector(x),as< basic_string<char> >(value));
+      s=count_value_helper< vector<string>, string,vector<string>::iterator >(as< vector<string> >(x),as< string >(value));
       break;
     default:
       stop("Error: Unknown type.\n");

@@ -14,18 +14,12 @@ SEXP stable_sort(SEXP x,const bool descend){
   switch(TYPEOF(x)){
     case INTSXP:{
       int *F=INTEGER(f);
-      if(descend)
-        stable_sort(F,F+len,descending_int);
-      else 
-        stable_sort(F,F+len);
+      descend ? stable_sort(F,F+len,std::greater<int>()) : stable_sort(F,F+len);
       break;
     }
     default:{
       double *F=REAL(f);
-      if(descend)
-        stable_sort(F,F+len,descending_double);
-      else 
-        stable_sort(F,F+len);
+      descend ? stable_sort(F,F+len,std::greater<double>()) : stable_sort(F,F+len);
       break;
     }
   }

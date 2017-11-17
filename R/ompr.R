@@ -28,7 +28,7 @@ ompr <- function (y, x, method = "BIC", tol = 2 ) {
         ind[sela] <- 0
       }
 	  len <- length(sela)
-      info <- cbind(sela, rho[1:len + 1])
+      info <- cbind(sela, rho[1:len])
       colnames(info) <- c("Vars", "|sse|")
     ######### BIC
     } else if ( method == "BIC" ) {
@@ -53,7 +53,7 @@ ompr <- function (y, x, method = "BIC", tol = 2 ) {
         ind[sela] <- 0
       }
 	len <- length(sela)
-      info <- cbind(sela, rho[1:len + 1] + con)
+      info <- cbind(sela, rho[1:len] + con)
       colnames(info) <- c("Vars", "BIC")
     ######### adjusted R-square
     } else if (method == "ar2") {
@@ -79,7 +79,7 @@ ompr <- function (y, x, method = "BIC", tol = 2 ) {
         ind[sela] <- 0
       }
 	len <- length(sela)
-      info <- cbind(sela, rho[1:len + 1])
+      info <- cbind(sela, rho[1:len])
       colnames(info) <- c("Vars", "adjusted R2")
     }
     info

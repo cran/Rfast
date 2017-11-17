@@ -10,7 +10,6 @@ using namespace Rcpp;
 using namespace std;
 using namespace arma;
 
-//[[Rcpp::export]]
 SEXP col_meds_simple(NumericMatrix& x){
   const int p=x.ncol(),step=x.nrow(),middle=step/2-1;
   int i;
@@ -32,7 +31,6 @@ SEXP col_meds_simple(NumericMatrix& x){
       return F;
 }
 
-//[[Rcpp::export]]
 SEXP col_meds_na_rm(NumericMatrix& x){
   const int p=x.ncol();
   int i;

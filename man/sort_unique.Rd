@@ -21,8 +21,7 @@ A numeric vector.
 }
 
 \details{
-The "sort_unique" function implements R's "unique" function using C++'s function. The "sort_unique.length"
-returns the length of the unique numbers. 
+The "sort_unique" function implements R's "unique" function using C++'s function but also sort the result. The "sort_unique.length" returns the length of the unique numbers. 
 }
 
 \value{
@@ -49,7 +48,7 @@ y <- rnorm(100)
 a <- sort_unique(y)
 b <- sort.int(unique(y))
 all.equal(as.vector(a),as.vector(b))
-x <- rpois(10000,10)
+x <- rpois(1000,10)
 sort_unique.length(x)
 length(sort_unique(x))
 

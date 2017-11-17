@@ -9,23 +9,25 @@ using namespace std;
 
 //[[Rcpp::export]]
 NumericMatrix frame_to_matrix(DataFrame x,Function as_numeric){
-  vector<int> num_of_fac=which_isFactor(x);
+  IntegerVector num_of_fac=which_isFactor(x);
   int i=0,p=x.length(),n=x.nrows();
   NumericMatrix f(n,p);
   NumericVector a;
+  DataFrame::iterator xx;
   if(!num_of_fac.size()){
-    for(DataFrame::iterator xx=x.begin();xx!=x.end();++xx,++i){
+    for(xx=x.begin();xx!=x.end();++xx,++i){
       a=*xx;
       f(_,i)=a;
     }
     return f;
   }
-  vector<int>::iterator iter_num_of_fac=num_of_fac.begin();
-  for(DataFrame::iterator xx=x.begin();xx!=x.end();++xx,++i)
-    if(i==*iter_num_of_fac){
+  IntegerVector::iterator iter_num_of_fac=num_of_fac.begin();
+  int val_num_of_fac=*iter_num_of_fac-1;
+  for(xx=x.begin();xx!=x.end();++xx,++i)
+    if(i==val_num_of_fac){
       a=as_numeric(*xx);      
       f(_,i)=a;                       
-      iter_num_of_fac++;
+      val_num_of_fac=*(iter_num_of_fac++)-1;
     }else{
       a=*xx;
       f(_,i)=a;

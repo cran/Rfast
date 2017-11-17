@@ -7,8 +7,8 @@ using namespace Rcpp;
 using namespace std;
 
 //[[Rcpp::export]]
-vector<int> which_isFactor(DataFrame x){
-  vector<int> P;
+IntegerVector which_isFactor(DataFrame x){
+  IntegerVector P;
   DataFrame::iterator xx=x.begin();
   for(int i=1;xx!=x.end();++xx,++i)
     if(Rf_isFactor(*xx))

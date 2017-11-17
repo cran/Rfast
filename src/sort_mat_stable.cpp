@@ -11,12 +11,14 @@ NumericMatrix stable_sort_col(NumericMatrix x,const bool descend){
   const int n=x.nrow(),p=x.ncol();
   NumericVector coli(n);
   NumericMatrix f(n,p);
-  if(descend)
+  if(descend){
+  	auto func=std::greater<double>();
     for(int i=0;i<p;++i){
       coli=x.column(i);
-      stable_sort(coli.begin(),coli.end(),descending_double);
+      stable_sort(coli.begin(),coli.end(),func);
       f.column(i)=coli;
     }
+}
   else
     for(int i=0;i<p;++i){
       coli=x.column(i);
@@ -31,12 +33,14 @@ NumericMatrix stable_sort_col(NumericMatrix x,const bool descend){
 NumericMatrix stable_sort_row(NumericMatrix x,const bool descend){
   const int sz=x.ncol(),p=x.nrow();
   NumericVector rowi(sz);
-  if(descend)
+  if(descend){
+  	auto func=std::greater<double>();
     for(int i=0;i<p;++i){
       rowi=x.row(i);
-      stable_sort(rowi.begin(),rowi.end(),descending_double);
+      stable_sort(rowi.begin(),rowi.end(),func);
       x.row(i)=rowi;
     }
+  }
   else
     for(int i=0;i<p;++i){
       rowi=x.row(i);

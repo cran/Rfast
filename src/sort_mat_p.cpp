@@ -17,12 +17,13 @@ NumericMatrix sort_col_p(NumericMatrix& x,const bool descend){
   NumericMatrix f(n,p);
   mat xx(x.begin(),n,p,false),ff(f.begin(),n,p,false);
   if(descend){
+  	auto func=std::greater<double>();
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
     for(int i=0;i<p;++i){
       colvec coli=xx.col(i);
-      sort(coli.begin(),coli.end(),descending_double);
+      sort(coli.begin(),coli.end(),func);
       ff.col(i)=coli;
     }
   }else{
@@ -44,12 +45,13 @@ NumericMatrix sort_row_p(NumericMatrix& x,const bool descend){
   NumericMatrix f(n,p);
   mat xx(x.begin(),n,p,false),ff(f.begin(),n,p,false);
   if(descend){
+  	auto func=std::greater<double>();
     #ifdef _OPENMP
     #pragma omp parallel for
     #endif
     for(int i=0;i<n;++i){
       rowvec rowi=xx.row(i);
-      sort(rowi.begin(),rowi.end(),descending_double);
+      sort(rowi.begin(),rowi.end(),func);
       ff.row(i)=rowi;
     }
   }else{

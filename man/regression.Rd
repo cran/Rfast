@@ -9,24 +9,31 @@ It performs very many univariate simple linear regressions with or without categ
 }
 
 \usage{
-regression(x, y)
+regression(x, y, logged = FALSE)
 }
 
 \arguments{
 \item{x}{
-A data.frame with the data, where the rows denote the samples (and the two groups) and the columns are the variables. Currently only continuous variables are allowed. A data frame is expected if you have categorical predictor variables. If you only have continuous predictor variables you should the function \code{\link{allbetas}} instead as it is faster. 
+A data.frame or a matrix with the data, where the rows denote the samples (and the two groups) and the columns 
+are the variables. A data frame is expected if you have categorical predictor variables. If you only have continuous 
+predictor variables you should the function \code{\link{allbetas}} instead as it is faster. 
 }
 \item{y}{
 The dependent variable; a numerical vector.
 }
+\item{logged}{
+Do you want the logarithm of the p-values be returned? The default value is FALSE.
+}
 }
 
 \details{
-The function is written in C++ and this is why it is very fast. It can accept thousands of predictor variables. It is usefull for univariate screening. We provide no p-value correction (such as fdr or q-values); this is up to the user. The user must take the F test statistics along with the numertor degrees and calculate the relevant p-values. We provide the degrees of freedom of the numerator in the F test. The degrees of freedom in the denominator are always n - df of the numerator. 
+Some parts of the function will be transferred in C++. It can accept thousands of predictor variables. 
+It is usefull for univariate screening. We provide no p-value correction (such as fdr or q-values); this is 
+up to the user. 
 }
 
 \value{
-A matrix with two rows. The first row is the F statistic and the second row is the degrees of freedom of the numerator in the F test. That is the number of estimated parameters. For example if some variables are continuous, the number of parameters is 1. In the case of a categorical variable with D distinct values (or levels) the number of parameters is D-1. 
+A matrix with two columns, the test statistic value and its corresponding (logged) p-value.
 }
 
 \references{
@@ -41,6 +48,9 @@ Manos Papadakis <papadakm95@gmail.com>
 R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
 
+%\note{
+%%  ~~further notes~~
+%}
 
 \seealso{
 \code{\link{univglms}, \link{allbetas}, \link{correls}, \link{univglms}, \link{mvbetas}
@@ -48,21 +58,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-## 500 variables, hence 500 univariate regressions are to be fitted
-x = matrix( rnorm(100 * 200), ncol = 200 )
-x = as.data.frame(x)
-y = rnorm(100)   
-system.time( a1 <- regression(x, y) )
-
-x = matrix( rnorm(150 * 200), ncol = 200 )
-x = as.data.frame(x)
-y = rnorm(150)   
-for (i in 1:200) x[, i] <- iris[, 5]
-system.time( a <- regression(x, y) )
-a[, 1:5]
-summary(lm(y ~ x[, 1]) )  ## check the F-test
-
-x<-y<-a<-NULL
+y <- rnorm(150)   
+a <- regression(iris, y)
+a
+summary(lm(y ~ iris[, 5]) )  ## check the F-test
 }
 
 \keyword{ Simple linear regressions }

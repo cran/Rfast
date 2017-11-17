@@ -9,7 +9,7 @@ Weibull regression model.
 }
 
 \usage{
-weib.reg(y, x, full = FALSE, tol = 1e-07, maxiters = 100)
+weib.reg(y, x, tol = 1e-07, maxiters = 100)
 }
 
 \arguments{
@@ -20,9 +20,6 @@ The dependent variable; a numerical vector with strictly positive data, i.e. gre
 A matrix with the data, where the rows denote the samples (and the two groups) and the columns are the variables. 
 This can be a matrix or a data.frame (with factors).
 }
-\item{full}{
-If this is FALSE, the coefficients and the deviance will be returned only. If this is TRUE, more information is returned.
-}
 \item{tol}{
 The tolerance value to terminate the Newton-Raphson algorithm.
 }
@@ -32,7 +29,8 @@ The max number of iterations that can take place in each regression.
 }
 
 \details{
-The function is written in C++ and this is why it is very fast. 
+The function is written in C++ and this is why it is very fast. No standard errors are returned as they are not 
+corectly estimated. We focused on speed.
 }
 
 \value{
@@ -47,7 +45,7 @@ The log-likelihood of the model.
 The shape parameter of the Weibull regression.
 }
 \item{be}{
-The regression coefficients. If full = TRUE, their standard error, their Wald test statistic and their p-value also appears.
+The regression coefficients. 
 }
 }
 

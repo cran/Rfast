@@ -9,7 +9,7 @@ Round each element of a matrix/vector.
 }
 
 \usage{
-Round(x,digit=0)
+Round(x,digit=0,na.rm = FALSE)
 }
 
 \arguments{
@@ -18,6 +18,9 @@ A numeric matrix/vector with data or NA. NOT integer values.
 }
 \item{digit}{
 An integer value for 0...N-1 where N is the number of the digits. By default is 0.
+}
+\item{na.rm}{
+TRUE or FAlSE for remove NAs if exists.
 }
 }
 
@@ -29,9 +32,6 @@ Round is a very fast C++ implementation. Especially for large data. It handles N
 A vector/matrix where each element is been rounded in the given digit.
 }
 
-%\references{
-%
-%}
 
 \author{
 Manos Papadakis
@@ -39,9 +39,6 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
-%\note{
-  %%  ~~further notes~~
-    %}
 
 \seealso{
 \code{\link{Lchoose}, \link{Log}, \link{Choose}

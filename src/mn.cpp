@@ -12,36 +12,8 @@ using namespace std;
 
 //[[Rcpp::plugins(cpp11)]]
 
-bool my_compare_order2(const pr<double,int>& a,const pr<double,int>& b){
-  return a.first<b.first;
-}
-
 bool my_compare_order_second(const pr<double,int>& a,const pr<double,int>& b){
   return a.second<b.second;
-}
-
-bool descending_int(const int& a,const int& b){
-  return a<b;
-}
-
-bool descending_double(const double& a,const double& b){
-  return a<b;
-}
-
-bool descending_string(const string& a,const string& b){
-  return a<b;
-}
-
-bool cor_vecs(const pr<double,double>& a,const pr<double,double>& b){
-  return a.second<b.second;
-}
-
-bool s_indx_asc(const pr<int,double>& a,const pr<int,double>& b){
-  return a.second<b.second;
-}
-
-bool s_indx_des(const pr<int,double>& a,const pr<int,double>& b){
-  return a.second>b.second;
 }
 
 mat operator+(colvec &y,mat &x){
@@ -447,9 +419,23 @@ int my_round(const double x){
 }
 
 //Round
-double my_round_gen(double x,const int dg){
-  if(x==Rcpp::NA)
+double my_round_gen_na_rm(double x,const int& dg){
+  if(R_IsNA(x))
     return x;
+  int t=10;
+  for(int i=0;i<dg;++i)
+    t= (t<<3) + (t<<1);
+  const bool nx=x<0;
+  int y= nx ? -x*t : x*t;
+  const int m=y%10;
+  y= m>4 ? y+10-m : y-m ;
+  x=y;
+  return nx ? -x/t : x/t ; 
+}
+
+
+//Round
+double my_round_gen_simple(double x,const int& dg){
   int t=10;
   for(int i=0;i<dg;++i)
     t= (t<<3) + (t<<1);

@@ -36,14 +36,14 @@ NumericVector group_sum(NumericVector x,IntegerVector key,SEXP minn,SEXP maxx){
   	mn=INTEGER(mnmx)[0];
   	mx=INTEGER(mnmx)[1];
   }else if(is_mx){
-  	mn=*(INTEGER(minn));
+  	mn=Rf_asInteger(minn);
   	mx=*std::max_element(key.begin(),key.end());
   }else if(is_mn){
-  	mx=*(INTEGER(maxx));
+  	mx=Rf_asInteger(maxx);
   	mn=*std::min_element(key.begin(),key.end());
   }else{
-  	mx=*(INTEGER(maxx));
-  	mn=*(INTEGER(minn));
+  	mx=Rf_asInteger(maxx);
+  	mn=Rf_asInteger(minn);
   }
   IntegerVector::iterator kk=key.begin();
   NumericVector f(mx-mn+1);

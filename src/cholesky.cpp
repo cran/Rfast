@@ -68,6 +68,8 @@ SEXP cholesky(SEXP AA) {
   return LL;
 }
 
+
+
 RcppExport SEXP Rfast_cholesky(SEXP x) {
 BEGIN_RCPP
     RObject __result;
