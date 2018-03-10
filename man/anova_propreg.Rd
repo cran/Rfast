@@ -35,7 +35,7 @@ A vector with three elements, the test statistic value, its associated p-value a
 
 \references{
 Papke L. E. & Wooldridge J. (1996). Econometric methods for fractional response variables with 
-an application to 401(K) plan participation rates. Journal of Applied Econometrics, 11(6): 619--632.
+an application to 401(K) plan participation rates. Journal of Applied Econometrics, 11(6): 619-632.
 
 McCullagh, Peter, and John A. Nelder. Generalized linear models.  CRC press, USA, 2nd edition, 1989.
 }

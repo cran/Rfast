@@ -5,7 +5,6 @@
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 IntegerVector mat_mat(NumericMatrix x,NumericMatrix y){
   const int n=x.ncol(),p=y.ncol();
   LogicalMatrix f(p,n);

@@ -5,8 +5,7 @@
 	do { if (DEBUG) Rprintf(__VA_ARGS__); } while (0)
 
 class TestResult {
-public:
-    double pvalue;
+public: double pvalue;
     double logpvalue;
     double stat;
     int df;
@@ -501,77 +500,15 @@ double find_freq(arma::vec& vals) {
 	return curr_count > max_count ? vals[vals.size() - 1] : freq;
 }
 
-void update(const double key, const double rank,
-		arma::mat& ds, const unsigned int col,  
-		std::unordered_map<double, std::vector<unsigned int>>& val_ids);
-
-int sum(const unsigned int tart_pos, const unsigned int end_pos);
-
-void update_init(const double key,
-		const unsigned int start_pos, const unsigned int end_pos, const int cntr, 
-		arma::mat& ds, const unsigned int col, 
-		std::unordered_map<double, std::vector<unsigned int>>& val_ids);
-
-void rank(arma::vec& vals, arma::mat& ds, const unsigned int col);
-
 arma::mat calc_rank(arma::mat& ds) {
-	for (unsigned int j = 0; j < ds.n_cols; j++) {
-		arma::vec tmp = ds.col(j);
-		rank(tmp, ds, j);
+	arma::mat rds(ds.n_rows, ds.n_cols);
+	for (unsigned int i = 0; i < ds.n_cols; ++i) {
+		arma::vec curr_col = ds.col(i);
+		rds.col(i) = rank_mean<arma::vec, arma::vec, arma::uvec>(curr_col, false);
 	}
-	return ds;
+	return rds;
 }
-
-void rank(arma::vec& vals, arma::mat& ds, const unsigned int col) {
-	std::unordered_map<double, std::vector<unsigned int>> val_ids;
-	for (unsigned int i = 0; i < vals.size(); i++) {
-		if (val_ids.find(vals[i]) == val_ids.end()) {
-			val_ids[vals[i]] = { i };
-		}
-		else {
-			val_ids[vals[i]].push_back(i);
-		}
-	}
-	std::sort(vals.begin(), vals.end());
-	double key;
-	int cntr;
-	unsigned int prev_pos = 0;
-	unsigned int curr_pos = 0;
-	for (; curr_pos < vals.size();) {
-		key = vals[curr_pos];
-		cntr = val_ids[key].size();
-		prev_pos = curr_pos;
-		curr_pos += cntr;
-		update_init(key, prev_pos + 1, curr_pos + 1, cntr, ds, col, val_ids);
-	}
-	val_ids.clear();
-}
-
-void update_init(const double key,
-		const unsigned int start_pos, const unsigned int end_pos, const int cntr, 
-		arma::mat& ds, const unsigned int col, 
-		std::unordered_map<double, std::vector<unsigned int>>& val_ids) {
-	const int old_rank_sum = sum(start_pos, end_pos);
-	const double rank = (double) old_rank_sum / cntr;
-	update(key, rank, ds, col, val_ids);
-}
-
-int sum(const unsigned int start_pos, const unsigned int end_pos) {
-	int sum = 0;
-	for (unsigned int i = start_pos; i < end_pos; i++) {
-		sum += i;
-	}
-	return sum;
-}
-
-void update(const double key, const double rank,
-		arma::mat& ds, const unsigned int col,  
-		std::unordered_map<double, std::vector<unsigned int>>& val_ids) {
-	for (unsigned int i = 0; i < val_ids[key].size(); i++) {
-		ds(val_ids[key][i], col) = rank;
-	}
-}
-
+		
 void combn(arma::vec& vals, const int n, const unsigned int start_idx, 
 		std::vector<double>& combn_data, arma::mat& combn_ds, unsigned int& combn_col);
 
@@ -1064,53 +1001,6 @@ arma::mat adj_cols(arma::mat& src, const unsigned int dst_ncols) {
 	return dst;
 }
 
-arma::vec perm_cor(arma::mat& ds, const unsigned int r) {
-	const unsigned int nrows = ds.n_rows;
-
-    db_print("Calculating upper and lower.\n");
-	arma::vec ds_c0 = ds.col(0);
-	arma::vec ds_c1 = ds.col(1);
-    double ds_c0_sum = 0;
-    double ds_c1_sum = 0;
-    double ds_c0_p2_sum = 0;
-    double ds_c1_p2_sum = 0;
-    double ds_sum = 0;
-    for (unsigned int i = 0; i < nrows; i++) {
-        const double curr_c0 = ds_c0[i];
-        const double curr_c1 = ds_c1[i];
-        ds_c0_sum += curr_c0;
-        ds_c1_sum += curr_c1;
-        ds_c0_p2_sum += std::pow(curr_c0, 2.0);
-        ds_c1_p2_sum += std::pow(curr_c1, 2.0);
-        ds_sum += curr_c0 * curr_c1;
-    }
-    const double upper = (ds_c0_sum * ds_c1_sum) / nrows;
-    const double lower = std::sqrt((ds_c0_p2_sum - std::pow(ds_c0_sum, 2.0) / nrows) *
-			(ds_c1_p2_sum - std::pow(ds_c1_sum, 2.0) / nrows));
-
-    db_print("Calculating test_stat.\n");
-    const double cor = (ds_sum - upper) / lower;
-    const double test_stat = std::log((1 + cor) / (1 - cor));
-
-    db_print("Calculating sxy, test_stat_abs, pvalue.\n");
-    const double test_stat_abs = std::abs(test_stat);
-    int sum = 1;
-    for (unsigned int i = 0; i < r; i++) {
-		arma::vec shuffled_ds_c0 = arma::shuffle(ds_c0);
-        double sxy_sum = 0;
-        for (unsigned int j = 0; j < nrows; j++) {
-			sxy_sum += shuffled_ds_c0[j] * ds_c1[j];
-        }
-		const double adj_sxy_sum = (sxy_sum - upper) / lower;
-        if (std::abs(std::log((1 + adj_sxy_sum) / (1 - adj_sxy_sum))) > test_stat_abs) {
-            sum++;
-        }
-    }
-    const double pvalue = sum / (double) (r + 1);
-	arma::vec res(2); res[0] = cor; res[1] = pvalue;
-	return res;
-}
-
 arma::vec cat_ci(const unsigned int x, const unsigned int y,
 		arma::uvec& cs, arma::mat& ds, arma::uvec& type, const unsigned int r) {
 	arma::vec ret(3);
@@ -1183,14 +1073,16 @@ arma::vec calc_condi(const unsigned int pos1, const unsigned int pos2, arma::uve
 			db_print("!cs.size()\n");
 			db_print("Calculating cor_pvalue.\n");
 			arma::mat cmat = form_c2mat(vals_pos1, vals_pos2);
-			pc_pvalue = perm_cor(cmat, r);
+			pc_pvalue = calc_perm_cor(vals_pos1, vals_pos2, r);
 		}
 		else {
 			db_print("cs.size()\n");
 			db_print("Calculating er.\n");
 			arma::mat er = calc_er(ds, cor_ds, vals_pos1, vals_pos2, cs, 2);
 			db_print("Calculating cor_pvalue.\n");
-			pc_pvalue = perm_cor(er, r);
+			arma::vec er_c0 = er.col(0);
+			arma::vec er_c1 = er.col(1);
+			pc_pvalue = calc_perm_cor(er_c0, er_c1, r);
 		}
 		arma::vec ret(3); ret[0] = std::abs(pc_pvalue[0]) / df; ret[1] = std::log(pc_pvalue[1]); ret[2] = df;
 		return ret;

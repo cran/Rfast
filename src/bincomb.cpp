@@ -5,9 +5,7 @@
 #include "mn.h"
 
 using namespace Rcpp;
-using namespace std;
 
-//[[Rcpp::export]]
 IntegerMatrix bincomb(const int p){
   int s_2=1,np=1<<p,n_2=np>>1;
   IntegerMatrix x(np,p);

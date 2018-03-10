@@ -17,23 +17,23 @@ rmdp <- function(y, alpha = 0.05, itertime = 100) {
   #######################
   ####################### 
   submcd <- seq(1, n)[final_vec != 0]
-  mu_t <- colmeans( y[submcd, ] ) 
-  var_t <- colVars( y[submcd, ] )
+  mu_t <- Rfast::colmeans( y[submcd, ] ) 
+  var_t <- Rfast::colVars( y[submcd, ] )
   sama <- ( t(y) - mu_t )^2 / var_t
-  disa <- colsums(sama) 
-  disa <- disa * p / med(disa) 
-  b <- hd.eigen(y[submcd, ], center = TRUE, scale = TRUE)
+  disa <- Rfast::colsums(sama) 
+  disa <- disa * p / Rfast::med(disa) 
+  b <- Rfast::hd.eigen(y[submcd, ], center = TRUE, scale = TRUE)$values
   tr2_h <- sum(b^2)
   tr2 <- tr2_h - p^2 / h
   cpn_0 <- 1 + (tr2_h) / p^1.5
   w0 <- (disa - p) / sqrt( 2 * tr2 * cpn_0 ) < qnorm(1 - delta)
   nw <- sum(w0)
   sub <- seq(1, n)[w0]
-  mu_t <- colmeans( y[sub, ] ) 
-  var_t <- colVars( y[sub, ], suma = nw * mu_t )
+  mu_t <- Rfast::colmeans( y[sub, ] ) 
+  var_t <- Rfast::colVars( y[sub, ], suma = nw * mu_t )
   sama <- ( t(y) - mu_t )^2 / var_t
-  disa <- colsums(sama)
-  b <- hd.eigen(y[sub, ], center = TRUE, scale = TRUE)
+  disa <- Rfast::colsums(sama)
+  b <- Rfast::hd.eigen(y[sub, ], center = TRUE, scale = TRUE)$values
   tr2_h <- sum(b^2) 
   tr2 <- tr2_h - p^2 / nw
   scal <- 1 + exp( - qnorm(1 - delta)^2 / 2 ) / (1 - delta) * sqrt( tr2) / p / sqrt(pi)

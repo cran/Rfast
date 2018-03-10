@@ -3,6 +3,7 @@
 #include <RcppArmadillo.h>
 #include <cmath>
 #include "reg_lib.h"
+#include "templates.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -31,7 +32,7 @@ List weib_reg(NumericVector Y, NumericMatrix X, const double tol, const int maxi
   mat xcom = x.each_col()%com;
   vec derb =  ek * conv_to<vec>::from(sum(xcom)- sx);
 
-  mat derb2 = (- ek*ek) * cross_x_y_2(xcom, x);
+  mat derb2 = (- ek*ek) * cross_x_y<mat,mat,vec>(xcom, x);
   double k2 = logek - derk/derk2;
 
   vec b2 = b1 - solve(derb2, derb);
@@ -53,7 +54,7 @@ List weib_reg(NumericVector Y, NumericMatrix X, const double tol, const int maxi
 
     xcom = x.each_col()%com;
     derb =  ek * conv_to<vec>::from(sum(xcom)- sx);
-    derb2 = (- ek*ek) * cross_x_y_2(xcom, x);
+    derb2 = (- ek*ek) * cross_x_y<mat,mat,vec>(xcom, x);
     k2 = logek - derk/derk2;
     b2 = b1 - solve(derb2, derb);
   }

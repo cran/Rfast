@@ -6,7 +6,6 @@
 using namespace arma;
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 rowvec spat_med(NumericMatrix Y,const double tol = 0.000000001){
   mat y = mat(Y.begin(), Y.nrow(), Y.ncol(), false); 
   colvec ww;

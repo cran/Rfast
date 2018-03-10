@@ -9,7 +9,7 @@ Energy distance between matrices.
 }
 
 \usage{
-edist(x, y)
+edist(x, y=NULL)
 }
 
 \arguments{

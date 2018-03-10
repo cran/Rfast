@@ -4,12 +4,14 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <algorithm>
-#include "mn.h"
-//[[Rcpp::plugins(cpp11)]]
+
 using namespace Rcpp;
 using namespace std;
 
-//[[Rcpp::export]]
+using std::greater;
+using std::sort;
+using std::nth_element;
+
 IntegerVector partial_sort_index(NumericVector x,const int n,const bool descend){
   IntegerVector ind=seq(1,x.size());
   if(descend){
@@ -31,8 +33,8 @@ SEXP partial_sort(SEXP x,const int n,const bool descend){
 	  case INTSXP:{
 	    int *F=INTEGER(f);
 	    if(descend){
-	    	nth_element(F,F+n-1,F+len,std::greater<int>());
-	    	sort(F,F+n,std::greater<int>());
+	    	nth_element(F,F+n-1,F+len,greater<int>());
+	    	sort(F,F+n,greater<int>());
 	    }
 	    else {
 	    	nth_element(F,F+n-1,F+len);
@@ -43,8 +45,8 @@ SEXP partial_sort(SEXP x,const int n,const bool descend){
 	  default:{
 	    double *F=REAL(f);
 	    if(descend){
-	    	nth_element(F,F+n-1,F+len,std::greater<double>());
-	    	sort(F,F+n,std::greater<double>());
+	    	nth_element(F,F+n-1,F+len,greater<double>());
+	    	sort(F,F+n,greater<double>());
 	    }
 	    else {
 	    	nth_element(F,F+n-1,F+len);

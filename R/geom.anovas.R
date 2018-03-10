@@ -1,5 +1,6 @@
 geom.anovas <- function (y, ina, type = 1, logged = FALSE) {
   ni <- tabulate(ina)
+  ni <- ni[ni > 0]
   k <- length(ni)
   n <- sum(ni)
   if (type == 1) {   

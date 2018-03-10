@@ -2,6 +2,7 @@ kruskaltest <- function (x, ina, logged = FALSE) {
     n <- length(x)
     R <- Rank(x)
     ni <- tabulate(ina)
+	ni <- ni[ni > 0]
     up <- sum( group.sum(R, ina)^2/ni ) - n * (n + 1)^2/4
     down <- sum(R^2) - n * (n + 1)^2/4
     stat <- (n - 1) * up/down

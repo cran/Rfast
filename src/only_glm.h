@@ -18,11 +18,11 @@ NumericVector poisson_only(NumericMatrix& X, NumericVector& Y, const double ylog
 
 double glm_logistic(NumericMatrix& X, NumericVector& Y, const double my);
 
-double arma_glm_logistic(arma::mat x, arma::vec y, const double my);
+double arma_glm_logistic(mat x, vec y, const double my);
 
 double glm_poisson(NumericMatrix& X, NumericVector& Y, const double ylogy, const double my);
 
-double arma_glm_poisson(arma::mat x, arma::vec y, const double ylogy, const double my);
+double arma_glm_poisson(mat x, vec y, const double ylogy, const double my);
 
 NumericVector qs_binom_only(NumericMatrix& X, NumericVector& Y, const double my);
 

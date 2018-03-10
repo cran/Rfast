@@ -10,7 +10,6 @@
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 SEXP Log(SEXP x){
   const int nrow=Rf_nrows(x),ncol=Rf_ncols(x),n=nrow*ncol;
   SEXP f;
@@ -42,3 +41,46 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+
+//////////////////////////////////////////////////////////////////////////
+
+using std::lgamma;
+
+SEXP Lbeta(SEXP x,SEXP y){
+  int n=LENGTH(x);
+  SEXP f=PROTECT(Rf_duplicate(x));
+  switch(TYPEOF(x)){
+    case REALSXP:{
+      double *start_f=REAL(f),*start_x=REAL(x),*start_y=REAL(y),*end_x=start_x+n,X,Y;
+      for(;start_x!=end_x;++start_x,++start_y,++start_f){
+        X=*start_x;
+        Y=*start_y;
+        *start_f=lgamma(X)+lgamma(Y)-lgamma(X+Y);
+      }
+      break;
+    }
+    default:{
+      int *start_f=INTEGER(f),*start_x=INTEGER(x),*start_y=INTEGER(y),*end_x=start_x+n,X,Y;
+      for(;start_x!=end_x;++start_x,++start_y,++start_f){
+        X=*start_x;
+        Y=*start_y;
+        *start_f=lgamma(X)+lgamma(Y)-lgamma(X+Y);
+      }
+      break;
+    }
+  }
+  UNPROTECT(1);
+  return f;
+}
+
+
+RcppExport SEXP Rfast_Lbeta(SEXP x,SEXP y) {
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    __result = Lbeta(x,y);
+    return __result;
+END_RCPP
+}
+
+//////////////////////////////////////////////////////////////////////////////

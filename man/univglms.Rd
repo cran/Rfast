@@ -1,5 +1,6 @@
 \name{Many univariate generalised linear models}
 \alias{univglms}
+\alias{univglms2}
 \title{
 Many univariate generalised linear regressions
 }
@@ -10,19 +11,27 @@ It performs very many univariate generalised linear regressions.
 
 \usage{
 univglms(y, x, oiko = NULL, logged = FALSE)
+
+univglms2(y, x, oiko = NULL, logged = FALSE)
 }
 
 \arguments{
 \item{y}{
-The dependent variable. It can be a factor or a numerical variable with two values only (binary logistic regression), a discrete valued vector (count data)
-corresponding to a poisson regression or a numerical vector with continuous values (normal regression). If it contains percentages or proportions (values between 0 and 1)
-they are transformed in \eqn{R} using \eqn{log{y}/log{(1-y)}} and linear regression is applied. 
+The dependent variable. It can be a factor or a numerical variable with two values only (binary logistic 
+regression), a discrete valued vector (count data) corresponding to a poisson regression or a numerical 
+vector with continuous values (normal regression). 
 }
 \item{x}{
-A matrix with the data, where the rows denote the samples (and the two groups) and the columns are the variables. Currently only continuous variables are allowed. You are advised to standardise the data before hand to avoid numerical overflow or similar issues. If you see NaN in the outcome, this is the case.
+A matrix with the data, where the rows denote the samples (and the two groups) and the 
+columns are the variables. For the "univglms" only continuous variables are allowed. You are advised to 
+standardise the data before hand to avoid numerical overflow or similar issues. 
+If you see NaN in the outcome, this might be the case. For the "univglms2" categorical variables are allowed
+and hence this accepts data.frames. In this case, the categorical variables must be given as factor variables,
+otherwise you might get wrong results.
 }
 \item{oiko}{
-This can be either "normal", "poisson" or "binomial". If you are not sure leave it NULL and the function will check internally. However, you might have discrete data (e.g. years of age)
+This can be either "normal", "poisson", "quasipoisson" or "binomial". If you are not sure leave it NULL and 
+the function will check internally. However, you might have discrete data (e.g. years of age)
 and want to perform many simple linear regressions. In this case you should specify the family. 
 }
 \item{logged}{
@@ -31,9 +40,10 @@ A boolean variable; it will return the logarithm of the pvalue if set to TRUE.
 }
 
 \details{
-If you specify no family of distributions the function internally checkes the type of your data and decides on the type of regression to perform. 
-The function is written in C++ and this is why it is very fast. It can accept thousands of predictor variables. It is usefull for univariate screening. 
-We provide no p-value correction (such as fdr or q-values); this is up to the user. 
+If you specify no family of distributions the function internally checkes the type of your data and 
+decides on the type of regression to perform. The function is written in C++ and this is why it is very 
+fast. It can accept thousands of predictor variables. It is usefull for univariate screening. We provide 
+no p-value correction (such as fdr or q-values); this is up to the user. 
 }
 
 \value{
@@ -71,6 +81,5 @@ a2 <- glm(y ~ 1, binomial)$null.dev - a2
 x <- NULL
 }
 
-\keyword{ Univariate regressions }
-\keyword{ generalised linear models } 
+
 

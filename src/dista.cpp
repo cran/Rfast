@@ -1,9 +1,12 @@
 //Author: Manos Papadakis
 
 #include <RcppArmadillo.h>
+#include "templates.h"
 #include "mn.h"
 
 using namespace arma;
+using namespace Rcpp;
+using std::string;
 
 //[[Rcpp::export]]
 NumericMatrix dista(NumericMatrix Xnew, NumericMatrix X,const bool sqr,const string type) {
@@ -13,15 +16,18 @@ NumericMatrix dista(NumericMatrix Xnew, NumericMatrix X,const bool sqr,const str
   mat disa(disaa.begin(),n,nu,false);
   if(type == "euclidean"){
     if(sqr){
-      for(int i=0;i<nu;++i)
+      for(int i=0;i<nu;++i){
         disa.col(i)=sum(square(x.each_col() - xnew.col(i)),0).t();
+      }
     }else{
-      for(int i=0;i<nu;++i)
-        disa.col(i)=sqrt_mat(sum(square(x.each_col() - xnew.col(i)),0));
+      for(int i=0;i<nu;++i){
+        disa.col(i)=foreach<std::sqrt,rowvec>(sum(square(x.each_col() - xnew.col(i)),0)).t();
+      }
     }
   }else if(type == "manhattan"){
-    for(int i=0;i<nu;++i)
-      disa.col(i)=(sum(abs(x.each_col() - xnew.col(i)),0)).t();
+    for(int i=0;i<nu;++i){
+      disa.col(i)=sum(abs(x.each_col() - xnew.col(i)),0).t();
+    }
   }
   else stop("Unknown type argument. you have to enter \"euclidean\" or \"manhattan\".");
   return disaa;
@@ -89,8 +95,9 @@ NumericMatrix dista_values(NumericMatrix Xnew, NumericMatrix X,const int k,const
       for(int i=0;i<nu;++i)
         disa.col(i)=get_k_values(sum(square(x.each_col() - xnew.col(i)),0),k);
     }else{
-      for(int i=0;i<nu;++i)
-        disa.col(i)=sqrt_mat(get_k_values(sum(square(x.each_col() - xnew.col(i)),0),k));
+      for(int i=0;i<nu;++i){
+        disa.col(i)=foreach<std::sqrt,rowvec>(get_k_values(sum(square(x.each_col() - xnew.col(i)),0),k));
+      }
     }
   }else if(type == "manhattan"){
     for(int i=0;i<nu;++i)

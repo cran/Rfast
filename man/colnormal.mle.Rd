@@ -12,6 +12,7 @@
 \alias{colrayleigh.mle}
 \alias{colvm.mle}
 \alias{colweibull.mle}
+\alias{colnormlog.mle}
 
 \title{
 Column-wise MLE of some univariate distributions
@@ -35,6 +36,7 @@ colpois.mle(x)
 colrayleigh.mle(x)
 colvm.mle(x, tol = 1e-07)
 colweibull.mle(x, tol = 1e-09, maxiters = 100, parallel = FALSE)
+colnormlog.mle(x)
 }
 
 \arguments{
@@ -61,7 +63,7 @@ For each column, the same distribution is fitted and its parameter and log-likel
 }
 
 \value{
-A matrix with two or three columns. The first one or the first two contain the parameter(s) of the distribution
+A matrix with two, three or five (for the colnormlog.mle) columns. The first one or the first two contain the parameter(s) of the distribution
 and the second or third column the relvant log-likelihood.
 }
 

@@ -9,12 +9,18 @@ Convert a dataframe to matrix.
 }
 
 \usage{
-data.frame.to_matrix(x)
+data.frame.to_matrix(x,col.names = NULL,row.names = NULL)
 }
 
 \arguments{
 \item{x}{
-A Numeric matrix with data. 
+A Numeric matrix with data and NAs.
+}
+\item{col.names}{
+A boolean value for keeping the colnames for argument x or a character vector for the new colnames.
+}
+\item{row.names}{
+A boolean value for keeping the rownames for argument x or a character vector for the new rownames.
 }
 }
 

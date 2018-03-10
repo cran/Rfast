@@ -1,5 +1,6 @@
 ftests <- function(x, ina, logged = FALSE) {
   ni <- tabulate(ina)  ## sample sizes
+  ni <- ni[ni > 0]
   k <- length(ni)  ## number of groups
   m <- rowsum(x, ina) / ni
   s <- rowsum(x^2, ina)  

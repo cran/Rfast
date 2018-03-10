@@ -8,7 +8,7 @@
 
 using namespace Rcpp;
 using namespace arma;
-using namespace std;
+using std::string;
 
 NumericMatrix euclidean_dist(NumericMatrix x,const bool sqr){
   const int ncl=x.ncol(),nrw=x.nrow();
@@ -17,7 +17,7 @@ NumericMatrix euclidean_dist(NumericMatrix x,const bool sqr){
   colvec xv(nrw);
   double a;
   int i,j;
-  if(sqr)
+  if(sqr){
     for(i=0;i<ncl-1;++i){
       xv=xx.col(i);
       for(j=i+1;j<ncl;++j){
@@ -26,7 +26,7 @@ NumericMatrix euclidean_dist(NumericMatrix x,const bool sqr){
         f(j,i)=a;
       }
     }
-  else
+  }else{
     for(i=0;i<ncl-1;++i){
       xv=xx.col(i);
       for(j=i+1;j<ncl;++j){
@@ -35,6 +35,7 @@ NumericMatrix euclidean_dist(NumericMatrix x,const bool sqr){
         f(j,i)=a;
       }
     }
+  }
   return f;
 }
 
@@ -64,7 +65,7 @@ NumericMatrix hellinger_dist(NumericMatrix x,const bool sqr){
   colvec xv(nrw);
   double a;
   int i,j;
-  if(sqr)
+  if(sqr){
     for(i=0;i<ncl-1;++i){
       xv=xx.col(i);
       for(j=i+1;j<ncl;++j){
@@ -73,7 +74,7 @@ NumericMatrix hellinger_dist(NumericMatrix x,const bool sqr){
         f(j,i)=a;
       }
     }
-  else
+  }else{
     for(i=0;i<ncl-1;++i){
       xv=xx.col(i);
       for(j=i+1;j<ncl;++j){
@@ -82,6 +83,7 @@ NumericMatrix hellinger_dist(NumericMatrix x,const bool sqr){
         f(j,i)=a;
       }
     }
+  }
   return f;
 }
 
@@ -134,7 +136,7 @@ NumericMatrix minkowski_dist(NumericMatrix x,const double p){
   for(i=0;i<ncl-1;++i){
     xv=xx.col(i);
     for(j=i+1;j<ncl;++j){      
-      a=pow(sum_pow(abs(xv-xx.col(j)),p),p_1);
+      a=pow(sum_with<std::pow,colvec>(abs(xv-xx.col(j)),p),p_1);
       f(i,j)=a;
       f(j,i)=a;
     }
@@ -181,7 +183,6 @@ NumericMatrix canberra2_dist(NumericMatrix x){
 }
 
 
-
 NumericMatrix total_variation_dist(NumericMatrix x){
   const int ncl=x.ncol(),nrw=x.nrow();
   mat xx(x.begin(),nrw,ncl,false);
@@ -208,7 +209,7 @@ NumericMatrix kullback_leibler_dist(NumericMatrix x){
   colvec xv(nrw),log_xv(nrw);
   double a;
   int i,j;
-  fill_with<std::log>(x.begin(),x.end(),log_xx.begin());
+  fill_with<std::log,double*,double*>(x.begin(),x.end(),log_xx.begin());
   for(i=0;i<ncl-1;++i){
     xv=xx.col(i);
     log_xv=log_xx.col(i);
@@ -248,7 +249,7 @@ NumericMatrix itakura_saito_dist(NumericMatrix x){
   colvec xv(nrw),log_xv(nrw);
   double a;
   int i,j;
-  fill_with<std::log>(x.begin(),x.end(),log_xx.begin());
+  fill_with<std::log,double*,double*>(x.begin(),x.end(),log_xx.begin());
   for(i=0;i<ncl-1;++i){
     xv=xx.col(i);
     log_xv=log_xx.col(i);

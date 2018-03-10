@@ -2,6 +2,7 @@ anovas <- function (x, ina, logged = FALSE) {
     ina <- as.numeric(ina)
     k <- max(ina)
     ni <- tabulate(ina)
+	ni <- ni[ni > 0]
     n <- dim(x)[1]
     sx2 <- colsums(x^2)
     m <- rowsum(x, ina)

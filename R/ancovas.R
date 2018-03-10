@@ -1,5 +1,6 @@
 ancovas <- function(y, ina, x, logged = FALSE) {
   ni <- tabulate(ina)
+  ni <- ni[ni > 0]
   a <- length(ni) 
   N <- length(ina)
   sy <- colsums(y)

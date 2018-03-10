@@ -1,4 +1,5 @@
 // [[Rcpp::depends(RcppArmadillo)]]
+//[[Rcpp::plugins(cpp11)]]
 #include <RcppArmadillo.h>
 #include <vector>
 #include <string>
@@ -10,57 +11,19 @@ using namespace Rcpp;
 using namespace arma;
 using namespace std;
 
-//[[Rcpp::plugins(cpp11)]]
+
 
 bool my_compare_order_second(const pr<double,int>& a,const pr<double,int>& b){
   return a.second<b.second;
 }
 
-mat operator+(colvec &y,mat &x){
-  int i,j,d=x.n_cols,n=x.n_rows,a;
-  mat Y(n,d);
-  for(i=0;i<n;i++){
-    a=y(i);
-    for(j=0;j<d;j++)
-      Y(i,j)=x(i,j)+a;
-  }
-  return Y;
-}
-
-colvec operator-(colvec &x,colvec &y){
-  int i,n=x.n_elem;
-  colvec F(n);
-  for(i=0;i<n;++i){
-    F(i)=x(i)-y(i);
-  }
-  return F;
-}
-
-double operator*(vec x,vec y){
-  int i,n=x.n_elem;
-  double s=0.0;
-  for(i=0;i<n;i++){
-    s+=x(i)*y(i);
-  }
-  return s;
-}
-
-colvec operator+(colvec &x,colvec &y){
-  int i,n=x.n_elem;
-  colvec F(n);
-  for(i=0;i<n;++i){
-    F(i)=x(i)+y(i);
-  }
-  return F;
-}
-
 rowvec operator/(colvec x,double s){
   rowvec f(x.n_elem);
-  for(rowvec::iterator ff=f.begin(),xx=x.begin();ff!=f.end();++ff,++xx)
+  for(rowvec::iterator ff=f.begin(),xx=x.begin();ff!=f.end();++ff,++xx){
     *ff=*xx/s;
+  }
   return f;
 }
-
 
 //regression
 double regression_only_col(colvec x, colvec &y) {
@@ -81,7 +44,6 @@ double regression_only_col(colvec x, colvec &y) {
 //diri_nr_type2,gamma
 double trigamma ( double x)
 {
-  using namespace std;
   double a = 0.0001;
   double b = 5.0;
   double b2 =  0.1666666667;
@@ -129,8 +91,9 @@ double trigamma ( double x)
 //diri_nr_type2,gamma
 double digamma(double x) {
   double result = 0, xx, xx2, xx4;
-  for ( ; x < 7; ++x)
+  for ( ; x < 7; ++x){
     result -= 1/x;
+  }
   x -= 1.0/2.0;
   xx = 1.0/x;
   xx2 = xx*xx;
@@ -143,123 +106,34 @@ double digamma(double x) {
 void i4mat_floyd( int n, NumericVector &a ){
   int i,j,k;
   const double i4_huge = 2147483647;
-  for ( k = 0; k < n; k++ )
-    for ( j = 0; j < n; j++ )
-      if ( a[k+j*n] < i4_huge )
-        for ( i = 0; i < n; i++ )
+  for ( k = 0; k < n; k++ ){
+    for ( j = 0; j < n; j++ ){
+      if ( a[k+j*n] < i4_huge ){
+        for ( i = 0; i < n; i++ ){
           if ( a[i+k*n] < i4_huge ){
             a[i+j*n] = std::min( a[i+j*n], a[i+k*n] + a[k+j*n] );
           }
+        }
+      }
+    }
+  }
 }
 
 void i4mat_floyd_with_paths( const int n, NumericVector &a,NumericVector &p ){
   int i,j,k;
   const double i4_huge = 2147483647;
-  for ( k = 0; k < n; k++ )
-    for ( j = 0; j < n; j++ )
-      if ( a[k+j*n] < i4_huge )
-        for ( i = 0; i < n; i++ )
+  for ( k = 0; k < n; k++ ){
+    for ( j = 0; j < n; j++ ){
+      if ( a[k+j*n] < i4_huge ){
+        for ( i = 0; i < n; i++ ){
           if ( a[i+k*n] < i4_huge ){
             a[i+j*n] = std::min( a[i+j*n], a[i+k*n] + a[k+j*n] );
             p[i+j*n] = k;
           }
-}
-
-//col_row_min_max
-void min_max_d(double *start,double *end,double &min, double &max){
-  double xxx;
-  min=max=*start;
-  start++;
-  for(;start!=end;++start){
-    xxx=*start;
-    if(xxx>max)
-      max=xxx;
-    else if(xxx<min)
-      min=xxx;
+        }
+      }
+    }
   }
-}
-
-//col_row_min_max
-void min_max_i(int *start,int *end,int &min, int &max){
-  int xxx;
-  min=max=*start;
-  start++;
-  for(;start!=end;++start){
-    xxx=*start;
-    if(xxx>max)
-      max=xxx;
-    else if(xxx<min)
-      min=xxx;
-  }
-}
-
-//col_row_max
-void max_d(double *start,double *end, double &mx){
-  double xxx;
-  mx=*start;
-  start++;
-  for(;start!=end;++start){
-    xxx=*start;
-    if(xxx>mx)
-      mx=xxx;
-  }
-}
-
-//col_row_max
-void max_i(int *start,int *end, int &mx){
-  int xxx;
-  mx=*start;
-  start++;
-  for(;start!=end;++start){
-    xxx=*start;
-    if(xxx>mx)
-      mx=xxx;
-  }
-}
-//col_row_min
-void min_d(double *start,double *end, double &mn){
-  double xxx;
-  mn=*start;
-  start++;
-  for(;start!=end;++start){
-    xxx=*start;
-    if(xxx<mn)
-      mn=xxx;
-  }
-}
-
-//col_row_min
-void min_i(int *start,int *end, int &mn){
-  int xxx;
-  mn=*start;
-  start++;
-  for(;start!=end;++start){
-    xxx=*start;
-    if(xxx<mn)
-      mn=xxx;
-  }
-}
-
-//diri_nr_type2
-colvec Digamma_v(colvec x,int &p){
-  double *start=x.memptr(),*end=start+p;
-  for(;start!=end;++start)
-    *start=digamma(*start);
-  return x;
-}
-
-//diri_nr_type2
-colvec Trigamma_v(colvec x,int &p){
-  double *start=x.memptr(),*end=start+p;
-  for(;start!=end;++start)
-    *start=trigamma(*start);
-  return x;
-}
-
-//diri_nr_type2
-void fill_with_value(double *start,double *end,double v){
-  for(;start!=end;++start)
-    *start=v;
 }
 
 //spat_med
@@ -268,16 +142,17 @@ rowvec colMedians(mat x){
   mat::iterator first=x.begin(),last=first+step;
   rowvec F(p);
   rowvec::iterator FF=F.begin();
-  if(sz%2==0)
+  if(sz%2==0){
     for(i=0;i<p;++i,++FF,first=last,last+=step){
       nth_element(first,first+middle,last);
       *FF=(x(middle,i)+*(min_element(first+middle+1,last)))/2.0;
     }
-  else 
+  }else{
     for(i=0;i<p;++i,++FF,first=last,last+=step){
       nth_element(first,first+middle+1,last);
       *FF=x(middle+1,i);
     }
+  }
   return F;
 }
 
@@ -298,43 +173,17 @@ void combn(Rcpp::NumericVector& data, const int n,
   }
 }
 
-//total_dista,dista
-mat sqrt_mat(mat x){
-  colvec f(x.n_elem);
-  for(double *start=&x[0],*startf=&f[0],*end=&(*x.end());start!=end;++start,++startf){
-    *startf=std::sqrt(*start);    
-  }
-  return f;
-}
-
-//sort_unique,len_sort_unique
-void max_neg_pos(int* start, int *end,int &mx,int &mn,int &pos){
-  mn=mx=*start;
-  int x;
-  for(;start!=end;++start){
-    x=*start;
-    if(x<0){
-      if(mn>x)
-        mn=x;
-    }else{ 
-      pos++;
-      if(mx<x)
-        mx=x;
-    }
-  }
-}
-
 //rmdp
 uvec Order_rmdp(colvec& x){
   uvec ind=linspace<uvec>(0,x.n_elem-1,x.n_elem);
-  stable_sort(ind.begin(),ind.end(),[&](int i,int j){return x[i]<x[j];});
+  std::stable_sort(ind.begin(),ind.end(),[&](int i,int j){return x[i]<x[j];});
   return ind;
 }
 
 //rmdp
 rowvec colvar_rmdp(mat& x){
   rowvec nyr1=x.row(0),nyr2=x.row(1);
-  return 0.5*(square(nyr1) + square(nyr2)) - nyr1%nyr2;
+  return 0.5*(arma::square(nyr1) + arma::square(nyr2)) - nyr1%nyr2;
 }
 
 //dists
@@ -346,61 +195,23 @@ double sum_pow(colvec x,const double p){
   return s;
 }
 
-//colTabulate
-NumericVector Tabulate(NumericVector x,int &nroww){
-  int aa;
-  NumericVector f(nroww);
-  NumericVector::iterator F=f.begin();
-  NumericVector::iterator a=x.begin();
-  for(;a!=x.end();++a){
-    aa=*a;
-    F[aa-1]++;
-  }
-  return f;
-}
-
-//regression
-NumericMatrix design_matrix_regr(CharacterVector x) {
-  int i=0;
-  const int n=x.size();
-  CharacterVector tmp=sort_unique(x);
-  CharacterVector::iterator xx=x.begin(),leksi_bg,leksi_en;
-  NumericMatrix Final(n,tmp.size());
-  for(leksi_bg=tmp.begin(),leksi_en=tmp.end(),i=0;xx!=x.end();++xx,++i)
-    Final(i,lower_bound(leksi_bg,leksi_en,*xx)-leksi_bg)=1;
-  return Final;
-}
-
 //Design_matrix
 umat design_matrix_helper_big(CharacterVector x) {
   int i=0;
   const int n=x.size();
   CharacterVector tmp=sort_unique(x);
   CharacterVector::iterator xx=x.begin(),leksi_bg,leksi_en;
-  umat Final(n,tmp.size());
+  umat Final(n,tmp.size(),fill::zeros);
   for(leksi_bg=tmp.begin(),leksi_en=tmp.end(),i=0;xx!=x.end();++xx,++i)
-    Final(i,lower_bound(leksi_bg,leksi_en,*xx)-leksi_bg)=1;
+    Final(i,std::lower_bound(leksi_bg,leksi_en,*xx)-leksi_bg)=1;
   return Final;
 }
 
 //varcomps_mle
 NumericVector minus_mean(NumericVector& x,const double k){
   NumericVector y(x.size());
-  double v;
   for(NumericVector::iterator xx=x.begin(),yy=y.begin();x.end()-xx;++xx,++yy){
-    v=*xx;
-    *yy=v-k;
-  }
-  return y;
-}
-
-//varcomps_mle
-NumericVector sqr(NumericVector& x){
-  NumericVector y(x.size());
-  double v;
-  for(NumericVector::iterator xx=x.begin(),yy=y.begin();x.end()-xx;++xx,++yy){
-    v=*xx;
-    *yy=v*v;
+    *yy=*xx-k;
   }
   return y;
 }
@@ -408,25 +219,28 @@ NumericVector sqr(NumericVector& x){
 //vecdist
 void minus_c(double f[],double &x,double *y,int offset,int &len){
   double *ff=f;
-  for(int i=0;i<len;++i,ff+=offset,++y)
-    *ff=abs(x-*y);
+  for(int i=0;i<len;++i,ff+=offset,++y){
+    *ff=std::abs(x-*y);
+  }
 }
 
 //squareform,Round
 int my_round(const double x){
-  const int y=x*10;
-  return y%10>4 ? int(x)+1 : x;
+  return ((int(x)*10)%10>4) ? int(x)+1 : x;
 }
+
+static long double powers[] = {0,1e+1,1e+2,1e+3,1e+4,1e+5,1e+6,1e+7
+								,1e+8,1e+9,1e+10,1e+11,1e+12,1e+13
+								,1e+14,1e+15};
 
 //Round
 double my_round_gen_na_rm(double x,const int& dg){
-  if(R_IsNA(x))
+  if(R_IsNA(x)){
     return x;
-  int t=10;
-  for(int i=0;i<dg;++i)
-    t= (t<<3) + (t<<1);
+  }
+  long long int t=powers[dg+1];
   const bool nx=x<0;
-  int y= nx ? -x*t : x*t;
+  long long int y= nx ? -x*t : x*t;
   const int m=y%10;
   y= m>4 ? y+10-m : y-m ;
   x=y;
@@ -434,13 +248,10 @@ double my_round_gen_na_rm(double x,const int& dg){
 }
 
 
-//Round
 double my_round_gen_simple(double x,const int& dg){
-  int t=10;
-  for(int i=0;i<dg;++i)
-    t= (t<<3) + (t<<1);
+  long long int t=powers[dg+1];
   const bool nx=x<0;
-  int y= nx ? -x*t : x*t;
+  long long int y= nx ? -x*t : x*t;
   const int m=y%10;
   y= m>4 ? y+10-m : y-m ;
   x=y;
@@ -450,7 +261,7 @@ double my_round_gen_simple(double x,const int& dg){
 //Norm
 double sumsqr(NumericMatrix &x){
   double s=0,v;
-  for(double *start=&x[0],*end=&(*x.end());start!=end;++start){
+  for(double *start=x.begin(),*end=x.end();start!=end;++start){
     v=*start;
     s+=v*v;
   }
@@ -460,10 +271,12 @@ double sumsqr(NumericMatrix &x){
 //col/row True
 int True(int *start,int *end){
   int t=0;
-  for(;start!=end;++start)
-    if(*start) 
+  for(;start!=end;++start){
+    if(*start){
       ++t;
-    return t;
+    }
+  }
+  return t;
 }
 
 //all
@@ -486,14 +299,6 @@ bool my_any(int* start,int *end){
   return false;
 }
 
-//total_dista
-double sum_sqrt_mat(mat x){
-  double *xx=&x[0],a=0,*endx=&(*x.end());
-  for(;xx!=endx;++xx)
-    a+=std::sqrt(*xx);
-  return a;
-}
-
 //spml_mle
 colvec pnormc(colvec x){
   for(double *xx=&x[0],*endx=&x[x.n_elem];xx!=endx;++xx){
@@ -506,7 +311,7 @@ colvec pnormc(colvec x){
 double sum_abs(mat x,mat y){
   double s=0;
   for(unsigned int i=0;i<x.n_elem;++i){
-    s+=abs(x[i]-y[i]);
+    s+=std::abs(x[i]-y[i]);
   }
   return s;
 }
@@ -516,10 +321,10 @@ NumericVector toNumbers(string x,char spliter){
   NumericVector f;
   x+=spliter;
   const char *split=&spliter;
-  char *token = strtok(&x[0], split);
+  char *token = std::strtok(&x[0], split);
   while (token != NULL) {
-    f.push_back(atof(token));
-    token = strtok(NULL, split);
+    f.push_back(std::atof(token));
+    token = std::strtok(NULL, split);
   }
   return f;
 }
@@ -533,24 +338,10 @@ IntegerVector combine(IntegerVector x,IntegerVector y){
   return f;
 }
 
-//group_mad,mad2,group_med,mad2
-double med_helper(NumericVector::iterator first,NumericVector::iterator last){
-  double F;
-  const int sz=last-first,middle=sz/2-1;
-  if(sz%2==0){
-    nth_element(first,first+middle,last);
-    F=(*(first+middle)+*(min_element(first+middle+1,last)))/2.0;
-  }else{
-    nth_element(first,first+middle+1,last);
-    F=*(first+middle+1);
-  }
-  return F;
-}
-
 //dista
 icolvec get_k_indices(rowvec x,const int& k){
   icolvec ind=linspace<icolvec>(1,x.size(),x.size());
-  sort(ind.begin(),ind.end(),[&](int i,int j){return x[i-1]<x[j-1];});
+  std::sort(ind.begin(),ind.end(),[&](int i,int j){return x[i-1]<x[j-1];});
   return ind(span(0,k-1));
 }
 
@@ -561,7 +352,7 @@ SEXP eachrow_min_abs(SEXP x,SEXP y){
   for(;xx!=end;++yy){
     y3=*yy;
     for(x3=xx,xx+=nrow;x3!=xx;++x3){
-      *x3=abs(*x3-y3);
+      *x3=std::abs(*x3-y3);
     }
   }
   UNPROTECT(1);
@@ -574,9 +365,38 @@ SEXP eachcol_min_abs(SEXP x,SEXP y){
   double *xx=REAL(mat),*end=xx+n,*yy=REAL(y),*yb,*endy=yy+nrow;
   for(;xx!=end;){
     for(yb=yy;yb!=endy;++xx,++yb){
-      *xx=abs(*xx-*yb);
+      *xx=std::abs(*xx-*yb);
     }
   }
   UNPROTECT(1);
   return mat;
+}
+
+bool find_string(string& s,const char *cs){
+  return s.find(cs)!=std::string::npos;
+}
+
+double calcDevRes(colvec p,colvec y,colvec expyhat){
+  int psize = p.n_elem;
+  double s=0.0;
+  for(int i=0;i<psize;i++){
+    if(y(i)==1){
+      if(p(i) == 0){
+        s+= expyhat(i);
+      }
+      else{
+        s+=log(p(i));
+      }
+    }
+    else{
+      if(p(i) == 1){
+        s+= expyhat(i);
+      }
+      else{
+        s+=log(1-p(i));
+      }
+    }
+  }
+  
+  return s;
 }

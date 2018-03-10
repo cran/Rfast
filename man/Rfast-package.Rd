@@ -16,8 +16,8 @@ Note 3: In general, make sure you give the correct input, in order to get the co
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.8.6 \cr
-Date: \tab 2017-11-17\cr
+Version: \tab 1.8.8 \cr
+Date: \tab 2018-03-10\cr
 License: \tab GPL-2\cr
 }
 }
@@ -35,18 +35,15 @@ Manos Papadakis <papadakm95@gmail.com>
 \note{
 Acknowledgments:
 
-We would like to acknowledge Professor Kurt Hornik, Doctor Uwe Ligges (and the rest of R core team) for their 
-invaluable help with this R package. Erich Studerus for his invaluable comments and Neal Fultz for his suggestions. 
-Vassilis Vasdekis for his invaluable help with the random effects models. Marios Dimitriadis work was funded by the 
-Special Account for Research Funds of the University of Crete, Department of Computer Science. Phillip Si is 
-greatly acknowledged for his help with the Floyd-Warshal algorithm. 
-Keefe Murphy for his invaluable help with NEWS file and for his suggestions. 
-Zacharias Papadovassilakis gave us the inspiration for the memory efficient version of the k-NN algorithm.
-Yannis Pantazis explained us how the orhtogonal matching pursuit works. 
+We would like to acknowledge Professor Kurt Hornik, Doctor Uwe Ligges (and the rest of R core team) for 
+their invaluable help with this R package. Erich Studerus for his invaluable comments and Neal Fultz for his 
+suggestions. Vassilis Vasdekis for his invaluable help with the random effects models. Marios Dimitriadis work 
+was funded by the Special Account for Research Funds of the University of Crete, Department of Computer Science. 
+Phillip Si is greatly acknowledged for his help with the Floyd-Warshal algorithm. Keefe Murphy for his invaluable 
+help with NEWS file and for his suggestions. Zacharias Papadovassilakis gave us the inspiration for the memory 
+efficient version of the k-NN algorithm. Yannis Pantazis explained us how the orhtogonal matching pursuit works. 
+Achim Zeileis for his help with the quasi Poisson regression models. Pedro J. Aphalo for finding a bug.
+Dimitris Yannikis for finding a bug. Acknowledgements to Christina Chatzipantsiou for her idea with the "permcor"
+and the "boot.ttest2" functions.
 }
 
-\keyword{ G^2 test }
-\keyword{ variances }
-\keyword{ t-tests }
-\keyword{ univariate regressions }
-\keyword{ Mahalanobis distance }

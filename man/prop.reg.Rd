@@ -11,7 +11,7 @@ Quasi binomial regression for proportions.
 
 \usage{
 prop.reg(y, x, varb = "quasi", tol = 1e-09, maxiters = 100) 
-prop.regs(y, x, varb = "quasi", tol = 1e-09, logged = FALSE) 
+prop.regs(y, x, varb = "quasi", tol = 1e-09, logged = FALSE, maxiters = 100) 
 }
 
 \arguments{

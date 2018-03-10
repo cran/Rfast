@@ -1,5 +1,6 @@
-\name{Insert new function names in the NAMESPACE file}
-\alias{AddToNamespace}
+
+\name{ Insert new function names in the NAMESPACE file }
+\alias{ AddToNamespace }
 \title{
 Insert new function names in the NAMESPACE file
 }
@@ -32,9 +33,6 @@ Reads the files that are exported in NAMESPACE and the files inside rfolder (whe
 Returns the file that added in the export or empty character vector if all the files was inserted.
 }
 
-%\references{
-%}
-
 \author{
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
@@ -46,6 +44,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
+\dontrun{
 # for example: path.namespace="C:\\some_file\\NAMESPACE" where is NAMESPACE file
 # path.rfolder="C:\\some_file\\R\\" where is R files are
 # system.time( a<-AddToNamespace(path.namespace,path.rfolder) )
@@ -55,6 +54,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 #	print("The new files that inserted are: \n")
 #	a
 #  }
+}
 }
 
 \keyword{ Namespace file }

@@ -1,5 +1,6 @@
 poisson.anovas <- function(y, ina, logged = FALSE) {
   ni <- tabulate(ina)
+  ni <- ni[ni > 0]
   k <- length(ni)
   n <- sum(ni)
   si <- rowsum(y, ina)

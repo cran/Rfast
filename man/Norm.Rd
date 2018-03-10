@@ -44,7 +44,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- matrix( rnorm(10 * 10), ncol = 10 )
 Norm(x, "F")
-norm(x, "f")
+norm(x, "F")
 Norm(x, "M")
 norm(x, "M")
 }

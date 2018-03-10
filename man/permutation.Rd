@@ -12,9 +12,9 @@ Permute the given vector.
 }
 
 \usage{
-permutation(x, all=TRUE)
-permutation.next(x, all.next=TRUE)
-permutation.prev(x, all.prev=TRUE)
+permutation(x, nperm = gamma(length(x)+1))
+permutation.next(x, nperm = gamma(length(x)+1))
+permutation.prev(x, nperm = gamma(length(x)+1))
 bincomb(n)
 }
 
@@ -22,14 +22,8 @@ bincomb(n)
 \item{x}{
 A numeric vector with data. 
 }
-\item{all}{
-A logical value for returning all or one possible combinations. 
-}
-\item{all.next}{
-A logical value for returning all the next or one possible combinations, if there are. 
-}
-\item{all.prev}{
-A logical value for returning all the previous or one possible combinations, if there are. 
+\item{nperm}{
+An integer value for returning specific number of combinations. By defualt is set to all combinations. Must be between \bold{0<=nperm<=gamma(length(x)+1)}
 }
 \item{n}{
 An integer value for the length of the binary number.
@@ -51,21 +45,17 @@ Manos Papadakis
 R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 }
 
-%\note{
-%%  ~~further notes~~
-%}
-
 \seealso{
 \code{\link{combn},\link{comb_n}
 }
 }
 
 \examples{
-y <- rnorm(5)
+y <- rnorm(3)
 b <- permutation(y)
 b <- permutation.next(y)
 b <- permutation.prev(y)
-g <- bincomb(4)
+g <- bincomb(3)
 }
 
 \keyword{ Permutation Function }

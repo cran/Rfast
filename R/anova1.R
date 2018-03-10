@@ -2,6 +2,7 @@ anova1 <- function (x, ina, logged = FALSE) {
   ina <- as.numeric(ina)
   k <- max(ina)
   ni <- tabulate(ina)
+  ni <- ni[ni > 0]
   n <- length(x)
   sx2 <- sum(x^2)
   m <- group.sum(x, ina)

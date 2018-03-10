@@ -11,6 +11,7 @@ Odds ratio and relative risk.
 
 \usage{
 odds.ratio(x, a = 0.05, logged = FALSE)
+rel.risk(x, a = 0.05, logged = FALSE)
 }
 
 \arguments{

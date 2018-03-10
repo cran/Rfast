@@ -10,7 +10,7 @@ Fast sorting a vector.
 }
 
 \usage{
-Sort(x, descending = FALSE, partial = NULL, stable = FALSE)
+Sort(x,descending=FALSE,partial=NULL,stable=FALSE,na.last=NULL)
 sort_cor_vectors(x, base, stable = FALSE, descending = FALSE)
 }
 
@@ -30,8 +30,16 @@ The second is a vector with 2 values, start and end c(start,end). Gives you a ve
 start and end will be sorted only. Not character vector.
 }
 \item{stable}{
-A boolean value (TRUE/FALSE) for choosing a stable sort algorithm. Stable means that discriminates on the same 
-elements. Not character vector.
+A boolean value (TRUE/FALSE) for choosing a stable sort algorithm. Stable means that discriminates on the same elements. Not character vector.
+}
+\item{na.last}{
+Accept 4 values. TRUE, FALSE, NA, NULL.
+
+TRUE/FALSE: for put NAs last or first.
+
+NA:  for remove NAs completely from vector.
+
+NULL: by default. Leave it like that if there is no NA values.
 }
 }
 

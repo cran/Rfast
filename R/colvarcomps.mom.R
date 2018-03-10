@@ -1,6 +1,7 @@
 colvarcomps.mom <- function(x, id, parallel = FALSE) {
   k <- sort_unique.length(id) 
   ni <- tabulate(id)
+  ni <- ni[ni > 0]
   sam <- length(ni)
   n <- dim(x)[1]
   sx2 <- colsums(x^2, parallel = parallel)

@@ -10,7 +10,7 @@ Quasi Poisson regression.
 }
 
 \usage{
-qpois.reg(x, y, full = FALSE, tol = 1e-09) 
+qpois.reg(x, y, full = FALSE, tol = 1e-09,maxiters = 100) 
 qpois.regs(x, y, tol = 1e-09, logged = FALSE) 
 }
 
@@ -32,6 +32,9 @@ The tolerance value to terminate the Newton-Raphson algorithm. This is set to \e
 }
 \item{logged}{
 Should the p-values be returned (FALSE) or their logarithm (TRUE)? 
+}
+\item{maxiters}{
+The maximum number of iterations before the Newton-Raphson is terminated automatically.
 }
 }
 

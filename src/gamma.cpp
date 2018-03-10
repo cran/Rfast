@@ -7,7 +7,6 @@
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 SEXP Trigamma(SEXP x){
   int n=LENGTH(x);
   SEXP f=PROTECT(Rf_duplicate(x));
@@ -39,7 +38,6 @@ END_RCPP
 }
 
 
-//[[Rcpp::export]]
 SEXP Digamma(SEXP x){
   int n=LENGTH(x);
   SEXP f=PROTECT(Rf_duplicate(x));
@@ -70,7 +68,6 @@ BEGIN_RCPP
 END_RCPP
 }
 
-//[[Rcpp::export]]
 SEXP Lgamma(SEXP x){
   int n=LENGTH(x);
   SEXP f=PROTECT(Rf_duplicate(x));

@@ -1,5 +1,4 @@
 cat.goftests <- function(x, props, type = "gsquare", logged = FALSE) {
-  
   obs <- colTabulate(x)
   est <- props * dim(x)[1]
   if (type == "chisquare" ) {

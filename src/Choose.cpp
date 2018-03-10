@@ -10,9 +10,8 @@
 #include <cmath>
 
 using namespace Rcpp;
-using namespace std;
+using std::tgamma;
 
-//[[Rcpp::export]]
 SEXP Choose(SEXP n,const int k){
   const int tgk_1=tgamma(k+1);
   int len=LENGTH(n);
@@ -45,3 +44,43 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+using std::lgamma;
+
+SEXP Lchoose(SEXP n,const int k){
+  const double lgk_1=lgamma(k+1);
+  int len=LENGTH(n);
+  SEXP f=PROTECT(Rf_allocVector(REALSXP,len));
+  double *start_f=REAL(f);
+  switch(TYPEOF(n)){
+  case INTSXP:{
+    int *start=INTEGER(n),*end=start+len;
+    for(;start!=end;++start,++start_f)
+      *start_f=lgamma(*start+1)-lgk_1-lgamma(*start-k+1);
+    break;
+  }
+  default:{
+    double *start=REAL(n),*end=start+len;
+    for(;start!=end;++start,++start_f)
+      *start_f=lgamma(*start+1)-lgk_1-lgamma(*start-k+1);
+    break;
+  }
+  }
+  UNPROTECT(1);
+  return f;
+}
+
+RcppExport SEXP Rfast_Lchoose(SEXP x,SEXP kSEXP) {
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< const int >::type k(kSEXP);
+    __result = Lchoose(x,k);
+    return __result;
+END_RCPP
+}
+
+//////////////////////////////////////////////////////////////////////////

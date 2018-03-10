@@ -4,7 +4,11 @@
 #include "system_files.h"
 
 using namespace Rcpp;
-using namespace std;
+
+
+using std::vector;
+using std::string;
+using std::binary_search;
 
 
 //[[Rcpp::export]]

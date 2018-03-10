@@ -87,7 +87,7 @@ NumericMatrix poisson_only_b(NumericMatrix X, NumericVector Y,double ylogy,const
       dif=sum(abs(b_new-b_old));
       b_old=b_new;
     }
-    F(0,i)=2.0*(ylogy-y*yhat);
+    F(0,i)=2.0*(ylogy-dot(y,yhat));
     F(1,i)=b_new(0);
     F(2,i)=b_new(1);
   }

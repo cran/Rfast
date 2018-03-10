@@ -4,15 +4,14 @@
 #include "mn.h"
 
 using namespace Rcpp;
-using namespace std;
 
-//[[Rcpp::export]]
 NumericMatrix transpose_sq(NumericMatrix x){
   int i,ncl=x.ncol(),u;
+  NumericMatrix f=clone(x);
   for(i=1;i<ncl;++i)
     for(u=0;u<i;++u)
-    	swap(x(u,i),x(i,u));
-  return x;
+    	swap(f(u,i),f(i,u));
+  return f;
 }
 
 RcppExport SEXP Rfast_transpose_sq(SEXP xSEXP) {

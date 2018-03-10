@@ -1,15 +1,15 @@
-\name{Mean absolute deviation of a vector}
+\name{Mean - Median absolute deviation of a vector}
 \alias{mad2}
 \title{
-Mean absolute deviation of a vector
+Mean - Median absolute deviation of a vector
 }
 
 \description{
-Mean absolute deviation of a vector.
+Mean - Median absolute deviation of a vector.
 }
 
 \usage{
-mad2(x,method = "median")
+mad2(x,method = "median",na.rm=FALSE)
 }
 
 \arguments{
@@ -18,6 +18,9 @@ A numerical vector.
 }
 \item{method}{
 A character vector with values "median", for median absolute deviation or "mean", for mean absolute deviation. 
+}
+\item{na.rm}{
+A logical value TRUE/FALSE to remove NAs.
 }
 }
 

@@ -1,5 +1,5 @@
 
-Sort <- function(x,descending=FALSE,partial=NULL,stable=FALSE) {
+Sort <- function(x,descending=FALSE,partial=NULL,stable=FALSE,na.last=NULL) {
 	if(stable){
 		.Call('Rfast_stable_sort',PACKAGE = "Rfast",x,descending)
 	}
@@ -8,6 +8,10 @@ Sort <- function(x,descending=FALSE,partial=NULL,stable=FALSE) {
 	}else if(is.character(x)){
 		.Call('Rfast_sort_string',PACKAGE = "Rfast",x,descending)
 	}else{
-		.Call('Rfast_Sort',PACKAGE = "Rfast",x,descending)
+		if(identical(na.last,TRUE)){
+			.Call('Rfast_Sort_na_rm',PACKAGE = "Rfast",x,descending)
+		}else{
+			.Call('Rfast_Sort',PACKAGE = "Rfast",x,descending,na.last)
+		}
 	}
 }

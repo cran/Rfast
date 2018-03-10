@@ -4,13 +4,11 @@
 #include <RcppArmadillo.h>
 
 using namespace Rcpp;
-using namespace arma;
 
-//[[Rcpp::export]]
 double sum_mat(SEXP X){
   NumericVector x(X);
-  colvec f(x.begin(),x.size(),false);
-  return arma::sum(f);
+  arma::colvec f(x.begin(),x.size(),false);
+  return arma::accu(f);
 }
 
 RcppExport SEXP Rfast_matrix_sum(SEXP x) {

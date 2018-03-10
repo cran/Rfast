@@ -1,8 +1,4 @@
 
-eachrow<-function(x,y,suma = FALSE,oper = "*"){
-	if(suma){
-		.Call('Rfast_sum_eachrow',x,y,oper)
-	}else{
-		.Call('Rfast_eachrow',x,y,oper)
-	}
+eachrow <- function(x,y,oper = "*",method = NULL){
+	.Call('Rfast_eachrow', PACKAGE = 'Rfast',x,y,oper,method)
 }

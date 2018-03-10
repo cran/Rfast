@@ -41,7 +41,7 @@ diri.nr2 <- function(x, type = 1, tol = 1e-07) {
     f <- ma - Digamma(a1) + digamma(sa)
     der <-  - Trigamma(a1) + trigamma(sa)
     a2 <- a1 - f/der
-    a <- as.vector(.Call("Rfast_diri_nr_type2", PACKAGE = "Rfast", a1, a2, ma, p, tol))
+    a <- .Call("Rfast_diri_nr_type2", PACKAGE = "Rfast", a1, a2, ma, p, tol)
     loglik <- n * lgamma(sum(a)) - n * sum(Lgamma(a)) + sum(zx * (a - 1))
     if (is.null(colnames(x))) {
       names(a) <- paste("X", 1:p, sep = "")

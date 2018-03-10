@@ -5,9 +5,8 @@
 #include "templates.h"
 
 using namespace Rcpp;
-using namespace std;
 
-//[[Rcpp::export]]
+
 double med(SEXP x,const bool na_rm){
 	double s=0;
 	switch(TYPEOF(x)){

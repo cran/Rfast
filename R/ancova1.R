@@ -1,6 +1,7 @@
 ancova1 <- function(y, ina, x, logged = FALSE) {
   ni <- tabulate(ina)
-  a <- sort_unique.length(ina) 
+  ni <- ni[ni > 0]
+  a <- length(ni) 
   N <- length(ina)
   sy <- sum(y)
   sx <- sum(x)

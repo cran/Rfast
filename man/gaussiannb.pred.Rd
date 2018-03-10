@@ -2,6 +2,9 @@
 \alias{gaussiannb.pred}
 \alias{poissonnb.pred}
 \alias{multinomnb.pred}
+\alias{gammanb.pred}
+\alias{geomnb.pred}
+
 \title{
 Prediction with some naive Bayes classifiers
 }
@@ -14,6 +17,8 @@ Prediction with some naive Bayes classifiers.
 gaussiannb.pred(xnew, m, s, ni)
 poissonnb.pred(xnew, m)
 multinomnb.pred(xnew, m)  
+gammanb.pred(xnew, a, b)  
+geomnb.pred(xnew, prob)  
 }
 
 \arguments{
@@ -29,6 +34,15 @@ A matrix with the group colum-wise variances. Each row corresponds to a group.
 }
 \item{ni}{
 A vector with the frequencies of each group.
+}
+\item{a}{
+A vector with the shape parameters of each group.
+}
+\item{b}{
+A vector with the scale parameters of each group.
+}
+\item{prob}{
+A vector with the sprobability parameters of each group.
 }
 }
 

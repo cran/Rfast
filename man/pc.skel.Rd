@@ -9,7 +9,7 @@ The skeleton of a Bayesian network produced by the PC algorithm.
 }
 
 \usage{
-pc.skel(dataset, method = "pearson", alpha = 0.05, R = 1) 
+pc.skel(dataset, method = "pearson", alpha = 0.01, R = 1, stat = NULL, ini.pvalue = NULL) 
 }
 
 \arguments{
@@ -29,6 +29,12 @@ The significance level (suitable values in (0, 1)) for assessing the p-values. D
 \item{R}{
 The number of permutations to be conducted. The p-values are assessed via permutations. Use the default value
 if you want no permutation based assessment.
+}
+\item{stat}{
+If the initial test statistics (univariate associations) are available, pass them through this parameter. 
+}
+\item{ini.pvalue}{
+if the initial p-values of the univariate associations are available, pass them through this parameter. 
 }
 }
 
@@ -60,6 +66,9 @@ that it calculates the p-value using permutations.
 A list including:
 \item{stat}{
 The test statistics of the univariate associations. 
+}
+\item{ini.pvalue}{
+The initial p-values univariate associations.
 }
 \item{pvalue}{
 The logarithm of the p-values of the univariate associations. 
@@ -106,9 +115,8 @@ R implementation and documentation: Marios Dimitriadis <kmdimitriadis@gmail.com>
 
 \examples{
 # simulate a dataset with continuous data
-dataset <- matrnorm(1000, 50) 
+dataset <- matrix(rnorm(1000 * 50, 1, 100), nrow = 1000) 
 a <- pc.skel(dataset, method = "pearson", alpha = 0.01) 
-x <- NULL
 }
 
 \keyword{ PC algorithm }

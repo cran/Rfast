@@ -2,6 +2,7 @@
 \alias{colCountValues}
 \alias{rowCountValues}
 \alias{count_value}
+\alias{countNA}
 \title{
 Row - Wise matrix/vector count the frequency of a value
 }
@@ -14,6 +15,8 @@ Row - Wise matrix/vector count the frequency of a value.
 count_value(x, value)
 colCountValues(x, values, parallel = FALSE)
 rowCountValues(x, values, parallel = FALSE)
+
+countNA(x)
 }
 
 \arguments{
@@ -21,7 +24,7 @@ rowCountValues(x, values, parallel = FALSE)
 A vector with the data (numeric or character) or a numeric matrix.
 }
 \item{value}{
-The value to check its frequency in the vector "x".
+The value, numeric or NA, to check its frequency in the vector "x". 
 }
 \item{values}{
 a vector with the values to check its frequency in the matrix "x" by row or column.
@@ -56,6 +59,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 x <- rnorm(100)
 value <- x[50]
 system.time( count_value(x,value) )
+countNA(x)
 y <- sample(letters,replace=TRUE)
 value <- "r"
 system.time( count_value(y,value) )

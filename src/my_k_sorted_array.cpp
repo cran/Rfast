@@ -1,5 +1,3 @@
-//Author: Stefanos Fafalios
-
 #include <cstdlib>
 #include "my_k_sorted_array.h"
 
@@ -14,8 +12,9 @@ void clear_array(a_node* my_ar){
 a_node* refresh_array(a_node* my_arr, int size){
   // make all indexes of the array "invalid"
   a_node* first = my_arr;
-  for(int i=0; i<size;i++,my_arr++)
+  for(int i=0; i<size;i++,my_arr++){
     my_arr->index = -1;
+  }
 
   return first;
 }
@@ -172,8 +171,9 @@ void place_new_values2(a_node* my_arr, int size,int index, double value){
       if(my_arr[i].value <= value)
         break;
         //value should be written in i
-      for(int j = size-1; j > i+1;j--)
+      for(int j = size-1; j > i+1;j--){
         my_arr[j] = my_arr[j-1];
+      }
 
       my_arr[i+1].value = value;
       my_arr[i+1].index = index;
@@ -187,8 +187,9 @@ void place_new_values2(a_node* my_arr, int size,int index, double value){
 a_node* init_array(int K){
   a_node* my_ar = new a_node[K];
   a_node* first = my_ar;
-  for(int i=0;i<K;i++,my_ar++)
+  for(int i=0;i<K;i++,my_ar++){
     my_ar->index = -1;
+  }
 
   if(K<100)
     _place_vals_ = &place_new_values2;

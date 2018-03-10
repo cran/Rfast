@@ -1,4 +1,4 @@
 
-Pmax <- function(x,y) {
-  .Call('Rfast_pmax',PACKAGE = "Rfast",x,y)
+Pmax <- function(x,y,na.rm = FALSE) {
+  .Call('Rfast_pmax',PACKAGE = "Rfast",x,y,na.rm)
 }

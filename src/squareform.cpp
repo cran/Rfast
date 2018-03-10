@@ -1,19 +1,19 @@
 //Author: Manos Papadakis
 
 #include <RcppArmadillo.h>
-#include <algorithm>
 #include "mn.h"
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 NumericMatrix squareform_c(NumericVector x) {
   const int d = my_round(0.5 + sqrt( 1 + 8 * x.size() ) / 2.0);
   int i,j,s=0;
   NumericMatrix f(d,d);
-  for(i=0;i<d;++i)
-    for(j=i+1;j<d;++j,++s)
-      f(j,i)=x(s);
+  for(i=0;i<d;++i){
+      for(j=i+1;j<d;++j,++s){
+        f(j,i)=x(s);
+      }
+  }
   return f;
 }
 

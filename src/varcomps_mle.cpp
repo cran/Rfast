@@ -2,18 +2,17 @@
 
 #include <RcppArmadillo.h>
 #include "mn.h"
+#include "templates.h"
 
 using namespace Rcpp;
-using namespace std;
-
-
 
 // [[Rcpp::export]]
 List varcomps_mle(NumericVector x,IntegerVector ina,const int n,const double tol) {
   const double pi=3.14159265359;
   const int N=x.size(),d=N/n;
-  NumericVector y=minus_mean(x,mean(x)),syina=group_sum(y,ina,R_NilValue,R_NilValue);
-  double sy2=sum(sqr(syina)),a=0,ratio=2.0/(sqrt(5) + 1),sy=sum(sqr(y)),b=sy/N,s=b;
+  NumericVector y=minus_mean(x,mean(x)),syina=group_sum_helper<NumericVector,NumericVector,IntegerVector>(y,ina,nullptr,nullptr);
+  double sy2=sum_with< square2<double>,NumericVector>(syina),a=0,ratio=2.0/(sqrt(5) + 1),
+  sy=sum_with< square2<double>,NumericVector>(y),b=sy/N,s=b;
   double x1=b-ratio*b,x2=ratio*b;
   double se=s-x1;
   double f1=N*log(se)+n*log1p(d*x1/se)+sy/se-x1/(se*se+d*x1*se)*sy2; 

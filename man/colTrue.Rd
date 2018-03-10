@@ -1,13 +1,13 @@
-\name{Column-wise true value }
+\name{Column-wise true/false value }
 \alias{colTrue}
 \alias{colFalse}
 \alias{colTrueFalse}
 \title{
-Column-wise true value of a matrix
+Column-wise true/false value of a matrix
 }
 
 \description{
-Column-wise true value of a matrix.
+Column-wise true/false value of a matrix.
 }
 
 \usage{

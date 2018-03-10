@@ -4,7 +4,6 @@
 using namespace arma;
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 bool col_row_zero(NumericMatrix X){
   int i,n=X.nrow(),p=X.ncol();
   mat x(X.begin(),n,p,false);

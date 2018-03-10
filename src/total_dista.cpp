@@ -1,8 +1,8 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
 #include "mn.h"
+#include "templates.h"
 
-using namespace std;
 using namespace Rcpp;
 using namespace arma;
 
@@ -11,14 +11,15 @@ double total_dista(NumericMatrix Xnew, NumericMatrix X,const bool sqr) {
 	const int n=X.ncol(),nu=Xnew.ncol();
 	mat xnew(Xnew.begin(),Xnew.nrow(),nu,false),x(X.begin(),X.nrow(),n,false);
 	double a=0.0;
-    if(sqr)
+    if(sqr){
     	for(int i=0;i<nu;++i){
-        	a+=accu(square(x.each_col() - xnew.col(i)));
+        	a+=sum_with< square2<double>,mat >(x.each_col() - xnew.col(i));
     	}
-    else
+    }else{
         for(int i=0;i<nu;++i){
-            a+=sum_sqrt_mat(sum(square(x.each_col() - xnew.col(i)),0));
+            a+=sum_with<std::sqrt,rowvec>(sum(square(x.each_col() - xnew.col(i)),0));
         }
+    }
   	return a;
 }
 

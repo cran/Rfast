@@ -27,7 +27,7 @@ cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = 
       tool[1] <- n * log( sum(model$residuals^2)/n ) + con + 3 * logn 
     } else  info <- rbind(info, c(0, 0, 0))  
     if ( !is.null(model) ) {
-	  options(warn = -1)
+	options(warn = -1)
       xz <- as.vector( cor(z, x) )
       yx.z <- ( yx - xz * r ) / sqrt(1 - xz^2) / sqrt(1 - r^2)
       sel <- which.max( abs(yx.z) )
@@ -39,7 +39,7 @@ cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = 
         tool[2] <-   n * log( sum(model$residuals^2)/n ) + con + 4 * logn
         if ( tool[1] - tool[2] > tolb ) {
           info <- rbind(info, c(sel, pv, stat) )
-		  z <- cbind(z, x[, info[1:2, 1] ])
+	    z <- cbind(z, x[, info[1:2, 1] ])
           x[, info[1:2, 1] ] <- 0  
         } else  info <- rbind(info, c(0, 0, 0)) 
       } else  info <- rbind(info, c(0, 0, 0)) 
@@ -100,13 +100,14 @@ cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = 
       stat <- 0.5 * abs( log( (1 + r) / (1 - r) ) ) * sqrt(n - 4)    
       pv <- log(2) + pt(stat, n - 4, lower.tail = FALSE, log.p = TRUE)  ## logged p-values  
       if ( pv < threshold )  {
-        z <- cbind(z, x[, info[1:2, 1] ])
+        z <- cbind(z, x[, sel ])
         model <- .lm.fit(z, y ) 
         r2 <- 1 - cor(y, model$residuals )^2
         tool[2] <- 1 - (1 - r2) * (n - 1) / ( n - 3)
           if ( tool[2] - tool[1] > tolr ) {
           info <- rbind(info, c(sel, pv, stat) )
-          x[, info[1:2, 1] ] <- 0 
+	    z <- cbind(z, x[, info[1:2, 1] ])
+          x[, info[1:2, 1] ] <- 0  
         } else  info <- rbind(info, c(0, 0, 0))  
        } else  info <- rbind(info, c(0, 0, 0)) 
 
@@ -159,26 +160,26 @@ cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = 
       toolr[1] <- 1 - (1 - r2) * (n - 1 ) / ( n - 2)
       toolb[1] <- n * log( sum(model$residuals^2)/n ) + con + 3 * logn 
     } else  info <- rbind(info, c(0, 0, 0))
-    if ( !is.null(model) ) {
+      if ( !is.null(model) ) {
 	  options(warn = -1)
-      xz <- as.vector( cor(z, x) )
-      yx.z <- ( yx - xz * r ) / sqrt(1 - xz^2) / sqrt(1 - r2)
-      sel <- which.max( abs(yx.z) )
-      r <- yx.z[sel]
-      stat <- 0.5 * abs( log( (1 + r) / (1 - r) ) ) * sqrt(n - 4)    
-      pv <- log(2) + pt(stat, n - 4, lower.tail = FALSE, log.p = TRUE)  ## logged p-values  
-      if ( pv < threshold )  {
-        z <- cbind(z, x[, info[1:2, 1] ])
-        model <- .lm.fit(z, y ) 
-        r2 <- 1 - cor(y, model$residuals )^2
-        toolr[2] <- 1 - (1 - r2) * (n - 1) / ( n - 3)
-        toolb[2] <-  n * log( sum( model$residuals^2)/n ) + con + 4 * logn
+        xz <- as.vector( cor(z, x) )
+        yx.z <- ( yx - xz * r ) / sqrt(1 - xz^2) / sqrt(1 - r2)
+        sel <- which.max( abs(yx.z) )
+        r <- yx.z[sel]
+        stat <- 0.5 * abs( log( (1 + r) / (1 - r) ) ) * sqrt(n - 4)    
+        pv <- log(2) + pt(stat, n - 4, lower.tail = FALSE, log.p = TRUE)  ## logged p-values  
+        if ( pv < threshold )  {
+          z <- cbind(z, x[, sel])
+          model <- .lm.fit(z, y ) 
+          r2 <- 1 - cor(y, model$residuals )^2
+          toolr[2] <- 1 - (1 - r2) * (n - 1) / ( n - 3)
+          toolb[2] <-  n * log( sum( model$residuals^2)/n ) + con + 4 * logn
           if ( toolb[1] - toolb[2] > tolb  &  toolr[2] - toolr[1] > tolr ) {
-          info <- rbind(info, c(sel, pv, stat) )
-          x[, info[1:2, 1] ] <- 0 
-        } else  info <- rbind(info, c(0, 0, 0))  
-       } else  info <- rbind(info, c(0, 0, 0)) 
-
+            info <- rbind(info, c(sel, pv, stat) )
+	      z <- cbind(z, x[, info[1:2, 1] ])
+            x[, info[1:2, 1] ] <- 0 
+          } else  info <- rbind(info, c(0, 0, 0))  
+        } else  info <- rbind(info, c(0, 0, 0)) 
     }
     k <- 2
   

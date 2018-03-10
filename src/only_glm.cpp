@@ -2,18 +2,9 @@
 
 #include "only_glm.h"
 
-static colvec operator^(const char a,const colvec y){
-  int i,yrow=y.n_elem;
-  colvec Y(yrow);
-  for(i=0;i<yrow;i++)
-      Y(i)=exp(y(i));
-  return Y;
-}
-
 NumericVector logistic_only(NumericMatrix& X,NumericVector& Y,const double my){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=2;
   unsigned int j,i;
-  char e='e';
   colvec b_old(d),b_new(d),L1(d),yhat(n),expyhat,y(Y.begin(),n,false),W(n,fill::zeros),p(n),z_tr_i(n),x2_col;
   mat z(n,2,fill::ones),inv_L2(d,d),z_tr(2,n,fill::ones),x(X.begin(),n,pcols,false);
   NumericVector F(pcols);
@@ -29,7 +20,7 @@ NumericVector logistic_only(NumericMatrix& X,NumericVector& Y,const double my){
     for(dif=1.0,s=0.0;dif>0.000000001;){
       sw=szw=sz2w=0.0;
       yhat = z*b_old;
-      expyhat=(e^yhat);
+      expyhat=exp(yhat);
       p = expyhat / ( 1 + expyhat );
       for(j=0;j<n;j++){
         t=p.at(j);
@@ -57,7 +48,6 @@ NumericVector logistic_only(NumericMatrix& X,NumericVector& Y,const double my){
 NumericVector poisson_only(NumericMatrix& X,NumericVector& Y,const double ylogy,const double my){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=2;
   unsigned int i;
-  char e='e';
   colvec b_old(d),b_new(d),L1(d),yhat(n),y(Y.begin(),n,false);
   mat z(n,2,fill::ones),inv_L2(d,d),ytr=y.t(),z_tr(2,n,fill::ones),x(X.begin(),n,pcols,false);
   vec m(n),z_col_1(n);
@@ -72,7 +62,7 @@ NumericVector poisson_only(NumericMatrix& X,NumericVector& Y,const double ylogy,
     for(dif=1.0;dif>0.000000001;){
       sm=szm=sz2m=0.0;
       yhat=z*b_old;
-      m=(e^yhat);
+      m=exp(yhat);
       L1=z_tr*(y-m);
       sm=sum(m);
       szm=sum(m%z_col_1);
@@ -93,7 +83,6 @@ NumericVector poisson_only(NumericMatrix& X,NumericVector& Y,const double ylogy,
 double glm_logistic(NumericMatrix& X,NumericVector& Y,const double my){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=pcols+1;
   unsigned int j;
-  const char e='e';
   colvec b_old(d,fill::zeros),b_new(d),L1(d),yhat(n),expyhat,y(Y.begin(),n,false),W(n,fill::zeros);
   mat L2,x(X.begin(),n,pcols,false),x_tr(n,pcols+1);
   vec p(n);
@@ -104,7 +93,7 @@ double glm_logistic(NumericMatrix& X,NumericVector& Y,const double my){
   b_old(0)=log(my)-log(1-my);
   for(dif=1.0;dif>0.000000001;){
     yhat = x*b_old;
-    expyhat=(e^yhat);
+    expyhat=exp(yhat);
     p = expyhat / ( 1 + expyhat );
     for(j=0;j<n;++j){
       t=p.at(j);
@@ -126,7 +115,6 @@ double glm_logistic(NumericMatrix& X,NumericVector& Y,const double my){
 double arma_glm_logistic(mat x,vec y,const double my) {
   const unsigned int n=x.n_rows,pcols=x.n_cols,d=pcols+1;
   unsigned int j;
-  const char e='e';
   colvec b_old(d,fill::zeros),b_new(d),L1(d),yhat(n),expyhat,W(n,fill::zeros);
   mat L2,x_tr(n,pcols+1);
   vec p(n);
@@ -137,7 +125,7 @@ double arma_glm_logistic(mat x,vec y,const double my) {
   b_old(0)=log(my)-log(1-my);
   for(dif=1.0;dif>0.000000001;){
     yhat = x*b_old;
-    expyhat=(e^yhat);
+    expyhat=exp(yhat);
     p = expyhat / ( 1 + expyhat );
     for(j=0;j<n;++j){
       t=p.at(j);
@@ -158,7 +146,6 @@ double arma_glm_logistic(mat x,vec y,const double my) {
 
 double glm_poisson(NumericMatrix& X,NumericVector& Y,const double ylogy,const double my){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=pcols+1;
-  char e='e';
   colvec b_old(d,fill::zeros),b_new(d),L1(d),yhat(n),y(Y.begin(),n,false),m(n);
   mat L2,x(X.begin(),n,pcols,false),x_tr(n,pcols+1);
   double dif;
@@ -167,7 +154,7 @@ double glm_poisson(NumericMatrix& X,NumericVector& Y,const double ylogy,const do
   x_tr=x.t();
   for(dif=1.0;dif>0.000000001;){
     yhat=x*b_old;
-    m=(e^yhat);
+    m=exp(yhat);
     L1=x_tr*(y-m);
     L2=x.each_col()%m;
     L2=x_tr*L2;
@@ -180,7 +167,6 @@ double glm_poisson(NumericMatrix& X,NumericVector& Y,const double ylogy,const do
 
 double arma_glm_poisson(mat x,vec y,const double ylogy,const double my){
   const unsigned int n=x.n_rows,pcols=x.n_cols,d=pcols+1;
-  char e='e';
   colvec b_old(d,fill::zeros),b_new(d),L1(d),yhat(n),m(n);
   mat L2,x_tr(n,pcols+1);
   double dif;
@@ -189,7 +175,7 @@ double arma_glm_poisson(mat x,vec y,const double ylogy,const double my){
   x_tr=x.t();
   for(dif=1.0;dif>0.000000001;){
     yhat=x*b_old;
-    m=(e^yhat);
+    m=exp(yhat);
     L1=x_tr*(y-m);
     L2=x.each_col()%m;
     L2=x_tr*L2;
@@ -242,7 +228,6 @@ static double calc_bic(arma::colvec& y, arma::colvec& p, const unsigned int n) {
 NumericVector qs_binom_only(NumericMatrix& X, NumericVector& Y, const double my){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=2;
   unsigned int j,i;
-  char e='e';
   colvec b_old(d),b_new(d),L1(d),yhat(n),expyhat,y(Y.begin(),n,false),W(n,fill::zeros),p(n),z_tr_i(n),x2_col,u(n,fill::zeros),u2(n);
   mat z(n,2,fill::ones),inv_L2(d,d),z_tr(2,n,fill::ones),x(X.begin(),n,pcols,false);
   arma::colvec f(pcols);
@@ -258,7 +243,7 @@ NumericVector qs_binom_only(NumericMatrix& X, NumericVector& Y, const double my)
     for(dif=1.0,s=0.0;dif>0.000000001;){
       sw=szw=sz2w=0.0;
       yhat = z*b_old;
-      expyhat=(e^yhat);
+      expyhat=exp(yhat);
       p = expyhat / ( 1 + expyhat );
       for(j=0;j<n;j++){
         t=p.at(j);
@@ -289,7 +274,6 @@ NumericVector qs_binom_only(NumericMatrix& X, NumericVector& Y, const double my)
 NumericVector qs_poisson_only(NumericMatrix& X, NumericVector& Y, const double ylogy, const double my){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=2;
   unsigned int i;
-  char e='e';
   colvec b_old(d),b_new(d),L1(d),yhat(n),y(Y.begin(),n,false);
   mat z(n,2,fill::ones),inv_L2(d,d),ytr=y.t(),z_tr(2,n,fill::ones),x(X.begin(),n,pcols,false);
   vec m(n),z_col_1(n);
@@ -305,7 +289,7 @@ NumericVector qs_poisson_only(NumericMatrix& X, NumericVector& Y, const double y
     for(dif=1.0;dif>0.000000001;){
       sm=szm=sz2m=0.0;
       yhat=z*b_old;
-      m=(e^yhat);
+      m=exp(yhat);
       L1=z_tr*(y-m);
       sm=sum(m);
       szm=sum(m%z_col_1);
@@ -328,7 +312,6 @@ NumericVector qs_poisson_only(NumericMatrix& X, NumericVector& Y, const double y
 NumericVector glm_qs_binom(NumericMatrix& X,NumericVector& Y,const double my){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=pcols+1;
   unsigned int j,itters=0;
-  const char e='e';
   colvec b_old(d,fill::zeros),b_new(d),L1(d),yhat(n),expyhat,y(Y.begin(),n,false),W(n,fill::zeros);
   mat L2,x(X.begin(),n,pcols,false),x_tr(n,pcols+1);
   vec p(n);
@@ -338,7 +321,7 @@ NumericVector glm_qs_binom(NumericMatrix& X,NumericVector& Y,const double my){
   b_old(0)=log(my)-log(1-my);
   for(dif=1.0;dif>0.000000001;++itters){
     yhat = x*b_old;
-    expyhat=(e^yhat);
+    expyhat=exp(yhat);
     p = expyhat / ( 1 + expyhat );
     for(j=0;j<n;++j){
       t=p.at(j);
@@ -360,7 +343,6 @@ NumericVector glm_qs_binom(NumericMatrix& X,NumericVector& Y,const double my){
 
 NumericVector glm_qs_poisson(NumericMatrix& X,NumericVector& Y,const double ylogy,const double my){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=pcols+1;
-  char e='e';
   colvec b_old(d,fill::zeros),b_new(d),L1(d),yhat(n),y(Y.begin(),n,false),m(n);
   mat L2,x(X.begin(),n,pcols,false),x_tr(n,pcols+1);
   double dif;
@@ -369,7 +351,7 @@ NumericVector glm_qs_poisson(NumericMatrix& X,NumericVector& Y,const double ylog
   x_tr=x.t();
   for(dif=1.0;dif>0.000000001;){
     yhat=x*b_old;
-    m=(e^yhat);
+    m=exp(yhat);
     L1=x_tr*(y-m);
     L2=x.each_col()%m;
     L2=x_tr*L2;

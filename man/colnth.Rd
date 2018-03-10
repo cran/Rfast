@@ -13,7 +13,7 @@ Column and row-wise nth smallest value of a matrix/vector.
 \usage{
 colnth(x,elems, parallel = FALSE)
 rownth(x,elems, parallel = FALSE)
-nth(x, k,descending=FALSE,index.return=FALSE)
+nth(x, k,descending = FALSE,index.return = FALSE,na.rm = FALSE)
 }
 
 \arguments{
@@ -34,6 +34,9 @@ Return the index of the kth smallest/biggest number.
 }
 \item{parallel}{
 Do you want to do it in parallel in C++? TRUE or FALSE only for col-row wise.
+}
+\item{na.rm}{
+TRUE or FAlSE for remove NAs if exists. Only for function "nth".
 }
 }
 

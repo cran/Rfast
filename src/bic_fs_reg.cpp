@@ -1,7 +1,7 @@
 #include "calc_bic_fs_reg.h"
 
 using namespace Rcpp;
-using namespace std;
+using std::string;
 
 // [[Rcpp::export]]
 NumericMatrix bic_fs_reg(NumericVector y, NumericMatrix ds,const double tol, const string type) {

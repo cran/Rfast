@@ -2,18 +2,9 @@
 
 #include "calc_qpois_regs.h"
 
-static colvec operator^(const char a,const colvec y){
-  int i,yrow=y.n_elem;
-  colvec Y(yrow);
-  for(i=0;i<yrow;i++)
-      Y(i)=exp(y(i));
-  return Y;
-}
-
 arma::vec calc_qpois_regs(arma::mat& x,arma::vec& y,const double tol,const double ylogy,const double my) {
   const unsigned int n=x.n_rows,pcols=x.n_cols,d=2;
   unsigned int i;
-  char e='e';
   colvec b_old(d),b_new(d),L1(d),yhat(n);
   mat z(n,2,fill::ones),inv_L2(d,d),ytr=y.t(),z_tr(2,n,fill::ones);
   vec m(n),z_col_1(n);
@@ -28,7 +19,7 @@ arma::vec calc_qpois_regs(arma::mat& x,arma::vec& y,const double tol,const doubl
     for(dif=1.0;dif > 0.000000001 && dif > tol;){
       sm=szm=sz2m=0.0;
       yhat=z*b_old;
-      m=(e^yhat);
+      m=exp(yhat);
       L1=z_tr*(y-m);
       sm=sum(m);
       szm=sum(m%z_col_1);

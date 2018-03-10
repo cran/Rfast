@@ -8,9 +8,7 @@
 #include <Rinternals.h>
 
 using namespace Rcpp;
-using namespace arma;
 
-//[[Rcpp::export]]
 SEXP rep_col(SEXP x,const int n){
 	const int p=Rf_length(x);
 	SEXP f;
@@ -19,17 +17,21 @@ SEXP rep_col(SEXP x,const int n){
 		case INTSXP:{
 			f=PROTECT(Rf_allocMatrix(INTSXP,p,n));
 			int *ff=INTEGER(f),*xx=INTEGER(x),*start=xx;
-			for(i=0;i<n;++i)
-				for(start=xx,j=0;j<p;++j,++ff,++start)
+			for(i=0;i<n;++i){
+				for(start=xx,j=0;j<p;++j,++ff,++start){
 					*ff=*start;
+				}
+			}
 			break;
 		}
 		default:{
 			f=PROTECT(Rf_allocMatrix(REALSXP,p,n));
 			double *ff=REAL(f),*xx=REAL(x),*start=xx;
-		  	for(i=0;i<n;++i)
-				for(start=xx,j=0;j<p;++j,++ff,++start)
+		  	for(i=0;i<n;++i){
+				for(start=xx,j=0;j<p;++j,++ff,++start){
 					*ff=*start;
+				}
+		  	}
 		 	break;
 		}
 	}
@@ -49,7 +51,6 @@ END_RCPP
 
 
 
-//[[Rcpp::export]]
 SEXP rep_row(SEXP x,const int n){
 	const int p=Rf_length(x);
 	SEXP F;

@@ -1,5 +1,6 @@
 geom.anova <- function (y, ina, type = 1, logged = FALSE) {
   ni <- tabulate(ina)
+  ni <- ni[ni > 0]
   k <- length(ni)
   if (type == 1) {   
      si <- rowsum(y, ina)

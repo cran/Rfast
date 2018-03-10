@@ -3,6 +3,8 @@
 \alias{poisson.nb}
 \alias{multinom.nb}
 \alias{geom.nb}
+\alias{gammanb}
+
 \title{
 Naive Bayes classifiers
 }
@@ -15,7 +17,8 @@ Gaussian, Poisson, geometric and multinomial naive Bayes classifiers.
 gaussian.nb(xnew = NULL, x, ina)
 poisson.nb(xnew, x, ina)
 multinom.nb(xnew, x, ina) 
-geom.nb(xnew, x, ina, type = 1)  
+geom.nb(xnew, x, ina, type = 1)
+gammanb(xnew = NULL, x, ina, tol = 1e-07)   
 }
 
 \arguments{
@@ -36,13 +39,13 @@ Alternatively this can be a factor variable.
 }
 \item{type}{
 Type 1 refers to the case where the minimum is zero and type 2 for the case of the minimum being 1. This 
-is for the geometric distribution.
-}
-
-This argument is for the geometric distribution. Type 1 refers to the case where the minimum is zero and type 2 for 
+is for the geometric distribution. This argument is for the geometric distribution. Type 1 refers to the case where the minimum is zero and type 2 for 
 the case of the minimum being 1. 
 }
-
+\item{tol}{
+The tolerance value to terminate the Newton-Raphson algorithm in the gamma distribution.
+}
+}
 %\details{
 %
 %}
@@ -58,6 +61,18 @@ A matrix with the variance of each group and variable based on the dataset.
 }
 \item{ni}{
 The sample size of each group in the dataset.
+}
+\item{est}{
+The estimated group of the xnew observations. It returns a numerical value back regardless of the target 
+variable being numerical as well or factor. Hence, it is suggested that you do \"as.numeric(target)\" in order to 
+see what is the predicted class of the new data. 
+}
+For the Gamma classifier a list including:
+\item{a}{
+A matrix with the shape parameters.
+}
+\item{b}{
+A matrix with the scale parameters.
 }
 \item{est}{
 The estimated group of the xnew observations. It returns a numerical value back regardless of the target 
@@ -94,9 +109,3 @@ poisson.nb(x, x, ina)
 geom.nb(x, x, ina)
 multinom.nb(x, x, ina)
 }
-
-\keyword{ Discrimination }
-\keyword{ naive Bayes }
-\keyword{ normal distribution }
-\keyword{ Poisson distribution }
-\keyword{ multinomial distribution }

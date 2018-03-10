@@ -5,10 +5,13 @@
 #include <string>
 #include <ctime>
 #include <RcppArmadillo.h>
+#include "calc_perm_cor.h"
 #include "cts.h"
 
+// [[Rcpp::plugins("cpp11")]]
 // [[Rcpp::depends("RcppArmadillo")]]
 
-Rcpp::List calc_pc_skel(arma::mat& ds, const std::string method, const double sig, const unsigned int r);
+Rcpp::List calc_pc_skel(arma::mat& ds, const std::string method, const double sig, const unsigned int r, 
+		arma::mat& stats_init, arma::mat& pvalues_init, arma::ivec& is_init_vals);
 
 #endif

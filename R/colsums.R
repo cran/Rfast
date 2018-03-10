@@ -1,8 +1,8 @@
 
-colsums <- function(x,parallel = FALSE) {
+colsums <- function(x,indices = NULL,parallel = FALSE) {
 	if(parallel){
-		.Call('Rfast_col_sum_p', PACKAGE = 'Rfast',x)
+		.Call('Rfast_col_sums_p', PACKAGE = 'Rfast',x)
 	}else{
-  		as.vector(.Call('Rfast_col_sums', PACKAGE = 'Rfast',x))
+  		.Call('Rfast_col_sums', PACKAGE = 'Rfast',x,indices)
 	}
 }

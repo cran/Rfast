@@ -7,19 +7,18 @@
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 NumericMatrix diag_matrix_fill_scalar(const int len,const double v){
   SEXP f=PROTECT(Rf_allocMatrix(REALSXP,len,len));
   double *ff=REAL(f),*endf=ff+len*len;
-  for(;ff!=endf;++ff)
+  for(;ff!=endf;++ff){
     *ff=0;
+  }
   NumericMatrix x(f);
   x.fill_diag(v);
   UNPROTECT(1);
   return x;
 }
 
-//[[Rcpp::export]]
 SEXP diag_matrix_fill_vec(const int len,SEXP v){
   SEXP f=PROTECT(Rf_allocMatrix(TYPEOF(v),len,len));
   const int len_1=len+1;
@@ -27,15 +26,17 @@ SEXP diag_matrix_fill_vec(const int len,SEXP v){
   	case REALSXP:{
   	  double *ff=REAL(f),*vv=REAL(v),*endf=ff+len*len;
   	  *ff++=*vv++;
-  	  for(int i=1;ff!=endf;++ff,++i)
+  	  for(int i=1;ff!=endf;++ff,++i){
   	      i==len_1 ? *ff=*vv++,i=0 : *ff=0;
+      }
       break;
   	}
   	default:{
   	  int *ff=INTEGER(f),*vv=INTEGER(v),*endf=ff+len*len;
   	  *ff++=*vv++;
-  	  for(int i=1;ff!=endf;++ff,++i)
+  	  for(int i=1;ff!=endf;++ff,++i){
   	      i==len_1 ? *ff=*vv++,i=0 : *ff=0;
+      }
   	  break;
     }
   }
@@ -43,14 +44,12 @@ SEXP diag_matrix_fill_vec(const int len,SEXP v){
   return f;
 }
 
-//[[Rcpp::export]]
 NumericMatrix diag_fill_scalar(NumericMatrix x,const double v){
   NumericMatrix y=clone(x);
   y.fill_diag(v);
   return y;
 }
 
-//[[Rcpp::export]]
 SEXP diag_fill_vec(SEXP x,SEXP v){
   SEXP f=PROTECT(Rf_duplicate(x));
   const int len=Rf_ncols(x),len_1=len+1;

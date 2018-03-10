@@ -7,7 +7,7 @@
 }
 
 \usage{
-mahala(x, mu, sigma, ischol)
+mahala(x, mu, sigma, ischol = FALSE)
 }
 
 \arguments{

@@ -1,8 +1,9 @@
 poisson.anova <- function(y, ina, logged = FALSE) {
   ni <- tabulate(ina)
+  ni <- ni[ni > 0]
   k <- length(ni)
   n <- sum(ni)
-  si <- rowsum(y, ina)
+  si <- group.sum(y, ina)
   mi <- si/ni
   d1 <- sum( si * log(mi) )
   d0 <- sum(si) * log(sum(si)/n)  

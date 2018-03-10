@@ -5,7 +5,6 @@ tobit.mle <- function(y, tol = 1e-09) {
   sy12 <- sum(y1^2)
   m <- mean(y)   ;  s <- sqrt( sy12/n - m^2 )
   sy1 <- n * m
-  z <- y1 - m
   com <- dnorm(m, 0, s) / pnorm(-m/s)
   derm <- (sy1 - n1 * m)/s^2 - n0 * com
   derm2 <-  -n1/s^2 - n0 * ( -m /s^2 * com + com^2 ) 
@@ -19,7 +18,6 @@ tobit.mle <- function(y, tol = 1e-09) {
     i <- i + 1
     aold <- anew   
     m <- anew[1]     ;    s <- exp( anew[2] )
-    z <- y1 - m
     com <- dnorm(m, 0, s) / pnorm(-m/s, 0, 1)
     derm <- (sy1 - n1 * m)/s^2 - n0 * com
     derm2 <-  - n1/s^2 - n0 * ( -m /s^2 * com + com^2 ) 
@@ -29,7 +27,7 @@ tobit.mle <- function(y, tol = 1e-09) {
     anew <- aold - c( ders2 * derm - derms * ders, - derms * derm + derm2 * ders ) / ( derm2 * ders2 - derms^2 )
   }
   s <- exp(anew[2])
-  loglik <-  - 0.5 * n1 * log(2 * pi * s^2) - 0.5 * sum( z^2 / s^2) + n0 * log( pnorm(-m/s) )
+  loglik <-  - 0.5 * n1 * log(2 * pi * s^2) - 0.5 * ( sy12 - 2 * m * sy1 + n1 * m^2 ) / s^2 + n0 * log( pnorm(-m/s) )
   param <- c(anew[1], s)
   names(param) <- c("location", "scale")
   list(iters = i, loglik = loglik, param = param)

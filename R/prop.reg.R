@@ -1,6 +1,6 @@
 prop.reg <- function (y, x, varb = "quasi", tol = 1e-09, maxiters = 100) {
     X <- model.matrix(~., data.frame(x))
-    L <- .Call("Rfast_prop_reg", X, y, tol, maxiters)
+    L <- .Call("Rfast_prop_reg",PACKAGE = "Rfast", X, y, tol, maxiters)
     der2 <- L$der2
     u <- y - as.vector(L$p)
     bnew <- as.vector(L$be)

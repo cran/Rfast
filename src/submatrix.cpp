@@ -4,7 +4,6 @@
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 NumericMatrix submatrix(NumericMatrix x,const int rowstart,const int rowend,const int colstart,const int colend){
   return x(Range(rowstart-1,rowend-1),Range(colstart-1,colend-1));
 }

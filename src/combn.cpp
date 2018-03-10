@@ -6,9 +6,9 @@
 #include "mn.h"
 
 using namespace Rcpp;
-using namespace std;
+using std::prev_permutation;
+using std::vector;
 
-//[[Rcpp::export]]
 SEXP k_comb_n(const int N, const int K){
   SEXP x=Rf_allocVector(INTSXP,K*R::choose(N,K));
   int *xx=INTEGER(x);

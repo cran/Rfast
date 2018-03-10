@@ -4,11 +4,10 @@
 #include <vector>
 
 using namespace Rcpp;
-using namespace std;
+using std::vector;
 
-//[[Rcpp::export]]
-IntegerVector which_isFactor(DataFrame x){
-  IntegerVector P;
+vector<int> which_isFactor(DataFrame x){
+  vector<int> P;
   DataFrame::iterator xx=x.begin();
   for(int i=1;xx!=x.end();++xx,++i)
     if(Rf_isFactor(*xx))

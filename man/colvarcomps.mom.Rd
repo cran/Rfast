@@ -103,4 +103,3 @@ mean(a[, 4]<0 & a[, 5]>0)
 b <- colvarcomps.mle(x, id) 
 x <- NULL
 }
-

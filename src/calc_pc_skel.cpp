@@ -11,6 +11,8 @@
 #define dbl_print(...) \
 	do { if (DEBUG_L) Rprintf(__VA_ARGS__); } while (0)
 
+#define INIT_STAT_POS 0
+#define INIT_PVALUE_POS 1
 
 struct mth_t {
 	bool is_pearson_method;
@@ -18,64 +20,66 @@ struct mth_t {
 	bool is_cat_method;
 };
 
-std::vector<unsigned int> loc_inactv_pos(arma::mat& sig_pairs,
+static std::vector<unsigned int> loc_inactv_pos(arma::mat& sig_pairs,
 		arma::mat& st, const unsigned int row);
 
 // Alters sig_pairs
-unsigned int upd_state(arma::mat& st, arma::mat& sig_pairs, arma::mat& ch, 
+static unsigned int upd_state(arma::mat& st, arma::mat& sig_pairs, arma::mat& ch, 
 		const unsigned int k, const unsigned int el, Rcpp::List& sep);
 
 // Alters st, ch
-void update_st_ch(arma::mat& st, arma::mat& ch, arma::mat& sam, 
+static void update_st_ch(arma::mat& st, arma::mat& ch, arma::mat& sam, 
 		arma::vec& cat_condi, const unsigned int spo_i0, const unsigned int spo_i1, 
 		const unsigned int curr_row, const unsigned int m, const unsigned int k);
 
-arma::vec calc_cat_condi(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, 
+static arma::vec calc_cat_condi(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, 
 		arma::mat& sam, const unsigned int spo_i0, const unsigned int spo_i1, 
 		const unsigned int m, const unsigned int k,
 		const bool is_cat_method, const std::string method, const unsigned int r);
 
 // Alters sam
-void calc_sam(arma::mat& pvalues, std::vector<unsigned int>& adj,
+static void calc_sam(arma::mat& pvalues, std::vector<unsigned int>& adj,
 		const unsigned int spo_row, const unsigned int k, arma::mat& sam);
 
 // Alters xadj, yadj
-void calc_adj(arma::mat& st, const unsigned int xrow, const unsigned int yrow,
+static void calc_adj(arma::mat& st, const unsigned int xrow, const unsigned int yrow,
 		std::vector<unsigned int>& xadj, std::vector<unsigned int>& yadj);
 
-unsigned int link_vars(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, arma::mat& pvalues, 
+static unsigned int link_vars(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, arma::mat& pvalues, 
 		arma::mat& st, arma::mat& sig_pairs, arma::mat& ch, 
 		const mth_t mth, const std::string method, const double sig_log, 
 		const unsigned int k, const unsigned int r);
 
 // Alters pvalues, st
-arma::mat form_st_sig_pairs(const unsigned int ds_nrows, const unsigned int ds_ncols, const double sig_log, 
+static arma::mat form_st_sig_pairs(const unsigned int ds_nrows, const unsigned int ds_ncols, const double sig_log, 
 		arma::mat& test_stats, arma::mat& pvalues, arma::mat& st);
 
 // Alters test_stats_abs, test_stats, pvalues
-void init_cat_data(arma::mat& ds, arma::uvec& max_min, 
+static void init_cat_data(arma::mat& ds, arma::uvec& max_min, 
 		arma::mat& test_stats_abs, arma::mat& test_stats, arma::mat& pvalues);
 
 // Alters test_stats_abs, test_stats, pvalues
-void init_pearson_spearman_yp_data(arma::mat& ds, 
+static void init_pearson_spearman_yp_data(arma::mat& ds, 
 		arma::mat& test_stats_abs, arma::mat& test_stats, arma::mat& pvalues, const unsigned int r);
 
 // Alters test_stats_abs
-void calc_test_stats(arma::mat& cor_ds, const unsigned int ds_nrows, const double div, arma::mat& test_stats_abs);
+static void calc_test_stats(arma::mat& cor_ds, const unsigned int ds_nrows, const double div, arma::mat& test_stats_abs);
 
 // Alters cor_ds, test_stats_abs, test_stats, pvalues
-void init_pearson_spearman_np_data(arma::mat& ds, arma::mat& cor_ds, 
+static void init_pearson_spearman_np_data(arma::mat& ds, arma::mat& cor_ds, 
 		arma::mat& test_stats_abs, arma::mat& test_stats, arma::mat& pvalues, 
 		const bool is_pearson_method);
 
-void init_data(arma::mat& ds, arma::uvec& max_min, arma::mat& cor_ds, 
+static void init_data(arma::mat& ds, arma::uvec& max_min, arma::mat& cor_ds, 
 		arma::mat& test_stats_abs, arma::mat& test_stats, arma::mat& pvalues, 
-		const mth_t mth, const unsigned int r);
+		const mth_t mth, const unsigned int r, 
+		arma::mat& stats_init, arma::mat& pvalues_init, arma::ivec& is_init_vals);
 
 // Alters ds
-void check_NAs(arma::mat& ds, const unsigned int nrows, const unsigned int ncols, const bool is_cat_method);
+static void check_NAs(arma::mat& ds, const unsigned int nrows, const unsigned int ncols, const bool is_cat_method);
 
-Rcpp::List calc_pc_skel(arma::mat& ds, const std::string method, const double sig, const unsigned int r) {
+Rcpp::List calc_pc_skel(arma::mat& ds, const std::string method, const double sig, const unsigned int r, 
+		arma::mat& stats_init, arma::mat& pvalues_init, arma::ivec& is_init_vals) {
 	mth_t mth;
 	mth.is_pearson_method = !method.compare("pearson");
 	mth.is_spearman_method = !method.compare("spearman");
@@ -110,9 +114,11 @@ Rcpp::List calc_pc_skel(arma::mat& ds, const std::string method, const double si
 	arma::mat test_stats_abs(ds_ncols, ds_ncols, arma::fill::zeros);
 	arma::mat test_stats(ds_ncols, ds_ncols, arma::fill::zeros);
 	arma::mat pvalues(ds_ncols, ds_ncols, arma::fill::zeros);
-	init_data(ds, max_min, cor_ds, test_stats_abs, test_stats, pvalues, mth, r);
+	init_data(ds, max_min, cor_ds, test_stats_abs, test_stats, pvalues, mth, r, 
+			stats_init, pvalues_init, is_init_vals);
+	pvalues_init = pvalues;
 
-	db_print("Forming matrix sig_pairs/updating test_stats, pvalues.\n");
+	db_print("Forming matrix sig_pairs/updating pvalues.\n");
 	arma::mat st(ds_ncols, ds_ncols, arma::fill::zeros);
 	arma::mat sig_pairs = form_st_sig_pairs(ds_nrows, ds_ncols, sig_log, 
 			test_stats, pvalues, st);
@@ -152,14 +158,15 @@ Rcpp::List calc_pc_skel(arma::mat& ds, const std::string method, const double si
 		clock_t end = clock();
 		double time_spent = (double) (end - begin) / CLOCKS_PER_SEC;
 		Rcpp::List ret; 
-		ret["stat"] = test_stats_abs; ret["pvalue"] = pvalues; ret["runtime"] = time_spent;
-		ret["kappa"] = tests.size() - 1; ret["n.tests"] = tests; ret["G"] = st; ret["sepset"] = sep;
+		ret["stat"] = test_stats_abs; ret["ini.pvalue"] = pvalues_init; ret["pvalue"] = pvalues; 
+		ret["runtime"] = time_spent; ret["kappa"] = tests.size() - 1; ret["n.tests"] = tests; 
+		ret["G"] = st; ret["sepset"] = sep;
 		return ret;
 	}
 	return NILSXP;
 }
 
-void check_NAs(arma::mat& ds, const unsigned int nrows, const unsigned int ncols, const bool is_cat_method) {
+static void check_NAs(arma::mat& ds, const unsigned int nrows, const unsigned int ncols, const bool is_cat_method) {
 	bool found_NA = false;
 	if (!is_cat_method) {
 		found_NA = adj_med_NAs(ds);
@@ -174,9 +181,22 @@ void check_NAs(arma::mat& ds, const unsigned int nrows, const unsigned int ncols
 	}
 }
 
-void init_data(arma::mat& ds, arma::uvec& max_min, arma::mat& cor_ds, 
+static void init_data(arma::mat& ds, arma::uvec& max_min, arma::mat& cor_ds, 
 		arma::mat& test_stats_abs, arma::mat& test_stats, arma::mat& pvalues, 
-		const mth_t mth, const unsigned int r) {
+		const mth_t mth, const unsigned int r, 
+		arma::mat& stats_init, arma::mat& pvalues_init, arma::ivec& is_init_vals) {
+	if (!mth.is_cat_method) {
+		db_print("!mth.is_cat_method\n");
+		db_print("Calculating cor_ds.\n");
+		cor_ds = arma::cor(ds);
+	}
+	if (is_init_vals(INIT_STAT_POS) && is_init_vals(INIT_PVALUE_POS)) {
+		db_print("is_init_vals(INIT_STAT_POS) && is_init_vals(INIT_PVALUE_POS)\n");
+		pvalues = pvalues_init;
+		test_stats_abs = stats_init;
+		test_stats = stats_init / (ds.n_rows - 3);
+		return;
+	}
 	if (!mth.is_cat_method) {
 		db_print("!is_cat_method\n");
 		if (r == 1) {
@@ -194,11 +214,9 @@ void init_data(arma::mat& ds, arma::uvec& max_min, arma::mat& cor_ds,
 	}
 }
 		
-void init_pearson_spearman_np_data(arma::mat& ds, arma::mat& cor_ds, 
+static void init_pearson_spearman_np_data(arma::mat& ds, arma::mat& cor_ds, 
 		arma::mat& test_stats_abs, arma::mat& test_stats, arma::mat& pvalues, 
 		const bool is_pearson_method) { 
-	db_print("Calculating cor_ds.\n");
-	cor_ds = arma::cor(ds);
 	db_print("Calculating test_stats_abs.\n");
 	if (is_pearson_method) {
 		calc_test_stats(cor_ds, ds.n_rows, 1, test_stats_abs);
@@ -211,7 +229,7 @@ void init_pearson_spearman_np_data(arma::mat& ds, arma::mat& cor_ds,
 	pvalues = calc_pt(test_stats_abs, ds.n_rows - 3, false, true, std::log(2));
 }
 
-void calc_test_stats(arma::mat& cor_ds, const unsigned int ds_nrows, const double div, arma::mat& test_stats_abs) {
+static void calc_test_stats(arma::mat& cor_ds, const unsigned int ds_nrows, const double div, arma::mat& test_stats_abs) {
 	for (unsigned int i = 0; i < cor_ds.n_rows; i++) {
 		for (unsigned int j = 0; j < cor_ds.n_cols; j++) {
 			if (i == j) {
@@ -223,15 +241,16 @@ void calc_test_stats(arma::mat& cor_ds, const unsigned int ds_nrows, const doubl
 	}
 }
 
-void init_pearson_spearman_yp_data(arma::mat& ds, 
+static void init_pearson_spearman_yp_data(arma::mat& ds, 
 		arma::mat& test_stats_abs, arma::mat& test_stats, arma::mat& pvalues, const unsigned int r) {
 	db_print("Calculating test_stats_abs, test_stats, and pvalues.\n");
 	arma::mat tmp_test_stats(ds.n_cols, ds.n_cols, arma::fill::zeros);
 	arma::mat tmp_pvalues(ds.n_cols, ds.n_cols, arma::fill::zeros);
 	for (unsigned int i = 0; i < ds.n_cols - 1; i++) {
 		for (unsigned int j = i + 1; j < ds.n_cols; j++) {
-			arma::mat tmp_ds = ext_cols(ds, i, j);
-			arma::vec pc = perm_cor(tmp_ds, r);
+			arma::vec ds_c0 = ds.col(i);
+			arma::vec ds_c1 = ds.col(j);
+			arma::vec pc = calc_perm_cor(ds_c0, ds_c1, r);
 			tmp_test_stats(i, j) = pc(0);
 			tmp_pvalues(i, j) = std::log(pc(1));
 		}
@@ -241,7 +260,7 @@ void init_pearson_spearman_yp_data(arma::mat& ds,
 	pvalues = tmp_pvalues + arma::trans(tmp_pvalues);
 }
 
-void init_cat_data(arma::mat& ds, arma::uvec& max_min, 
+static void init_cat_data(arma::mat& ds, arma::uvec& max_min, 
 		arma::mat& test_stats_abs, arma::mat& test_stats, arma::mat& pvalues) {
 	arma::mat tmp_test_stats(ds.n_cols, ds.n_cols, arma::fill::zeros);
 	arma::mat tmp_pvalues(ds.n_cols, ds.n_cols, arma::fill::zeros);
@@ -271,7 +290,7 @@ void init_cat_data(arma::mat& ds, arma::uvec& max_min,
 	
 }
 
-arma::mat form_st_sig_pairs(const unsigned int ds_nrows, const unsigned int ds_ncols, const double sig_log, 
+static arma::mat form_st_sig_pairs(const unsigned int ds_nrows, const unsigned int ds_ncols, const double sig_log, 
 		arma::mat& test_stats, arma::mat& pvalues, arma::mat& st) {
 	arma::mat tmp_pvalues(ds_ncols, ds_ncols);
 	cp_lt(pvalues, tmp_pvalues, 2);
@@ -312,7 +331,7 @@ arma::mat form_st_sig_pairs(const unsigned int ds_nrows, const unsigned int ds_n
 	return sig_pairs;
 }
 
-unsigned int link_vars(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, arma::mat& pvalues, 
+static unsigned int link_vars(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, arma::mat& pvalues, 
 		arma::mat& st, arma::mat& sig_pairs, arma::mat& ch, 
 		const mth_t mth, const std::string method, const double sig_log, 
 		const unsigned int k, const unsigned int r) {
@@ -371,8 +390,10 @@ unsigned int link_vars(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, ar
 		}
 		if (sam.n_rows) {
 			dbl_print("sam.n_rows\n");
+			std::vector<double> pvs;
 			arma::vec cat_condi = calc_cat_condi(ds, cor_ds, max_min, 
 					sam, spo_i0, spo_i1, 0, k, mth.is_cat_method, method, r);
+			pvs.push_back(cat_condi(1));
 			if (cat_condi(1) > sig_log) {
 				dbl_print("cat_condi[1] > sig_log\n");
 				update_st_ch(st, ch, sam, cat_condi, spo_i0, spo_i1, i, 0, k);
@@ -385,6 +406,7 @@ unsigned int link_vars(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, ar
 					m++;
 					cat_condi = calc_cat_condi(ds, cor_ds, max_min, 
 							sam, spo_i0, spo_i1, m, k, mth.is_cat_method, method, r);
+					pvs.push_back(cat_condi(1));
 					ntests++;
 				}
 				if (cat_condi(1) > sig_log) {
@@ -392,12 +414,17 @@ unsigned int link_vars(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, ar
 					update_st_ch(st, ch, sam, cat_condi, spo_i0, spo_i1, i, m, k);
 				}
 			}
+			const double curr_pv = pvalues(spo_i0, spo_i1);
+			pvs.push_back(curr_pv);
+			const double pvs_max = *std::max_element(std::begin(pvs), std::end(pvs));
+			pvalues(spo_i0, spo_i1) = pvs_max;
+			pvalues(spo_i1, spo_i0) = pvs_max;
 		}
 	}
 	return ntests;
 }
 	
-void calc_adj(arma::mat& st, const unsigned int xrow, const unsigned int yrow,
+static void calc_adj(arma::mat& st, const unsigned int xrow, const unsigned int yrow,
 		std::vector<unsigned int>& xadj, std::vector<unsigned int>& yadj) {
 	for (unsigned int j = 0; j < st.n_cols; j++) {
 		if (st(xrow, j) == 2) {
@@ -409,7 +436,7 @@ void calc_adj(arma::mat& st, const unsigned int xrow, const unsigned int yrow,
 	}
 }
 
-void calc_sam(arma::mat& pvalues, std::vector<unsigned int>& adj,
+static void calc_sam(arma::mat& pvalues, std::vector<unsigned int>& adj,
 		const unsigned int spo_row, const unsigned int k, arma::mat& sam) {
 	arma::mat info(adj.size(), 2);
 	for (unsigned int j = 0; j < adj.size(); j++) {
@@ -437,7 +464,7 @@ void calc_sam(arma::mat& pvalues, std::vector<unsigned int>& adj,
 	}
 }
 
-arma::vec calc_cat_condi(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, 
+static arma::vec calc_cat_condi(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min, 
 		arma::mat& sam, const unsigned int spo_i0, const unsigned int spo_i1, 
 		const unsigned int m, const unsigned int k,
 		const bool is_cat_method, const std::string method, const unsigned int r) {
@@ -450,7 +477,7 @@ arma::vec calc_cat_condi(arma::mat& ds, arma::mat& cor_ds, arma::uvec& max_min,
 	return calc_condi(spo_i0, spo_i1, cs, ds, cor_ds, method, r);
 }
 
-void update_st_ch(arma::mat& st, arma::mat& ch, arma::mat& sam, 
+static void update_st_ch(arma::mat& st, arma::mat& ch, arma::mat& sam, 
 		arma::vec& cat_condi, const unsigned int spo_i0, const unsigned int spo_i1, 
 		const unsigned int curr_row, const unsigned int m, const unsigned int k) {
 	st(spo_i0, spo_i1) = 0;
@@ -462,7 +489,7 @@ void update_st_ch(arma::mat& st, arma::mat& ch, arma::mat& sam,
 	append_row(ch, curr_row, tmp);
 }
 
-unsigned int upd_state(arma::mat& st, arma::mat& sig_pairs, arma::mat& ch, 
+static unsigned int upd_state(arma::mat& st, arma::mat& sig_pairs, arma::mat& ch, 
 		const unsigned int k, const unsigned int el, Rcpp::List& sep) {
 	dbl_print("Updating el.\n");
 	unsigned int max_len = el;
@@ -524,7 +551,7 @@ unsigned int upd_state(arma::mat& st, arma::mat& sig_pairs, arma::mat& ch,
 	return max_len;
 }
 
-std::vector<unsigned int> loc_inactv_pos(arma::mat& sig_pairs,
+static std::vector<unsigned int> loc_inactv_pos(arma::mat& sig_pairs,
 		arma::mat& st, const unsigned int row) {
 	std::vector<unsigned int> xa;
 	std::vector<unsigned int> ya;

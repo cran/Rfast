@@ -3,8 +3,9 @@
 #include <Rinternals.h>
 #include <R.h>
 
-using namespace std;
 using namespace Rcpp;
+
+using std::abs;
 
 static void init(double *start,double *end,int s[]){
   *s=s[1]=s[2]=s[3]=0;

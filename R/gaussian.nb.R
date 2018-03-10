@@ -1,6 +1,7 @@
 gaussian.nb <- function(xnew = NULL, x, ina) {
   est <- NULL
   ni <- tabulate(ina)
+  ni <- ni[ni > 0] 
   k <- length(ni)
   con <- 2 * log( ni )
   m <- rowsum(x, ina) / ni 

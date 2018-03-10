@@ -8,11 +8,58 @@
 
 using namespace Rcpp;
 using namespace arma;
-using namespace std;
+
+using std::string;
 
 static int proper_size(int nrw,int ncl){
   return ncl*(ncl-1)*0.5;
 }
+
+//[[Rcpp::export]]
+IntegerVector index_dist_vec(const int nrw,const int ncl){
+  IntegerVector f(proper_size(nrw,ncl));
+  int i,j,k=0;
+  for(i=0;i<ncl-1;++i){
+    for(j=i+1;j<ncl;++j,++k){
+      f[k]=j+1;
+    }
+  }
+  return f;
+}
+
+
+
+//[[Rcpp::export]]
+List euclidean_dist_vec_ina(NumericMatrix x,const bool sqr){
+  const int ncl=x.ncol(),nrw=x.nrow(),n=proper_size(nrw,ncl);
+  mat xx(x.begin(),nrw,ncl,false);
+  NumericVector f(n);
+  IntegerVector ind_i(n),ind_j(n);
+  colvec xv(nrw);
+  int i,j,k=0;
+  if(sqr)
+    for(i=0;i<ncl-1;++i){
+      xv=xx.col(i);
+      for(j=i+1;j<ncl;++j,++k){
+        f[k]=sum(square(xx.col(j)-xv));
+        ind_i[k]=i+1;
+        ind_j[k]=j+1;
+      }
+    }
+    else
+      for(i=0;i<ncl-1;++i){
+        xv=xx.col(i);
+        for(j=i+1;j<ncl;++j,++k){
+          f[k]=std::sqrt(sum(square(xv-xx.col(j))));
+          ind_i[k]=i+1;
+          ind_j[k]=j+1;
+        }
+      }
+      return List::create(_["i"]=ind_i,_["j"]=ind_j,_["dist"]=f);
+}
+
+
+
 
 NumericVector euclidean_dist_vec(NumericMatrix x,const bool sqr){
   const int ncl=x.ncol(),nrw=x.nrow();
@@ -118,7 +165,7 @@ NumericVector minkowski_dist_vec(NumericMatrix x,const double p){
   for(i=0;i<ncl-1;++i){
     xv=xx.col(i);
     for(j=i+1;j<ncl;++j,++k){      
-      f[k]=pow(sum_pow(abs(xv-xx.col(j)),p),p_1);
+      f[k]=pow(sum_with<std::pow,colvec>(abs(xv-xx.col(j)),p),p_1);
     }
   }
   return f;
@@ -181,7 +228,7 @@ NumericVector kullback_leibler_dist_vec(NumericMatrix x){
   mat xx(x.begin(),nrw,ncl,false),log_xx(log_x.begin(),nrw,ncl,false);
   colvec xv(nrw),log_xv(nrw);
   int i,j,k=0;
-  fill_with<std::log>(x.begin(),x.end(),log_xx.begin());
+  fill_with<std::log,double*,double*>(x.begin(),x.end(),log_xx.begin());
   for(i=0;i<ncl-1;++i){
     xv=xx.col(i);
     log_xv=log_xx.col(i);
@@ -216,7 +263,7 @@ NumericVector itakura_saito_dist_vec(NumericMatrix x){
   mat xx(x.begin(),nrw,ncl,false),log_xx(log_x.begin(),nrw,ncl,false);
   colvec xv(nrw),log_xv(nrw);
   int i,j,k=0;
-  fill_with<std::log>(x.begin(),x.end(),log_xx.begin());
+  fill_with<std::log,double*,double*>(x.begin(),x.end(),log_xx.begin());
   for(i=0;i<ncl-1;++i){
     xv=xx.col(i);
     log_xv=log_xx.col(i);

@@ -34,6 +34,7 @@ regression <- function(x, y, logged = FALSE) {
       for (i in poia) {
         ina <- x[, i]
         ni <- tabulate(ina)
+		ni <- ni[ni > 0]
         k <- length(ni)
         m <- group.sum(y, ina)
         a <- sum(m^2/ni)

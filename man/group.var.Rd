@@ -24,7 +24,7 @@ group.mad(x, ina,method = "median")
 group.mean(x, ina,ina.max = max(ina))
 group.med(x, ina)
 group.min(x, ina,ina.max = max(ina))
-group.max(x, ina,ina.max = max(ina))
+group.max(x, ina,ina.min = NULL,ina.max = NULL)
 group.min_max(x, ina,ina.max = max(ina))
 }
 
@@ -40,6 +40,9 @@ A character vector with values "median", for median absolute deviation or "mean"
 }
 \item{ina.max}{
 Maximum number for vector ina. 
+}
+\item{ina.min}{
+Minimum number for vector ina. 
 }
 }
 

@@ -5,7 +5,6 @@
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 bool symmetric(NumericMatrix x){
   int ncl=x.ncol(),i,j;
   for(i=1;i<ncl;++i)

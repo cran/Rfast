@@ -1,13 +1,18 @@
 
-Table <- function(x,as.vector = TRUE) {
-	if(is.character(x)){
-		x <- .Call('Rfast_table_string', PACKAGE = 'Rfast',x)
+Table <- function(x,y=NULL,names = TRUE,useNA = FALSE,rm.zeros = FALSE) {
+	if(names){
+		if(is.null(y)){
+			.Call('Rfast_table_with_names', PACKAGE = 'Rfast',x)
+		}else{
+			x <- .Call('Rfast_table2_with_names', PACKAGE = 'Rfast',x,y,rm.zeros)
+			f <- x$f
+			rownames(f) <- x$x
+			colnames(f) <- x$y
+			f
+		}
+	}else if(is.null(y)){
+		.Call('Rfast_table_c', PACKAGE = 'Rfast',x,useNA)
 	}else{
-		x <- .Call('Rfast_table_double', PACKAGE = 'Rfast',x)
+		.Call('Rfast_table2_c', PACKAGE = 'Rfast',x,y,rm.zeros)
 	}
-	if(as.vector){
-		y<-x$freqs
-		names(y)<-x$values
-		y
-	}else x
 }

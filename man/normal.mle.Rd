@@ -82,9 +82,6 @@ tmle(x, v = a$nu)
 cauchy.mle(x)
 normal.mle(x)
 logistic.mle(x)
-
-n <- 100
-x <- 5 - 0.005 *log( - log (runif(n) ) )
 gumbel.mle(x)
 }
 

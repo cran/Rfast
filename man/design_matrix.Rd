@@ -43,7 +43,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 
 \examples{
 a <- design_matrix( iris[, 5] )
-b <- model.matrix( ~ iris[,5] )  ## R's built-in funciton
+b <- model.matrix( ~ iris[,5] )  ## R's built-in function
 all.equal(as.vector(a),as.vector(b)) ## true
 
 a<-b<-NULL

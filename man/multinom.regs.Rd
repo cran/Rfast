@@ -9,7 +9,7 @@ Many simple multinomial regressions.
 }
 
 \usage{
-multinom.regs(y, x, tol = 1e-08, logged = FALSE, parallel = FALSE, maxiters = 100)
+multinom.regs(y, x, tol = 1e-08, logged = FALSE, maxiters = 100)
 }
 
 \arguments{
@@ -24,9 +24,6 @@ The tolerance value to terminate the Newton-Raphson algorithm.
 }
 \item{logged}{
 A boolean variable; it will return the logarithm of the pvalue if set to TRUE.
-}
-\item{parallel}{
-Do you want this to be executed in parallel or not. The parallel takes place in C++, and the number of threads is defined by each system's availiable cores.
 }
 \item{maxiters}{
 The maximum number of iterations that can take place in each regression.

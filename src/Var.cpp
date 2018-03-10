@@ -5,7 +5,6 @@
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 double var_c(NumericVector x){
   const int n = x.size();
   double *xx=&x[0],*end=xx+n,sum1=0,sum2=0,v;
@@ -17,7 +16,6 @@ double var_c(NumericVector x){
   return (sum1-sum2*sum2/n)/(n-1);
 }
 
-//[[Rcpp::export]]
 double var_c_na_rm(NumericVector x,IntegerVector notnas){
   const int n = notnas.size();
   double sum1=0,sum2=0,v;

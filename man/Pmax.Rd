@@ -1,25 +1,30 @@
-\name{Minima and maxima of two vectors}
+\name{Minima and maxima of two vectors/matrices}
 \alias{Pmax}
 \alias{Pmin}
+\alias{Pmin_Pmax}
 \title{
-Minima and maxima of two vectors
+Minima and maxima of two vectors/matrices
 }
 
 \description{
-Minima and maxima of two vectors.
+Minima and maxima of two vectors/matrices.
 }
 
 \usage{
-Pmax(x, y)
-Pmin(x, y)
+Pmax(x, y,na.rm = FALSE)
+Pmin(x, y,na.rm = FALSE)
+Pmin_Pmax(x, y,na.rm = FALSE)
 }
 
 \arguments{
 \item{x}{
-A numverical vector with numbers.
+A numerical vector with numbers.
 }
 \item{y}{
-A numverical vector with numbers. The lengths of these two vectorsa must match.
+A numerical vector with numbers.
+}
+\item{na.rm}{
+TRUE or FAlSE for remove NAs if exists.
 }
 }
 
@@ -28,8 +33,7 @@ The parallel minima or maxima are returned. This are the same as the base functi
 }
 
 \value{
-A numerical vector with numbers, whose length is equal to the length of the initital vectors containing the
-maximum or minimum between each pair. 
+A numerical vector/matrix with numbers, whose length is equal to the length of the initial vectors/matrices containing the maximum or minimum between each pair. 
 }
 
 \author{
@@ -47,11 +51,11 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 x <- rnorm(10)
 y <- rnorm(10)
 Pmax(x, y)
-pmax(x, y)
+a<-pmax(x, y)
 Pmin(x, y)
-pmin(x, y)
-
-x<-y<-NULL
+b<-pmin(x, y)
+Pmin_Pmax(x,y) == c(a,b)
+a<-b<-x<-y<-NULL
 }
 
 \keyword{ Pairs of vectors }

@@ -7,8 +7,11 @@
 #include <random>
 #include <unordered_map>
 #include <RcppArmadillo.h>
-#include <RcppArmadillo.h>
+#include "templates.h"
+#include "calc_perm_cor.h"
 
+// [[Rcpp::plugins("cpp11")]]
+// [[Rcpp::depends("RcppArmadillo")]]
 
 Rcpp::List g2_test_univ(arma::mat& data, arma::uvec& dc);
 
@@ -88,8 +91,6 @@ arma::vec form_cmat_vec(arma::mat& ds, arma::rowvec& vals);
 arma::mat cbind_mat(arma::mat& ds1, arma::mat& ds2);
 
 arma::mat adj_cols(arma::mat& src, const unsigned int dst_ncols);
-
-arma::vec perm_cor(arma::mat& ds, const unsigned int r);
 
 arma::vec cat_ci(const unsigned int x, const unsigned int y,
 		arma::uvec& cs, arma::mat& ds, arma::uvec& type, const unsigned int r);

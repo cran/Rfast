@@ -4,93 +4,78 @@
 #include <algorithm>
 
 using namespace Rcpp;
-using namespace std;
 using namespace arma;
 
-//[[Rcpp::export]]
-mat permutation(NumericVector X,const bool all,const int fn){
-  unsigned int i=0;
-  const int n=X.size();
-  mat F(fn,n);
-  rowvec x(X.begin(),n,false);
-  sort(x.begin(),x.end());
-  if(all){
-  	do{
-  		F.row(i)=x;
-  		i++;
-  	} while (next_permutation(x.begin(),x.end()));
-  	return F;
-  }
-  next_permutation(x.begin(),x.end());
-  return x;
+using std::sort;
+using std::next_permutation;
+using std::prev_permutation;
+
+NumericMatrix permutation(NumericVector X,const unsigned int nperm){
+	unsigned int i=0;
+	const int n=X.size();
+	NumericMatrix F(nperm,n);
+	mat FF(F.begin(),nperm,n,false);
+	rowvec x(X.begin(),n,false);
+	sort(x.begin(),x.end());
+	do{
+		FF.row(i++)=x;
+	} while (next_permutation(x.begin(),x.end()) && i<nperm);
+	return F;
 }
 
-//[[Rcpp::export]]
-mat permutation_next(NumericVector X,const bool all_next,const int fn){
+NumericMatrix permutation_next(NumericVector X,const unsigned int nperm){
   unsigned int i=0;
-  const int n=X.size();
-  mat F(fn,n);
-  rowvec x(X.begin(),n,false);
-  if(all_next){
-    do{
-      F.row(i)=x;
-      i++;
-    } while (next_permutation(x.begin(),x.end()));
-    return F.submat(0,0,i-1,n-1);
-  }
-  next_permutation(x.begin(),x.end());
-  return x;
+	const int n=X.size();
+	NumericMatrix F(nperm,n);
+	mat FF(F.begin(),nperm,n,false);
+	rowvec x(X.begin(),n,false);
+	do{
+		FF.row(i++)=x;
+	} while (next_permutation(x.begin(),x.end()) && i<nperm);
+    return F(Range(0,i-1),Range(0,n-1));
 }
 
-//[[Rcpp::export]]
-mat permutation_prev(NumericVector X,const bool all_prev,const int fn){
+NumericMatrix permutation_prev(NumericVector X,const unsigned int nperm){
   unsigned int i=0;
-  const int n=X.size();
-  mat F(fn,n);
-  rowvec x(X.begin(),n,false);
-  if(all_prev){
-  	do{
-  		F.row(i)=x;
-  		i++;
-  	} while (prev_permutation(x.begin(),x.end()));
-  	return F.submat(0,0,i-1,n-1);
-  }
-  prev_permutation(x.begin(),x.end());
-  return x;
+	const int n=X.size();
+	NumericMatrix F(nperm,n);
+	mat FF(F.begin(),nperm,n,false);
+	rowvec x(X.begin(),n,false);
+	do{
+		FF.row(i++)=x;
+	} while (prev_permutation(x.begin(),x.end()) && i<nperm);
+    return F(Range(0,i-1),Range(0,n-1));
 }
 
-RcppExport SEXP Rfast_permutation_prev(SEXP xSEXP,SEXP all_prevSEXP,SEXP fnSEXP){
+RcppExport SEXP Rfast_permutation_prev(SEXP xSEXP,SEXP npermSEXP){
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
-    traits::input_parameter< const bool >::type all_prev(all_prevSEXP);
-    traits::input_parameter< const int >::type fn(fnSEXP);
-    __result = wrap(permutation_prev(x,all_prev,fn));
+    traits::input_parameter< const int >::type nperm(npermSEXP);
+    __result = wrap(permutation_prev(x,nperm));
     return __result;
 END_RCPP
 }
 
-RcppExport SEXP Rfast_permutation_next(SEXP xSEXP,SEXP all_nextSEXP,SEXP fnSEXP){
+RcppExport SEXP Rfast_permutation_next(SEXP xSEXP,SEXP npermSEXP){
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
-    traits::input_parameter< const bool >::type all_next(all_nextSEXP);
-    traits::input_parameter< const int >::type fn(fnSEXP);
-    __result = wrap(permutation_next(x,all_next,fn));
+    traits::input_parameter< const int >::type nperm(npermSEXP);
+    __result = wrap(permutation_next(x,nperm));
     return __result;
 END_RCPP
 }
 
-RcppExport SEXP Rfast_permutation(SEXP xSEXP,SEXP allSEXP,SEXP fnSEXP){
+RcppExport SEXP Rfast_permutation(SEXP xSEXP,SEXP npermSEXP){
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
-    traits::input_parameter< const bool >::type all(allSEXP);
-    traits::input_parameter< const int >::type fn(fnSEXP);
-    __result = wrap(permutation(x,all,fn));
+    traits::input_parameter< const int >::type nperm(npermSEXP);
+    __result = wrap(permutation(x,nperm));
     return __result;
 END_RCPP
 }

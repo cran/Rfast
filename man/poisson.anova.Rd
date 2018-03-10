@@ -1,6 +1,7 @@
 \name{Analysis of variance with a count variable}
 \alias{poisson.anova}
 \alias{geom.anova}
+\alias{quasipoisson.anova}
 \title{
 Analysis of variance with a count variable
 }
@@ -12,6 +13,7 @@ Analysis of variance with a count variable.
 \usage{
 poisson.anova(y, ina, logged = FALSE)
 geom.anova(y, ina, type = 1, logged = FALSE)
+quasipoisson.anova(y, ina, logged = FALSE)
 }
 
 \arguments{
@@ -24,7 +26,7 @@ This is suppose to be a categorical predictor. If you supply a continuous valued
 will obviously provide wrong results.
 }
 \item{type}{
-This rgument is for the geometric distribution. Type 1 refers to the case where the minimum is zero and type 2 for the case of the minimum being 1. 
+This argument is for the geometric distribution. Type 1 refers to the case where the minimum is zero and type 2 for the case of the minimum being 1. 
 }
 \item{logged}{
 Should the p-values be returned (FALSE) or their logarithm (TRUE)?
@@ -32,14 +34,16 @@ Should the p-values be returned (FALSE) or their logarithm (TRUE)?
 }
 
 \details{
-This is the analysis of variance with Poisson or geometric distributed data. What we do is a log-likelihood ratio test. 
-However, this is exactly the same as Poisson regression with a single predictor variable who happens to be 
+This is the analysis of variance with Poisson or geometric distributed data. What we do is a log-likelihood ratio 
+test. However, this is exactly the same as Poisson regression with a single predictor variable who happens to be 
 categorical. Needless to say that this is faster function than the glm command in R. For the same purpose with 
-a Bernoulli variable use \code{\link{g2Test}}.
+a Bernoulli variable use \code{\link{g2Test}}. The quasinpoisson.anova is when in the glm function you specify 
+family = quasipoisson. This is suitable for the case of over or under-dispersed data. 
 }
 
 \value{
-A vector with two values, the difference in the deviances and the relevant p-value.  
+A vector with two values, the difference in the deviances (or the scale difference in the case of quasi poisson)
+and the relevant p-value. The quasipoisson.anova also returns the estimate of the \eqn{\phi} parameter.  
 }
 
 \author{

@@ -1,5 +1,6 @@
 ftest <- function (x, ina, logged = FALSE) {
   ni <- tabulate(ina)
+  ni <- ni[ni > 0]
   k <- length(ni)
   m <- group.sum(x, ina)/ni
   s <- group.sum(x^2, ina)

@@ -4,7 +4,6 @@
 #include "mn.h"
 
 using namespace Rcpp;
-using namespace std;
 
 
 //[[Rcpp::export]]

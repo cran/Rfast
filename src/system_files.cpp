@@ -4,12 +4,25 @@
 #include "system_files.h"
 #include <algorithm>
 
-using namespace arma;
-using namespace std;
+
+using std::vector;
+using std::string;
+using std::count;
+using std::ofstream;
+using std::remove;
+using std::strtok;
+using std::ifstream;
+using std::sort;
+using std::lower_bound;
+using std::getline;
+using std::binary_search;
+using std::endl;
+
+void print_error(){}
 
 vector<string> split_words(string x){
   x.erase(remove(x.begin(),x.end(), ' '),x.end());
-  int n=std::count(x.begin(),x.end(),',')+1;
+  int n=count(x.begin(),x.end(),',')+1;
   vector<string> y(n);
   x+=",";
   int i=0;
@@ -25,7 +38,7 @@ vector<string> split_words(string x){
 void writeFile(vector<string> f,string path){
   ofstream oput(path.c_str());
   if(!oput.is_open()){
-    stop("can't open file\n");
+    Rcpp::stop("can't open file\n");
   }
   for(unsigned int i=0;i<f.size();++i){
     oput<<f[i]<<endl;
@@ -33,7 +46,7 @@ void writeFile(vector<string> f,string path){
 }
 
 vector<string> readFile(string path,int& which_string_has_export){
-  std::ifstream input(path.c_str());
+  ifstream input(path.c_str());
   string s,export_word="export";
   vector<string> f;
   which_string_has_export=-1;
@@ -74,44 +87,19 @@ vector<string> readDirectory(const string path,const int n){
     }
     closedir(dir);
   }else{
-    stop("Error: Could not open directory with path \""+path+"\"");
+    Rcpp::stop("Error: Could not open directory with path \""+path+"\"");
   }
   return files;
 }
 
-bool is_alias(const char *s,int len){
-  return (len>5 && s[0]=='\\' && s[1]=='a' && s[2]=='l' 
-            && s[3]=='i' && s[4]=='a' && s[5]=='s');
-}
-
-bool next_alias(ifstream &file,string &res){
-  string s;
-  getline(file,s);
-  bool ok_alias=is_alias(s.c_str(),s.size());
-  if(ok_alias){
-    s.erase(s.find('}'));
-    s.erase(s.begin(),s.begin()+7);
-    res=s;
-  }
-  return ok_alias;
-}
-
-vector<string> read_aliases(ifstream &file){
-  vector<string> als;
-  string s;
-  while(next_alias(file,s)){
-    s.erase(remove(s.begin(),s.end(),' '),s.end());
-    als.push_back(s);
-  }
-  return als;
-}
-
 vector<string> find_which(vector<string> big,vector<string> small){
   vector<string> f;
-  for(unsigned int i=0;i<big.size();++i)
-    if(binary_search(small.begin(),small.end(),big[i])==false)
+  for(unsigned int i=0;i<big.size();++i){
+    if(binary_search(small.begin(),small.end(),big[i])==false){
       f.push_back(big[i]);
-    return f;
+    }
+  }
+  return f;
 }
 
 vector<string> find_duplis(vector<string> x){
@@ -119,45 +107,18 @@ vector<string> find_duplis(vector<string> x){
   vector<string>::iterator a=x.begin(),b=a+1;
   vector<string> f;
   int s=0;
-  for(;b!=x.end();++b)
+  for(;b!=x.end();++b){
     if(*a!=*b){
-      if(s)
+      if(s){
         f.push_back(*a);
+      }
       a=b;
       s=0;
-    }else
+    }else{
       ++s;
-    return f;
-}
-
-bool is_example(const char *s,int len){
-  return (len>7 && s[0]=='\\' && s[1]=='e' && s[2]=='x' 
-            && s[3]=='a' && s[4]=='m' && s[5]=='p' 
-            && s[6]=='l' && s[7]=='e' && s[8]=='s');
-}
-
-bool get_example(ifstream &file,string &res){
-  string s;
-  getline(file,s);
-  bool is_e=is_example(s.c_str(),s.size());
-  res = is_e ? s : "";
-  return is_e;
-}
-
-string read_example(ifstream &file,int& long_lines){
-  string als;
-  string s;
-  while(!get_example(file,s));
-  getline(file,s);
-  while(!file.eof() && s[0]!='}'){
-    if(s.size()>99){ // 100 max lines
-      ++long_lines;
     }
-    s+="\n";
-    als+=s;
-    getline(file,s);
   }
-  return als;
+  return f;
 }
 
 bool binary_help(vector<string>::iterator first,vector<string>::iterator last,string& val,vector<string>::iterator& res){
@@ -181,4 +142,152 @@ void dont_read_man(vector<string>& all_rd_files,vector<string>& no_read){
       }
     }
   }
+}
+
+bool is_alias(string& s){
+  return (s.size()>5 && s[0]=='\\' && s[1]=='a' && s[2]=='l' 
+            && s[3]=='i' && s[4]=='a' && s[5]=='s');
+}
+
+bool is_title(string& s){
+  return (s.size()>5 && s[0]=='\\' && s[1]=='t' && s[2]=='i' 
+            && s[3]=='t' && s[4]=='l' && s[5]=='e');
+}
+
+void remove_alias_and_spaces(string &s){
+  DEBUG("Start remove_alias_and_spaces");
+  s.erase(s.end()-1);
+  s.erase(s.begin(),s.begin()+7);
+  remove_spaces(s);
+  DEBUG("End remove_alias_and_spaces");
+}
+
+vector<string> read_aliases(ifstream &file){
+  DEBUG("Start read_aliases");
+  vector<string> als;
+  string s;
+  do{
+    DEBUG(122);
+    getline(file,s);
+    if(is_alias(s)){
+      remove_alias_and_spaces(s);
+      DEBUG(s);
+      als.push_back(s);
+    }
+  }while(!is_title(s));
+  DEBUG("End read_aliases");
+  return als;
+}
+
+bool is_example(const char *s,int len){
+  return (len>7 && s[0]=='\\' && s[1]=='e' && s[2]=='x' 
+            && s[3]=='a' && s[4]=='m' && s[5]=='p' 
+            && s[6]=='l' && s[7]=='e' && s[8]=='s');
+}
+
+bool get_example(ifstream &file,string &res){
+  string s;
+  getline(file,s);
+  bool is_e=is_example(s.c_str(),s.size());
+  res = is_e ? s : "";
+  return is_e;
+}
+
+string read_example(ifstream &file,int& long_lines){
+  string als;
+  string s;
+  while(!get_example(file,s));
+  getline(file,s);
+  while(s[s.size()-1]!='}'){
+    if(s.size()>99){ // 100 max lines
+      ++long_lines;
+    }
+    s+="\n";
+    als+=s;
+    getline(file,s);
+  }
+  return als;
+}
+
+bool is_usage(string &s){
+  return (s.size()>5 && s[0]=='\\' && s[1]=='u' && s[2]=='s' 
+            && s[3]=='a' && s[4]=='g' && s[5]=='e');
+}
+
+bool get_usage(ifstream &file,string &res){
+  //DEBUG("Start get_usage");
+  string s;
+  getline(file,s);
+  bool is_e=is_usage(s);
+  res = is_e ? s : "";
+  //DEBUG("End get_usage");
+  return is_e;
+}
+
+vector<string> read_usage(ifstream &file){
+  vector<string> usg;
+  string s;
+  bool sinexeia_apo_kato_grammi=false;
+  DEBUG("START read_usage");
+  while(!get_usage(file,s));
+  do{
+    getline(file,s);
+    remove_spaces(s);
+    if(s!="" && sinexeia_apo_kato_grammi){
+      DEBUG("ektelesi tin sinexeia stin apo kato grammi");
+      sinexeia_apo_kato_grammi=false;
+      usg[usg.size()-1]+=s;
+    }else if(s!="}" && s[s.size()-1]!='}' && s!=""){ //  keni grammi, sketo "}", "sinartisi}"
+      usg.push_back(s);
+    }
+    if(s!="" && s[s.size()-1]!=')'){ //  periptosi pou i sinartisi paei kai stin kato grammi
+      DEBUG("BBrike sinexeia stin apo kato grammi");
+      sinexeia_apo_kato_grammi=true;
+    }
+  }while(s[s.size()-1]!='}');
+  if(s.size()>1 && s[s.size()-1]=='}'){ //  periptosi "sinartisi}"
+    s.erase(s.end()-1);
+    usg.push_back(s);
+  }
+  //for(auto& v : usg)
+  //  name_of_functions_in_usage.push_back(v.substr(0,v.find(')')));
+  DEBUG("END read_usage");
+  return usg;
+}
+
+void remove_spaces(string& s){
+  s.erase(remove_if(s.begin(),s.end(),isspace),s.end());
+}
+
+
+string read_function_from_r_file(ifstream &file){
+  string func;
+  string s;
+  unsigned int bg;
+  DEBUG("START read_function_from_r_file");
+  do{
+    getline(file,s);
+  }while(s[0]=='#'); // oso briskei sxolia
+  DEBUG(s);
+  remove_spaces(s);
+  func=s;
+  if(!find_string(s,"){")){ // periptosi pou paei kai se alli grammi i sinartisi
+    do{
+      getline(file,s);
+      remove_spaces(s);
+      func+=s;
+    } while (!find_string(s,"{")); 
+  }
+  DEBUG(func);
+  bg=func.find("<-");
+  DEBUG(bg);
+  if(bg==string::npos){
+    bg=func.find("=");
+  }
+  func.erase(func.begin()+bg,func.begin()+func.find("function")+8);
+  DEBUG(func);
+  func.erase(func.end()-1);
+  DEBUG(func);
+  DEBUG("END read_function_from_r_file");
+  return func;
 }

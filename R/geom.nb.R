@@ -1,5 +1,6 @@
 geom.nb <- function (xnew, x, ina, type = 1) {
     ni <- tabulate(ina)
+	ni <- ni[ni > 0]
     if (type == 1) {
         si <- rowsum(x, ina)
         prob <- 1/(1 + si/ni)

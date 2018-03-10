@@ -5,9 +5,8 @@
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 NumericVector floyd_john(const int n,NumericVector x){
-	NumericVector y=clone(x);
+  NumericVector y=clone(x);
   i4mat_floyd(n,y);
   return y;
 }

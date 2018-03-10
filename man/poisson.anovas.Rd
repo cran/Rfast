@@ -1,5 +1,6 @@
 \name{Many analysis of variance tests with a discrete variable}
 \alias{poisson.anovas}
+\alias{quasipoisson.anovas}
 \alias{geom.anovas}
 \title{
 Many analysis of variance tests with a discrete variable
@@ -11,6 +12,7 @@ Many analysis of variance tests with a discrete variable.
 
 \usage{
 poisson.anovas(y, ina, logged = FALSE) 
+quasipoisson.anovas(y, ina, logged = FALSE)
 geom.anovas(y, ina, type = 1, logged = FALSE) 
 }
 
@@ -33,11 +35,14 @@ Should the p-values be returned (FALSE) or their logarithm (TRUE)?
 }
 
 \details{
-This is the analysis of variance with Poisson distributed data. What we do is many log-likelihood ratio tests. 
+This is the analysis of variance with count data. 
+What we do is many log-likelihood ratio tests. For the quasi Poisson case we scale the difference 
+in the deviances.
 }
 
 \value{
-A matrix with two values, the difference in the deviances (test statistic) and the relevant p-value.  
+A matrix with two values, the difference in the deviances (test statistic) and the relevant p-value. 
+For the case of quasi Poisson the estimated \eqn{\phi} parameter is also returned.
 }
 
 \author{

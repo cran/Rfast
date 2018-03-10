@@ -5,7 +5,6 @@
 
 using namespace Rcpp;
 
-//[[Rcpp::export]]
 IntegerMatrix design_matrix(CharacterVector x,bool ones_c) {
   int i=0;
   const int n=x.size();
@@ -21,7 +20,6 @@ IntegerMatrix design_matrix(CharacterVector x,bool ones_c) {
   return Final;
 }
 
-//[[Rcpp::export]]
 umat design_matrix_big(DataFrame x) {
   unsigned int i,n=x.length(),last=1,j,nrw;
   umat dm,F;
@@ -37,7 +35,7 @@ umat design_matrix_big(DataFrame x) {
     for(j=1;j<dm.n_cols;++j)
       F.col(last++)=dm.col(j);
   }
-  F.col(0)=uvec(nrw,fill::ones);
+  F.col(0).fill(1);
   return F;
 }
 

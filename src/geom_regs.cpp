@@ -12,7 +12,7 @@ using namespace std;
 NumericMatrix geom_regs(NumericVector Y,NumericMatrix X, const double tol, const bool logged, const bool type, const bool parallel, const int maxiters){
   int n = X.nrow(), D = X.ncol();
   mat x(X.begin(),n,D,false);
-  vec y(Y.begin(),Y.size(),false);
+  vec y(Y.begin(),n,false);
   double a0 = mean(y);
   double p0, ini;
   vec y1;
@@ -31,18 +31,68 @@ NumericMatrix geom_regs(NumericVector Y,NumericMatrix X, const double tol, const
   double dera20 = - sum(yp0 * (1 - p0) );
 
   vec lik(D);
+  if(parallel){
+      #ifdef _OPENMP
+      #pragma omp parallel
+        {
+      #endif
+        vec yp, ypxp, tmpX, aold(2), tmpCB(2), anew(2), oneminusp, p, yptmpX;
+        double tmpsumX, dera, dera2, derb, derb2, derab, divider;
+        int ij;
 
-  #ifdef _OPENMP
-    #pragma omp parallel if(parallel)
-    {
-  #endif
-    vec yp, ypxp, tmpX, aold(2), tmpCB(2), anew(2), oneminusp, p;
+        #ifdef _OPENMP
+            #pragma omp for
+        #endif
+        for(int i = 0; i < D; i++){
+          tmpX = x.col(i);
+          tmpsumX = sum(tmpX);
+          aold[0] = -log(a0);
+          aold[1] = 0;
+          yp = yp0;
+          dera = dera0;
+          dera2 = dera20;
+          yptmpX = yp%tmpX;
+          derb = tmpsumX - sum(yptmpX);
+          derb2 = -sum((yptmpX % tmpX) * (1 - p0));
+
+          derab =  -sum(yptmpX * (1 - p0));
+          tmpCB[0] = derb2 * dera - derab * derb;
+          tmpCB[1] = -derab * dera + dera2 * derb;
+
+          divider = (dera2 * derb2 - derab * derab);
+          anew[0] = aold[0] - tmpCB[0]/divider;
+          anew[1] = aold[1] - tmpCB[1]/divider;
+          ij=2;
+
+          while(ij++<maxiters && sum( abs(anew - aold) ) > tol ) {
+            aold = anew;
+            p = 1/( 1 + (exp(- aold[0] - aold[1] * tmpX)));
+            oneminusp = 1-p;
+            yp = y1 % p;
+            dera = n - sum(yp);
+            dera2 =  - sum(yp % oneminusp);
+            yptmpX = yp%tmpX;
+            derb = tmpsumX - sum(yptmpX);
+            ypxp = (yptmpX) % oneminusp;
+            derb2 =  -sum(ypxp % tmpX);
+            derab = -sum(ypxp);
+            tmpCB[0] = derb2 * dera - derab * derb;
+            tmpCB[1] = -derab * dera + dera2 * derb;
+            divider = (dera2 * derb2 - derab * derab);
+            anew[0] = aold[0] - tmpCB[0]/divider;
+            anew[1] = aold[1] - tmpCB[1]/divider;
+          }
+          lik[i] = n * anew[0] + anew[1] * tmpsumX - sum(y1 % log1pColvec(exp( anew[0] + anew[1] * tmpX),n));
+        }
+      #ifdef _OPENMP
+        }
+      #endif
+  }
+  else{
+    vec yp, ypxp, tmpX, aold(2), tmpCB(2), anew(2), oneminusp, p, yptmpX;
     double tmpsumX, dera, dera2, derb, derb2, derab, divider;
     int ij;
 
-    #ifdef _OPENMP
-        #pragma omp for
-    #endif
     for(int i = 0; i < D; i++){
       tmpX = x.col(i);
       tmpsumX = sum(tmpX);
@@ -51,11 +101,11 @@ NumericMatrix geom_regs(NumericVector Y,NumericMatrix X, const double tol, const
       yp = yp0;
       dera = dera0;
       dera2 = dera20;
+      yptmpX = yp%tmpX;
+      derb = tmpsumX - sum(yptmpX);
+      derb2 = -sum((yptmpX % tmpX) * (1 - p0));
 
-      derb = tmpsumX - sum(yp % tmpX);
-      derb2 = -sum(yp % (tmpX % tmpX) * (1 - p0));
-
-      derab =  -sum((yp % tmpX) * (1 - p0));
+      derab =  -sum(yptmpX * (1 - p0));
       tmpCB[0] = derb2 * dera - derab * derb;
       tmpCB[1] = -derab * dera + dera2 * derb;
 
@@ -71,8 +121,9 @@ NumericMatrix geom_regs(NumericVector Y,NumericMatrix X, const double tol, const
         yp = y1 % p;
         dera = n - sum(yp);
         dera2 =  - sum(yp % oneminusp);
-        derb = tmpsumX - sum(yp % tmpX);
-        ypxp = (yp % tmpX) % oneminusp;
+        yptmpX = yp%tmpX;
+        derb = tmpsumX - sum(yptmpX);
+        ypxp = (yptmpX) % oneminusp;
         derb2 =  -sum(ypxp % tmpX);
         derab = -sum(ypxp);
         tmpCB[0] = derb2 * dera - derab * derb;
@@ -83,18 +134,26 @@ NumericMatrix geom_regs(NumericVector Y,NumericMatrix X, const double tol, const
       }
       lik[i] = n * anew[0] + anew[1] * tmpsumX - sum(y1 % log1pColvec(exp( anew[0] + anew[1] * tmpX),n));
     }
-  #ifdef _OPENMP
-    }
-  #endif
+  }
+
   NumericMatrix ret(D,2);
 
-  #ifdef _OPENMP
-    #pragma omp parallel for if(parallel)
-  #endif
-  for(int i = 0; i < D; i++){
-    ret(i,0) = 2 * lik(i) - ini;
-    ret(i,1) = R::pchisq(ret(i,0), 1, false, logged);
+  if(parallel){
+      #ifdef _OPENMP
+      #pragma omp parallel for
+      #endif
+      for(int i = 0; i < D; i++){
+        ret(i,0) = 2 * lik(i) - ini;
+        ret(i,1) = R::pchisq(ret(i,0), 1, false, logged);
+      }
   }
+  else{
+      for(int i = 0; i < D; i++){
+        ret(i,0) = 2 * lik(i) - ini;
+        ret(i,1) = R::pchisq(ret(i,0), 1, false, logged);
+      }
+  }
+
 
   return ret;
 }
@@ -114,16 +173,3 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
