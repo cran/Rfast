@@ -1,8 +1,8 @@
 auc <- function(group, preds) {
-    ri <- Rank(preds)
+    ri <- Rfast::Rank(preds)
     n <- length(group)
     n1 <- sum(group)
     n0 <- n - n1
-    s1 <- group.sum(ri, group)[2]
+    s1 <- Rfast::group.sum(ri, group)[2]
     (s1 - 0.5 * n1 * (n1 + 1))/n0/n1
 }

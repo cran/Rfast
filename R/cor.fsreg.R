@@ -5,7 +5,7 @@ cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = 
   p <- dm[2]
   con <- n * log(2 * pi) + n  
   logn <- log(n)
-  x <- standardise(x, center = TRUE, scale = FALSE)
+  x <- Rfast::standardise(x, center = TRUE, scale = FALSE)
   y <- y - mean(y)
   options(warn = -1)
   yx <- cor(y, x) 
@@ -54,7 +54,7 @@ cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = 
         k <- k + 1	
         e1 <- .lm.fit(z, y)$residuals
         e2 <- .lm.fit(z, x)$residuals
-        ## yx.z <- colsums(e1 * e2) / sqrt( colsums(e2^2) * sum(e1^2) ) 
+        ## yx.z <- colsums(e1 * e2) / sqrt( Rfast::colsums(e2^2) * sum(e1^2) ) 
 		options(warn = -1)
         yx.z <- cor(e2, e1) 
         sel <- which.max( abs(yx.z) )  
@@ -190,7 +190,7 @@ cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = 
         k <- k + 1
         e1 <- .lm.fit(z, y)$residuals
         e2 <- .lm.fit(z, x)$residuals
-        ## yx.z <- colsums(e1 * e2) / sqrt( colsums(e2^2) * sum(e1^2) ) 
+        ## yx.z <- Rfast::colsums(e1 * e2) / sqrt( Rfast::colsums(e2^2) * sum(e1^2) ) 
 		options(warn = -1)
         yx.z <- cor(e2, e1) 
         sel <- which.max( abs(yx.z) )  

@@ -1,5 +1,5 @@
 
 
 dcor <- function(x,y) {
-  .Call("Rfast_dcor",PACKAGE = "Rfast",t(x),t(y))
+  .Call(Rfast_dcor,t(x),t(y))
 }

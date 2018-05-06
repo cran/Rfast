@@ -48,6 +48,8 @@ expregs <- function(y, x, di, tol = 1e-09, logged = FALSE) {
 
 
 
+
+
 ## ela <- function(y, x, di) {
 ##  D <- ncol(x)
 ##  n <- length(di)

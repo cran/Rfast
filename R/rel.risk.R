@@ -12,5 +12,5 @@ rel.risk <- function (x, a = 0.05, logged = FALSE) {
     else pvalue <- 2 * pnorm(stat, lower.tail = FALSE)
     res <- c(rr, pvalue)
     names(res) <- c("relative risk", "p-value")
-    list(res = res, ci = exp(ci))
+    list( res = res, ci = exp(ci) )
 }

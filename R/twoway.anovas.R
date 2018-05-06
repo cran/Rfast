@@ -1,12 +1,12 @@
 twoway.anovas <- function(y, x1, x2, interact = FALSE, logged = FALSE) {
-  a <- sort_unique.length(x1)
-  b <- sort_unique.length(x2)
+  a <- Rfast::sort_unique.length(x1)
+  b <- Rfast::sort_unique.length(x2)
   N <- length(x1)
   n <- N/a/b
-  com <- colsums(y)^2/N
-  sst <- colsums(y^2) - com
-  ssa <- colsums( rowsum(y, x1)^2 ) / (b * n) - com
-  ssb <- colsums( rowsum(y, x2)^2 ) / (a * n) - com
+  com <- Rfast::colsums(y)^2/N
+  sst <- Rfast::colsums(y^2) - com
+  ssa <- Rfast::colsums( rowsum(y, x1)^2 ) / (b * n) - com
+  ssb <- Rfast::colsums( rowsum(y, x2)^2 ) / (a * n) - com
   
   if ( !interact ) {
     dof2 <- N - a - b + 1 

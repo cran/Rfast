@@ -1,3 +1,3 @@
 rowhameans <- function(x)  {
-	dim(x)[1]/ rowsums(1/x)
+	dim(x)[1]/ Rfast::rowsums(1/x)
 }

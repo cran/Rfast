@@ -70,7 +70,7 @@ mv.eeltest2 <- function(y1, y2, tol = 1e-07, R = 0) {
   } else if ( R == 1 ) {
     test <- as.numeric( res$info[1] )
     d <- dim(y1)[2]
-    delta <- james(y1, y2, R = 1)$info[3]
+    delta <- Rfast::james(y1, y2, R = 1)$info[3]
     stat <- as.numeric( test / delta )
     pvalue <- as.numeric( pchisq(stat, d, lower.tail = FALSE) )
     res$info[1] <- stat
@@ -80,7 +80,7 @@ mv.eeltest2 <- function(y1, y2, tol = 1e-07, R = 0) {
   } else if ( R == 2 ) {
     test <- as.numeric( res$info[1] )
     d <- dim(y1)[2]
-    dof <- james(y1, y2, R = 2)$info[5]
+    dof <- Rfast::james(y1, y2, R = 2)$info[5]
     v <- dof + d - 1
     stat <- dof / (v * d) * test
     pvalue <- pf(stat, d, dof, lower.tail = FALSE)
@@ -89,7 +89,7 @@ mv.eeltest2 <- function(y1, y2, tol = 1e-07, R = 0) {
     names(res$info) <- c("statistic", "p-value", "numer df", "denom df")
     res$note <- paste("F approximation")
   } 
-
+  
   res
 }
 

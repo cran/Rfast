@@ -7,6 +7,8 @@
 \alias{geom.mle}
 \alias{logseries.mle}
 \alias{poisson.mle}
+\alias{betageom.mle}
+\alias{betabinom.mle}
 \title{
 MLE of count data
 }
@@ -24,6 +26,8 @@ borel.mle(x)
 geom.mle(x, type = 1)
 logseries.mle(x, tol = 1e-09)
 poisson.mle(x)
+betageom.mle(x, tol = 1e-07)
+betabinom.mle(x, N, tol = 1e-07)
 }
 
 \arguments{
@@ -55,7 +59,7 @@ zip.mle is for the zero inflated Poisson, whereas ztp.mle is for the zero trunca
 }
 
 \value{
-A list including:
+The following list is not inclusive of all cases. Different functions have different names. In general a list including:
 \item{mess}{
 This is for the negbin.mle only. If there is no reason to use the negative binomial distribution a message will appear, otherwise this is NULL.
 }
@@ -63,7 +67,8 @@ This is for the negbin.mle only. If there is no reason to use the negative binom
 }
 \item{loglik}{The value of the maximised log-likelihood.
 }
-\item{prob}{The probability parameter of the distribution. In some distributions this argument might have a different name. For example, param in the zero inflated Poisson.
+\item{prob}{The probability parameter of the distribution. In some distributions this argument might have a different name. 
+For example, param in the zero inflated Poisson.
 }
 }
 

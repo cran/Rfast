@@ -11,7 +11,7 @@ gaussian.nb <- function(xnew = NULL, x, ina) {
     xnew <- t(xnew)
     mat <- matrix(nrow = dim(xnew)[2], ncol = k)
     for (j in 1:k)  mat[, j] <-  - Rfast::colsums( (xnew - m[j, ])^2 / s[j, ] ) - dets[j] + con[j]
-    est <- rowMaxs(mat)
+    est <- Rfast::rowMaxs(mat)
   }
   rownames(m) <- rownames(s) <- paste("Group", 1:k)
   list(mu = m, sigma = s, ni = ni, est = est )

@@ -2,8 +2,8 @@ james <- function(y1, y2, a = 0.05, R = 1) {
   p <- dim(y1)[2]  ## dimensionality of the data
   n1 <- dim(y1)[1]   ;   n2 <- dim(y2)[1]  ## sample sizes
   n <- n1 + n2  ## the total sample size
-  ybar1 <- colmeans(y1)  ## sample mean vector of the first sample
-  ybar2 <- colmeans(y2)  ## sample mean vector of the second sample
+  ybar1 <- Rfast::colmeans(y1)  ## sample mean vector of the first sample
+  ybar2 <- Rfast::colmeans(y2)  ## sample mean vector of the second sample
   dbar <- ybar2 - ybar1  ## difference of the two mean vectors
   mesoi <- rbind(ybar1, ybar2)
   rownames(mesoi) <- c("Sample 1", "Sample 2")
@@ -11,10 +11,10 @@ james <- function(y1, y2, a = 0.05, R = 1) {
   if ( is.null(colnames(y1)) ) {
     colnames(mesoi) <- paste("X", 1:p, sep = "")
   } else  colnames(mesoi) <- colnames(y1)
-  A1 <- cova(y1)/n1
-  A2 <- cova(y2)/n2
+  A1 <- Rfast::cova(y1)/n1
+  A2 <- Rfast::cova(y2)/n2
   V <- A1 + A2  ## covariance matrix of the difference
-  Vinv <- spdinv(V)   ## same as solve(V), but faster
+  Vinv <- Rfast::spdinv(V)   ## same as solve(V), but faster
   test <- sum( dbar %*% Vinv * dbar )
   b1 <- Vinv %*% A1
   b2 <- Vinv %*% A2

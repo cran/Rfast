@@ -2,7 +2,7 @@ ttest1 <- function(x, m, alternative = "unequal", logged = FALSE, conf = NULL) {
 
   n <- length(x) 
   xbar <- sum(x)/n
-  s <- Var(x, std = TRUE)
+  s <- Rfast::Var(x, std = TRUE)
   stat <- sqrt(n) * ( xbar - m ) / s
   
   if ( alternative == "unequal" ) {

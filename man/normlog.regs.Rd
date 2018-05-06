@@ -38,7 +38,7 @@ Many simple Gaussian regressions with a log-link are fitted.
 }
 
 \value{
-A matrix with the test statistic values, their relevant (logged) p-values and the BIC values.
+A matrix with the test statistic values and their relevant (logged) p-values.
 }
 
 \author{
@@ -60,7 +60,7 @@ y <- abs( rnorm(100) )
 x <- matrnorm(100, 100)
 a <- normlog.regs(y, x)
 b <- glm(y ~ x[, 1], family = gaussian(log) )
-anova(b, test= "Chisq")
+anova(b, test= "F")
 a[1, ]
 x <- NULL
 }

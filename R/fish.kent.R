@@ -1,6 +1,6 @@
 fish.kent <- function(x, logged = FALSE) {
   n <- dim(x)[1]
-  estim <- vmf.mle(x)
+  estim <- Rfast::vmf.mle(x)
   k <- estim$kappa
   mu <-  - estim$mu
   mu[1] <- 1 + mu[1]

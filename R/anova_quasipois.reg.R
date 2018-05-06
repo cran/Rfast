@@ -8,3 +8,4 @@ anova_quasipois.reg <- function(mod0, mod1, n) {
    names(res) <- c("statistic", "p-value", "Numerator dof", "Denominator dof")
    res
 }
+

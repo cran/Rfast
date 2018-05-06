@@ -3,6 +3,7 @@
 \alias{checkAliases}
 \alias{checkExamples}
 \alias{checkTF}
+\alias{checkUsage}
 \title{
 Check Namespace and Rd files
 }
@@ -17,6 +18,7 @@ checkAliases(path.man,path.rfolder,dont.read = "")
 checkTF(path.man,dont.read = "")
 checkExamples(path.man,each = 1,dont.read = "",print.errors = stderr(),
 	print.names = FALSE)
+checkUsage(path.man,path.rfolder,dont.read = "")
 }
 
 \arguments{
@@ -57,8 +59,8 @@ For function checkTF: reads from the man directory all the Rd files, then read f
 
 For function checkUsage: reads from the man directory all the Rd files and for each man check if the usage section has the right signature for the functions from the R directory.
 This functions has 2 limitations: 
-	1) each function should be in one R file with name function_name.R and only this	function can be inside the file.
-	2) if you want multiple functions inside this file then the main function should the first on top.
+	1) each function should be in one R file with name function_name.R and only this function can be inside the file.
+	2) if you want multiple functions inside this file then the main function should be the first on top.
 }
 
 \value{
@@ -120,6 +122,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 # system.time( b<-checkExamples(path.man) )
 # system.time( b<-checkExamples(path.man,2) )
 # system.time( b<-checkTF(path.man) )
+# system.time( b<-checkTF(path.man,path.rfolder) )
 }
 }
 
@@ -129,3 +132,4 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \keyword{ Checking Rd }
 \keyword{ Checking Examples }
 \keyword{ Checking for TRUE,FALSE }
+\keyword{ Checking Usage section }

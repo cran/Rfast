@@ -1,3 +1,3 @@
 spdinv <- function(A) {
-  chol2inv( cholesky(A) )
+  chol2inv( Rfast::cholesky(A) )
 }

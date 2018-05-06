@@ -16,7 +16,7 @@ betaprime.mle <- function(x, tol = 1e-09) {
   anew <- c(a, b) - c( derb2 * dera - derab * derb, - derab * dera + dera2 * derb ) / ( dera2 * derb2 - derab^2 )
   a <- anew[1]      ;      b <- anew[2]
   lik2 <- (a - 1) * slx - (a + b) * slx2 - n * lbeta(a, b)
-
+  
   i <- 2
   while ( lik2 - lik1 > tol ) {
     i <- i + 1

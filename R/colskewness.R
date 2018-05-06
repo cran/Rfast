@@ -1,10 +1,10 @@
 colskewness <- function(x, pvalue = FALSE) {
-  m <- colmeans(x)
+  m <- Rfast::colmeans(x)
   y <- t(x) - m
   n <- dim(x)[1]
   nm1 <- n - 1
-  up <- n * rowsums(y^3)
-  down <- ( rowsums(y^2) / nm1 )^1.5
+  up <- n * Rfast::rowsums(y^3)
+  down <- ( Rfast::rowsums(y^2) / nm1 )^1.5
   skewness <- up / ( nm1 * (n - 2) * down )
   if (pvalue) {  
     vars <- 6 * n * nm1 / ( (n - 2) * (n + 1) * (n + 3) )

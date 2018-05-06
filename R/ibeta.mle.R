@@ -1,7 +1,7 @@
 ibeta.mle <- function(x, tol = 1e-09) {
  
   if ( all(x > 0  &  x < 1) ) {   
-    res <- beta.mle(x)
+    res <- Rfast::beta.mle(x)
     mes <- "Regular beta distribution was fitted."
 
   } else {
@@ -19,7 +19,7 @@ ibeta.mle <- function(x, tol = 1e-09) {
     a <- T1 / n
     t23 <- T2 - T3
     f <- n - T1
-    ini <- beta.mle(z)
+    ini <- Rfast::beta.mle(z)
     phi1 <- sum(ini$param)
     m1 <- ini$param[1]/phi1
     m1phi <- m1 * phi1

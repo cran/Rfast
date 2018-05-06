@@ -35,7 +35,7 @@ tmle <- function(x, v = 5, tol = 1e-08) {
     y <- (x - m2)^2
     z <- v + y / s
   }  
-
+  
   loglik <-  - f * log( s ) - up * sum( log( z / v ) )
   param <- c(m2, s)
   names(param) <- c("location", "scatter")

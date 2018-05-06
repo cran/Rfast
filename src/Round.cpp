@@ -7,7 +7,7 @@
 
 using namespace Rcpp;
 
-SEXP Round_simple(SEXP x,const int dg){
+SEXP Round_simple(SEXP x,int dg){
   const int n=LENGTH(x);
   SEXP f=PROTECT(Rf_duplicate(x));
   double *start=REAL(x),*end=start+n,*ff=REAL(f);
@@ -30,7 +30,7 @@ SEXP Round_na_rm(SEXP x,const int dg){
 
 //[[Rcpp::export]]
 SEXP Round(SEXP x,const int dg,const bool na_rm){
-  return na_rm ? Round_simple(x,dg) : Round_na_rm(x,dg);
+  return na_rm ? Round_simple(x,dg>15 ? 15 : dg) : Round_na_rm(x,dg>15 ? 15 : dg);
 }
 
 RcppExport SEXP Rfast_Round(SEXP x,SEXP dgSEXP,SEXP na_rmSEXP){

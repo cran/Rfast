@@ -1,9 +1,9 @@
 rint.regbx <- function(y, x, id) {
-  mod <- lmfit(cbind(1, x), y) 
+  mod <- Rfast::lmfit(cbind(1, x), y) 
   be <- mod$be
   e <- mod$residuals
   N <- length(y)
-  n <- sort_unique.length(id)
+  n <- Rfast::sort_unique.length(id)
   d <- N / n
   f <- 1 - 1/d
   seid <- rowsum(e^2, id)

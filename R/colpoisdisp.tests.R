@@ -1,7 +1,7 @@
 colpoisdisp.tests <- function(y, alternative = "either", logged = FALSE) {
   n <- dim(y)[1]
-  m <- colmeans(y)
-  up <- colsums(y^2) - n * m^2 - n * m
+  m <- Rfast::colmeans(y)
+  up <- Rfast::colsums(y^2) - n * m^2 - n * m
   stat <- up / ( sqrt(2 * n) * m )
   if (alternative == "either") {
     if (logged) {

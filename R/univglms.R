@@ -3,26 +3,25 @@ univglms <- function (y, x, oiko = NULL, logged = FALSE) {
     n <- dm[1]
     d <- dm[2]
     if (is.null(oiko)) {
-        if (length(sort_unique(y)) == 2) {
+        if ( length( Rfast::sort_unique(y) ) == 2 ) {
             oiko = "binomial"
         }
-        else if (sum(round(y) - y) == 0) {
+        else if ( sum( Rfast::Round(y) - y) == 0 ) {
             oiko = "poisson"
         }
         else oiko = "normal"
     }
     if (oiko == "binomial") {
         p <- sum(y)/n
-        ini <- -2 * (n * p * log(p) + (n - n * p) * log(1 - p))
-        mod <- logistic_only(x, y)
+        ini <-  - 2 * ( n * p * log(p) + (n - n * p) * log(1 - p) )
+        mod <- Rfast::logistic_only(x, y)
         stat <- ini - mod
         pval <- pchisq(stat, 1, lower.tail = FALSE, log.p = logged)
     }
     else if (oiko == "poisson") {
         m <- sum(y)/n
-        ini <- 2 * sum(y * log(y), na.rm = TRUE) - 2 * n * m * 
-            log(m)
-        mod <- poisson_only(x, y)
+        ini <- 2 * sum(y * log(y), na.rm = TRUE) - 2 * n * m * log(m)
+        mod <- Rfast::poisson_only(x, y)
         stat <- ini - mod
         pval <- pchisq(stat, 1, lower.tail = FALSE, log.p = logged)
     }
@@ -31,16 +30,14 @@ univglms <- function (y, x, oiko = NULL, logged = FALSE) {
         sqdof <- sqrt(n - 2)
         stat <- rho * sqdof/sqrt(1 - rho^2)
         if (logged) {
-            pval <- log(2) + pt(abs(stat), n - 2, lower.tail = FALSE, 
-                log.p = TRUE)
+            pval <- log(2) + pt(abs(stat), n - 2, lower.tail = FALSE, log.p = TRUE)
         }
         else pval <- 2 * pt(abs(stat), n - 2, lower.tail = FALSE)
     }
     else if (oiko == "quasipoisson") {
         m <- sum(y)/n
-        ini <- 2 * sum(y * log(y), na.rm = TRUE) - 2 * n * m * 
-            log(m)
-        mod <- quasi.poisson_only(x, y)
+        ini <- 2 * sum(y * log(y), na.rm = TRUE) - 2 * n * m * log(m)
+        mod <- Rfast::quasi.poisson_only(x, y)
         stat <- (ini - mod[1, ])/mod[2, ]
         pval <- pf(stat, 1, n - 2, lower.tail = FALSE, log.p = logged)
     }

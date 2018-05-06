@@ -21,7 +21,7 @@ A numeric vector.
 }
 
 \details{
-The "sort_unique" function implements R's "unique" function using C++'s function but also sort the result. The "sort_unique.length" returns the length of the unique numbers. 
+The "sort_unique" function implements R's "unique" function using C++'s function but also sort the result. The "sort_unique.length" returns the length of the unique numbers only for \bold{itegers}. 
 }
 
 \value{

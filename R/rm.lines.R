@@ -6,8 +6,8 @@ rm.lines <- function(y, x, logged = FALSE) {
   xi <- rep(xi, n)
   ina <- rep(1:n, each = d)
   be <- rowsum(xi * y, ina)
-  s <- colVars(be, std = TRUE)
-  stat <- sqrt(n) * colmeans(be) / s
+  s <- Rfast::colVars(be, std = TRUE)
+  stat <- sqrt(n) * Rfast::colmeans(be) / s
   if ( logged ) {
     pvalue <- 2 * pt( abs(stat), n - 1, lower.tail = FALSE, log.p = TRUE ) 
   } else  pvalue <- 2 * pt( abs(stat), n - 1, lower.tail = FALSE) 

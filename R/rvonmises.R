@@ -12,7 +12,7 @@ rvonmises <- function(n, m, k, rads = TRUE) {
   if ( !rads )  m <- m / 180 * pi  ## turn the degrees into radians
   mu <- c( cos(m), sin(m) )
   if (k > 0) {  ## draw from a von Mises distribution
-    x <- rvmf(n, mu, k)  ## sample from the von Mises distribution
+    x <- Rfast::rvmf(n, mu, k)  ## sample from the von Mises distribution
     u <- ( atan(x[, 2] / x[, 1] ) + pi * I( x[, 1] < 0) ) %% (2 * pi)  ## u is in radians
   } else u <- runif(n, 0, 2 * pi)  ## draw from a von Mises distribution
   if ( !rads )   u <- u * pi/180  ## should the data be in degrees?

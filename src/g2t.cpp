@@ -48,6 +48,44 @@ static double g2Statistic(int* counts, int xdim, int ydim) {
   return 2 * statistic;
 }
 
+static double chi2Statistic(int* counts, int xdim, int ydim) {
+  if (counts == NULL) {
+    return 0;
+  }
+  double statistic = 0;
+  int countsXY = 0;
+  int* countsX = new int[xdim];
+  int* countsY = new int[ydim];
+  
+  memset(countsX, 0, xdim * sizeof(int));
+  memset(countsY, 0, ydim * sizeof(int));
+  
+  for (int x = 0; x < xdim; ++x) {
+    for (int y = 0; y < ydim; ++y) {
+      int curcounts = counts[y * xdim + x];
+      countsXY += curcounts;
+      countsX[x] += curcounts;
+      countsY[y] += curcounts;
+    }
+  }
+  
+  for (int x = 0; x < xdim; ++x) {
+    if (countsX[x] != 0) {
+      for (int y = 0; y < ydim; ++y) {
+        int curcounts = counts[y * xdim + x];
+        if (countsY[y] != 0 && curcounts != 0) {
+		  double expected = ((double)(countsX[x] * countsY[y])) / countsXY;
+		  statistic += ((curcounts - expected) * (curcounts - expected)) / expected;
+        }
+      }
+    }
+  }
+  
+  delete[] countsX;
+  delete[] countsY;
+  return statistic;
+}
+
 static int totalCounts(int* counts, int xdim, int ydim) {
   if (counts == NULL) {
     return 0;
@@ -105,6 +143,24 @@ TestResult g2Test(NumericMatrix& data, int x, int y, int* dc) {
   return TestResult(0, statistic, 0, df);
 }
 
+TestResult chi2Test(NumericMatrix& data, int x, int y, int* dc) {
+  int xdim = dc[x];
+  int ydim = dc[y];
+  int* counts = new int[xdim * ydim];
+  memset(counts, 0, sizeof(int) * xdim * ydim);
+  
+  for (int i = 0; i < data.nrow(); ++i) {
+    int curx = (int)data(i, x);
+    int cury = (int)data(i, y);
+    counts[cury * xdim + curx]++;
+  }
+  int df = (xdim - 1) * (ydim - 1);
+  double statistic = chi2Statistic(counts, xdim, ydim);
+  
+  delete[] counts;
+  return TestResult(0, statistic, 0, df);
+}
+
 TestResult g2Test(NumericMatrix& data, int x, int y, int* cs, int ncs, int* dc) {
   if (ncs == 0) {
     return g2Test(data, x, y, dc);
@@ -142,6 +198,56 @@ TestResult g2Test(NumericMatrix& data, int x, int y, int* cs, int ncs, int* dc) 
   double statistic = 0;
   for (int i = 0; i < size; ++i) {
     statistic += g2Statistic(counts[i], xdim, ydim);
+  }
+  int df = (xdim - 1) * (ydim - 1) * prod[ncs];
+  
+  delete[] prod;
+  for (int i = 0; i < size; ++i) {
+    if (counts[i] != NULL)
+      delete[] counts[i];
+  }
+  delete[] counts;
+  
+  return TestResult(0, statistic, 0, df);
+}
+
+TestResult chi2Test(NumericMatrix& data, int x, int y, int* cs, int ncs, int* dc) {
+  if (ncs == 0) {
+    return chi2Test(data, x, y, dc);
+  }
+  int xdim = dc[x];
+  int ydim = dc[y];
+  int nsamples = data.nrow();
+  int* prod = new int[ncs + 1];
+  prod[0] = 1;
+  for (int i = 1; i <= ncs; ++i) {
+    prod[i] = prod[i - 1] * dc[cs[i - 1]];
+  }
+  
+  int size = prod[ncs];
+  int **counts = new int*[size];
+  for (int i = 0; i < size; ++i) {
+    counts[i] = new int[xdim * ydim];
+    memset(counts[i], 0, sizeof(int) * xdim * ydim);
+  }
+  
+  for (int i = 0; i < nsamples; ++i) {
+    int key = 0;
+    for (int j = 0; j < ncs; ++j) {
+      key += (int)data(i, cs[j]) * prod[j];
+    }
+    int curx = (int)data(i, x);
+    int cury = (int)data(i, y);
+    if (counts[key] == NULL) {
+      counts[key] = new int[xdim * ydim];
+      memset(counts[key], 0, sizeof(int) * xdim * ydim);
+    }
+    counts[key][cury * xdim + curx]++;
+  }
+  
+  double statistic = 0;
+  for (int i = 0; i < size; ++i) {
+    statistic += chi2Statistic(counts[i], xdim, ydim);
   }
   int df = (xdim - 1) * (ydim - 1) * prod[ncs];
   

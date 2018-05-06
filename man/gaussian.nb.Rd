@@ -95,7 +95,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 %}
 
 \seealso{
-\code{ \link{colmeans}, \link{colVars} }
+\code{ \link{gaussiannb.pred}, \link{colmeans}, \link{colVars} }
 }
 
 \examples{

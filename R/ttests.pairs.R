@@ -1,8 +1,8 @@
 ttests.pairs <- function(x, logged = FALSE) {
   
   n <- dim(x)[1]
-  m <- colmeans(x)
-  s <- colVars(x) / n
+  m <- Rfast::colmeans(x)
+  s <- Rfast::colVars(x, suma = n * m) / n
   fac <- outer(s, s, "+")
   down <- outer( s^2/(n - 1), s^2/(n - 1), "+" )
   dof <- fac^2 / down 

@@ -3,9 +3,10 @@ invdir.mle <- function(x, tol = 1e-09) {
   n <- dim(x)[1]
   p <- dim(x)[2]
   zx <- t( log(x) )
-  sx2 <- sum( log1p( rowsums(x) ) )
-  com <- c( rowsums(zx) - sx2, -sx2 )
-  a <- colmeans(x)   ;   b <- colVars(x)
+  sx2 <- sum( log1p( Rfast::rowsums(x) ) )
+  com <- c( Rfast::rowsums(zx) - sx2, -sx2 )
+  a <- Rfast::colmeans(x)   
+  b <- Rfast::colVars(x, suma = n * a)
   D <- p + 1 
   aD <- 0.5 * ( mean(a)^2 + mean(a) ) / mean(b) + 1
   a1 <- abs( c( a * (aD - 1), aD) ) / 2

@@ -3,6 +3,7 @@
 
 #include <RcppArmadillo.h>
 #include "templates.h"
+#include <thread>
 
 using namespace Rcpp;
 using namespace arma;
@@ -27,6 +28,28 @@ static void Rank_mean(NumericVector& x,NumericVector& f,const bool descend){
       v=xx[ind[j]];
     }
   }
+}
+
+//[[Rcpp::export]]
+NumericVector Rank_mean2(vector<double>& xx,vector<int>& ind){
+    const int n=xx.size(),n_1=n+1;
+    int i,j=0;
+    NumericVector f(n);
+    xx.push_back(0);
+    ind.push_back(n);
+    int k=0,m,times=0;
+    double mn=0.0,v=xx[ind[j]-1];
+    for(i=1;i<n_1;++i){
+        if(v!=xx[ind[i]-1]){
+            times=i-j;
+            mn=(j+1+i)*0.5; //mn=mean(seq(j+1,i));
+            for(k=j,m=0;m<times;++m)
+                f[ind[k++]-1]=mn;
+            j=i;
+            v=xx[ind[j]-1];
+        }
+    }
+    return f;
 }
 
 static void Rank_max(NumericVector& x,NumericVector& f,const bool descend){
@@ -106,34 +129,14 @@ NumericVector Rank(NumericVector x,string method="average",const bool descend=fa
   return res;
 }
 
-RcppExport SEXP Rfast_rank(SEXP xSEXP,SEXP methodSEXP,SEXP descendSEXP,SEXP stableSEXP) {
+RcppExport SEXP Rfast_rank(SEXP xSEXP,SEXP methodSEXP,SEXP descendSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
     traits::input_parameter< string >::type method(methodSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
-    traits::input_parameter< const bool >::type stable(stableSEXP);
-    __result = wrap(Rank(x,method,descend,stable));
+    __result = Rank(x,method,descend,false);
     return __result;
 END_RCPP
-}
-
-
-
-#include "templates.h"
-#include <RcppArmadilloExtensions/sample.h>
-
-//[[Rcpp::export]]
-NumericVector group_block(NumericVector x,vector<int> ina,NumericVector un_sample_ina,IntegerVector starts,string method="sample"){
-    //NumericVector un_sample_ina=Rcpp::RcppArmadillo::sample(un_ina,un_ina.size(),true,NumericVector());
-    IntegerVector ind=Order<IntegerVector,vector<int>>(ina,false,false,0);
-    NumericVector f(x.size());
-    NumericVector::iterator ff=f.begin();
-    for(int i=0;i<un_sample_ina.size();++i){
-        for(int j=0,k=starts(un_sample_ina(i)-1);j<i+1;++j,++k){
-            *ff++=x(ina[ind(k)]-1);
-        }
-    }
-    return f;
 }

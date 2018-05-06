@@ -1,8 +1,8 @@
 ttest <- function(x, m, alternative = "unequal", logged = FALSE, conf = NULL) {
 
   n <- dim(x)[1] 
-  xbar <- colmeans(x)
-  s <- colVars(x, std = TRUE)
+  xbar <- Rfast::colmeans(x)
+  s <- Rfast::colVars(x, suma = n * m, std = TRUE)
   stat <- sqrt(n) * ( xbar - m ) / s
   
   if ( alternative == "unequal" ) {

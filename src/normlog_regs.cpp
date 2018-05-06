@@ -17,7 +17,7 @@ NumericMatrix normlog_regs(NumericVector Y,NumericMatrix X, NumericMatrix BE,con
   mat be(BE.begin(), D, 2, false);
 
   vec va(D);
-
+  NumericMatrix ret(D,2);
   if(parallel) {
 
     #ifdef _OPENMP
@@ -78,19 +78,14 @@ NumericMatrix normlog_regs(NumericVector Y,NumericMatrix X, NumericMatrix BE,con
         }
         yminyhat = y - yhat;
         va[j] = sum(yminyhat%yminyhat);
+        ret(j,0) = (n-2)*(con/va[j] - 1);
+        ret(j,1) = R::pf(ret(j,0), 1, n-2, false, logged);
       }
     #ifdef _OPENMP
     }
     #endif
 
-    NumericMatrix ret(D,2);
-    #ifdef _OPENMP
-    #pragma omp parallel for
-    #endif
-    for(int k=0; k<D; k++){
-      ret(k,0) = (-n * log(va(k)) + con)/(va(k)/(n-2));
-      ret(k,1) = R::pf(ret(k,0), 1, n-2, false, logged);
-    }
+
     return ret;
   }
   else{
@@ -146,13 +141,10 @@ NumericMatrix normlog_regs(NumericVector Y,NumericMatrix X, NumericMatrix BE,con
       }
       yminyhat = y - yhat;
       va[j] = sum(yminyhat%yminyhat);
+      ret(j,0) = (n-2)*(con/va[j] - 1);
+      ret(j,1) = R::pf(ret(j,0), 1, n-2, false, logged);
     }
 
-    NumericMatrix ret(D,2);
-    for(int k=0; k<D; k++){
-      ret(k,0) = (n-2)*(-n * log(va(k)) + con)/va(k);
-      ret(k,1) = R::pf(ret(k,0), 1, n-2, false, logged);
-    }
     return ret;
   }
 }

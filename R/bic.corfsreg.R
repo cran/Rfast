@@ -4,7 +4,7 @@ bic.corfsreg <- function (y, x, tol = 2) {
     p <- dm[2]
     con <- n * log(2 * pi) + n
     logn <- log(n)
-    x <- standardise(x, center = TRUE, scale = FALSE)
+    x <- Rfast::standardise(x, center = TRUE, scale = FALSE)
     y <- y - mean(y)
     model <- NULL
     tool <- sela <- numeric( min(n, p) )

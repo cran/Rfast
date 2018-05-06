@@ -3,7 +3,7 @@ varcomps.mom <- function(x, ina) {
   k <- length(ni)
   n <- length(x)
   sx2 <- sum(x^2)
-  m <- group.sum(x, ina)
+  m <- Rfast::group.sum(x, ina)
   a <- sum(m^2/ni)
   b <- sum(m)^2/n
   df1 <- k - 1

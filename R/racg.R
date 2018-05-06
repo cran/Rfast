@@ -9,7 +9,7 @@ racg <- function(n, sigma) {
   ## sigma is the covariance matrix
   ## sigma does not have to be of full rank
   p <- dim(sigma)[1]
-  x <- matrix( RcppZiggurat::zrnorm(n * p), ncol = p )  
+  x <- Rfast::matrnorm(n, p)
   x <- x %*% chol(sigma) 
-  x / sqrt( rowsums(x^2) )
+  x / sqrt( Rfast::rowsums(x^2) )
 }

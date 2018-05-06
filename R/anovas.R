@@ -4,10 +4,10 @@ anovas <- function (x, ina, logged = FALSE) {
     ni <- tabulate(ina)
 	ni <- ni[ni > 0]
     n <- dim(x)[1]
-    sx2 <- colsums(x^2)
+    sx2 <- Rfast::colsums(x^2)
     m <- rowsum(x, ina)
-    a <- colsums(m^2/ni)
-    b <- colsums(m)^2/n
+    a <- Rfast::colsums(m^2/ni)
+    b <- Rfast::colsums(m)^2/n
     mst <- (a - b) / (k - 1)
     mse <- (sx2 - a) / (n - k)
     fa <- mst / mse

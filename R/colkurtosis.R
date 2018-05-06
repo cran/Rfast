@@ -1,8 +1,8 @@
 colkurtosis <- function(x, pvalue = FALSE) {
-  m <- colmeans(x)
-  y <- ( t(x) - m )^2
-  up <- rowmeans(y^2)
-  down <- rowmeans(y)^2
+  m <- Rfast::colmeans(x)
+  y <- Rfast::eachrow(x, m, oper = "-" )^2
+  up <- Rfast::colmeans(y^2)
+  down <- Rfast::colmeans(y)^2
   kurtosis <- up / down
   if (pvalue) {
     n <- dim(x)[1]

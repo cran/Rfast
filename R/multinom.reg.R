@@ -1,7 +1,7 @@
 multinom.reg <- function(y, x, tol = 1e-07, maxiters = 50) {
-  Y <- design_matrix(y)[, -1]
+  Y <- Rfast::design_matrix(y)[, -1]
   if ( !is.matrix(Y) ) {
-    mod <- glm_logistic(x, y, tol = tol, maxiters = maxiters)
+    mod <- Rfast::glm_logistic(x, y, tol = tol, maxiters = maxiters)
     res <- list(iters = mod$iter, loglik = 0.5 * mod$devi, be = mod$be)
   } else {
     X <- model.matrix(y~., data.frame(x))
@@ -9,15 +9,15 @@ multinom.reg <- function(y, x, tol = 1e-07, maxiters = 50) {
     dm <- dim(Y)
     n <- dm[1]
     d <- dm[2] 
-    m <- colmeans(Y)
-    b0 <- Log(m / (1 - m) )  
+    m <- Rfast::colmeans(Y)
+    b0 <- Rfast::Log(m / (1 - m) )  
     b1 <- matrix( c(b0, numeric(p * d - d) ), nrow = p, ncol = d, byrow = TRUE)
     e <- Y - rep(m, rep(n, d) )
     id <- matrix(1:c(p * d), ncol = d)
     der <- numeric(d * p)
     der2 <- matrix(0, p * d, p * d)
     for (i in 1:d) { 
-      der[id[, i]] <- colsums( e[, i] * X )
+      der[id[, i]] <- Rfast::colsums( e[, i] * X )
       for (j in i:d) {
         if (i != j) {
           der2[id[, i], id[, j]] <- der2[id[, j], id[, i]] <-  - crossprod(m[i] * m[j] * X, X) 
@@ -33,7 +33,7 @@ multinom.reg <- function(y, x, tol = 1e-07, maxiters = 50) {
       m <- m1 / (rowsums(m1) + 1)
       e <- Y - m
       for (i in 1:d) { 
-      der[id[, i]] <- colsums( e[, i] * X )
+      der[id[, i]] <- Rfast::colsums( e[, i] * X )
         for (j in i:d) {
           if (i != j) {
             der2[id[, i], id[, j]] <- der2[id[, j], id[, i]] <-   - crossprod(m[, i] * m[, j] * X, X) 

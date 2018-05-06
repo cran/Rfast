@@ -19,7 +19,7 @@ zip.mle <- function(x, tol = 1e-09) {
     der <- m * exp(-l1) - 1 + prop
     l2 <- l1 - fx / der 
   }
-
+  
   p <- 1 - m / l2
   loglik <- no * log( p + (1 - p) * exp(-l2) ) + n1 * log(1 - p) + sum( dpois(x1, l2, log = TRUE) )
   param <- c(l2, p)

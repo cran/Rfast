@@ -144,3 +144,87 @@ END_RCPP
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+
+
+static void min_max_neg_pos_helper(vector<int> &x,int &mnn,int &mxn,int &mnp,int &mxp,bool &has_pos,bool &has_neg){
+    int v;
+    for(auto xx=x.begin();xx!=x.end();++xx){
+        v=*xx;
+        if(v<0){
+            has_neg=true;
+            if(v<mnn)
+                mnn=v;
+            else if(v>mxn)
+                mxn=v;
+        }else{
+            has_pos=true;
+            if(v>mxp)
+                mxp=v;
+            else if(v<mnp)
+                mnp=v;
+        }
+    }
+}
+
+//[[Rcpp::export]]
+vector<int> sort_int(vector<int> x){
+    int mnp=INT_MAX,mnn=-1,mxp=0,mxn=INT_MIN;
+    bool has_pos=false,has_neg=false;
+    min_max_neg_pos_helper(x,mnn,mxn,mnp,mxp,has_pos,has_neg);
+    vector<int> pos,f(x.size()),neg;
+    vector<int>::iterator a=x.begin(),F=f.begin();
+    if(has_pos){
+        pos.resize(mxp-mnp+1,0);
+    }
+    if(has_neg){
+        neg.resize(1-mnn+mxn,0);
+    }
+    if(has_pos && has_neg){
+        int aa;
+        for(;a!=x.end();++a){
+            aa=*a;
+            aa<0 ? neg[-aa+mxn]++ : pos[aa-mnp]++;
+        }
+    }else if(has_pos){
+        for(;a!=x.end();++a){
+            pos[*a-mnp]++;
+        }
+    }else{ 
+        for(;a!=x.end();++a){
+            neg[*a-mxn]++;
+        }
+    }
+    
+    
+    if(has_neg){
+        for(vector<int>::reverse_iterator nr=neg.rbegin();nr!=neg.rend();++nr){
+            if(*nr!=0){
+                int num=-(neg.rend()-nr-1-mxn),times=*nr;
+                for(int i=0;i<times;++i){
+                    *F++=num;
+                }
+            }
+        }
+    }
+    if(has_pos){
+        for(a=pos.begin();a!=pos.end();++a){
+            if(*a!=0){
+                int num=a-pos.begin()+mnp,times=*a;
+                for(int i=0;i<times;++i){
+                    *F++=num;
+                }
+            }
+        }
+    }
+    return f;
+}
+
+RcppExport SEXP Rfast_sort_int(SEXP xSEXP) {
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< vector<int> >::type x(xSEXP);
+    __result = sort_int(x);
+    return __result;
+END_RCPP
+}

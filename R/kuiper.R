@@ -1,5 +1,5 @@
 kuiper <- function(u) {
-  u <- Sort(u) / (2 * pi)
+  u <- Rfast::Sort(u) / (2 * pi)
   n <- length(u)
   i <- (1:n)/n
   f <- sqrt(n)

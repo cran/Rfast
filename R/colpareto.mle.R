@@ -1,8 +1,8 @@
 colpareto.mle <- function(x) {
     n <- dim(x)[1]
-    xm <- colMins(x, value = TRUE)
+    xm <- Rfast::colMins(x, value = TRUE)
     com <- n * log(xm)
-    slx <- colsums( Log(x) )
+    slx <- Rfast::colsums( Rfast::Log(x) )
     a <- n/(slx - com)
     loglik <- n * log(a) + a * com - (a + 1) * slx
     res <- cbind(xm, a, loglik)

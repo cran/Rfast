@@ -7,12 +7,13 @@
 #include <string>
 #include <fstream>
 #include <dirent.h>
+#include <Rcpp.h>
 
+using Rcpp::List;
 using std::vector;
 using std::string;
 using std::ifstream;
 
-//[[Rcpp::plugins(cpp11)]]
 
 void print_error();
 
@@ -25,9 +26,9 @@ void print_error(T values,Args... args){
 
 //#define PRINT_ERRORS
 #ifdef PRINT_ERRORS
-#define DEBUG(message) (print_error(message))
+#define DEBUG print_error
 #else
-#define DEBUG(message);
+#define DEBUG(...);
 #endif
 
 
@@ -50,5 +51,11 @@ void dont_read_man(vector<string>&,vector<string>&);
 vector<string> read_usage(ifstream &);
 string read_function_from_r_file(ifstream &);
 void remove_spaces(string&);
-bool find_string(string& s,const char *cs);
+List read_examples(string,vector<string>);
+
+template<class T>
+bool find_string(string& s,T f){
+  return s.find(f)!=string::npos;
+}
+
 #endif

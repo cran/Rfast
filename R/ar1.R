@@ -22,7 +22,7 @@ ar1 <- function(y, method = "cmle") {
     z <- y - m
     y1 <- z[-1] 
     x1 <- z[-N]
-    phi <- cov(y1, x1) / Var(x1)
+    phi <- as.vector( cov(y1, x1) )/ Var(x1)
     constant <-  mean(y1) - phi * mean(x1)
     sigma <- sum( (y1 - constant - phi * x1 )^2 ) / (N - 1)
     param <- c(constant, phi, sigma)

@@ -11,7 +11,7 @@ logseries.mle <- function(x, tol = 1e-09) {
   der <- m * p1 + com
   der2 <-  - m * p * p1 + p * p1 / loga1 + com^2
   a2 <- a1 - der / der2
-   
+  
   i <- 2
   while ( abs(a1 - a2) > tol ) {
     i <- i + 1

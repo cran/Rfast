@@ -1,7 +1,5 @@
 #include "calc_perm_cor.h"
 
-//[[Rcpp::plugins(cpp11)]]
-
 #define DEBUG 0
 #define db_print(...) \
 	do { if (DEBUG) Rprintf(__VA_ARGS__); } while (0)
@@ -26,24 +24,7 @@ static double calc_pvalue_rnd_r(arma::vec& ds_c0, arma::vec& ds_c1, const unsign
 			}
 		}
 	}
-	return sum / (double) (r + 1);
-}
-
-static double calc_pvalue_stb_r(arma::vec& ds_c0, arma::vec& ds_c1, const unsigned int r, 
-		const double upper, const double lower, const double test_stat, const unsigned int nrows) {
-    unsigned int sum = 1;
-	for (unsigned int i = 0; i < r; ++i) {
-		arma::vec shuffled_ds_c0 = arma::shuffle(ds_c0);
-		double sxy_sum = 0;
-		for (unsigned int j = 0; j < nrows; ++j) {
-			sxy_sum += shuffled_ds_c0[j] * ds_c1[j];
-		}
-		const double adj_sxy_sum = (sxy_sum - upper) / lower;
-		if (std::abs(std::log((1 + adj_sxy_sum) / (1 - adj_sxy_sum))) > test_stat) {
-			++sum;
-		}
-	}
-    return sum / (double) (r + 1);
+	return sum / (double) (std::pow(rnd_r, 2) + 1);
 }
 
 arma::vec calc_perm_cor(arma::vec& x, arma::vec& y, const unsigned int r) {
@@ -73,17 +54,8 @@ arma::vec calc_perm_cor(arma::vec& x, arma::vec& y, const unsigned int r) {
     const double test_stat = std::abs(std::log((1 + cor) / (1 - cor)));
 
     db_print("Calculating sxy, pvalue.\n");
-	double pvalue;
-	if (r <= 5) {
-		db_print("r <= 5\n");
-		pvalue = calc_pvalue_stb_r(x, y, r, upper, lower, test_stat, nrows);
-	}
-	else {
-		db_print("r > 10\n");
-		pvalue = calc_pvalue_rnd_r(x, y, r, upper, lower, test_stat, nrows);
-	}
+	const double pvalue = calc_pvalue_rnd_r(x, y, r, upper, lower, test_stat, nrows);
 	arma::vec res(2); res[0] = cor; res[1] = pvalue;
 	return res;
 }
-
 

@@ -1,6 +1,6 @@
 iag.mle <- function (x, tol = 1e-07) {
     n <- dim(x)[1]
-    mod <- vmf.mle(x)
+    mod <- Rfast::vmf.mle(x)
     ka <- mod$kappa
     x23 <- crossprod(x) - n * diag(3)
     m1 <- mod$mu * sqrt(ka)
@@ -12,7 +12,7 @@ iag.mle <- function (x, tol = 1e-07) {
     der <- 2 * (a * pa + da) * x
     sqa <- sqrt(pa) * x/sqrt(gm)
     sqa2 <- der/gm
-    fm1 <- colsums(a * x) - n * m1 + colsums(sqa2)
+    fm1 <- Rfast::colsums(a * x) - n * m1 + Rfast::colsums(sqa2)
     fm2 <- x23 + 2 * crossprod(sqa) - crossprod(sqa2)
     m2 <- m1 - solve(fm2, fm1)
     i <- 2
@@ -25,7 +25,7 @@ iag.mle <- function (x, tol = 1e-07) {
         gm <- pa + a2 * pa + a * da
         der <- 2 * (a * pa + da) * x
         sqa2 <- der/gm
-        fm1 <- colsums(a * x) - n * m1 + colsums(sqa2)
+        fm1 <- Rfast::colsums(a * x) - n * m1 + Rfast::colsums(sqa2)
         sqa <- sqrt(pa) * x/sqrt(gm)
         fm2 <- x23 + 2 * crossprod(sqa) - crossprod(sqa2)
         m2 <- m1 - solve(fm2, fm1)

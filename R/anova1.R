@@ -5,7 +5,7 @@ anova1 <- function (x, ina, logged = FALSE) {
   ni <- ni[ni > 0]
   n <- length(x)
   sx2 <- sum(x^2)
-  m <- group.sum(x, ina)
+  m <- Rfast::group.sum(x, ina)
   a <- sum(m^2/ni)
   b <- sum(m)^2/n
   mst <- (a - b) / (k - 1)

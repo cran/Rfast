@@ -1,5 +1,5 @@
 
 
 dcov <- function(x,y) {
-  .Call("Rfast_dcov",PACKAGE = "Rfast",t(x),t(y))
+  .Call(Rfast_dcov,t(x),t(y))
 }

@@ -1,15 +1,17 @@
-\name{MLE of the multivariate normal distribution}
+\name{MLE of the multivariate (log-) normal distribution}
 \alias{mvnorm.mle}
+\alias{mvlnorm.mle}
 \title{
-MLE of the multivariate normal distribution
+MLE of the multivariate (log-) normal distribution
 }
 
 \description{
-MLE of the multivariate normal distribution.
+MLE of the multivariate (log-) normal distribution.
 }
 
 \usage{
 mvnorm.mle(x)
+mvlnorm.mle(x)
 }
 
 \arguments{
@@ -19,21 +21,35 @@ A matrix with numerical data.
 }
 
 \details{
-The mean vector, covariance matrix and the value of the log-likelihood is calculated.
+The mean vector, covariance matrix and the value of the log-likelihood of the multivariate normal or log-normal distribution is calculated. 
+For the log-normal distribution we also provide the expected value and the covariance matrix. 
 }
 
 \value{
 A list including:
-\item{iters}{The number of iterations required for the Newton-Raphson to converge.
+\item{loglik}{
+The log-likelihood multivariate distribution.
 }
-\item{loglik}{The value of the maximised log-likelihood.
+\item{mu}{
+The mean vector.
 }
-\item{param}{The vector of the parameters for the zero inflated Poisson.
+\item{sigma}{
+The covariance matrix.
+}
+\item{m}{
+The expected mean vector of the multivariate log-normal distribution.
+}
+\item{s}{
+The expected covariance matrix of the multivariate log-normal distribution.
 }
 }
 
 \references{
-Johnson Norman L., Kotz Samuel and Balakrishnan (1997). Discrete Multivariate Distributions. Wiley
+Kotz, S., Balakrishnan, N., & Johnson, N. L. (2004). Continuous multivariate distributions, Volume 1: Models and applications (Vol. 1). John wiley & sons.
+
+http://isi.cbs.nl/iamamember/CD2/pdf/329.PDF
+
+https://en.wikipedia.org/wiki/Log-normal_distribution#Multivariate_log-normal
 }
 
 \author{

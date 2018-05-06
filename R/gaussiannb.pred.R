@@ -5,6 +5,6 @@ gaussiannb.pred <- function(xnew, m, s, ni) {
   k <- dim(m)[1]
   mat <- matrix(nrow = dim(xnew)[2], ncol = k)
   for (j in 1:k)  mat[, j] <-  - Rfast::colsums( (xnew - m[j, ])^2 / s[j, ] ) - dets[j] + con[j]
-  rowMaxs(mat)
+  Rfast::rowMaxs(mat)
 }
   

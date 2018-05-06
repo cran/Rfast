@@ -231,7 +231,7 @@ int my_round(const double x){
 
 static long double powers[] = {0,1e+1,1e+2,1e+3,1e+4,1e+5,1e+6,1e+7
 								,1e+8,1e+9,1e+10,1e+11,1e+12,1e+13
-								,1e+14,1e+15};
+								,1e+14,1e+15,1e+16};
 
 //Round
 double my_round_gen_na_rm(double x,const int& dg){
@@ -322,9 +322,9 @@ NumericVector toNumbers(string x,char spliter){
   x+=spliter;
   const char *split=&spliter;
   char *token = std::strtok(&x[0], split);
-  while (token != NULL) {
+  while (token != nullptr) {
     f.push_back(std::atof(token));
-    token = std::strtok(NULL, split);
+    token = std::strtok(nullptr, split);
   }
   return f;
 }
@@ -370,10 +370,6 @@ SEXP eachcol_min_abs(SEXP x,SEXP y){
   }
   UNPROTECT(1);
   return mat;
-}
-
-bool find_string(string& s,const char *cs){
-  return s.find(cs)!=std::string::npos;
 }
 
 double calcDevRes(colvec p,colvec y,colvec expyhat){

@@ -20,6 +20,11 @@ gammamle <- function(x, tol = 1e-09) {
   list(iters = i, loglik = loglik, param = param)
 }
 
+
+
+
+
+
 #old_gammamle <- function(x, tol = 1e-09) {
 #  n <- length(x)
 #  sx <- sum(x)

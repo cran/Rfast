@@ -1,13 +1,12 @@
-
-colanovas <-function(y,x,logged = FALSE){
-  if(is.data.frame(x)){
+colanovas <- function(y, x, logged = FALSE) {
+  if ( is.data.frame(x) ) {
 	x <- Rfast::data.frame.to_matrix(x)
   }
   n <- dim(x)[1]
   b <- sum(y)^2/n
   sy2 <- sum(y^2)
   a <- .Call('Rfast_col_anovas', PACKAGE = 'Rfast',y,x)
-  k<-Rfast::colrange(x,cont=FALSE)
+  k <- Rfast::colrange(x,cont=FALSE)
   mst <- (a - b) / (k - 1)
   mse <- (sy2 - a) / (n - k)
   fa <- mst / mse

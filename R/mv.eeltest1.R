@@ -37,7 +37,7 @@ mv.eeltest1 <- function(x, mu, tol = 1e-06, R = 1) {
     names(info) <- c("statistic", "p-value")
     list(p = p, lambda = lam_new, iters = i, info = info)
   }
-
+  
   runtime <- proc.time()
   res <- try( eel(x, mu, n, d), silent = TRUE )
   runtime <- proc.time() - runtime

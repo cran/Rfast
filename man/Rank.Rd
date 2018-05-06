@@ -9,7 +9,7 @@ Ranks of the values of a vector.
 }
 
 \usage{
-Rank(x,method = "average",descending = FALSE,stable = FALSE)
+Rank(x,method = "average",descending = FALSE)
 }
 
 \arguments{
@@ -17,18 +17,15 @@ Rank(x,method = "average",descending = FALSE,stable = FALSE)
 A numerical vector with data.
 }
 \item{method}{
-a character string for choosing method. Must be one of "average", "min", "max", "first".
+a character string for choosing method. Must be one of "average", "min", "max".
 }
 \item{descending}{
 A boolean value (TRUE/FALSE) for sorting the vector in descending order. By default sorts the vector in ascending.
 }
-\item{stable}{
-A boolean value (TRUE/FALSE) for choosing a stable sort algorithm. Stable means that discriminates on the same elements. Only for the method "first".
-}
 }
 
 \details{
-The ranks of the values are returned, the same job as "rank". If you want you can choose descending/ascending order for all methods. Only for method "first" you can choose for stable sorting but choose it if you have many duplicates values.
+The ranks of the values are returned, the same job as "rank". If you want you can choose descending/ascending order for all methods.
 }
 
 \value{

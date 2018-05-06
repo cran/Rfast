@@ -41,7 +41,17 @@ The possible values are "logistic", "poisson", "quasipoisson", "quasibinomial", 
 }
 
 \value{
+For the ompr a matrix with two columns. The selected variable(s) and the criterion value at every step. 
+For the omp a list including:
+\item{runtime}{
+The runtime of the algorithm.
+}
+\item{phi}{
+The \eqn{\phi} parameter. In the cases of "quasipoisson", "quasibinomial" and "normlog" this is useful. For all other cases this is NULL.
+}
+\item{info}{
 A matrix with two columns. The selected variable(s) and the criterion value at every step. 
+}
 }
 
 \references{

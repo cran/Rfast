@@ -31,6 +31,10 @@ hsecant01.mle <- function(x, tol = 1e-09) {
   list(loglik = loglik, theta = theta)
 }
 
+
+
+
+
 #hsecant01 <- function(y, tol = 1e-09) {
 #  sy1 <- sum( log(y) )  ;   sy2 <-  sum( log( 1 - y) )
 #  com <-  - 0.5 * sy1 - 0.5 * sy2

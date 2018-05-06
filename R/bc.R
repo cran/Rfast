@@ -2,13 +2,13 @@ bc <- function(x, low = -1, up = 1) {
   lx <- log(x)
   slx <- sum( lx )
   n2 <-  - 0.5 * length(x)
-  vlx <- Var(lx)
+  vlx <- Rfast::Var(lx)
   ell <- function(lambda, x, vlx, slx, n2) {
     if ( abs(lambda) < 1e-12 ) {
       s <- vlx
     } else {
       y <- x^lambda
-      s <- Var(y) / lambda^2
+      s <- Rfast::Var(y) / lambda^2
     }
     n2 * log(s) + lambda * slx
   }

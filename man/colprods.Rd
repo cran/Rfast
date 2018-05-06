@@ -10,13 +10,17 @@ Column and row-wise products.
 }
 
 \usage{
-colprods(x)
+colprods(x, method = "direct")
 rowprods(x)
 }
 
 \arguments{
 \item{x}{
 A matrix with numbers.
+}
+\item{method}{
+The type of colCumProds to use. For direct multiplication use "direct" or 
+"expsumlog" for a more numerically stable, but slower way.
 }
 }
 

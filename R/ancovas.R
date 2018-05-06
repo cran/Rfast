@@ -3,16 +3,16 @@ ancovas <- function(y, ina, x, logged = FALSE) {
   ni <- ni[ni > 0]
   a <- length(ni) 
   N <- length(ina)
-  sy <- colsums(y)
+  sy <- Rfast::colsums(y)
   sx <- sum(x)
   com <- sy^2/N
   com2 <- sx * sy / N
-  syy <- colsums(y^2) - com
+  syy <- Rfast::colsums(y^2) - com
   sxx <- sum(x^2) - sx^2/N
-  sxy <- colsums(x * y) - com2
-  tyy <- colsums( rowsum(y, ina)^2/ni ) - com
-  txx <- sum( group.sum(x, ina)^2/ni ) - sx^2/N
-  txy <- colsums( as.vector( group.sum(x, ina)/ni ) * rowsum(y, ina) ) - com2
+  sxy <- Rfast::colsums(x * y) - com2
+  tyy <- Rfast::colsums( rowsum(y, ina)^2/ni ) - com
+  txx <- sum( Rfast::group.sum(x, ina)^2/ni ) - sx^2/N
+  txy <- Rfast::colsums( Rfast::group.sum(x, ina)/ni * rowsum(y, ina) ) - com2
   eyy <- syy - tyy
   exx <- sxx - txx
   exy <- sxy - txy

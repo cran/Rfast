@@ -1,6 +1,6 @@
 collindley.mle <- function(x) {
     n <- dim(x)[1]
-    sx <- colsums(x)
+    sx <- Rfast::colsums(x)
     a <- sx/n
     b <- a - 1
     delta <- b^2 + 8 * a

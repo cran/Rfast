@@ -3,7 +3,7 @@ wrapcauchy.mle <- function(x, tol = 1e-09) {
   cx <- cos(x)   
   sx <- sin(x)
   cs <- cbind(cx, sx)
-  sa <- colMedians(cs)
+  sa <- Rfast::colMedians(cs)
   C <- sa[1]
   S <- sa[2]
   rho <- sqrt(C^2 + S^2)
@@ -12,13 +12,13 @@ wrapcauchy.mle <- function(x, tol = 1e-09) {
   ms <- 2 * rho * sin(a) / (1 + rho^2) 
   m1 <- c(mc, ms)
   wi <- 1 / (1 - mc * cx - ms * sx)
-  m2 <- colsums(wi * cs) / sum(wi)
+  m2 <- Rfast::colsums(wi * cs) / sum(wi)
   i <- 2
   while ( sum( abs(m1 - m2) ) > tol ) {
     i <- i + 1
     m1 <- m2
     wi <- 1 / (1 - m1[1] * cx - m1[2] * sx)
-    m2 <- colsums(wi * cs) / sum(wi)
+    m2 <- Rfast::colsums(wi * cs) / sum(wi)
   }
 
   a <- ( atan(m2[2] / m2[1]) + pi * I(m2[1] < 0) ) %% (2 * pi) 

@@ -1,13 +1,13 @@
 colvarcomps.mom <- function(x, id, parallel = FALSE) {
-  k <- sort_unique.length(id) 
+  k <- Rfast::sort_unique.length(id) 
   ni <- tabulate(id)
   ni <- ni[ni > 0]
   sam <- length(ni)
   n <- dim(x)[1]
-  sx2 <- colsums(x^2, parallel = parallel)
+  sx2 <- Rfast::colsums(x^2, parallel = parallel)
   m <- rowsum(x, id)
-  a <- colsums(m^2/ni)
-  b <- colsums(m)^2/n
+  a <- Rfast::colsums(m^2/ni)
+  b <- Rfast::colsums(m)^2/n
   df1 <- k - 1
   df2 <- n - k   
   mst <- (a - b)/df1       ### /(k - 1)

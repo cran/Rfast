@@ -1,6 +1,94 @@
 <h1 align="center"> _Rfast_ </h1>
 
 > ####New version 
+Date release: **26/04/2018**
+
+***
+
+> ###**_Statistical functions_**  
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  |	      Function	    |     What's new!     |
+>>  | ------------------	| ------------------- |
+>>  | topological_sort      |  Time improvement   |
+>>  | permcor               |  Fix a bug          |
+>>  | omp                   |  Time improvement   |
+>>  | chi2Test              |  Chi-squared test of independence   |
+>>  | chi2tests             |  Many chi-squared tests of independnce   |
+>>  | chi2Test_univariate   |  Matrix with chi-square tests of indepedence   |
+>>  | normlog.regs          |  Fix a bug                                     |
+>>  | cova                  |  Added an extra argument                       |
+>>  | ompr                  |  Time improvement                              |
+***
+>
+>>2. <u> **New** </u>
+>>
+>>  | 	   Function		      |                           What's new!                           |
+>>  | ------------------	  | --------------------------------------------------------------- |
+>>  | betabinom.mle           |  MLE of the beta binomial distribution                          |
+>>  | betageom.mle            |  MLE of the beta geometric distribution                         |
+>>  | colpoisson.anovas       |  Column-wise ANOVA with Poisson distribution                    |
+>>  | colquasipoisson.anovas  |  Column-wise ANOVA with quasi Poisson                           |
+>>  | exact.ttest2            |  Exact permutations 2-sample t-test                             |
+>>  | gchi2Test               |  G-square and Chi-square tests of indepdence                    |
+>>  | mvlnorm.mle             |  MLE of the multivariate lognormal distribution                 |
+>>  | poly.cor                |  Polychoric correlation                                         |
+>>  | pooled.cov              |  Pooled covariance matrix                                       |
+>>  | spatmed.reg             |  Spatial median (multivariate) regression                       |
+>>  | sscov                   |  Spatial sign covariance matrix                                 |
+>>  | trim.colmeans           |  Trimeed column-wise means                                      |
+>>  | trim.rowmeans           |  Trimeed row-wise means                                         |
+>>  | eigs.sym                |  Extract some principal components from a symmetric matrix      |
+>>  | invgauss.regs           |  Many simple inverse Gaussian regression with a log link        |
+>>  | invgauss.reg            |  Inverse Gaussian regression with a log link                    |
+
+
+
+***
+
+> ###**_Utility functions_**  
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  | 	    Function	    |                What's new!                  |
+>>  | --------------------- | ------------------------------------------- |
+>>  |   as_integer          | Fix a bug.                                  |
+>>  |   Round               | Fix a bug. digit argument can be up to 15.  |
+>>  |   matrix.sum          | Deprecate it.                               |
+>>  |   countNA             | Deprecate it.                               |
+>>  |   sort_unique.length  | Deprecate it for numeric numbers.           |
+>>  |   Rank                | Deprecate method="first".                   |
+>>  |   Match               | Improved.                                   |
+>>  |   nth                 | Improved method for integers.               |
+>>  |   colshuffle          | Fix a bug.                                  |
+>>  |   transpose           | Now can handle generic matrix using parallel                                  |
+>>  |   colshuffle          | Fix a bug.                                  |
+***
+>
+>>2. <u> **New** </u>
+>>
+>>  | 	   Function		    |                What's new!                |
+>>  | ------------------	| ----------------------------------------- |
+>>  |   Outer               | like R's outer.                           |
+>>  |   RemoveFromNamespace | remove exported functions.                |
+>>  |   Sort.int            | fast sorting integer.                     |
+>>  |   colCumMaxs          | like R's outer.                           |
+>>  |   colCumSums          | like R's outer.                           |
+>>  |   colCumMins          | like R's outer.                           |
+>>  |   colCumProds         | like R's outer.                           |
+>>  |   positive            | apply method to each positive value.      |
+>>  |   positive.negative   | apply method to each positive and negative value.   |
+>>  |   negative            | apply method to each negative value.                |
+>>  |   as.Rfast.function   | convert an R function to Rfast's equivalent         |
+>>  |   mat.mult            | Generic matrix multiplication using parallel.       |
+>>  |   checkUsage          | checking usage section in Rd files.                 |
+>>  |   Hash                | Create Hash object.                                 |
+>>  |   Hash.key            | Search key or multi key.                            |
+
+
+
+> ####version 1.8.8
 Date release: **10/03/2018**
 
 ***
@@ -97,4 +185,3 @@ Date release: **10/03/2018**
 >>  | rows                | get specific rows from a matrix  |
 >>  | eachcol.apply       | apply a function to each col after the operation |
 >>  | checkTF             | checking man files for missing TRUE/FALSE values in examples |
-

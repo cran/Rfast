@@ -11,10 +11,10 @@ allttests <- function (x, y = NULL, ina, logged = FALSE) {
         x2 <- y
         n2 <- dim(x2)[1]
     }
-    m1 <- colmeans(x1)
-    m2 <- colmeans(x2)
-    f1 <- colVars(x1)/n1
-    f2 <- colVars(x2)/n2
+    m1 <- Rfast::colmeans(x1)
+    m2 <- Rfast::colmeans(x2)
+    f1 <- Rfast::colVars(x1, suma = n1 * m1)/n1
+    f2 <- Rfast::colVars(x2, suma = n2 * m2)/n2
     fac <- outer(f1, f2, "+")
     down <- outer(f1^2/(n1 - 1), f2^2/(n2 - 1), "+")
     dof <- fac^2/down

@@ -21,7 +21,7 @@ chisq.mle <- function(x, tol = 1e-09) {
     v <- v - der / der2
     lik2 <-  v * com - n * lgamma(0.5 * v) + 2 * (0.5 * v - 1) * slx2
   }
-
+  
   list(iters = i , loglik = lik2 - 0.5 * sx, nu = v)
 }
 

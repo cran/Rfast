@@ -12,7 +12,7 @@ allbetas(y, x, pvalue = FALSE, logged = FALSE)
 
 \arguments{
 \item{y}{
-A numerical vector with the response variable. If the y contains proportions or percentages, i.e. values between 0 and 1, the logit transformation is applied first and the transformed data are used.
+A numerical vector with the response variable. 
 }
 \item{x}{
 A matrix with the data, where rows denotes the observations and the columns contain the independent variables.

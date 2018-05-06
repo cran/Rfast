@@ -49,8 +49,6 @@ SEXP eachrow_min_abs(SEXP,SEXP);
 SEXP eachcol_min_abs(SEXP,SEXP);
 IntegerVector Order(NumericVector,const bool,const bool);
 NumericVector Rank(NumericVector,string,const bool,const bool);
-List read_examples(string,vector<string>);
-bool find_string(string& ,const char *);
 double calcDevRes(colvec,colvec,colvec);
 
 #endif

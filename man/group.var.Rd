@@ -33,7 +33,7 @@ group.min_max(x, ina,ina.max = max(ina))
 A numerical vector with data.
 }
 \item{ina}{
-A numerical vector or a factor variable. For every distinct value of "ina" the variance (or standard deviation) of "x" will be calculated. Note that negative values are not allowed as this can cause R to run forever or crash. 
+A numerical vector with numbers. Note that zero and negative values are not allowed as this can cause R to run forever or crash.
 }
 \item{method}{
 A character vector with values "median", for median absolute deviation or "mean", for mean absolute deviation. 

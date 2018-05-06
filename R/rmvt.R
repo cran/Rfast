@@ -10,7 +10,7 @@ rmvt <- function(n, mu, sigma, v) {
   ## sigma does not have to be of full rank
   ## v is the degrees of freedom
   p <- length(mu)
-  x <- matrix( RcppZiggurat::zrnorm(n * p), ncol = p )  
+  x <- Rfast::matrnorm(n, p)
   w <- sqrt( v / rchisq(n, v) )
   w * x %*% chol(sigma) + rep(mu, rep(n, p) )
 }

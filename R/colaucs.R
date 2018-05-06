@@ -1,5 +1,5 @@
 colaucs <- function (group, preds) {
-    ri <- colRanks(preds) 
+    ri <- Rfast::colRanks(preds) 
     n <- length(group)
     n1 <- sum(group)
     n0 <- n - n1

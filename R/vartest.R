@@ -1,8 +1,8 @@
 vartest <- function(x, sigma, alternative = "unequal", logged = FALSE, conf = NULL) {
 
   n <- dim(x)[1]
-  m <- colsums(x)
-  x2 <- colsums(x^2) 
+  m <- Rfast::colsums(x)
+  x2 <- Rfast::colsums(x^2) 
   s <- x2 - m^2 / n
   stat <- s / sigma
   
@@ -10,10 +10,10 @@ vartest <- function(x, sigma, alternative = "unequal", logged = FALSE, conf = NU
   
     if ( logged ) {
       a <- pchisq( stat, n - 1, log.p = TRUE )
-      pvalue <- log(2) + rowMins( cbind(a, 1 - a), value = TRUE ) 
+      pvalue <- log(2) + Rfast::rowMins( cbind(a, 1 - a), value = TRUE ) 
     } else {
       a <- pchisq( stat, n - 1 )
-      pvalue <- 2 * rowMins( cbind(a, 1 - a), value = TRUE ) 	
+      pvalue <- 2 * Rfast::rowMins( cbind(a, 1 - a), value = TRUE ) 	
     }
 	
   } else if ( alternative == "greater" ) {

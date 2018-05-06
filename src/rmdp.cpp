@@ -11,8 +11,8 @@ colvec rmdp(NumericMatrix Y,const int h,umat rnd,const int itertime) {
   const int n = Y.nrow();
   mat y(Y.begin(),n,Y.ncol(),false);
   mat ny,tmp,sama;
-  int crit,l;
-  double tempdet,bestdet=0;
+  int crit=10,l=0;
+  double tempdet=0,bestdet=0;
   colvec jvec(n), ivec(n),final_vec(n),disa(n);
   uvec dist_perm(n),indextony(h),t(h);
   rowvec mu_t,var_t;
@@ -67,4 +67,18 @@ BEGIN_RCPP
     __result = wrap(rmdp(y,h,rnd,itertime));
     return __result;
 END_RCPP
+}
+
+//[[Rcpp::export]]
+IntegerVector Order(SEXP x,const bool stable=true,const bool descend=false){
+    IntegerVector ind=seq(0,LENGTH(x)-1);
+    double *xx=REAL(x);
+    if(descend){
+        auto descend_func = [&xx](int i,int j){return xx[i-1]>xx[j-1];};
+        stable ? stable_sort(ind.begin(),ind.end(),descend_func) : sort(ind.begin(),ind.end(),descend_func);
+    }else{
+        auto func = [&xx](int i,int j){return xx[i]<xx[j];};
+        stable ? stable_sort(ind.begin(),ind.end(),func) : sort(ind.begin(),ind.end(),func);
+    }
+    return ind;
 }

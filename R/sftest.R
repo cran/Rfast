@@ -1,5 +1,5 @@
 sftest <- function (x, logged = FALSE) {
-    x <- Sort(x)
+    x <- Rfast::Sort(x)
     n <- length(x)
     y <- qnorm((1:n - 0.375)/(n + 0.25))
     w <- cor(y, x)^2

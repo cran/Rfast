@@ -55,7 +55,7 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
       mat dera(n,dx2),der2(dx2,dx2,fill::zeros), b1(2,d),b2(2,d),m1(n, d),m(n,d),e1(n,d),ma(n,d+1),crossress(2,2),X(n,2);
       vec der(dx2),idcoli(2),idcolj(2),mcolij(n),slv;
       mat::iterator slvit, b2it, b1it;
-      int i,j,ij, k;
+      int i=0,j=0,ij=0, k=0;
       X.col(0) = one;
 
       for(int l = 0; l < D; l++) {
@@ -94,7 +94,7 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
 
         b1 = b10;
 
-        slv = solve(der2, der,solve_opts::equilibrate);
+        slv = solve(der2, der);
 
         b2it = b2.begin();
         b1it = b1.begin();
@@ -143,7 +143,7 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
           }
           der = conv_to<vec>::from(sum(dera));
 
-          slv = solve(der2, der,solve_opts::equilibrate);
+          slv = solve(der2, der);
           b2it = b2.begin();
           b1it = b1.begin();
           slvit = slv.begin();

@@ -1,9 +1,9 @@
 logistic.cat1 <- function(y, x, logged = FALSE) {
-  N <- table(y, x) 
+  N <- Rfast::Table(y, x) 
   cj <- log( N[2, ] / N[1, ] )
   be <- c(cj[1], cj[-1] - cj[1])
   n <- length(y)
-  Nj <- colsums( N )
+  Nj <- Rfast::colsums( N )
   pj <- N[2, ] / Nj
   p <- sum(N[2, ]) / n
   D0 <-  - 2 * n * sum( p * log(p) + (1 - p) * log(1 - p) )

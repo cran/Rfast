@@ -1,6 +1,7 @@
 \name{Matrix with G-square tests of indepedence}
 \alias{g2Test_univariate}
 \alias{g2Test_univariate_perm}
+\alias{chi2Test_univariate}
 
 \title{
 Matrix with G-square tests of indepdence
@@ -12,8 +13,8 @@ Matrix with G-square tests of indepdence with and without permutations.
 
 \usage{
 g2Test_univariate(data, dc)
-
 g2Test_univariate_perm(data, dc, nperm) 
+chi2Test_univariate(data, dc)
 }
 
 \arguments{
@@ -41,7 +42,7 @@ The p-value is not returned, we live this to the user. See the examples of how t
 \value{
 A list including:
 \item{statistic}{
-The \eqn{G^2} test statistic for each pair of variables.
+The \eqn{G^2} or \eqn{chi^2} test statistic for each pair of variables.
 }
 \item{pvalue}{
 This is returned when you have selected the permutation based \eqn{G^2} test.

@@ -6,7 +6,7 @@ multivmf.mle <- function(x, ina, tol = 1e-07, ell = FALSE) {
     Apk <- function(p, k) besselI(k, p/2, expon.scaled = TRUE)/besselI(k, 
         p/2 - 1, expon.scaled = TRUE)
     m1 <- rowsum(x, ina)
-    Ri <- sqrt(rowsums(m1^2))/ni
+    Ri <- sqrt( Rfast::rowsums(m1^2) ) / ni
     m <- m1/ni/Ri
     ki <- Ri * (p - Ri^2)/(1 - Ri^2)
     g <- max(ina) 

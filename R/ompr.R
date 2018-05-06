@@ -5,11 +5,11 @@ ompr <- function (y, x, method = "BIC", tol = 2 ) {
     ind <- 1:d
     m <- sum(y) / n
     y <- y - m
-    x <- eachrow(x, sqrt( colsums(x^2) ), oper="/")
+    x <- Rfast::eachrow(x, sqrt( Rfast::colsums(x^2) ), oper="/")
     ######### SSE
     if ( method == "sse" ) {
-      rho <- Var(y) * (n - 1)
-      r <- cor(y, x)
+      rho <- Rfast::Var(y) * (n - 1)
+      r <- cov(y, x)
       sel <- which.max(abs(r))
       sela <- sel
       res <- .lm.fit(x[, sel, drop = FALSE], y)$residuals
@@ -20,21 +20,22 @@ ompr <- function (y, x, method = "BIC", tol = 2 ) {
       while ( (rho[i - 1] - rho[i])/(rho[i - 1]) > tol  &  i < n ) {
         i <- i + 1
         r[sela] <- 0
-        r[ind] <- cor(res, x[, ind])
+        ## r[ind] <- cov(res, x[, ind])
+		r[ind] <- Rfast::eachcol.apply(x, res, indices = ind[ind > 0], oper = "*", apply = "sum")
         sel <- which.max(abs(r))
         sela <- c(sela, sel)
         res <- .lm.fit(x[, sela], y)$residuals
         rho[i] <- sum(res^2)
         ind[sela] <- 0
       }
-	len <- length(sela)
+	  len <- length(sela)
       info <- cbind(c(0, sela[-len]), rho[1:len])
       colnames(info) <- c("Vars", "|sse|")
     ######### BIC
     } else if ( method == "BIC" ) {
       con <-  n * log(2 * pi) + n
       rho <- n * log( Var(y) * (n-1)/n )+ 2 * log(n)
-      r <- cor(y, x)
+      r <- cov(y, x)
       sel <- which.max( abs(r) )
       sela <- sel
       res <- .lm.fit(x[, sel, drop = FALSE], y)$residuals
@@ -45,21 +46,22 @@ ompr <- function (y, x, method = "BIC", tol = 2 ) {
       while ( rho[i - 1] - rho[i] > tol & i < n ) {
         i <- i + 1
         r[sela] <- 0
-        r[ind] <- cor(res, x[, ind])
+        ## r[ind] <- cov(res, x[, ind])
+    	r[ind] <- Rfast::eachcol.apply(x, res, indices = ind[ind > 0], oper = "*", apply = "sum")
         sel <- which.max(abs(r))
         sela <- c(sela, sel)
         res <- .lm.fit(x[, sela], y)$residuals
         rho[i] <- n * log( sum(res^2)/n ) + (i + 1) * log(n)
         ind[sela] <- 0
       }
-	len <- length(sela)
+	  len <- length(sela)
       info <- cbind(c(0, sela[-len]), rho[1:len] + con)
       colnames(info) <- c("Vars", "BIC")
     ######### adjusted R-square
     } else if (method == "ar2") {
       down <- Var(y) * (n - 1)
       rho <- 0
-      r <- cor(y, x)
+      r <- cov(y, x)
       sel <- which.max( abs(r) )
       sela <- sel
       res <- .lm.fit(x[, sel, drop = FALSE], y)$residuals
@@ -71,7 +73,8 @@ ompr <- function (y, x, method = "BIC", tol = 2 ) {
       while ( rho[i] - rho[i - 1] > tol & i < n ) {
         i <- i + 1
         r[sela] <- 0
-        r[ind] <- cor(res, x[, ind])
+        ## r[ind] <- cov(res, x[, ind])
+    	r[ind] <- Rfast::eachcol.apply(x, res, indices = ind[ind > 0], oper = "*", apply = "sum")
         sel <- which.max(abs(r))
         sela <- c(sela, sel)
         res <- .lm.fit(x[, sela], y)$residuals
@@ -79,7 +82,7 @@ ompr <- function (y, x, method = "BIC", tol = 2 ) {
         rho[i] <- 1 - (1 - r2) * (n - 1)/(n - i - 1)
         ind[sela] <- 0
       }
-	len <- length(sela)
+	  len <- length(sela)
       info <- cbind(c(0, sela[-len]), rho[1:len])
       colnames(info) <- c("Vars", "adjusted R2")
     }

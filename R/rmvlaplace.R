@@ -8,7 +8,7 @@ rmvlaplace <- function(n, lam, mu, G) {
   } else {
   	d <- length(mu)  ## dimensionality of the data
   	z <- rexp(n, lam)
-  	x <- matrix( RcppZiggurat::zrnorm(n * d), ncol = d )
+  	x <- Rfast::matrnorm(n, d)
   	y <- sqrt(z) * x %*% chol(G) + rep(mu, rep(n, d) )## the simulated sample
   }
   y

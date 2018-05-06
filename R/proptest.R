@@ -11,7 +11,7 @@ proptest <- function(x, n, p, alternative = "unequal", logged = FALSE) {
   } else if ( alternative == "less" ) {
     pvalue <- pvalue <- pnorm(stat, log.p = logged) 
   }
-
+  
   cbind(stat, pvalue)
 }
 

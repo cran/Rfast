@@ -207,3 +207,70 @@ END_RCPP
 
 
 /////////////////////////////////////////////////////////////////////////
+
+
+NumericVector lower_tri_assign(NumericMatrix x,NumericVector v,const bool dg=false){
+    const int ncl=x.ncol(),nrw=x.nrow();
+    int i,j;
+    NumericVector f = clone(x);
+    NumericVector::iterator vv=v.begin();
+    if(dg){
+        for(i=0;i<ncl;++i){
+            for(j=i;j<nrw;++j){
+                f(j,i)=*vv++;
+            }
+        }
+    }else{
+        for(i=0;i<ncl;++i){
+            for(j=i+1;j<nrw;++j){
+                f(j,i)=*vv++;
+            }
+        }
+    }
+    return f;
+}
+
+RcppExport SEXP Rfast_lower_tri_assign(SEXP xSEXP,SEXP vSEXP,SEXP dgSEXP){
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    traits::input_parameter< NumericVector >::type v(vSEXP);
+    traits::input_parameter< const double >::type dg(dgSEXP);
+    __result = wrap(lower_tri_assign(x,v,dg));
+    return __result;
+END_RCPP
+}
+
+NumericVector upper_tri_assign(NumericMatrix x,NumericVector v,const bool dg){
+  const int ncl=x.ncol();
+  int i,j;
+  NumericVector f = clone(x);
+  NumericVector::iterator vv=v.begin();  
+  if(dg){
+    for(i=0;i<ncl;++i){
+      for(j=0;j<=i;++j){
+          f(j,i)=*vv++;
+      }
+    }
+  }else{
+    for(i=1;i<ncl;++i){
+      for(j=0;j<i;++j){       
+          f(j,i)=*vv++;
+      }           
+    }
+  }
+  return f;
+}
+
+RcppExport SEXP Rfast_upper_tri_assign(SEXP xSEXP,SEXP vSEXP,SEXP dgSEXP){
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    traits::input_parameter< NumericVector >::type v(vSEXP);
+    traits::input_parameter< const double >::type dg(dgSEXP);
+    __result = wrap(upper_tri_assign(x,v,dg));
+    return __result;
+END_RCPP
+}

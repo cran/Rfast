@@ -32,6 +32,8 @@ public:
 void randomContigencyTable(int* matrix, const int* nrowt, const int* ncolt, const int nrow, const int ncol, const double *logfact, int *jwork, const int ntotal, std::mt19937 &rng);
 TestResult g2Test(NumericMatrix& data, int x, int y, int* dc);
 TestResult g2Test(NumericMatrix& data, int x, int y, int* cs, int ncs, int* dc);
+TestResult chi2Test(NumericMatrix& data, int x, int y, int* dc);
+TestResult chi2Test(NumericMatrix& data, int x, int y, int* cs, int ncs, int* dc);
 TestResult permG2Test(NumericMatrix& data, int x, int y, int* cs, int ncs, int* dc, int nperm);
 
 #endif

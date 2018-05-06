@@ -1,11 +1,11 @@
 corpairs <- function(x, y, rho = NULL, logged = FALSE, parallel = FALSE) {
 
-  mx <- colsums(x, parallel = parallel)
-  my <- colsums(y, parallel = parallel)
-  mx2 <- colsums(x^2, parallel = parallel)
-  my2 <- colsums(y^2, parallel = parallel)
+  mx <- Rfast::colsums(x, parallel = parallel)
+  my <- Rfast::colsums(y, parallel = parallel)
+  mx2 <- Rfast::colsums(x^2, parallel = parallel)
+  my2 <- Rfast::colsums(y^2, parallel = parallel)
   n <- dim(x)[1]
-  up <- n * colsums(x * y, parallel = parallel) - mx * my
+  up <- n * Rfast::colsums(x * y, parallel = parallel) - mx * my
   down <- (n * mx2 - mx^2) * (n * my2 - my^2)
   r <- up / sqrt( down ) 
   

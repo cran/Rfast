@@ -1,6 +1,6 @@
 laplace.mle <- function(x) {
   n <- length(x)
-  m <- med(x)
+  m <- Rfast::med(x)
   b <- sum( abs(x - m) ) / n
   param <- c(m, b)
   names(param) <- c("location", "scale")

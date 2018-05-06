@@ -2,8 +2,8 @@ acg.mle <- function (x, tol = 1e-07) {
     p <- dim(x)[2]
     n <- dim(x)[1]
     mu <- numeric(p)
-    lam1 <- cova(x)
-    maha <- 1/mahala(x, mu, lam1)
+    lam1 <- Rfast::cova(x)
+    maha <- 1/Rfast::mahala(x, mu, lam1)
     down <- sum(maha)
     up <- crossprod(x * maha, x)
     lam2 <- up/down
@@ -11,7 +11,7 @@ acg.mle <- function (x, tol = 1e-07) {
     while (sum(abs(lam2 - lam1)) > tol) {
         i <- i + 1
         lam1 <- lam2
-        maha <- 1/mahala(x, mu, lam1)
+        maha <- 1/Rfast::mahala(x, mu, lam1)
         down <- sum(maha)
         up <- crossprod(x * maha, x)
         lam2 <- up/down

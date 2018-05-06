@@ -1,6 +1,7 @@
-\name{G-square test of conditional indepdence}
+\name{G-square and Chi-square test of conditional indepdence}
 \alias{g2Test}
 \alias{g2Test_perm}
+\alias{chi2Test}
 
 \title{
 G-square test of conditional indepdence
@@ -11,8 +12,8 @@ G-square test of conditional indepdence
 
 \usage{
 g2Test(data, x, y, cs, dc)
-
 g2Test_perm(data, x, y, cs, dc, nperm)
+chi2Test(data, x, y, cs, dc)
 }
 
 \arguments{
@@ -49,7 +50,7 @@ The functions calculates the test statistic of the \eqn{G^2} test of conditional
 \value{
 A list including:
 \item{statistic}{
-The \eqn{G^2} test statistic.
+The \eqn{G^2} or \eqn{chi^2} test statistic.
 }
 \item{df}{
 The degrees of freedom of the test statistic.

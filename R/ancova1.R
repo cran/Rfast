@@ -10,9 +10,9 @@ ancova1 <- function(y, ina, x, logged = FALSE) {
   syy <- sum(y^2) - com
   sxx <- sum(x^2) - sx^2/N
   sxy <- sum(x * y) - com2
-  tyy <- sum( group.sum(y, ina)^2/ni ) - com
-  txx <- sum( group.sum(x, ina)^2/ni ) - sx^2/N
-  txy <- sum( group.sum(x, ina)/ni * group.sum(y, ina) ) - com2
+  tyy <- sum( Rfast::group.sum(y, ina)^2/ni ) - com
+  txx <- sum( Rfast::group.sum(x, ina)^2/ni ) - sx^2/N
+  txy <- sum( Rfast::group.sum(x, ina)/ni * Rfast::group.sum(y, ina) ) - com2
   eyy <- syy - tyy
   exx <- sxx - txx
   exy <- sxy - txy

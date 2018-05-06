@@ -1,6 +1,6 @@
 col.coxpoisrat <- function(x, y, alpha = 0.05) {
-  s1 <- colsums(x)
-  s2 <- colsums(y)
+  s1 <- Rfast::colsums(x)
+  s2 <- Rfast::colsums(y)
   n2 <- dim(x)[1]
   n1 <- dim(y)[1]
   rat <- s1 / s2 * n2 / n1

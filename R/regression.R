@@ -8,7 +8,7 @@ regression <- function(x, y, logged = FALSE) {
       pvalue <- log(2) + pt(abs(stat), n - 2, lower.tail = FALSE, log.p = TRUE)
     } else  pvalue <- 2 * pt(abs(stat), n - 2, lower.tail = FALSE)
   } else {  ## not matrix now
-    poia <- which_isFactor(x)
+    poia <- Rfast::which_isFactor(x)
     if ( length(poia) == 0 ) {
       n <- length(y)
       rho <- as.vector( cor(y, x) )
@@ -36,7 +36,7 @@ regression <- function(x, y, logged = FALSE) {
         ni <- tabulate(ina)
 		ni <- ni[ni > 0]
         k <- length(ni)
-        m <- group.sum(y, ina)
+        m <- Rfast::group.sum(y, ina)
         a <- sum(m^2/ni)
         b <- sum(m)^2/n
         mst <- (a - b)/(k - 1)

@@ -1,6 +1,5 @@
 sftests <- function(x, logged = FALSE) {
-  
-  x <- sort_mat(x)
+  x <- Rfast::sort_mat(x)
   n <- dim(x)[1]
   y <- qnorm( ( 1:n - 0.375 ) / (n + 0.25) ) 
   w <- as.vector( cor(y, x)^2 )

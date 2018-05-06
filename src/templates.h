@@ -21,6 +21,8 @@ typedef double (*Unary_Function)(double); // unary function
 typedef double (*Binary_Function)(double,double); // binary function
 typedef double (*Binary_Function_mat)(mat,double); // binary function
 
+template<class T,class ...Args>
+using Mfunction = T(*)(T,Args...);
 
 /*
  * F: unary function
@@ -55,9 +57,9 @@ void fill_with(T1 x,T2 startf){
 */
 template<Unary_Function F,typename T>
 T foreach(T x){
-	for(typename T::iterator start=x.begin();start!=x.end();++start)
-    	*start=F(*start);
-  	return x;
+  for(typename T::iterator start=x.begin();start!=x.end();++start)
+      *start=F(*start);
+    return x;
 }
 
 
@@ -210,6 +212,20 @@ double sum_with(T x){
 }
 
 /*
+ * F: a unary function 
+ * T: argument class
+ *
+ * applying function F to "x" and sum the elements of "x"
+*/
+template<typename T,Mfunction<T> F>
+double sum_with(T start,T end){
+  double a=0;
+  for(;start!=end;++start)
+    a+=F(*start);
+  return a;
+}
+
+/*
  * F: a binary function 
  * T: argument class
  *
@@ -333,7 +349,7 @@ double Apply(T x){
 */
 template<typename T>
 T square2(T x){
-	return x*x;
+  return x*x;
 }
 
 /*
@@ -484,6 +500,27 @@ inline T madd(T x,T y){
 
 
 template<typename T>
+inline T mless(T x,T y){
+  return x<y;
+}
+
+template<typename T>
+inline T mless_eq(T x,T y){
+  return x<=y;
+}
+
+template<typename T>
+inline T mgreater_eq(T x,T y){
+  return x>=y;
+}
+
+template<typename T>
+inline T mgreater(T x,T y){
+  return x>y;
+}
+
+
+template<typename T>
 inline T mdiv(T x,T y){
   return x/y;
 }
@@ -519,10 +556,9 @@ void myoperator(T f[],T &x,T *y,int &len){
 
 template<typename T>
 void as_integer_h_sorted(vector<T> x,IntegerVector &f,const int init,const T val){
-  const int n=x.size()+1;
+  const int n=x.size();
   int i,j=0,c=init;
   sort(x.begin(),x.end());
-  x.push_back(val);
   auto v=x[j];
   f[0]=init;
   for(i=1;i<n;++i){
@@ -542,7 +578,6 @@ void as_integer_h(vector<T> x,IntegerVector &f,const int init,const T val){
   int i,j=0,c=init;
   vector<int> ind=Order< vector<int>,vector<T> >(x,false,false,0); // diorthoseiii
   x.push_back(val);
-  ind.push_back(0);
   T v=x[ind[j]];
   f[ind[0]]=init;
   for(i=1;i<n;++i){
@@ -795,24 +830,66 @@ double sum_x_op_x(SEXP x){
   return s;
 }
 
-//sort_unique,len_sort_unique
+//sort_unique,len_sort_unique,sort_int
 template<typename T>
-void max_neg_pos(T *start,T *end,T &mx,T &mn,int &pos){
+void max_neg_pos(T *start,T *end,T &mx,T &mn,bool &pos,bool &neg){
   mn=mx=*start;
   T x;
   for(;start!=end;++start){
     x=*start;
     if(x<0){
+      neg=true;
       if(mn>x){
         mn=x;
       }
-    }else{ 
-      pos++;
+    }else{
+      pos=true;
       if(mx<x){
         mx=x;
       }
     }
   }
+}
+
+template<Mfunction<int,int> Cond,Mfunction<int,int> Oper>
+int Apply_helper(int *start,int *end,int& val){
+    int t=0;
+    for(;start!=end;++start){
+        if(Cond(*start,val)){
+            t=Oper(t,*start);
+        }
+    }
+    return t;
+}
+
+template<Binary_Function less_or_greater,Binary_Function min_or_max> // less or greater
+NumericVector negative_or_positive(NumericVector &x){
+    double v,val=x[0];
+    for(auto xx=x.begin()+1;xx!=x.end();++xx){
+        v=*xx;
+        if(less_or_greater(v,0)){
+            if(min_or_max(v,val)){
+                val=v;
+            }
+        }
+    }
+    return NumericVector::create(val);
+}
+
+template<Binary_Function less_or_greater> // less or greater
+NumericVector negative_or_positive_min_max(NumericVector &x){
+    double v,mn=x[0],mx=mn;
+    for(auto xx=x.begin()+1;xx!=x.end();++xx){
+        v=*xx;
+        if(less_or_greater(v,0)){
+            if(v<mn){
+                mn=v;
+            }else if(v>mx){
+                mx=v;
+            }
+        }
+    }
+    return NumericVector::create(mn,mx);
 }
 
 #endif

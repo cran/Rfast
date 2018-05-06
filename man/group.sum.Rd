@@ -17,8 +17,7 @@ group.sum(x, ina,ina.max = NULL,ina.min = NULL)
 A numerical vector whose sums are to be calculated for each value of "ina".
 }
 \item{ina}{
-A numerical vector or a factor variable. For evey distinct value of "ina" the sum of "x" will be calculated. 
-Note that negative values are not allowed as this can cause R to run forever. 
+A numerical vector with numbers. Note that zero and negative values are not allowed as this can cause R to run forever or crash.
 }
 \item{ina.min}{
 Minimum \bold{INTEGER} number for vector ina as vector or NULL. 

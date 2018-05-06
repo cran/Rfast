@@ -104,3 +104,46 @@ END_RCPP
 
 
 //////////////////////////////////////////////////////////////////////////////
+
+
+
+static bool if_exists_inside(string x,string& value,const string& spliter){
+    x+=spliter;
+    const char *split=spliter.c_str();
+    char *token = std::strtok(&x[0], split);
+    while (token != nullptr) {
+        if(string(token) == value){
+            return true;
+        }
+        token = std::strtok(nullptr, split);
+    }
+    return false;
+}
+
+
+string Hash_key_multi(Environment x,string value,const string sep = " "){
+    CharacterVector keys=x.ls(true);
+    string res;
+    for(auto& key : keys){
+        res = key;
+        if(if_exists_inside(res,value,sep)){
+            return res;
+        }
+    }
+    return "";
+}
+
+RcppExport SEXP Rfast_Hash_key_multi(SEXP xSEXP,SEXP valueSEXP,SEXP sepSEXP) {
+BEGIN_RCPP
+    RObject __result;
+    RNGScope __rngScope;
+    traits::input_parameter< Environment >::type x(xSEXP);
+    traits::input_parameter< string >::type value(valueSEXP);
+    traits::input_parameter< const string >::type sep(sepSEXP);
+    __result = Hash_key_multi(x,value,sep);
+    return __result;
+END_RCPP
+}
+
+
+//////////////////////////////////////////////////////////////////////////////

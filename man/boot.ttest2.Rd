@@ -49,7 +49,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>.
 %}
 
 \seealso{
-\code{\link{ttest2}, \link{ftest}
+\code{\link{ttest2}, \link{exact.ttest2}, \link{ftest}
 }
 }
 

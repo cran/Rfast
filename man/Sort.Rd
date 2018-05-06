@@ -1,8 +1,9 @@
-\name{Sort - Sort a vector coresponding to another}
+\name{Sort - Integer Sort - Sort a vector coresponding to another}
 \alias{Sort}
+\alias{Sort.int}
 \alias{sort_cor_vectors}
 \title{
-Sort - Sort a vector coresponding to another 
+Sort - Integer Sort - Sort a vector coresponding to another 
 }
 
 \description{
@@ -11,12 +12,13 @@ Fast sorting a vector.
 
 \usage{
 Sort(x,descending=FALSE,partial=NULL,stable=FALSE,na.last=NULL)
+Sort.int(x)
 sort_cor_vectors(x, base, stable = FALSE, descending = FALSE)
 }
 
 \arguments{
 \item{x}{
-A numerical/character vector with data.
+A numerical/integer/character vector with data.
 }
 \item{base}{
 A numerical/character vector to help sorting the x.
@@ -49,7 +51,7 @@ Especially for large data.
 }
 
 \value{
-Sort: The sorted vector.
+Sort and Sort.int: The sorted vector.
 
 sort_cor_vectors: The first argument but sorted acording to the second.
 }
@@ -89,9 +91,12 @@ all.equal(s1,s2) #true
 y <- runif(1000)
 b <- sort_cor_vectors(x,y)
 
+x<-rpois(100,100)
+all.equal(Sort.int(x),sort.int(x))
+
 x<-y<-y<-s1<-s2<-NULL
 }
 
-\keyword{ Sorting }
-\keyword{ Stable Sorting }
-\keyword{ Sorting 2 vectors }
+\keyword{ Sort }
+\keyword{ Stable Sort }
+\keyword{ Sort 2 vectors }

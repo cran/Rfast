@@ -2,7 +2,7 @@ mvbetas <- function (y, x, pvalue = FALSE) {
 
     r <- as.vector( cov(x, y) )
     n <- length(x)
-    my <- colmeans(y)
+    my <- Rfast::colmeans(y)
     mx <- sum(x)/n
     sx <- ( sum(x^2) - sum(x)^2 / n ) / (n - 1)
     be <- r/sx
@@ -15,7 +15,7 @@ mvbetas <- function (y, x, pvalue = FALSE) {
       }  else  rownames(result) <- colnames(x)
 
     } else {
-      sy <- colVars(y, std = TRUE)
+      sy <- Rfast::colVars(y, suma = n * my, std = TRUE)
       rho <- r/(sqrt(sx) * sy)
       sqdof <- sqrt(n - 2)
       ta <- rho * sqdof/sqrt(1 - rho^2)

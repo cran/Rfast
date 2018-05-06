@@ -6,7 +6,7 @@ rbingham <- function(n, A) {
   V <- eig$vectors  ## eigenvectors
   lam <- lam - lam[p]
   lam <- lam[-p]
-  x <- rbing(n, lam)
+  x <- Rfast::rbing(n, lam)
   ## the x contains the simulated values
   tcrossprod(x, V) ## simulated data
 }

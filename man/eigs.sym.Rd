@@ -1,0 +1,70 @@
+\name{Limited number of eigenvalues and eigenvectors of a symmetric matrix}
+\alias{eigs.sym}
+\title{
+Limited number of eigenvalues and eigenvectors of a symmetric matrix
+}
+
+\description{
+Limited number of eigenvalues and eigenvectors of a symmetric matrix.
+}
+
+\usage{
+eigs.sym(A, k)
+}
+
+\arguments{
+\item{A}{
+A symmetric matrix.
+}
+\item{k}{
+The number of eigenvalues and eigenvectors to extract.
+}
+}
+
+\details{
+The function calls the same function from the Armadillo library in C++. 
+It is quite faster than R's built in function "eigen" if the number of 
+eigenvalues and eigenvectors (argument k) is small. 
+
+The k largest, in magnitude, eigenvalues are returned. Hence, if the matrix 
+is not positive definite you may get negative eigenvalues as well. So, it is 
+advised to use it with positive definite matrices.
+}
+
+\value{
+A list including:
+\item{values}{
+The eigenvalues.
+}
+\item{vectors}{
+The eigenvectors.
+}
+}
+
+%\references{
+%}
+
+\author{
+Armadillo library in C++ and Stefanos Fafalios and Manos Papadakis.
+
+R implementation and documentation: Stefanos Fafalios <stefanosfafalios@gmail.com> and 
+Manos Papadakis <papadakm95@gmail.com>. 
+}
+
+%\note{
+%%  ~~further notes~~
+%}
+
+\seealso{
+\code{\link{hd.eigen} 
+}
+}
+
+\examples{
+x <- matrnorm(10000, 500 )
+s <- Rfast::cova(x)
+eigs.sym(s, 10)
+x <- s <- NULL
+}
+
+

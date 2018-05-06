@@ -5,8 +5,8 @@ ttest2 <- function(x, y, paired = FALSE, logged = FALSE) {
     n2 <- length(y)
     m1 <- sum(x)/n1
     m2 <- sum(y)/n2
-    f1 <- Var(x) / n1
-    f2 <- Var(y) / n2
+    f1 <- Rfast::Var(x) / n1
+    f2 <- Rfast::Var(y) / n2
     fac <- f1 + f2
     dof <- fac^2 / ( f1^2 / (n1 - 1) + f2^2 / (n2 - 1) )
     stat <- ( m1 - m2 ) / sqrt(fac)
@@ -20,7 +20,7 @@ ttest2 <- function(x, y, paired = FALSE, logged = FALSE) {
     n <- length(x)
     z <- x - y    
     m <- sum(z)/n
-    s <- Var(z, std = TRUE)
+    s <- Rfast::Var(z, std = TRUE)
     stat <- sqrt(n) * m / s
     if ( logged ) {
       pvalue <- log(2) + pt( abs(stat), n - 1, lower.tail = FALSE, log.p = TRUE )  

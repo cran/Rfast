@@ -1,5 +1,4 @@
 vartests <- function(x, ina, type = "levene", logged = FALSE) {
-
   ## type can be either "levene" or "bf" (Brown-Forsythe)
   ina <- as.numeric(ina)  
   k <- max(ina)
@@ -10,21 +9,21 @@ vartests <- function(x, ina, type = "levene", logged = FALSE) {
   if ( type == "levene" )  {
     for (i in 1:k) {
       xina <- x[ina == i, ]
-      z[ ,ina == i ] <- t( xina - colmeans(xina) )
+      z[, ina == i ] <- t( xina - Rfast::colmeans(xina) )
     }
 
   } else {
     for (i in 1:k) {  
       xina <- x[ina == i, ]
-      z[, ina == i ] <- t( xina - colMedians( xina ) )
+      z[, ina == i ] <- t( xina - Rfast::colMedians( xina ) )
     }
   }
 
-  sz2 <- rowsums(z^2) 
+  sz2 <- Rfast::rowsums(z^2) 
   m <- matrix(nrow = k, ncol = dim(z)[1]) 
-  for (i in 1:k)  m[i, ] <- rowsums(z[, ina == i])
-  a <- colsums( m^2 / ni )
-  b <- colsums( m )^2 / n 
+  m <- rowsum(t(z), ina)
+  a <- Rfast::colsums( m^2 / ni )
+  b <- Rfast::colsums( m )^2 / n 
   mst <- (a - b) / ( k - 1)
   mse <- (sz2 - a) / ( n - k)
   fa <- mst / mse

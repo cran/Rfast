@@ -2,8 +2,8 @@ ftest <- function (x, ina, logged = FALSE) {
   ni <- tabulate(ina)
   ni <- ni[ni > 0]
   k <- length(ni)
-  m <- group.sum(x, ina)/ni
-  s <- group.sum(x^2, ina)
+  m <- Rfast::group.sum(x, ina)/ni
+  s <- Rfast::group.sum(x^2, ina)
   s <- (s - m^2 * ni)/(ni - 1)
   w <- ni/s
   W <- sum(w)

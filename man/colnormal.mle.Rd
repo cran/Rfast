@@ -8,7 +8,6 @@
 \alias{colmaxboltz.mle}
 \alias{colnormal.mle}
 \alias{colpareto.mle}
-\alias{colpois.mle}
 \alias{colrayleigh.mle}
 \alias{colvm.mle}
 \alias{colweibull.mle}
@@ -32,7 +31,6 @@ collindley.mle(x)
 colmaxboltz.mle(x)
 colnormal.mle(x)
 colpareto.mle(x)
-colpois.mle(x)
 colrayleigh.mle(x)
 colvm.mle(x, tol = 1e-07)
 colweibull.mle(x, tol = 1e-09, maxiters = 100, parallel = FALSE)

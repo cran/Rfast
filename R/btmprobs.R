@@ -1,5 +1,5 @@
 btmprobs <- function(x, tol = 1e-09) {
-  wi <- rowsums(x)
+  wi <- Rfast::rowsums(x)
   p1 <- p2 <- wi / sum(x)
   D <- length(wi)
   for (i in 1:D)  p2[i] <- wi[i] / ( sum( x[i, ]/ (p1[i] + p1) ) + sum( x[, i]/ (p1[i] + p1) ) )

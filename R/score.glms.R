@@ -7,10 +7,10 @@ score.glms <- function(y, x, oiko = NULL, logged = FALSE ) {
  } 
 
   n <- length(y) 
-  sx2 <- colsums(x^2)
+  sx2 <- Rfast::colsums(x^2)
   my <- sum(y) / n
-  sx <- colsums(x)
-  up <- colsums(x * y) - sx * my  ## score function
+  sx <- Rfast::colsums(x)
+  up <- as.vector( cov(y, x) ) * (n - 1)  ## score function
   if ( oiko == "binomial" ) {
     down <- ( sx2 - sx^2 / n ) * ( my - my^2 ) ## variance
   } else   down <- ( sx2 - sx^2 / n ) * my ## variance

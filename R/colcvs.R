@@ -1,11 +1,11 @@
 colcvs <- function(x, ln = FALSE, unbiased = FALSE) {
   if (ln) {
-    s <- colVars( Log(x) )
+    s <- Rfast::colVars( Log(x) )
 	cv <- sqrt( expm1(s) )
   } else {
-    m <- colsums(x)
+    m <- Rfast::colsums(x)
     n <- dim(x)[1]
-    x2 <- colsums(x^2)
+    x2 <- Rfast::colsums(x^2)
     s <- (x2 - m^2/n)/(n - 1)
     cv <- n * sqrt(s) / m
   }	

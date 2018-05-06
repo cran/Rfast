@@ -1,12 +1,12 @@
 twoway.anova <- function(y, x1, x2, interact = FALSE, logged = FALSE) {
-  a <- sort_unique.length(x1)
-  b <- sort_unique.length(x2)
+  a <- Rfast::sort_unique.length(x1)
+  b <- Rfast::sort_unique.length(x2)
   N <- length(x1)
   n <- N/a/b
   com <- sum(y)^2/N
   sst <- sum(y^2) - com
-  ssa <- sum( group.sum(y, x1)^2 ) / (b * n) - com
-  ssb <- sum( group.sum(y, x2)^2 ) / (a * n) - com
+  ssa <- sum( Rfast::group.sum(y, x1)^2 ) / (b * n) - com
+  ssb <- sum( Rfast::group.sum(y, x2)^2 ) / (a * n) - com
   
   if ( !interact ) {
     dof2 <- N - a - b + 1 

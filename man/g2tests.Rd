@@ -1,6 +1,7 @@
-\name{Many G-square tests of indepedence}
+\name{Many G-square and Chi-square tests of indepedence}
 \alias{g2tests}
 \alias{g2tests_perm}
+\alias{chi2tests}
 
 \title{
 Many G-square tests of indepedence
@@ -12,8 +13,8 @@ Many G-square tests of indepdence with and without permutations.
 
 \usage{
 g2tests(data, x, y, dc)
-
 g2tests_perm(data, x, y, dc, nperm) 
+chi2tests(data, x, y, dc)
 }
 
 \arguments{
@@ -43,13 +44,13 @@ faster, but as the number of variables increase the time difference with R's pro
 \details{
 The function does all the pairwise \eqn{G^2} test of independence and gives the position inside the matrix. 
 The user must build the associations matrix now, similarly to the correlation matrix. See the examples of how to do 
-that. The p-value is not returned, we leavve this to the user. See the examples of how to obtain it. 
+that. The p-value is not returned, we leave this to the user. See the examples of how to obtain it. 
 }
 
 \value{
 A list including:
 \item{statistic}{
-The \eqn{G^2} test statistic for each pair of variables.
+The \eqn{G^2} or \eqn{\chi^2} test statistic for each pair of variables.
 }
 \item{pvalue}{
 This is returned when you have selected the permutation based \eqn{G^2} test.

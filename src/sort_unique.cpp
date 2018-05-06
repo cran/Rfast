@@ -1,5 +1,5 @@
 //Author: Manos Papadakis
-//[[Rcpp::plugins(cpp11)]]
+
 #include <RcppArmadillo.h>
 #include <vector>
 #include "templates.h"
@@ -12,24 +12,23 @@ using std::vector;
 //[[Rcpp::export]]
 vector<int> sort_unique_int(vector<int> x){
   int aa,mx,mn,count_not_zero=0;
-  int count_pos=0;
-  max_neg_pos<int>(&x[0],&x[x.size()-1]+1,mx,mn,count_pos);
-  const int count_neg=x.size()-count_pos;
+  bool has_pos=false,has_neg=false;
+  max_neg_pos<int>(&x[0],&x[x.size()-1]+1,mx,mn,has_pos,has_neg);
   vector<int> pos,f,neg;
   vector<int>::iterator a=x.begin(),F;
   const int init_pos=-1,init_neg=0;
-  if(count_pos>0){
+  if(has_pos){
     pos.resize(mx+1,init_pos);
   }
-  if(count_neg>0){
+  if(has_neg){
     neg.resize(1-mn,init_neg);
   }
-  if(count_pos && count_neg){
+  if(has_pos && has_neg){
     for(;a!=x.end();++a){
       aa=*a;
       aa<0 ? neg[-aa]=aa : pos[aa]=aa;
     }
-  }else if(count_pos){
+  }else if(has_pos){
     for(;a!=x.end();++a){
       aa=*a;
       pos[aa]=aa;
@@ -41,14 +40,14 @@ vector<int> sort_unique_int(vector<int> x){
       neg[-aa]=aa;
     }
   }
-  if(count_neg){
+  if(has_neg){
     for(auto nn=neg.begin();nn!=neg.end();++nn){
       if(*nn!=init_neg){
         ++count_not_zero;
       }
     }
   }
-  if(count_pos){
+  if(has_pos){
     for(a=pos.begin();a!=pos.end();++a){
       if(*a!=init_pos){
         ++count_not_zero;
@@ -57,14 +56,14 @@ vector<int> sort_unique_int(vector<int> x){
   }
   f.resize(count_not_zero);
   F=f.begin();
-  if(count_neg){
+  if(has_neg){
     for(auto nr=neg.rbegin();nr!=neg.rend();++nr){
       if(*nr!=init_neg){
         *F++=*nr;
       }
     }
   }
-  if(count_pos){
+  if(has_pos){
     for(a=pos.begin();a!=pos.end();++a){
       if(*a!=init_pos){
         *F++=*a;
@@ -75,27 +74,27 @@ vector<int> sort_unique_int(vector<int> x){
 }
 
 
-//[[Rcpp::export]]
+/*//[[Rcpp::export]]
 vector<int> sort_unique_int2(vector<int> x){
   int aa,mx,mn,count_not_zero=0;
-  int count_pos=0;
-  max_neg_pos<int>(&x[0],&x[x.size()-1]+1,mx,mn,count_pos);
-  const int count_neg=x.size()-count_pos;
+  int has_pos=0;
+  max_neg_pos<int>(&x[0],&x[x.size()-1]+1,mx,mn,has_pos);
+  const int has_neg=x.size()-has_pos;
   vector<int> pos,f,neg;
   vector<int>::iterator a=x.begin(),F;
   const int init_pos=-1,init_neg=0;
-  if(count_pos>0){
+  if(has_pos>0){
     pos.resize(mx+1,init_pos);
   }
-  if(count_neg>0){
+  if(has_neg>0){
     neg.resize(1-mn,init_neg);
   }
-  if(count_pos && count_neg){
+  if(has_pos && has_neg){
     for(;a!=x.end();++a){
       aa=*a;
       aa<0 ? neg[-aa]=aa : pos[aa]=aa;
     }
-  }else if(count_pos){
+  }else if(has_pos){
     for(;a!=x.end();++a){
       aa=*a;
       pos[aa]=aa;
@@ -107,16 +106,16 @@ vector<int> sort_unique_int2(vector<int> x){
       neg[-aa]=aa;
     }
   }
-  if(count_neg){
+  if(has_neg){
     count_not_zero=neg.size()-count(neg.begin(),neg.end(),init_neg);
   }
-  if(count_pos){
+  if(has_pos){
     count_not_zero+=pos.size()-count(pos.begin(),pos.end(),init_pos);
   }
   f.resize(count_not_zero);
   std::copy_if(pos.begin(),pos.end(),f.begin(),[&](int& v){ return v!=init_pos;});
   return f;
-}
+}*/
 
 RcppExport SEXP Rfast_sort_unique_int(SEXP xSEXP){
 BEGIN_RCPP
@@ -127,6 +126,10 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+
+
+////////////////////////////////////////////////////////////////////////
+
 
 //[[Rcpp::export]]
 vector<double> sort_unique_double(vector<double> x){
@@ -150,30 +153,27 @@ END_RCPP
 
 
 
+
 using std::vector;
 
 //[[Rcpp::export]]
 int len_sort_unique_int(IntegerVector x){
   int aa,mx,mn,count_not_zero=0;
-  int count_pos=0;
-  max_neg_pos<int>(&x[0],&x[x.size()-1]+1,mx,mn,count_pos);
-  const int count_neg=x.size()-count_pos;
+  bool has_neg=false,has_pos=false;
+  max_neg_pos<int>(&x[0],&x[x.size()-1]+1,mx,mn,has_pos,has_neg);
   vector<int> pos,f,neg;
   vector<int>::iterator pp,nn,F;
   IntegerVector::iterator a=x.begin();
-  if(count_pos>0)
+  if(has_pos)
     pos.resize(mx+1,INT_MAX);
-  if(count_neg>0)
+  if(has_neg)
     neg.resize(1-mn,INT_MAX);
-  if(count_pos && count_neg){
+  if(has_pos && has_neg){
     for(nn=neg.begin(),pp=pos.begin();a!=x.end();++a){
       aa=*a;
-      if(aa<0)
-        *(nn-aa)=aa;
-      else
-        *(pp+aa)=aa;
+      aa<0 ? *(nn-aa)=aa : *(pp+aa)=aa;
     }
-  }else if(count_pos){
+  }else if(has_pos){
     for(pp=pos.begin();a!=x.end();++a){
       aa=*a;
       *(pp+aa)=aa;
@@ -184,31 +184,21 @@ int len_sort_unique_int(IntegerVector x){
       *(nn-aa)=aa;
     }
   }
-  if(count_neg)
-    for(nn=neg.begin();nn!=neg.end();++nn)
-      if(*nn!=INT_MAX)
+  if(has_neg){
+    for(nn=neg.begin();nn!=neg.end();++nn){
+      if(*nn!=INT_MAX){
         count_not_zero++;
-  if(count_pos)
-    for(pp=pos.begin();pp!=pos.end();++pp)
-      if(*pp!=INT_MAX)
+      }
+    }
+  }
+  if(has_pos){
+    for(pp=pos.begin();pp!=pos.end();++pp){
+      if(*pp!=INT_MAX){
         count_not_zero++;
+      }
+    }
+  }
   return count_not_zero;
-}
-
-
-int len_sort_unique_double(vector<double> x){
-  sort(x.begin(),x.end());
-  return unique( x.begin(), x.end() ) - x.begin();
-}
-
-RcppExport SEXP Rfast_len_sort_unique_double(SEXP xSEXP){
-BEGIN_RCPP
-    RObject __result;
-    RNGScope __rngScope;
-    traits::input_parameter< vector<double> >::type x(xSEXP);
-    __result = wrap(len_sort_unique_double(x));
-    return __result;
-END_RCPP
 }
 
 RcppExport SEXP Rfast_len_sort_unique_int(SEXP xSEXP){

@@ -50,9 +50,11 @@ vector<string> readFile(string path,int& which_string_has_export){
   string s,export_word="export";
   vector<string> f;
   which_string_has_export=-1;
+  bool found_export=false;
   while(getline(input,s)){
-    if(find_export(s,export_word)){
+    if(find_export(s,export_word) && !found_export){ // oso briskei to export kai den to exei ksanavrei
       which_string_has_export=f.size();
+        found_export=true;
     }
     f.push_back(s);
   }  
@@ -263,7 +265,7 @@ void remove_spaces(string& s){
 string read_function_from_r_file(ifstream &file){
   string func;
   string s;
-  unsigned int bg;
+  size_t bg;
   DEBUG("START read_function_from_r_file");
   do{
     getline(file,s);
@@ -278,13 +280,19 @@ string read_function_from_r_file(ifstream &file){
       func+=s;
     } while (!find_string(s,"{")); 
   }
-  DEBUG(func);
-  bg=func.find("<-");
+  DEBUG("function: ",func);
+  string keyword_function1 = "<-function";
+  string keyword_function2 = "=function";
+  int keyword_function_size = keyword_function1.size(); 
+  bg=func.find(keyword_function1);
   DEBUG(bg);
   if(bg==string::npos){
-    bg=func.find("=");
+      DEBUG("trying operator =.");
+      bg=func.find(keyword_function2);
+      keyword_function_size = keyword_function2.size(); 
   }
-  func.erase(func.begin()+bg,func.begin()+func.find("function")+8);
+  DEBUG(291);
+  func.erase(func.begin()+bg,func.begin()+bg+keyword_function_size);
   DEBUG(func);
   func.erase(func.end()-1);
   DEBUG(func);

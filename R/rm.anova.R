@@ -4,8 +4,8 @@ rm.anova <- function(y, logged = FALSE) {
   n <- dim(y)[1]
   ina <- rep(1:n, each = d)
   xi <- rep(1:d, n)
-  yi <- rowmeans(y)
-  yj <- colmeans(y)
+  yi <- Rfast::rowmeans(y)
+  yj <- Rfast::colmeans(y)
   yt <- mean(yi)
   sst <- n * sum( (yj - yt)^2 )
   yi <- rep(yi, each = d)

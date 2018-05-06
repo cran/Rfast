@@ -30,7 +30,7 @@ vm.mle <- function(x, tol = 1e-09) {
     }
       
   } else k1 <- k1
-
+  
   param <- c(mu, k2) 
   names(param) <- c("mean", "concentration")
   loglik <- k2 * con - n * log(2 * pi) - n * ( log( besselI(k2, 0, expon.scaled = TRUE) ) + k2 )

@@ -1,7 +1,7 @@
 poisdisp.test <- function(y, alternative = "either", logged = FALSE) {
   n <- length(y)
   m <- sum(y)/n
-  up <- (n - 1) * Var(y) - n  * m
+  up <- (n - 1) * Rfast::Var(y) - n  * m
   stat <- up / sqrt(2 * n * m^2)
   if (alternative == "either") {
     if ( logged ) {   

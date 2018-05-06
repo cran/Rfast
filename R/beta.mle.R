@@ -46,4 +46,3 @@ beta.mle <- function(x, tol = 1e-09) {
 
 
 
-

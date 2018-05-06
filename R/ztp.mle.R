@@ -19,7 +19,7 @@ ztp.mle <- function(x, tol = 1e-09) {
     f2 <-  - a1 / lam1 + a2 / (explam - 1)
     lam2 <- lam1 - f / f2 
   }
-  
+
   loglik <- sx * log(lam2) - n * log( exp(lam2) - 1 ) -  sum( Lgamma(x + 1) )
   list(iters = i, loglik = loglik, lambda = lam2)
 }

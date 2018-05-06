@@ -11,7 +11,7 @@ cor.fbed <- function(y, x, alpha = 0.05, K = 0) {
   pva <- NULL
 
   runtime <- proc.time()
-  x <- standardise(x, center = TRUE, scale = FALSE)
+  x <- Rfast::standardise(x, center = TRUE, scale = FALSE)
   y <- y - mean(y)
   options(warn = -1)
   yx <- as.vector( cor(y, x) )

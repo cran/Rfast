@@ -1,5 +1,5 @@
 mvnorm.mle <- function(x) {
-   m <- colmeans(x)
+   m <- Rfast::colmeans(x)
    dm <- dim(x)
    n <- dim(x)[1]
    d <- dm[2]

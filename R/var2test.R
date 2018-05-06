@@ -1,6 +1,6 @@
 var2test <- function(x, y, alternative = "unequal", logged = FALSE) {
-  s1 <- Var(x)
-  s2 <- Var(y)
+  s1 <- Rfast::Var(x)
+  s2 <- Rfast::Var(y)
   n1 <- length(x)
   n2 <- length(y)
   stat <- s1 / s2

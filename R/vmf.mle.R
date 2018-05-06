@@ -3,7 +3,7 @@ vmf.mle <- function(x, tol = 1e-07) {
   p <- dm[2]  ## dimensionality of the data
   n <- dm[1]  ## sample size of the data
   Apk <- function(p, k)  besselI(k, p/2, expon.scaled = TRUE) / besselI(k, p/2 - 1, expon.scaled = TRUE)
-  m1 <- colsums(x)
+  m1 <- Rfast::colsums(x)
   R <- sqrt( sum(m1^2) ) / n  ## mean resultant length
   m <- m1 / n / R
   k1 <- R * (p - R^2)/(1 - R^2)
