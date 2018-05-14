@@ -90,6 +90,7 @@ NumericVector eachcol_apply(NumericMatrix x,NumericVector y,SEXP ind,const char 
     case '/': return eachcol_apply_helper<mdiv<double>,madd<double> >(x,y,ind);
     case '+': return eachcol_apply_helper<madd <double>,madd<double> >(x,y,ind);
     case '-': return eachcol_apply_helper<mdiff<double>,madd<double> >(x,y,ind);
+	case '^': return eachcol_apply_helper<std::pow,madd<double> >(x,y,ind);
     }
   }else if(method == "median"){
     switch(oper){
@@ -97,6 +98,7 @@ NumericVector eachcol_apply(NumericMatrix x,NumericVector y,SEXP ind,const char 
     case '/': return eachcol_med_div(x,y,ind);
     case '+': return eachcol_med_sum(x,y,ind);
     case '-': return eachcol_med_min(x,y,ind);
+    case '^': stop("Error: Median does not support operator \'^\'.\n");
     }
   }else if(method == "max"){
     switch(oper){
@@ -104,6 +106,7 @@ NumericVector eachcol_apply(NumericMatrix x,NumericVector y,SEXP ind,const char 
     case '/': return eachcol_apply_helper<mdiv<double>,mmax<double> >(x,y,ind);
     case '+': return eachcol_apply_helper<madd <double>,mmax<double> >(x,y,ind);
     case '-': return eachcol_apply_helper<mdiff<double>,mmax<double> >(x,y,ind);
+	case '^': return eachcol_apply_helper<std::pow,mmax<double> >(x,y,ind);
     }
   }else if(method == "min"){
     switch(oper){
@@ -111,6 +114,7 @@ NumericVector eachcol_apply(NumericMatrix x,NumericVector y,SEXP ind,const char 
     case '/': return eachcol_apply_helper<mdiv<double>,mmin<double> >(x,y,ind);
     case '+': return eachcol_apply_helper<madd <double>,mmin<double> >(x,y,ind);
     case '-': return eachcol_apply_helper<mdiff<double>,mmin<double> >(x,y,ind);
+	case '^': return eachcol_apply_helper<std::pow,mmin<double> >(x,y,ind);
     }
   }
   stop("Error: wrong operation type.\n");

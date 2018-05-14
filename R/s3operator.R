@@ -114,6 +114,39 @@ print.environment<-function(x,all.names=FALSE,...){
 ##########################################################################################################################
 
 
+"Elem<-"<-function(x,value){
+    UseMethod("Elem<-")
+}
+
+"Elem<-.iterator"<-function(x,value){
+    if(x$.method=="ceil"){
+        x[[".variable"]][x[[".value"]]] <- value
+    }else if(x$.method=="col"){
+        x[[".variable"]][,x[[".value"]]] <- value
+    }else if(x$.method=="row"){
+        x[[".variable"]][x[[".value"]],] <- value
+    }else{
+        stop("Error...who knows...")
+    }
+    x
+}
+
+Elem<-function(x){
+    UseMethod("Elem")
+}
+
+Elem.iterator<-function(x){
+    if(x$.method=="ceil"){
+        x$.variable[x$.value]
+    }else if(x$.method=="col"){
+        x$.variable[,x$.value]
+    }else if(x$.method=="row"){
+        x$.variable[x$.value,]
+    }else{
+        stop("Error...who knows...")
+    }
+}
+
 print.iterator<-function(x,...){
     cat("variable:\n     ")
     if(is.null(dim(x$.variable))){

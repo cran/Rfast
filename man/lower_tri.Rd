@@ -71,9 +71,9 @@ all.equal(lower_tri(x),x[lower.tri(x)])
 
 #all.equal(upper_tri(x,diag = TRUE),x[upper.tri(x,diag = TRUE)])
 
-all.equal(lower_tri.assign(x,diag = TRUE,v=rep(1,10)),x[lower.tri(x,diag = TRUE)]<-1)
+all.equal(lower_tri.assign(x,diag = TRUE,v=rep(1,1000)),x[lower.tri(x,diag = TRUE)]<-1)
 
-all.equal(upper_tri.assign(x,diag = TRUE,v=rep(1,10)),x[upper.tri(x,diag = TRUE)]<-1)
+all.equal(upper_tri.assign(x,diag = TRUE,v=rep(1,1000)),x[upper.tri(x,diag = TRUE)]<-1)
 
 x<-NULL
 }

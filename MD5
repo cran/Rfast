@@ -1,13 +1,12 @@
-24f40ed5fad0339123ee4bffda7f1f06 *DESCRIPTION
-31c3aaa04bfca23bb4eef48e242478f9 *NAMESPACE
-d23fb62fe8c722e2083452a3ef0811ca *NEWS.md
+5741b3d651c05f8d5c23d6d3e45ad1b8 *DESCRIPTION
+52af75686c28561b5553edd259953490 *NAMESPACE
+ce264f420cd925d2da7b2669b5ee0d64 *NEWS.md
 86d9a0fac6b8abb27bb3ce96d16d6827 *R/AddToNamespace.R
 13fb7cfeaf4fa3dc2aba131769e2febb *R/Choose.R
 94b61adeae699b888930dcc6fb4c02c2 *R/Diag.fill.R
 99802260b43dd8998433390c70f5f232 *R/Diag.matrix.R
 5044009408fa364eb0787e07cb08f444 *R/Digamma.R
 ff2ae672c6ca7ce3b0588e077462adc5 *R/Dist.R
-2b8a7b0249c8ffdcfdbdc9ddba3baf73 *R/Elem.R
 3bb5e58093f61805e5b5ad3c03b8f7e4 *R/Hash.R
 3d97b3a894db24258fbc1312683544db *R/Hash.key.multi.R
 9a5786259312c04c7e676b24cd79f743 *R/Lbeta.R
@@ -192,9 +191,12 @@ a3c360ec9e7b43d78b9b7da548abdf5c *R/g2Test_univariate.R
 cf875190af035de8207e05e005efa029 *R/g2Test_univariate_perm.R
 955eeab52680eed7cef9cf3b57547d7a *R/g2tests.R
 b5a008dc99df1fc2da975978e2ce1f1d *R/g2tests_perm.R
+96ecddcdc5b5464c96397d70556a2e8f *R/gammacon.R
 452470d8f9d4417e214020569738e4d2 *R/gammamle.R
 487db0cb7e4f43b35fc0453695d536a6 *R/gammanb.R
 f94801a50c4a75fef50699e2ad6538b1 *R/gammanb.pred.R
+69ed048ebe01159dce0e6e553f180922 *R/gammareg.R
+6a2ad63f4820c0b23ffeaf9aaf3acdb4 *R/gammaregs.R
 7cde14301d82e05414c1658be02e6210 *R/gaussian.nb.R
 660439f0e38ae38bf540d6292183a5a6 *R/gaussiannb.pred.R
 1ce0f2f85402f4512e6a3a36e754f608 *R/gchi2Test.R
@@ -283,6 +285,7 @@ c67e14b52f49f9b8732202d961077187 *R/mv.eeltest1.R
 f3d860ac614759439c9c0757a429f047 *R/mvkurtosis.R
 e5585243b224b2e61a63dfeae7c27408 *R/mvlnorm.mle.R
 f774a45c0e7b7292cf523fcdf0b1fc7c *R/mvnorm.mle.R
+5b0c304318d8ae44c58a1fd40d0a1b96 *R/mvt.mle.R
 1fda51a041c460b9563e976159daedf7 *R/negative.R
 d00f369b2c23d996a9aed87e14f18f0b *R/negbin.mle.R
 fc8c68de0cb605e1afec76a70fdbda84 *R/normal.mle.R
@@ -292,7 +295,7 @@ cc7446590e3f0077a6d98d79c90fcc7f *R/normlog.regs.R
 9eb235385d69731e2a9e666db0bc10a5 *R/nth.R
 0901ab8b15a1835add318f1d167f588f *R/odds.R
 d79d6a11f06bb8d75e2e2cd101624feb *R/odds.ratio.R
-2e1ffca7394f2a606c394b84c8ab4cbf *R/omp.R
+5809a64839f9304d4718201c8d8685d0 *R/omp.R
 8138761b8c002eefe244f39abec89f36 *R/ompr.R
 be1adcbff03317bf4234418c6aa7b1d5 *R/ordinal.mle.R
 2fd4fc15938c1367c0f1cb2aa1ac483b *R/pareto.mle.R
@@ -372,7 +375,7 @@ e9e7df4f476d6f0ed5bf7f1fa76424c0 *R/rows.R
 3a685a1410b923b9783d126a9ee654e4 *R/rowsums.R
 af276ed7ba2b8dedfd9556e2c5a972c3 *R/rvmf.R
 39203665a321de6283e3928e13396295 *R/rvonmises.R
-3c730dda73a1480f1b3aca69f56cb522 *R/s3operator.R
+a8029d1b3d561cd6f1e3b87f65ff68b1 *R/s3operator.R
 e2873aa685d722b50a7eef72fb3f7dc3 *R/score.betaregs.R
 f0b12dd701824169aa0e78f484ae9879 *R/score.expregs.R
 45ce9ade10526d35f56692e8e89cf99f *R/score.gammaregs.R
@@ -454,7 +457,7 @@ a40d2d4036e1ddb290da3bae10f27bec *man/Lgamma.Rd
 534ac27841ca727fd0625a58cf2de136 *man/Outer.Rd
 a7794557b20a84e6511bfa2877bd7695 *man/Pmax.Rd
 92cb3a8901cbf940dbb7ebb059a99b58 *man/Rank.Rd
-8176f143dff716bceedca6acb294c08d *man/Rfast-package.Rd
+dd35ef7bae33b9e5d0d20c81088d2d53 *man/Rfast-package.Rd
 5cec04671e5868c3a61343e7efbf6c3c *man/Rnorm.Rd
 355f1f9c9faf5242162f3ae4eb88a602 *man/Round.Rd
 a148c047fdba90d9f5f8f5d7926b3a37 *man/Sort.Rd
@@ -551,6 +554,8 @@ ca4721e334c8755aac391ee904721122 *man/ftests.Rd
 87776050a0bc7d5ce5d814b62dcdacce *man/g2Test_univariate.Rd
 e5b092e38e2d03041f548d51d32e76f2 *man/g2tests.Rd
 ca63a7d0fa69068ad8ee1414c40a1400 *man/gammamle.Rd
+2b21131674a785517a08527c91e4ba7b *man/gammareg.Rd
+edda4562ad6342f6becc4ad60cdeada6 *man/gammaregs.Rd
 374d32e5d59ff3f74e512593dc6a980a *man/gaussian.nb.Rd
 64f732124b6b6874f0eb63ce2568f694 *man/gaussiannb.pred.Rd
 634eb64b0dbacde47ffb5a07eb8e4e5f *man/gchi2Test.Rd
@@ -569,7 +574,7 @@ e24719d5ca0b84365438200be6431fcf *man/invgauss.regs.Rd
 4916774884aa8297f496ae482ac0f12e *man/is.symmetric.Rd
 c7b1ad2940185716a2a239546cd6a440 *man/is_element.Rd
 3ae0b0119ccbb3afb5d4fc08b59f0bef *man/is_integer.Rd
-5eebcf905ea7d3aef5d652045e47b07d *man/iterator.Rd
+26178209f9e67434d611120d430bcf62 *man/iterator.Rd
 c8e6ad155dafd92dc4a5c3bbcf67d11b *man/james.Rd
 a74ece200b84f146c22a9b24e84e62d1 *man/knn.Rd
 85bcb36562e953f27d2ae105b03973c0 *man/knn.cv.Rd
@@ -579,7 +584,7 @@ f5974d1e2242b542d479e2337cf03624 *man/kuiper.Rd
 e73395c0869362096d8730030d0a4337 *man/lmfit.Rd
 6dd47663143c40f456a6ab609f956da9 *man/logistic.cat1.Rd
 1c27f157d3dc40b243bb2e21bf67dc24 *man/logistic_only.Rd
-5f7462f70c84c20a7bc7a5e43f09a351 *man/lower_tri.Rd
+1297d2530e6ba07677bf12c90af1e5bc *man/lower_tri.Rd
 7bb3c6e14e5df6aed164270a39f5af1c *man/mad2.Rd
 3bed3a2b226e740b7f94f9c40027824b *man/mahala.Rd
 24a3791bc828999a64a8b8021c896b7d *man/mat.mat.Rd
@@ -597,13 +602,14 @@ b05660d520551f1fe3736121c8d3bc73 *man/multinom.regs.Rd
 3734ceb3c76e7040744e7d6a1eae5b5e *man/mvbetas.Rd
 0e3544545fba655db6d66b4e0d6b3667 *man/mvkurtosis.Rd
 4c59a103882c65f6083ee66cef727abd *man/mvnorm.mle.Rd
+ef71cf8494d62d2539bec54b4cb197eb *man/mvt.mle.Rd
 f2d3d3ed3a69b0acddcfff34af6c0799 *man/negative.Rd
 824c8e0b76c50e8c1c4540b7499a7baa *man/normal.mle.Rd
 98a16400b9dc345e537f4dfc0a89faf1 *man/normlog.reg.Rd
 09e6545480ee3b8e023b99f3f5fef357 *man/normlog.regs.Rd
 adfb872c024b771df4ba700e43508a27 *man/odds.Rd
 536af6f727ceefdda676e8204bd2a662 *man/odds.ratio.Rd
-e436f12f208e190e8215fca7659fae2e *man/ompr.Rd
+adef73747b892aa46efd29490ab0a3ff *man/ompr.Rd
 ab83143e2e7f990ead4e04e52e467896 *man/ordinal.mle.Rd
 c8f8c9f8fd6cff9597652eeb0dc691cf *man/pc.skel.Rd
 45964536c88b04b7f8bee803a8a42367 *man/percent.ttest.Rd
@@ -723,8 +729,8 @@ ac240e3e70f84b406360829ed49aeffc *src/cts.cpp
 249a13a4fdb0f666ccf464807cc61d26 *src/dista.cpp
 3673053faa1b3fd3f85771d136d1badb *src/dists.cpp
 47cd490ab598de0b5bd27b944e179094 *src/dists_vec.cpp
-8dd638fcb4a85a00f5490888cb84024c *src/eachcol_apply.cpp
-13cca3c7adde51420596e4a83fa22ea4 *src/eachrow.cpp
+d37c54b77c08250728312627e444ac3f *src/eachcol_apply.cpp
+c25b98fba99f7b3f0c4db680ca4768b9 *src/eachrow.cpp
 4391c2ca4f89780cd65e01bdb1412061 *src/eigs_sym_c.cpp
 cf36e96e01b17b995e778b34e0d24275 *src/energy.cpp
 dbe673aa6608da62472fd8cd3b66f26a *src/floyd_john.cpp
@@ -744,7 +750,7 @@ bb91be69d92dcd13ea7cfdf747d5b30e *src/geom_regs.cpp
 140ff66284bff5379bcdc38ae2483da2 *src/group.cpp
 6a5e0ede87f610b9ac39d5dcfd10fb89 *src/hash.cpp
 0e94be336cb1aa7e3deda68e2025abbd *src/init.c
-5a6316be8a7d6e3a1990e00e8bf5aef8 *src/is.cpp
+5c7f474fed6b046dde13c12e326e0eef *src/is.cpp
 1b9a29e62e12cd7b856c5a8d3512c63e *src/k_nn.cpp
 f2266b78732ed14f88b41e59e56c7d56 *src/logistic_only.cpp
 5c80474a2454ed47fafe1af2015bf9b8 *src/lower_upper_tri.cpp

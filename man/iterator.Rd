@@ -1,8 +1,10 @@
 \name{Iterator}
 \alias{iterator}
-\alias{print.iterator} 
+\alias{print.iterator}
 \alias{Elem<-}
 \alias{Elem}
+\alias{Elem<-.iterator}
+\alias{Elem.iterator}
 \alias{==.iterator}
 \alias{!=.iterator}
 \title{
@@ -16,8 +18,10 @@ A way to traverse a list, data.frame, matrix or vector.
 \usage{
 iterator(x,method="ceil",type="vector",by=1)
 \method{print}{iterator}(x,...)
-Elem(x) <- value
+\method{Elem}{iterator}(x) <- value
 Elem(x)
+Elem(x) <- value
+\method{Elem}{iterator}(x)
 \method{==}{iterator}(x,y)
 \method{!=}{iterator}(x,y)
 }

@@ -5,7 +5,7 @@
 using namespace Rcpp;
 
 static bool check_if_d(double& x){
-  x=abs(x);
+  x=std::abs(x);
   return (x-int(x))!=0;
 }
 

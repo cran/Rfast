@@ -95,18 +95,20 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log( length(y) ), type = "logisti
 	  
     } else if ( type == "quasibinomial" ) {
       p <- sum(y)/n
-      rho <-  -2 * (n * p * log(p) + (n - n * p) * log(1 - p))
-	  phi[1] <- 1
+      y0 <- 1 - y 
+      rho <-  2 * sum( y * log(y / p), na.rm = TRUE ) + 2 * sum( y0 * log(y0 / (1 - p) ), na.rm = TRUE )
+	phi[1] <- 1
       ela <- as.vector( cov(y - p, x) )
       sel <- which.max( abs(ela) )
       sela <- sel
       names(sela) <- NULL
       options(warn = -1)
-      mod <- Rfast::prop.reg(x[, sel], y, varb = "glm")
-	  phi[2] <- mod$phi
-      est <- exp( - mod$be[1] - x[, sel] * mod$be[2] )
-      res <-  y - 1/ (1 + est)
-      rho[2] <- mod$devi
+      mod <- Rfast::prop.reg(y, x[, sel], varb = "glm")
+	phi[2] <- mod$phi
+      est <- exp( - mod$info[1, 1] - x[, sel] * mod$info[2, 1] )
+      p <- 1 / ( 1+ est)
+      res <-  y - p
+      rho[2] <- 2 * sum( y * log(y / p), na.rm = TRUE ) + 2 * sum( y0 * log(y0 / (1 - p) ), na.rm = TRUE )
       ind[sel] <- 0
       i <- 2
       r <- numeric(d)
@@ -116,11 +118,12 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log( length(y) ), type = "logisti
         sel <- which.max( abs(r) )
         sela <- c(sela, sel)
         options(warn = -1)
-        mod <- Rfast::prop.reg(x[, sela], y, varb = "glm")        
-        est <- as.vector( exp( - mod$be[1] - x[, sela] %*% mod$be[-1] ) ) 
-        res <- y - 1 / (1 + est) 
-        rho[i] <- mod$devi
-	    phi[i] <- mod$phi 
+        mod <- Rfast::prop.reg(y, x[, sela], varb = "glm")        
+        est <- as.vector( exp( - mod$info[1, 1] - x[, sela] %*% mod$info[-1, 1] ) ) 
+        p <- 1 / ( 1+ est)
+        res <-  y - p
+        rho[i] <- 2 * sum( y * log(y / p), na.rm = TRUE ) + 2 * sum( y0 * log(y0 / (1 - p) ), na.rm = TRUE )
+        phi[i] <- mod$phi 
         ind[sela] <- 0
         r[sela] <- 0
       }
@@ -155,7 +158,7 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log( length(y) ), type = "logisti
         ind[sela] <- 0
         r[sela] <- 0
       }
-	  
+	  	  
     } else if ( type == "weibull" ) {
       ini <- Rfast::weibull.mle(y)
       m <- ini$param[2]
@@ -216,6 +219,6 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log( length(y) ), type = "logisti
     len <- length(sela)
     info <- cbind(c(0, sela[-len]), rho[1:len])
     colnames(info) <- c("Selected Vars", "Deviance") 
-	if ( is.null(phi) )   phi <- phi[1:len]
+    if ( !is.null(phi) )   phi <- phi[1:len]
     list(runtime = runtime, phi = phi, info = info)
 }

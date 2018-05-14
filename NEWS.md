@@ -1,7 +1,7 @@
 <h1 align="center"> _Rfast_ </h1>
 
 > ####New version 
-Date release: **26/04/2018**
+Date release: **15/05/2018**
 
 ***
 
@@ -11,39 +11,42 @@ Date release: **26/04/2018**
 >>
 >>  |	      Function	    |     What's new!     |
 >>  | ------------------	| ------------------- |
->>  | topological_sort      |  Time improvement   |
->>  | permcor               |  Fix a bug          |
->>  | omp                   |  Time improvement   |
->>  | chi2Test              |  Chi-squared test of independence   |
->>  | chi2tests             |  Many chi-squared tests of independnce   |
->>  | chi2Test_univariate   |  Matrix with chi-square tests of indepedence   |
->>  | normlog.regs          |  Fix a bug                                     |
->>  | cova                  |  Added an extra argument                       |
->>  | ompr                  |  Time improvement                              |
+>>  | topological_sort      |  Time improvement.  |
+>>  | permcor               |  Fix a bug.         |
+>>  | omp                   |  Time improvement.  |
+>>  | normlog.regs          |  Fix a bug.                                    |
+>>  | cova                  |  Added an extra argument.                      |
+>>  | ompr                  |  Time improvement.                             |
 ***
 >
 >>2. <u> **New** </u>
 >>
 >>  | 	   Function		      |                           What's new!                           |
 >>  | ------------------	  | --------------------------------------------------------------- |
->>  | betabinom.mle           |  MLE of the beta binomial distribution                          |
->>  | betageom.mle            |  MLE of the beta geometric distribution                         |
->>  | colpoisson.anovas       |  Column-wise ANOVA with Poisson distribution                    |
->>  | colquasipoisson.anovas  |  Column-wise ANOVA with quasi Poisson                           |
->>  | exact.ttest2            |  Exact permutations 2-sample t-test                             |
->>  | gchi2Test               |  G-square and Chi-square tests of indepdence                    |
->>  | mvlnorm.mle             |  MLE of the multivariate lognormal distribution                 |
->>  | poly.cor                |  Polychoric correlation                                         |
->>  | pooled.cov              |  Pooled covariance matrix                                       |
->>  | spatmed.reg             |  Spatial median (multivariate) regression                       |
->>  | sscov                   |  Spatial sign covariance matrix                                 |
->>  | trim.colmeans           |  Trimeed column-wise means                                      |
->>  | trim.rowmeans           |  Trimeed row-wise means                                         |
->>  | eigs.sym                |  Extract some principal components from a symmetric matrix      |
->>  | invgauss.regs           |  Many simple inverse Gaussian regression with a log link        |
->>  | invgauss.reg            |  Inverse Gaussian regression with a log link                    |
-
-
+>>  | betabinom.mle           |  MLE of the beta binomial distribution.                         |
+>>  | betageom.mle            |  MLE of the beta geometric distribution.                        |
+>>  | multivt.mle             |  MLE of the multivariate t distribution.                        |
+>>  | colpoisson.anovas       |  Column-wise ANOVA with Poisson distribution.                   |
+>>  | colquasipoisson.anovas  |  Column-wise ANOVA with quasi Poisson.                          |
+>>  | exact.ttest2            |  Exact permutations 2-sample t-test.                            |
+>>  | chi2Test                |  Chi-squared test of independence.                              |
+>>  | gchi2Test               |  G-square and Chi-square tests of indepdence.                   |
+>>  | chi2tests               |  Many chi-squared tests of independence.                        |
+>>  | chi2Test_univariate     |  Matrix with chi-square tests of indepedence.                   |
+>>  | mvlnorm.mle             |  MLE of the multivariate lognormal distribution.                |
+>>  | poly.cor                |  Polychoric correlation.                                        |
+>>  | pooled.cov              |  Pooled covariance matrix.                                      |
+>>  | spatmed.reg             |  Spatial median (multivariate) regression.                      |
+>>  | sscov                   |  Spatial sign covariance matrix.                                |
+>>  | trim.colmeans           |  Trimmed column-wise means.                                     |
+>>  | trim.rowmeans           |  Trimmed row-wise means.                                        |
+>>  | eigs.sym                |  Extract some principal components from a symmetric matrix.     |
+>>  | invgauss.regs           |  Many simple inverse Gaussian regressions with a log link.      |
+>>  | invgauss.reg            |  Inverse Gaussian regression with a log link.                   |
+>>  | gammaregs               |  Many simple Gamma regressions with a log link.                 |
+>>  | gammareg                |  Gamma regression with a log link.                              |
+>>  | gammacon                |  Gamma regression with a constant term only.                    |
+ 
 
 ***
 
@@ -73,10 +76,10 @@ Date release: **26/04/2018**
 >>  |   Outer               | like R's outer.                           |
 >>  |   RemoveFromNamespace | remove exported functions.                |
 >>  |   Sort.int            | fast sorting integer.                     |
->>  |   colCumMaxs          | like R's outer.                           |
->>  |   colCumSums          | like R's outer.                           |
->>  |   colCumMins          | like R's outer.                           |
->>  |   colCumProds         | like R's outer.                           |
+>>  |   colCumMaxs          | apply cummax to column.                   |
+>>  |   colCumSums          | apply cumsum to column.                   |
+>>  |   colCumMins          | apply cummin to column.                   |
+>>  |   colCumProds         | apply cumprod to column.                  |
 >>  |   positive            | apply method to each positive value.      |
 >>  |   positive.negative   | apply method to each positive and negative value.   |
 >>  |   negative            | apply method to each negative value.                |
@@ -85,6 +88,13 @@ Date release: **26/04/2018**
 >>  |   checkUsage          | checking usage section in Rd files.                 |
 >>  |   Hash                | Create Hash object.                                 |
 >>  |   Hash.key            | Search key or multi key.                            |
+>>  |   apply.condition     | Apply method to each column using a condition. Only integers.    |
+>>  |   Stack               | Stack object. See man page.                               |
+>>  |   iterator            | iterator object. See man page.                            |
+>>  |   Elem                | access element of an iterator object.                     |
+>>  |   print.environment   | S3 method for printing environment.                       |
+>>  |   env.copy            | deep copy environment.                                    |
+>>  |   ufactor             | Untyped factor object. See man page.                      |
 
 
 
