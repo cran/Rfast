@@ -7,8 +7,8 @@ Dist <- function(x,method = "euclidean", square = FALSE,p=0,vector = FALSE) {
     x <- sqrt(x)
   }
   if(vector){
-  	.Call("Rfast_dist_vec",PACKAGE = "Rfast",x,method,square,p)
+  	.Call(Rfast_dist_vec,x,method,square,p)
   }else{
-  	.Call("Rfast_dist",PACKAGE = "Rfast",x,method,square,p)
+  	.Call(Rfast_dist,x,method,square,p)
   }
 }

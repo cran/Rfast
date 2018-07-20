@@ -1,7 +1,7 @@
 
 
 checkExamples<-function(path.man,each = 1,dont.read = "",print.errors = stderr(),print.names = FALSE){
-  examples_files <- .Call("Rfast_read_examples",PACKAGE = "Rfast",path.man,dont.read)
+  examples_files <- .Call(Rfast_read_examples,path.man,dont.read)
   error_files<-vector("character")
   examples <- examples_files$examples
   file_names<-examples_files$files

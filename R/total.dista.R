@@ -2,5 +2,5 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 total.dista <- function(x,y,square = FALSE) {
-    .Call('Rfast_total_dista',PACKAGE = "Rfast",t(x),t(y),square)
+    .Call(Rfast_total_dista,t(x),t(y),square)
 }

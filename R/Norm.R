@@ -1,4 +1,4 @@
 
 Norm<- function(x, type = "F") {
-  .Call("Rfast_Norm",PACKAGE = "Rfast",x,type)
+  .Call(Rfast_Norm,x,type)
 }

@@ -3,6 +3,7 @@
 
 #include <RcppArmadillo.h>
 #include "mn.h"
+#include "templates.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -266,61 +267,90 @@ END_RCPP
 
 using std::nth_element;
 
-SEXP col_nth_p(NumericMatrix x,IntegerVector elems){
+SEXP col_nth_p(NumericMatrix x,IntegerVector elems,const bool descend,const bool na_rm,const bool index){
   const int n=elems.size();
   mat xx(x.begin(),x.nrow(),n,false);
   SEXP F=PROTECT(Rf_allocVector(REALSXP,n));
   double *FF=REAL(F);
-  #ifdef _OPENMP
-    #pragma omp parallel for
-  #endif
-  for(int i=0;i<n;++i){
-    colvec y=xx.col(i);
-    int elem=elems[i]-1;
-    nth_element(y.begin(),y.begin() + elem,y.end());
-    FF[i]=y[elem];
+  if(index){
+    #ifdef _OPENMP
+      #pragma omp parallel for
+    #endif
+    for(int i=0;i<n;++i){
+      colvec y=xx.col(i);
+      int elem=elems[i]-1;
+      FF[i]=nth_helper_index<colvec>(y,elem,descend,na_rm);
+    }
+  }else{
+    #ifdef _OPENMP
+      #pragma omp parallel for
+    #endif
+    for(int i=0;i<n;++i){
+      colvec y=xx.col(i);
+      int elem=elems[i]-1;
+      FF[i]=nth_helper<colvec>(y,elem,descend,na_rm);
+    }
   }
   UNPROTECT(1);
   return F;
 }
 
 // nth_element
-RcppExport SEXP Rfast_col_nth_p(SEXP xSEXP,SEXP ySEXP) {
+RcppExport SEXP Rfast_col_nth_p(SEXP xSEXP,SEXP ySEXP,SEXP descendSEXP,SEXP na_rmSEXP,SEXP indexSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type y(ySEXP);
-    __result = wrap(col_nth_p(x,y));
+    traits::input_parameter< const bool >::type descend(descendSEXP);
+    traits::input_parameter< const bool >::type na_rm(na_rmSEXP);
+    traits::input_parameter< const bool >::type index(indexSEXP);
+    __result = col_nth_p(x,y,descend,na_rm,index);
     return __result;
 END_RCPP
 }
 
-SEXP row_nth_p(NumericMatrix x,IntegerVector elems){
+SEXP row_nth_p(NumericMatrix x,IntegerVector elems,const bool descend,const bool na_rm,const bool index){
   const int n=elems.size();
   mat xx(x.begin(),n,x.ncol(),false);
-  SEXP F=PROTECT(Rf_allocVector(REALSXP,n));
-  double *FF=REAL(F);
-  #ifdef _OPENMP
-    #pragma omp parallel for
-  #endif
-  for(int i=0;i<n;++i){
-    rowvec y=xx.row(i);
-    int elem=elems[i]-1;
-    nth_element(y.begin(),y.begin() + elem,y.end());
-    FF[i]=y[elem];
+  SEXP F;
+  if(index){
+    F=PROTECT(Rf_allocVector(INTSXP,n));
+    int *FF=INTEGER(F);
+    #ifdef _OPENMP
+      #pragma omp parallel for
+    #endif
+    for(int i=0;i<n;++i){
+      rowvec y=xx.row(i);
+      int elem=elems[i]-1;
+      FF[i]=nth_helper_index<rowvec>(y,elem,descend,na_rm);
+    }
+  }else{
+    F=PROTECT(Rf_allocVector(REALSXP,n));
+    double *FF=REAL(F);
+    #ifdef _OPENMP
+      #pragma omp parallel for
+    #endif
+    for(int i=0;i<n;++i){
+      rowvec y=xx.row(i);
+      int elem=elems[i]-1;
+      FF[i]=nth_helper<rowvec>(y,elem,descend,na_rm);
+    }
   }
   UNPROTECT(1);
   return F;
 }
 
-RcppExport SEXP Rfast_row_nth_p(SEXP xSEXP,SEXP ySEXP) {
+RcppExport SEXP Rfast_row_nth_p(SEXP xSEXP,SEXP ySEXP,SEXP descendSEXP,SEXP na_rmSEXP,SEXP indexSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type y(ySEXP);
-    __result = row_nth_p(x,y);
+    traits::input_parameter< const bool >::type descend(descendSEXP);
+    traits::input_parameter< const bool >::type na_rm(na_rmSEXP);
+    traits::input_parameter< const bool >::type index(indexSEXP);
+    __result = row_nth_p(x,y,descend,na_rm,index);
     return __result;
 END_RCPP
 }

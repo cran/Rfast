@@ -52,10 +52,12 @@ cor.fbed <- function(y, x, alpha = 0.05, K = 0) {
       while ( sum(s > 0) > 0 )  {
         stat <- numeric(p)
         m <- n - 3 - length(sela)
-        e1 <- .lm.fit(z, y)$residuals
-        e2 <- .lm.fit(z, x[, ind[s] ])$residuals
+        #e1 <- .lm.fit(z, y)$residuals
+        #e2 <- .lm.fit(z, x[, ind[s] ])$residuals
+        er <- .lm.fit(z, cbind(y, x[, ind[s] ]) )$residuals
         options(warn = -1)
-        r <- cor(e2, e1) 
+        #r <- cor(e2, e1) 
+        r <- cor(er[, 1], er[, -1])
         n.tests <- n.tests + length( ind[s] )
         stat[ ind[s] ] <- abs( 0.5 * log( (1 + r) / (1 - r) ) * sqrt(m) )    
         critvalue <- qt(quan, m)

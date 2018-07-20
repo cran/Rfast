@@ -1,5 +1,5 @@
 
 
 positive.negative <- function(x,method = "min"){
-    .Call("Rfast_positive_negative",PACKAGE = "Rfast",x,method)
+    .Call(Rfast_positive_negative,x,method)
 }

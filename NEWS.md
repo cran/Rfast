@@ -1,6 +1,49 @@
 <h1 align="center"> _Rfast_ </h1>
 
 > ####New version 
+Date release: **10/07/2018**
+
+***
+
+> ###**_Statistical functions_**  
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  |	      Function	    |     What's new!     |
+>>  | --------------------- | ---------------------- |
+>>  |     ompr           	| Time improvement.    |
+>>  |     omp           	| Time improvement .   |
+>>  |   cholesky            | Time improvement. |
+***
+>
+>>2. <u> **New** </u>
+>>
+>>  | 	   Function		      |                           What's new!                           |
+>>  | ------------------	  | --------------------------------------------------------------- |
+>>  |                         |                                                                 |
+ 
+
+***
+
+> ###**_Utility functions_**  
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  | 	    Function	    |                What's new!                  |
+>>  | --------------------- | ------------------------------------------- |
+>>  |   colnth, rownth      | Add extra options, "na.rm" and "descending" order and "index.return". |
+>>  |   colrow.zero         | deprecate it and replaced by "colrow.value". |
+***
+>
+>>2. <u> **New** </u>
+>>
+>>  | 	   Function		    |                What's new!                |
+>>  | ------------------	| ----------------------------------------- |
+>>  |     which.is          | The same with which_isFactor but general. Use this instead of which_isFactor. |
+>>  |     colrow.value      | Search if a column and row is filled with a specific value. |
+
+
+> ####version 1.9.0
 Date release: **15/05/2018**
 
 ***

@@ -1,418 +1,17 @@
+// Author:  Marios Dimitriadis
+// Contact: kmdimitriadis@gmail.com
+
 #include "cts.h"
 
 #define DEBUG 0
 #define db_print(...) \
 	do { if (DEBUG) Rprintf(__VA_ARGS__); } while (0)
 
-class TestResult {
-public: double pvalue;
-    double logpvalue;
-    double stat;
-    int df;
-
-    TestResult(double _pvalue, double _stat, double _logpvalue, int _df) {
-        pvalue=_pvalue;
-        stat=_stat;
-        logpvalue=_logpvalue;
-        df=_df;
-    }
-};
-
-TestResult g2_test(arma::mat& data, const unsigned int x, const unsigned int y, 
-		arma::uvec& cs, const unsigned int ncs, arma::uvec& dc);
-
-static double g2_statistic(arma::uvec& counts, 
-		const unsigned int xdim, const unsigned int ydim);
-
-TestResult g2_test(arma::mat& data, const unsigned int x, const unsigned int y, arma::uvec& dc);
-
-// Author: Giorgos Borboudakis
-Rcpp::List g2_test_univ(arma::mat& data, arma::uvec& dc) {
-	const unsigned int nvars = data.n_cols;
-    unsigned int nout = nvars * (nvars - 1) / 2;
-	arma::uvec xout(nout);
-	arma::uvec yout(nout);
-	arma::vec statistics(nout);
-	arma::vec df(nout);
-
-    unsigned int idx = 0;
-    for(unsigned int i = 0; i < nvars; ++i) {
-        for(unsigned int j = i + 1; j < nvars; ++j) {
-            TestResult result = g2_test(data, i, j, dc);
-            xout.at(idx) = i;
-            yout.at(idx) = j;
-            statistics.at(idx) = result.stat;
-            df.at(idx) = (dc.at(i) - 1) * (dc.at(j) - 1);
-            ++idx;
-        }
-    }
-
-    Rcpp::List out;
-    out["statistic"] = statistics;
-    out["x"] = xout;
-    out["y"] = yout;
-    out["df"] = df;
-    return out;
-}
-
-TestResult g2_test(arma::mat& data, const unsigned int x, const unsigned int y, arma::uvec& dc) {
-	const unsigned int xdim = dc.at(x);
-	const unsigned int ydim = dc.at(y);
-	arma::uvec counts(xdim * ydim, arma::fill::zeros);
-
-	for (unsigned int i = 0; i < data.n_rows; ++i) {
-		const unsigned int curx = (unsigned int) data.at(i, x);
-		const unsigned int cury = (unsigned int) data.at(i, y);
-		counts(cury * xdim + curx)++;
+static unsigned int skip_ahead(arma::uvec& vals, const unsigned int curr) {
+	unsigned int i;
+	for (i = curr + 1; i < vals.size() && vals(i) == vals(curr); ++i) {
 	}
-	const int df = (xdim - 1) * (ydim - 1);
-	const double statistic = g2_statistic(counts, xdim, ydim);
-
-	return TestResult(0, statistic, 0, df);
-}
-
-static double g2_statistic(arma::uvec& counts, 
-		const unsigned int xdim, const unsigned int ydim) {
-	if (arma::all(counts == 0)) {
-		return 0;
-	}
-	double statistic = 0;
-	int countsXY = 0;
-	arma::uvec countsX(xdim, arma::fill::zeros);
-	arma::uvec countsY(ydim, arma::fill::zeros);
-
-	for (unsigned int x = 0; x < xdim; ++x) {
-		for (unsigned int y = 0; y < ydim; ++y) {
-			const unsigned int curcounts = counts.at(y * xdim + x);
-			countsXY += curcounts;
-			countsX.at(x) += curcounts;
-			countsY.at(y) += curcounts;
-		}
-	}
-
-	for (unsigned int x = 0; x < xdim; ++x) {
-		if (countsX.at(x) != 0) {
-			for (unsigned int y = 0; y < ydim; ++y) {
-				const unsigned int curcounts = counts(y * xdim + x);
-				if (countsY.at(y) && curcounts) {
-					statistic += curcounts * (std::log(((double) curcounts * countsXY) / ((double) countsX.at(x) * countsY.at(y))));
-				}
-			}
-		}
-	}
-	return 2 * statistic;
-}
-
-// Author: Giorgos Borboudakis
-Rcpp::List g2_test(arma::mat& data, const unsigned int x, const unsigned int y, 
-		arma::uvec& cs, arma::uvec& dc) {
-    TestResult result = g2_test(data, x, y, cs, cs.size(), dc);
-    Rcpp::List out;
-    out["statistic"] = result.stat;
-    out["df"] = result.df;
-    return out;
-}
-
-TestResult g2_test(arma::mat& data, const unsigned int x, const unsigned int y, 
-		arma::uvec& cs, const unsigned int ncs, arma::uvec& dc) {
-	if (!ncs) {
-		return g2_test(data, x, y, dc);
-	}
-	const unsigned int xdim = dc.at(x);
-	const unsigned int ydim = dc.at(y);
-	const unsigned int nsamples = data.n_rows;
-	arma::uvec prod(ncs + 1);
-	prod.at(0) = 1;
-	for (unsigned int i = 1; i <= ncs; ++i) {
-		prod.at(i) = prod.at(i - 1) * dc.at(cs.at(i - 1));
-	}
-
-	const unsigned int size = prod.at(ncs);
-	arma::umat counts(xdim * ydim, size, arma::fill::zeros);
-	for (unsigned int i = 0; i < nsamples; ++i) {
-		unsigned int key = 0;
-		for (unsigned int j = 0; j < ncs; ++j) {
-			key += (unsigned int) data.at(i, cs.at(j)) * prod.at(j);
-		}
-		const unsigned int curx = (unsigned int) data.at(i, x);
-		const unsigned int cury = (unsigned int) data.at(i, y);
-		counts(cury * xdim + curx, key)++;
-	}
-
-	double statistic = 0;
-	for (unsigned int i = 0; i < size; ++i) {
-		arma::uvec tmp = counts.col(i);
-		statistic += g2_statistic(tmp, xdim, ydim);
-	}
-	const unsigned int df = (xdim - 1) * (ydim - 1) * prod.at(ncs);
-
-	return TestResult(0, statistic, 0, df);
-}
-
-void random_contigency_table(int* matrix, const int* nrowt, const int* ncolt, 
-		const unsigned int nrow, const unsigned int ncol, const double* logfact, int* jwork, 
-		const int ntotal, std::mt19937&	rng);
-
-static int total_counts(arma::uvec& counts, const unsigned int xdim, 
-		const unsigned int ydim);
-
-static void col_counts(arma::uvec& counts, const unsigned int xdim,
-		const unsigned int ydim, int* counts_y);
-
-static void row_counts(arma::uvec& counts, const unsigned int xdim, 
-		const unsigned int ydim, int* counts_x);
-
-TestResult perm_g2_test(arma::mat& data, const unsigned int x, const unsigned int y,
-		arma::uvec& cs, const unsigned int ncs, arma::uvec& dc, const unsigned int nperm);
-
-// Author: Giorgos Borboudakis
-Rcpp::List g2_test_perm(arma::mat& data, const unsigned int x, const unsigned int y,
-		arma::uvec& cs, arma::uvec& dc, const unsigned int nperm) {
-	TestResult result = perm_g2_test(data, x, y, cs, cs.size(), dc, nperm);
-	Rcpp::List out;
-	out["statistic"] = result.stat;
-	out["pvalue"] = result.pvalue;
-	out["x"] = x;
-	out["y"] = y;
-	out["df"] = result.df;
-	return out;
-}
-
-TestResult perm_g2_test(arma::mat& data, const unsigned int x, const unsigned int y,
-		arma::uvec& cs, const unsigned int ncs, arma::uvec& dc, const unsigned int nperm) {
-	const unsigned int xdim = dc.at(x);
-	const unsigned int ydim = dc.at(y);
-
-	const unsigned int nsamples = data.n_rows;
-	arma::uvec prod(ncs + 1);
-	prod.at(0) = 1;
-	for (unsigned int i = 1; i <= ncs; i++) {
-		prod.at(i) = prod.at(i - 1) * dc.at(cs.at(i - 1));
-	}
-
-	const unsigned int size = prod.at(ncs);
-	arma::umat counts(xdim * ydim, size, arma::fill::zeros);
-	for (unsigned int i = 0; i < nsamples; i++) {
-		unsigned int key = 0;
-		for (unsigned int j = 0; j < ncs; j++) {
-			key += data.at(i, cs.at(j)) * prod.at(j);
-		}
-		const unsigned int curx = data.at(i, x);
-		const unsigned int cury = data.at(i, y);
-		counts.at(cury * xdim + curx, key)++;
-	}
-
-	double statistic = 0;
-	for (unsigned int i = 0; i < size; i++) {
-		arma::uvec tmp = counts.col(i);	
-		statistic += g2_statistic(tmp, dc.at(x), dc.at(y));
-	}
-	const int df = (dc.at(x) - 1) * (dc.at(y) - 1) * prod.at(ncs);
-
-	if (!nperm) {
-		return TestResult(0, statistic, 0, df);
-	}
-
-	arma::vec permstats(nperm, arma::fill::zeros);
-
-	std::random_device rd;
-	std::mt19937 rng(rd());
-
-	int* jwork = new int[ydim - 1];
-	int* ct = new int[xdim * ydim];
-	int* rowcounts = new int[xdim];
-	int* colcounts = new int[ydim];
-	int* totals = new int[size];
-	double* nrc = new double[xdim * ydim];
-
-	int maxtotal = 0;
-	for (unsigned int i = 0; i < size; i++) {
-		arma::uvec tmp = counts.col(i);
-		totals[i] = total_counts(tmp, xdim, ydim);
-		maxtotal = (totals[i] > maxtotal) ? totals[i] : maxtotal;
-	}
-
-	double* plog = new double[1 + maxtotal];
-	double* logfact = new double[1 + maxtotal];
-	plog[0] = 0;
-	logfact[0] = 0;
-	for (int j = 1; j <= maxtotal; j++) {
-		plog[j] = std::log((double) j);
-		logfact[j] = logfact[j - 1] + plog[j];
-	}
-
-	for (unsigned int i = 0; i < size; i++) {
-		const int ntotal = totals[i];
-		if (ntotal > 0) {
-			arma::uvec tmp = counts.col(i);
-			row_counts(tmp, xdim, ydim, rowcounts);
-			col_counts(tmp, xdim, ydim, colcounts);
-			int ctr = 0;
-			for (unsigned int x = 0; x < xdim; x++) {
-				for (unsigned int y = 0; y < ydim; y++) {
-					nrc[ctr++] = plog[ntotal] - plog[rowcounts[x]] - plog[colcounts[y]];
-				}
-			}
-
-			for (unsigned int p = 0; p < nperm; p++) {
-				memcpy(jwork, colcounts, (ydim - 1) * sizeof(int));
-				random_contigency_table(ct, rowcounts, colcounts, xdim, ydim, 
-						logfact, jwork, ntotal, rng);
-
-				double curstat = 0;
-				int cti = 0;
-				for (unsigned int x = 0; x < xdim; x++) {
-					if (rowcounts[x]) {
-						for (unsigned int y = 0; y < ydim; y++) {
-							curstat += ct[cti] * (plog[ct[cti]] + nrc[cti]);
-							cti++;
-						}
-					}
-					else {
-						cti += ydim;
-					}
-				}
-				permstats.at(p) += (2 * curstat);
-			}
-		}
-	}
-		
-	double pvalue = 1;
-	for (unsigned int p = 0; p < nperm; p++) {
-		pvalue += (permstats.at(p) >= statistic);
-	}
-	pvalue /= (nperm + 1);
-
-	return TestResult(pvalue, statistic, std::log(pvalue), df);
-}
-
-static void row_counts(arma::uvec& counts, const unsigned int xdim, 
-		const unsigned int ydim, int* counts_x) {
-	if (arma::all(counts == 0)) {
-		return;
-	}
-  	memset(counts_x, 0, xdim * sizeof(int));
-	for (unsigned int x = 0; x < xdim; x++) {
-		for (unsigned int y = 0; y < ydim; y++) {
-			counts_x[x] += counts.at(y * xdim + x);
-		}
-	}
-}
-
-static void col_counts(arma::uvec& counts, const unsigned int xdim,
-		const unsigned int ydim, int* counts_y) {
-	if (arma::all(counts == 0)) {
-		return;
-	}
-	memset(counts_y, 0, ydim * sizeof(int));
-	for (unsigned int x = 0; x < xdim; x++) {
-		for (unsigned int y = 0; y < ydim; y++) {
-			counts_y[y] += counts.at(y * xdim + x);
-		}
-	}
-}
-
-static int total_counts(arma::uvec& counts, const unsigned int xdim, 
-		const unsigned int ydim) {
-	if (arma::all(counts == 0)) {
-		return 0;
-	}
-	int counts_xy = 0;
-	for (unsigned int x = 0; x < xdim; x++) {
-		for (unsigned int y = 0; y < ydim; y++) {
-			counts_xy += counts.at(y * xdim + x);
-		}
-	}
-	return counts_xy;
-}
-
-void random_contigency_table(int* matrix, const int* nrowt, const int* ncolt, const unsigned int nrow, const unsigned int ncol, const double* logfact, int* jwork, 
-		const int ntotal, std::mt19937& rng) {
-	std::uniform_real_distribution<> dist(0, 1);
-	int jc = ntotal;
-	int ib = 0;
-  
-	for (unsigned int l = 0; l < nrow - 1; ++l) {
-		int ia = nrowt[l];
-		int ic = jc;
-		jc -= ia;
-		for (unsigned int m = 0; m < ncol - 1; ++m) {
-			int id = jwork[m];
-			int ie = ic;
-			ib = ie - ia;
-			int ii = ib - id;
-			ic -= id;
-		  
-			if (ie == 0) {
-				ia = 0;
-				memset(&matrix[l * ncol + m], 0, (ncol - m) * sizeof(int));
-				break;
-			}
-		  
-			//  Compute the conditional expected value of MATRIX(L,M)
-		  	bool done = false;
-		  	int curnlm, nlm;
-		  	curnlm = nlm = (int)(((double)ia * id) / ie + 0.5);
-		  	double x = exp(logfact[ia] + logfact[ib] + logfact[ic] + logfact[id] - 
-					logfact[ie] - logfact[nlm] - logfact[id - nlm] - logfact[ia - nlm] - logfact[ii + nlm]);
-			for (double r = dist(rng), sumprb = x; !done && r > x; r = sumprb * dist(rng)) {
-				bool lsp = false;
-				int nll;
-				double curx, y;
-				curnlm = nll = nlm;
-				curx = y = sumprb = x;
-				
-				// Increment entry in row L, column M.
-				do {
-					int j = (id - curnlm) * (ia - curnlm);
-					if (j == 0) {
-						lsp = true;
-						for (j = nll * (ii + nll); j != 0; j = nll * (ii + nll)) {
-							--nll;
-							y = (y * j) / ((id - nll) * (ia - nll));
-							sumprb = sumprb + y;
-
-							if (r <= sumprb) {
-							curnlm = nll;
-							done = true;
-							break;
-							}
-						}
-					}
-					else {
-						++curnlm;
-						curx = (curx * j) / (curnlm * (ii + curnlm));
-						sumprb = sumprb + curx;
-
-						if (r <= sumprb) {
-							done = true;
-							break;
-						}
-						for (j = nll * (ii + nll); j != 0; j = nll * (ii + nll)) {
-							--nll;
-							y = (y * j) / ((id - nll) * (ia - nll));
-							sumprb = sumprb + y;
-					  
-							if (r <= sumprb) {
-								curnlm = nll;
-								done = true;
-								break;
-							}
-							if (!lsp) {
-								break;
-							}
-						}
-					}
-				} while (!done && !lsp);
-			}
-			matrix[l * ncol + m] = curnlm;
-			ia = ia - curnlm;
-			jwork[m] = jwork[m] - curnlm;
-		}
-    	matrix[l * ncol + ncol - 1] = ia;
-  	}
-  	memcpy(&matrix[(nrow - 1) * ncol], jwork, (ncol - 1) * sizeof(int));
-  	matrix[(nrow - 1) * ncol + ncol - 1] = ib - matrix[(nrow - 1) * ncol + ncol - 2];
+	return i;
 }
 
 double calc_med(arma::vec& vals);
@@ -774,8 +373,6 @@ void append_rows(arma::mat& ds, const double val, std::vector<unsigned int>& row
 	}
 }
 
-unsigned int skip_ahead(arma::uvec& rows, const unsigned int curr);
-
 arma::mat rm_rows(arma::mat& src, arma::uvec& rows) {
 	unsigned int dst_nrows = src.n_rows - rows.size();
 	unsigned int dst_ncols = src.n_cols;
@@ -793,13 +390,6 @@ arma::mat rm_rows(arma::mat& src, arma::uvec& rows) {
 		src_row++;
 	}
 	return dst;
-}
-
-unsigned int skip_ahead(arma::uvec& rows, const unsigned int curr) {
-	unsigned int i;
-	for (i = curr + 1; i < rows.size() && rows(i) == rows(curr); i++) {
-	}
-	return i;
 }
 
 unsigned int skip_ahead_std(std::vector<unsigned int> rows, const unsigned int curr);
@@ -828,6 +418,26 @@ unsigned int skip_ahead_std(std::vector<unsigned int> rows, const unsigned int c
 	for (i = curr + 1; i < rows.size() && rows.at(i) == rows.at(curr); i++) {
 	}
 	return i;
+}
+
+arma::mat rm_cols(arma::mat& src, arma::uvec& cols) {
+	cols = arma::sort(cols);
+	unsigned int dst_nrows = src.n_rows;
+	unsigned int dst_ncols = src.n_cols - cols.size();
+	arma::mat dst(dst_nrows, dst_ncols);
+	unsigned int src_col = 0;
+	unsigned int cols_idx = 0;
+	for (unsigned int dst_col = 0; dst_col < dst_ncols; ++dst_col) {
+		while (src_col < src.n_cols && cols_idx < cols.size() && src_col == cols(cols_idx)) {
+			src_col++;
+			cols_idx = skip_ahead(cols, cols_idx);
+		}
+		for (unsigned int row = 0; row < dst_nrows; ++row) {
+			dst(row, dst_col) = src(row, src_col);
+		}
+		++src_col;
+	}
+	return dst;
 }
 
 arma::mat order_col(arma::mat& ds, const unsigned int col) {
@@ -1115,4 +725,62 @@ arma::mat calc_er(arma::mat& ds, arma::mat& cor_ds, arma::vec& data_pos1, arma::
 	arma::mat er = x * sol;
 	er = y - er;
 	return er;
+}
+
+static double calc_pvalue_rnd_r(arma::vec& ds_c0, arma::vec& ds_c1, const unsigned int r, 
+		const double upper, const double lower, const double test_stat, const unsigned int nrows);
+
+arma::vec calc_perm_cor(arma::vec& x, arma::vec& y, const unsigned int r) {
+	const unsigned int nrows = x.size();
+
+	db_print("Calculating upper and lower.\n");
+    double ds_c0_sum = 0;
+    double ds_c1_sum = 0;
+    double ds_c0_p2_sum = 0;
+    double ds_c1_p2_sum = 0;
+    double ds_sum = 0;
+	for (unsigned int i = 0; i < nrows; i++) {
+		const double curr_c0 = x[i];
+		const double curr_c1 = y[i];
+		ds_c0_sum += curr_c0;
+		ds_c1_sum += curr_c1;
+		ds_c0_p2_sum += std::pow(curr_c0, 2.0);
+		ds_c1_p2_sum += std::pow(curr_c1, 2.0);
+		ds_sum += curr_c0 * curr_c1;
+	}
+    const double upper = (ds_c0_sum * ds_c1_sum) / nrows;
+    const double lower = std::sqrt((ds_c0_p2_sum - std::pow(ds_c0_sum, 2.0) / nrows) *
+			(ds_c1_p2_sum - std::pow(ds_c1_sum, 2.0) / nrows));
+
+    db_print("Calculating test_stat.\n");
+    const double cor = (ds_sum - upper) / lower;
+    const double test_stat = std::abs(std::log((1 + cor) / (1 - cor)));
+
+    db_print("Calculating sxy, pvalue.\n");
+	const double pvalue = calc_pvalue_rnd_r(x, y, r, upper, lower, test_stat, nrows);
+	arma::vec res(2); res[0] = cor; res[1] = pvalue;
+	return res;
+}
+
+static double calc_pvalue_rnd_r(arma::vec& ds_c0, arma::vec& ds_c1, const unsigned int r, 
+		const double upper, const double lower, const double test_stat, const unsigned int nrows) {
+	const unsigned int rnd_r = std::round(std::sqrt(r));
+	arma::mat lh = arma::mat(ds_c0.size(), rnd_r, arma::fill::zeros);
+	arma::mat rh = arma::mat(ds_c0.size(), rnd_r, arma::fill::zeros);
+	for (unsigned int i = 0; i < rnd_r; ++i) {
+		lh.col(i) = arma::shuffle(ds_c0);
+		rh.col(i) = arma::shuffle(ds_c1);
+	}
+	arma::mat sxy = (arma::trans(lh) * rh);
+	unsigned int sum = 1;
+	for (unsigned int i = 0; i < sxy.n_rows; ++i) {
+		for (unsigned int j = 0; j < sxy.n_cols; ++j) {
+			const double curr = (sxy(i, j) - upper) / lower;
+			const double curr_test_stat = std::abs(std::log((1 + curr) / (1 - curr)));
+			if (curr_test_stat > test_stat) {
+				++sum;
+			}
+		}
+	}
+	return sum / (double) (std::pow(rnd_r, 2) + 1);
 }

@@ -1,5 +1,5 @@
 
 
 dvar <- function(x) {
-  .Call("Rfast_dvar",PACKAGE = "Rfast",t(x))
+  .Call(Rfast_dvar,t(x))
 }

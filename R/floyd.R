@@ -4,7 +4,7 @@ floyd<-function(x){
   y<-as.vector(x)
   y[is.na(y)]<-i4_huge
   dm<-dim(x)[2L]
-  y<-.Call('Rfast_floyd_john', PACKAGE = 'Rfast',dm,y)
+  y<-.Call(Rfast_floyd_john,dm,y)
   y[y==i4_huge]<-NA
   y[seq.int(1,length(y),dim(x)[2L]+1)]<-0
   dim(y)<-c(dm,dm)

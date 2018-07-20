@@ -1,4 +1,4 @@
 
 vecdist <- function(x) {
-  	.Call('Rfast_vecdist', PACKAGE = 'Rfast',x)
+  	.Call(Rfast_vecdist,x)
 }

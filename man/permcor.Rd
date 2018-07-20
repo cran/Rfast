@@ -33,10 +33,10 @@ A vector consisting of two values, the Pearson correlation and the permutation b
 }
 
 \author{
-Marios Dimitriadis and Michail Tsagris
+Marios Dimitriadis, Michail Tsagris and Christina Chatzipantsiou
 
-R implementation and documentation: Marios Dimitriadis and Michail Tsagris <kmdimitriadis@gmail.com> 
-and <mtsagris@csd.uoc.gr>
+R implementation and documentation: Marios Dimitriadis, Michail Tsagris <kmdimitriadis@gmail.com> 
+and <mtsagris@yahoo.gr> and Christina Chatzipantsiou <chatzipantsiou@gmail.com>
 }
 %\note{
 %%  ~~further notes~~

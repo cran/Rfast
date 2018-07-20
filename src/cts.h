@@ -8,18 +8,10 @@
 #include <unordered_map>
 #include <RcppArmadillo.h>
 #include "templates.h"
-#include "calc_perm_cor.h"
+#include "cts_rf.h"
 
 // [[Rcpp::plugins("cpp11")]]
 // [[Rcpp::depends("RcppArmadillo")]]
-
-Rcpp::List g2_test_univ(arma::mat& data, arma::uvec& dc);
-
-Rcpp::List g2_test(arma::mat& data, const unsigned int x, const unsigned int y, 
-		arma::uvec& cs, arma::uvec& dc);
-
-Rcpp::List g2_test_perm(arma::mat& data, const unsigned int x, const unsigned int y,
-		arma::uvec& cs, arma::uvec& dc, const unsigned int nperm);
 
 // Alters ds
 bool adj_med_NAs(arma::mat& ds);
@@ -61,6 +53,8 @@ arma::mat rm_rows(arma::mat& src, arma::uvec& rows);
 
 arma::mat rm_rows_std(arma::mat& src, std::vector<unsigned int>& rows);
 
+arma::mat rm_cols(arma::mat& src, arma::uvec& cols);
+
 arma::mat order_col(arma::mat& ds, const unsigned int col);
 
 arma::mat form_cmat(arma::mat& ds, arma::uvec& rows, arma::uvec& cols);
@@ -97,5 +91,7 @@ arma::vec cat_ci(const unsigned int x, const unsigned int y,
 
 arma::vec calc_condi(const unsigned int pos1, const unsigned int pos2, arma::uvec& cs, 
 		arma::mat& ds, arma::mat& cor_ds, const std::string method, const unsigned int r);
+
+arma::vec calc_perm_cor(arma::vec& x, arma::vec& y, const unsigned int r);
 
 #endif

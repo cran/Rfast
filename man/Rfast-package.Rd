@@ -16,8 +16,8 @@ Note 3: In general, make sure you give the correct input, in order to get the co
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.9.0 \cr
-Date: \tab 2018-05-15\cr
+Version: \tab 1.9.1 \cr
+Date: \tab 2018-07-10\cr
 License: \tab GPL-2\cr
 }
 }
@@ -25,7 +25,7 @@ License: \tab GPL-2\cr
 \author{
 Manos Papadakis <papadakm95@gmail.com>, Michail Tsagris <mtsagris@yahoo.gr>, Marios Dimitriadis <kmdimitriadis@gmail.com>, Stefanos Fafalios <stefanosfafalios@gmail.com>, 
 Ioannis Tsamardinos <tsamard@csd.uoc.gr>, Matteo Fasiolo <matteo.fasiolo@gmail.com>, Giorgos Borboudakis <borbudak@gmail.com>, John Burkardt <jburkardt@fsu.edu> and 
-Kleanthi Lakiotaki <kliolak@gmail.com>
+Kleanthi Lakiotaki <kliolak@gmail.com>, Changliang Zou <nk.chlzou@gmail.com>, Christina Chatzipantsiou <chatzipantsiou@gmail.com>
 }
 
 \section{Maintainers }{
@@ -43,7 +43,6 @@ Phillip Si is greatly acknowledged for his help with the Floyd-Warshal algorithm
 help with NEWS file and for his suggestions. Zacharias Papadovassilakis gave us the inspiration for the memory 
 efficient version of the k-NN algorithm. Yannis Pantazis explained us how the orhtogonal matching pursuit works. 
 Achim Zeileis for his help with the quasi Poisson regression models. Pedro J. Aphalo for finding a bug.
-Dimitris Kyriakis for finding a bug. Acknowledgements to Christina Chatzipantsiou for her idea with the "permcor"
-and the "boot.ttest2" functions.
+Dimitris Kyriakis for finding a bug. 
 }
 

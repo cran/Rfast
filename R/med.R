@@ -1,4 +1,4 @@
 
 med <- function(x,na.rm=FALSE) {
-  .Call('Rfast_med', PACKAGE = 'Rfast',x,na.rm)
+  .Call(Rfast_med,x,na.rm)
 }

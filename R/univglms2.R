@@ -12,7 +12,7 @@ univglms2 <- function (y, x, oiko = NULL, logged = FALSE) {
         else oiko = "normal"
     }
     if (oiko == "binomial") {
-        poia <- Rfast::which_isFactor(x)
+        poia <- Rfast::which.is(x)
         x <- Rfast::data.frame.to_matrix(x)
         if (length(poia) == 0) {
             p <- sum(y)/n
@@ -38,7 +38,7 @@ univglms2 <- function (y, x, oiko = NULL, logged = FALSE) {
         result <- cbind(stat, pval)
     }
     else if (oiko == "poisson") {
-        poia <- Rfast::which_isFactor(x)
+        poia <- Rfast::which.is(x)
         x <- Rfast::data.frame.to_matrix(x)
         if (length(poia) == 0) {
             m <- sum(y)/n
@@ -72,7 +72,7 @@ univglms2 <- function (y, x, oiko = NULL, logged = FALSE) {
         result <- cbind(stat, pval)
     }
     else if (oiko == "quasipoisson") {
-        poia <- Rfast::which_isFactor(x)
+        poia <- Rfast::which.is(x)
         x <- Rfast::data.frame.to_matrix(x)
         if (length(poia) == 0) {
             m <- sum(y)/n

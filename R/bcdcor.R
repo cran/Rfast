@@ -1,5 +1,5 @@
 
 
 bcdcor <- function(x,y) {
-  .Call("Rfast_bcdcor",PACKAGE = "Rfast",t(x),t(y))
+  .Call(Rfast_bcdcor,t(x),t(y))
 }

@@ -1,4 +1,4 @@
 
 Trigamma <- function(x) {
-  .Call('Rfast_Trigamma', PACKAGE = 'Rfast',x)
+  .Call(Rfast_Trigamma,x)
 }

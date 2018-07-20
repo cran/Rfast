@@ -212,13 +212,12 @@ double sum_with(T x){
 }
 
 /*
- * F: a unary function 
  * T: argument class
  *
  * applying function F to "x" and sum the elements of "x"
 */
 template<typename T,Mfunction<T> F>
-double sum_with(T start,T end){
+double sum_with(T *start,T *end){
   double a=0;
   for(;start!=end;++start)
     a+=F(*start);
@@ -288,6 +287,22 @@ double Apply(T1 x,T2& y){
   typename T2::iterator starty=y.begin();
   for(;startx!=x.end();++startx,++starty)
     a=F2(a,F1(*startx,*starty));
+  return a;
+}
+
+/*
+ * F1: a binary function
+ * F2: a binary function
+ * T1: argument class
+ * T2: argument class
+ *
+ * applying function F1 to "x","y" and applying F2 to the result
+*/
+template<class T1,class T2,Binary_Function F1,Binary_Function F2>
+double Apply(T1 *x,T1 *endx,T2 *y){
+  double a=0;
+  for(;x!=endx;++x,++y)
+    a=F2(a,F1(*x,*y));
   return a;
 }
 
@@ -538,6 +553,11 @@ inline T mmult(T x,T y){
 }
 
 template<typename T>
+inline T mequal(T x,T y){
+  return x==y;
+}
+
+template<typename T>
 inline T mmax(T x,T y){
   return std::max(x,y);
 }
@@ -546,6 +566,86 @@ template<typename T>
 inline T mmin(T x,T y){
   return std::min(x,y);
 }
+
+template<typename T>
+inline T mand(T x,T y){
+  return x&&y;
+}
+
+template<typename T>
+inline T mor(T x,T y){
+  return x||y;
+}
+
+template<typename RET,typename T1,typename T2>
+inline RET madd(T1 x,T2 y){
+  return x+y;
+}
+
+
+template<typename RET,typename T1,typename T2>
+inline RET mless(T1 x,T2 y){
+  return x<y;
+}
+
+template<typename RET,typename T1,typename T2>
+inline RET mless_eq(T1 x,T2 y){
+  return x<=y;
+}
+
+template<typename RET,typename T1,typename T2>
+inline RET mgreater_eq(T1 x,T2 y){
+  return x>=y;
+}
+
+template<typename RET,typename T1,typename T2>
+inline RET mgreater(T1 x,T2 y){
+  return x>y;
+}
+
+
+template<typename RET,typename T1,typename T2>
+inline RET mdiv(T1 x,T2 y){
+  return x/y;
+}
+
+
+template<typename RET,typename T1,typename T2>
+inline RET mdiff(T1 x,T2 y){
+  return x-y;
+}
+
+
+template<typename RET,typename T1,typename T2>
+inline RET mmult(T1 x,T2 y){
+  return x*y;
+}
+
+template<typename RET,typename T1,typename T2>
+inline RET mequal(T1 x,T2 y){
+  return x==y;
+}
+
+template<typename RET,typename T1,typename T2>
+inline RET mmax(T1 x,T2 y){
+  return std::max(x,y);
+}
+
+template<typename RET,typename T1,typename T2>
+inline RET mmin(T1 x,T2 y){
+  return std::min(x,y);
+}
+
+template<typename RET,typename T1,typename T2>
+inline RET mand(T1 x,T2 y){
+  return x&&y;
+}
+
+template<typename RET,typename T1,typename T2>
+inline RET mor(T1 x,T2 y){
+  return x||y;
+}
+
 
 template<typename T, Binary_Function F>
 void myoperator(T f[],T &x,T *y,int &len){
@@ -797,15 +897,16 @@ double apply_eachrow_helper(SEXP x,SEXP y){
   return s;
 }
 
-template<Binary_Function oper>
+template<Binary_Function oper,class T,class RETURN_TYPE,int type>
 SEXP eachrow_helper(SEXP x,SEXP y){
   int ncol=Rf_ncols(x),nrow=Rf_nrows(x);
-  SEXP mat=PROTECT(Rf_duplicate(x));
-  double *xx=REAL(mat),*end=xx+ncol*nrow,*yy=REAL(y),y3,*x3;
-  for(;xx!=end;++yy){
-    y3=*yy;
-    for(x3=xx,xx+=nrow;x3!=xx;++x3){
-      *x3=oper(*x3,y3);
+  SEXP mat=PROTECT(Rf_allocMatrix(type,nrow,ncol));
+  T *xx=(T *) DATAPTR(x),*xend=xx+ncol*nrow,*yy=(T *) DATAPTR(y),yvalue,*x3;
+  RETURN_TYPE *m=(RETURN_TYPE*)DATAPTR(mat);
+  for(;xx!=xend;++yy){
+    yvalue=*yy;
+    for(x3=xx,xx+=nrow;x3!=xx;++x3,++m){
+      *m=oper(*x3,yvalue);
     }
   }
   UNPROTECT(1);
@@ -890,6 +991,61 @@ NumericVector negative_or_positive_min_max(NumericVector &x){
         }
     }
     return NumericVector::create(mn,mx);
+}
+
+template<class T>
+double nth_simple(T& x,const int& elem,const bool& descend){
+  descend ?
+      nth_element(x.begin(),x.begin()+elem-1,x.end(),[&](double a,double b){return a>b;})
+  :
+      nth_element(x.begin(),x.begin()+elem-1,x.end());
+
+  return x[elem-1];
+}
+
+template<class T>
+double nth_na_rm(T& x,const int& elem,const bool& descend){
+    const int new_end=remove_if(x.begin(),x.end(),R_IsNA)-x.begin();
+    descend ?
+    nth_element(x.begin(),x.begin()+((elem<new_end) ? elem-1-new_end : elem-1),x.end(),[&](double a,double b){return a>b;})
+    :
+    nth_element(x.begin(),x.begin()+((elem<new_end) ? elem-1-new_end : elem-1),x.end());
+  
+    return x[elem-1];
+}
+
+template<class T>
+double nth_helper(T& x,const int elem,const bool descend,const bool na_rm){
+  return na_rm ? nth_na_rm<T>(x,elem,descend) : nth_simple<T>(x,elem,descend);
+}
+
+
+template<class T>
+int nth_index_simple(T& x,const int& elem,const bool& descend){
+    IntegerVector ind=seq(1,x.size());
+    descend ?
+    nth_element(ind.begin(),ind.begin()+elem-1,ind.end(),[&](int i,int j){return x[i-1]>x[j-1];})
+        :
+        nth_element(ind.begin(),ind.begin()+elem-1,ind.end(),[&](int i,int j){return x[i-1]<x[j-1];});
+    
+    return ind[elem-1];
+}
+
+template<class T>
+int nth_index_na_rm(T& x,const int& elem,const bool& descend){
+    const int new_end=remove_if(x.begin(),x.end(),R_IsNA)-x.begin();
+    IntegerVector ind= seq(1,new_end);
+    descend ?
+    nth_element(ind.begin(),ind.begin()+((elem<new_end) ? elem-1-new_end : elem-1),ind.end(),[&](int i,int j){return x[i-1]>x[j-1];})
+        :
+        nth_element(ind.begin(),ind.begin()+((elem<new_end) ? elem-1-new_end : elem-1),ind.end(),[&](int i,int j){return x[i-1]<x[j-1];});
+    
+    return ind[elem-1];
+}
+
+template<class T>
+int nth_helper_index(T& x,const int elem,const bool descend,const bool na_rm){
+    return na_rm ? nth_index_na_rm<T>(x,elem,descend) : nth_index_simple<T>(x,elem,descend);
 }
 
 #endif

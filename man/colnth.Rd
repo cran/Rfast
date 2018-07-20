@@ -11,8 +11,8 @@ Column and row-wise nth smallest value of a matrix/vector.
 }
 
 \usage{
-colnth(x,elems, parallel = FALSE)
-rownth(x,elems, parallel = FALSE)
+colnth(x,elems,descending = FALSE,na.rm = FALSE,index.return = FALSE, parallel = FALSE)
+rownth(x,elems,descending = FALSE,na.rm = FALSE,index.return = FALSE, parallel = FALSE)
 nth(x, k,descending = FALSE,index.return = FALSE,na.rm = FALSE)
 }
 

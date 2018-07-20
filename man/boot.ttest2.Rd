@@ -40,9 +40,9 @@ Efron Bradley and Robert J. Tibshirani (1993). An introduction to the bootstrap.
 }
 
 \author{
-Michail Tsagris
+Michail Tsagris and Christina Chatzipantsiou
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>.
+R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Christina Chatzipantsiou <chatzipantsiou@gmail.com>.
 }
 %\note{
 %%  ~~further notes~~

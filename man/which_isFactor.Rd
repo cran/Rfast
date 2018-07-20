@@ -1,20 +1,25 @@
-\name{Index of the columns of a data.frame which are factor variables}
+\name{Index of the columns of a data.frame which are a specific type}
 \alias{which_isFactor}
+\alias{which.is}
 \title{
-Index of the columns of a data.frame which are factor variables
+Index of the columns of a data.frame which are a specific type
 }
 
 \description{
-Index of the columns of a data.frame which are factor variables.
+Index of the columns of a data.frame which are a specific type.
 }
 
 \usage{
 which_isFactor(x)
+which.is(x,method="factor")
 }
 
 \arguments{
 \item{x}{
 A data.frame where some columns are expected to be factor variables.
+}
+\item{method}{
+A character value about the type. One of, "numeric","factor","integer","logical".
 }
 }
 
@@ -39,6 +44,11 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 which_isFactor(iris)
+which.is(iris)
 }
 
 \keyword{ Factor variables}
+\keyword{ Integer variables}
+\keyword{ Numeric variables}
+\keyword{ Logical variables}
+\keyword{ Data Frame }

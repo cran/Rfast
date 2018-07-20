@@ -5,7 +5,7 @@ odds <- function(x, y = NULL, ina, logged = FALSE) {
   } else {
     difa <- 3*x - y
   }
-  f <- .Call("Rfast_odds_helper",PACKAGE = "Rfast",difa)
+  f <- .Call(Rfast_odds_helper,difa)
   f10 <- f[4,]
   f01 <- f[2,]
   f11 <- f[3,]

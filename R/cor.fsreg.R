@@ -52,7 +52,7 @@ cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = 
         sela <- info[, 1]
         m <- n - 3 - k 
         k <- k + 1	
-        e1 <- .lm.fit(z, y)$residuals
+        e1 <- model$residuals
         e2 <- .lm.fit(z, x)$residuals
         ## yx.z <- colsums(e1 * e2) / sqrt( Rfast::colsums(e2^2) * sum(e1^2) ) 
 		options(warn = -1)
@@ -119,7 +119,7 @@ cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = 
         sela <- info[, 1]
         m <- n - 3 - k
         k <- k + 1
-        e1 <- .lm.fit(z, y)$residuals
+        e1 <- model$residuals
         e2 <- .lm.fit(z, x)$residuals
         ## yx.z <- colsums(e1 * e2) / sqrt( colsums(e2^2) * sum(e1^2) ) 
 		options(warn = -1)
@@ -188,7 +188,7 @@ cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = 
         sela <- info[, 1]
         m <- n - 3 - k
         k <- k + 1
-        e1 <- .lm.fit(z, y)$residuals
+        e1 <- model$residuals
         e2 <- .lm.fit(z, x)$residuals
         ## yx.z <- Rfast::colsums(e1 * e2) / sqrt( Rfast::colsums(e2^2) * sum(e1^2) ) 
 		options(warn = -1)

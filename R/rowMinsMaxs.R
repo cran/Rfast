@@ -1,6 +1,6 @@
 
 rowMinsMaxs <- function(x) {
-	x <- .Call('Rfast_row_min_max', PACKAGE = 'Rfast',x)
+	x <- .Call(Rfast_row_min_max,x)
 	rownames(x) <- c("min","max")
 	x
 }

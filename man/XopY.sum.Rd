@@ -24,7 +24,7 @@ A numerical matrix.
 A second numerical matrix for "XopY.sum" whose dimensions must match the ones of x, or vector for "eachrow","eachcol.apply" whose length must match with the rows of x.
 }
 \item{oper}{
-The operation to be performed, either "*", "/", "+" or "-".
+The operation to be performed, either "*", "/", "+", "-" or "==".
 }
 \item{method}{
 A character value for choosing option to apply in the result.
@@ -32,6 +32,8 @@ Options:
 	1) sum
 	2) max
 	3) min
+
+Does not work for oper="==".
 
 }
 \item{indices}{
@@ -50,9 +52,11 @@ Options:
 \details{
 XopY.sum: sum(X op Y) where op can be on of "+,-,*,/".
 
-eachrow: X op Y \bold{by row} or \bold{FUNCTION}(X op Y) where "x" is matrix, "y" is vector with length as much an the columns of x and "op" is one of "+,-,*,/", and "FUNCTION" is a specific method for applying in the result matrix (see argument method).
+eachrow: X op Y \bold{by row} or \bold{FUNCTION}(X op Y) where "x" is matrix, "y" is vector with length as much an the columns of x and "op" is one of "+,-,*,/,==", and "FUNCTION" is a specific method for applying in the result matrix (see argument method).
 
 eachcol.apply: \bold{FUNCTION}(X op Y) \bold{by column} where "x" is matrix, "y" is vector with length as much an the rows of x, "op" is one of "+,-,*,/" and "FUNCTION" is a specific method (see argument apply).
+
+\bold{NOTE:} Arguments "method" does not work for oper="==" and this operation works only in "eachrow".
 }
 
 \value{

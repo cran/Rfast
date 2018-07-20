@@ -1,11 +1,11 @@
-#ifndef _calc_pc_skel_h_
-#define _calc_pc_skel_h_
+#ifndef _pc_skel_h_
+#define _pc_skel_h_
 
 #include <iostream>
 #include <string>
 #include <ctime>
 #include <RcppArmadillo.h>
-#include "calc_perm_cor.h"
+#include "cts_rf.h"
 #include "cts.h"
 
 // [[Rcpp::plugins("cpp11")]]

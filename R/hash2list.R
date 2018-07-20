@@ -2,5 +2,5 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 hash2list <- function(x,sorting=FALSE) {
-  .Call('Rfast_hash2list',x,sorting)
+  .Call(Rfast_hash2list,x,sorting)
 }

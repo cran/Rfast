@@ -4,5 +4,5 @@ mahala <- function(x,mu,sigma,ischol = FALSE) {
     x <- matrix(x, 1, length(x))
   if (!is.matrix(sigma)) 
     sigma <- as.matrix(sigma)
-  .Call('Rfast_mahaCpp', PACKAGE = 'Rfast',x,mu,sigma,ischol)
+  .Call(Rfast_mahaCpp,x,mu,sigma,ischol)
 }

@@ -14,7 +14,7 @@ spatmed.reg <- function(y, x, tol = 1e-07) {
 
   B1 <- solve(crossprod(x), crossprod(x, y) )
   est <- y - x %*% B1
-  ww <- sqrt( .Call("Rfast_row_sums", PACKAGE = "Rfast", est^2, indices = NULL))
+  ww <- sqrt( .Call(Rfast_row_sums, est^2, indices = NULL))
   ## ww <- sqrt( Rfast::rowsums( est^2 ) )
   z <- x / ww
   B2 <- solve( crossprod(z, x), crossprod(z, y) )
@@ -23,7 +23,7 @@ spatmed.reg <- function(y, x, tol = 1e-07) {
     i <- i + 1
     B1 <- B2
     est <- y - x %*% B1
-    ww <- sqrt( .Call("Rfast_row_sums", PACKAGE = "Rfast", est^2, indices = NULL))
+    ww <- sqrt( .Call(Rfast_row_sums, est^2, indices = NULL))
 	## ww <- sqrt( Rfast::rowsums( est^2 ) )
     ela <- which( ww == 0 )
     z <- x / ww

@@ -1,4 +1,4 @@
 
 eachrow <- function(x,y,oper = "*",method = NULL){
-	.Call('Rfast_eachrow', PACKAGE = 'Rfast',x,y,oper,method)
+	.Call(Rfast_eachrow,x,y,if(oper=="==") "=" else oper,method)
 }

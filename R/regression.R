@@ -8,7 +8,7 @@ regression <- function(x, y, logged = FALSE) {
       pvalue <- log(2) + pt(abs(stat), n - 2, lower.tail = FALSE, log.p = TRUE)
     } else  pvalue <- 2 * pt(abs(stat), n - 2, lower.tail = FALSE)
   } else {  ## not matrix now
-    poia <- Rfast::which_isFactor(x)
+    poia <- Rfast::which.is(x)
     if ( length(poia) == 0 ) {
       n <- length(y)
       rho <- as.vector( cor(y, x) )
@@ -30,20 +30,9 @@ regression <- function(x, y, logged = FALSE) {
       if (logged) {
         pvalue[-poia] <- log(2) + pt(abs(stat[-poia]), n - 2, lower.tail = FALSE, log.p = TRUE)
       } else  pvalue[-poia] <- 2 * pt(abs(stat[-poia]), n - 2, lower.tail = FALSE)
-       sy2 <- sum(y^2)
-      for (i in poia) {
-        ina <- x[, i]
-        ni <- tabulate(ina)
-		ni <- ni[ni > 0]
-        k <- length(ni)
-        m <- Rfast::group.sum(y, ina)
-        a <- sum(m^2/ni)
-        b <- sum(m)^2/n
-        mst <- (a - b)/(k - 1)
-        mse <- (sy2 - a)/(n - k)
-        stat[i] <- mst/mse
-        pvalue[i] <- pf(stat[i], k - 1, n - k, lower.tail = FALSE, log.p = logged)
-      }
+	   mod <- Rfast::colanovas(y, x[, poia, drop = FALSE])
+	   stat[poia] <- mod[, 1]
+       pvalue[poia] <- mod[, 2]  	   
     }  
   }  ## end if is.matrix(x)
   cbind(stat, pvalue)
