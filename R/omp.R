@@ -6,14 +6,11 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
     ind <- 1:d
     x <- Rfast::standardise(x)
     phi <- NULL
-
     if (type == "logistic") {
         p <- sum(y)/n
         rho <- -2 * (n * p * log(p) + (n - n * p) * log(1 - p))
         ela <- as.vector( cov(y, x) )
-        epe <- which( is.na(ela) )
-        ind[epe] <- 0
-        sel <- which.max(abs(ela))
+        sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
         options(warn = -1)
@@ -23,8 +20,8 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
         rho[2] <- mod$devi
         ind[sel] <- 0
         i <- 2
-        r <- numeric(d)
-        while ((rho[i - 1] - rho[i]) > tol) {
+        while ( (rho[i - 1] - rho[i]) > tol ) {
+            r <- numeric(d)
             i <- i + 1
             r[ind] <- Rfast::eachcol.apply(x, res, indices = ind[ind > 
                 0], oper = "*", apply = "sum")
@@ -36,16 +33,14 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
             res <- y - 1/(1 + est)
             rho[i] <- mod$devi
             ind[sela] <- 0
-            r[sela] <- 0
         }
     }
     else if (type == "poisson") {
         m <- sum(y)/n
-        rho <- 2 * sum(y * log(y), na.rm = TRUE) - 2 * n * m * log(m)
+        rho <- 2 * sum(y * log(y), na.rm = TRUE) - 2 * n * m * 
+            log(m)
         ela <- as.vector( cov(y, x) )
-        epe <- which( is.na(ela) )
-        ind[epe] <- 0
-        sel <- which.max(abs(ela))
+        sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
         options(warn = -1)
@@ -54,8 +49,8 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
         rho[2] <- mod$devi
         ind[sel] <- 0
         i <- 2
-        r <- numeric(d)
-        while ((rho[i - 1] - rho[i]) > tol) {
+        while ( (rho[i - 1] - rho[i]) > tol ) {
+            r <- numeric(d)
             i <- i + 1
             r[ind] <- Rfast::eachcol.apply(x, res, indices = ind[ind > 
                 0], oper = "*", apply = "sum")
@@ -67,7 +62,6 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
                 mod$be[-1]))
             rho[i] <- mod$devi
             ind[sela] <- 0
-            r[sela] <- 0
         }
     }
     else if (type == "quasipoisson") {
@@ -76,9 +70,7 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
             log(m)
         phi <- 1
         ela <- as.vector( cov(y, x) )
-        epe <- which( is.na(ela) )
-        ind[epe] <- 0
-        sel <- which.max(abs(ela))
+        sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
         options(warn = -1)
@@ -88,8 +80,8 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
         rho[2] <- mod$devi
         ind[sel] <- 0
         i <- 2
-        r <- numeric(d)
-        while ((rho[i - 1] - rho[i])/phi[i] > tol) {
+        while ( (rho[i - 1] - rho[i])/phi[i] > tol ) {
+            r <- numeric(d)
             i <- i + 1
             r[ind] <- Rfast::eachcol.apply(x, res, indices = ind[ind > 
                 0], oper = "*", apply = "sum")
@@ -102,7 +94,6 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
             rho[i] <- mod$devi
             phi[i] <- mod$phi
             ind[sela] <- 0
-            r[sela] <- 0
         }
     }
     else if (type == "quasibinomial") {
@@ -112,9 +103,7 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
             log(y0/(1 - p)), na.rm = TRUE)
         phi[1] <- 1
         ela <- as.vector( cov(y, x) )
-        epe <- which( is.na(ela) )
-        ind[epe] <- 0
-        sel <- which.max(abs(ela))
+        sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
         options(warn = -1)
@@ -127,8 +116,8 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
             log(y0/(1 - p)), na.rm = TRUE)
         ind[sel] <- 0
         i <- 2
-        r <- numeric(d)
-        while ((rho[i - 1] - rho[i])/phi[i] > tol) {
+        while ( (rho[i - 1] - rho[i])/phi[i] > tol ) {
+            r <- numeric(d)
             i <- i + 1
             r[ind] <- Rfast::eachcol.apply(x, res, indices = ind[ind > 
                 0], oper = "*", apply = "sum")
@@ -144,18 +133,14 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
                 sum(y0 * log(y0/(1 - p)), na.rm = TRUE)
             phi[i] <- mod$phi
             ind[sela] <- 0
-            r[sela] <- 0
         }
     }
     else if (type == "normlog") {
         ini <- Rfast::normlog.mle(y)
-        m <- ini$param[1]
-        rho <- sum( (y - m)^2 )
+        rho <- sum( (y - ini$param[1])^2 )
         phi[1] <- 1
         ela <- as.vector( cov(y, x) )
-        epe <- which( is.na(ela) )
-        ind[epe] <- 0
-        sel <- which.max(abs(ela))
+        sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
         options(warn = -1)
@@ -165,8 +150,8 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
         phi[2] <- mod$devi/(n - 2)
         ind[sel] <- 0
         i <- 2
-        r <- numeric(d)
-        while ((rho[i - 1] - rho[i])/phi[i] > tol) {
+        while ( (rho[i - 1] - rho[i])/phi[i] > tol ) {
+            r <- numeric(d)
             i <- i + 1
             r[ind] <- Rfast::eachcol.apply(x, res, indices = ind[ind > 
                 0], oper = "*", apply = "sum")
@@ -179,16 +164,44 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
             rho[i] <- mod$deviance
             phi[i] <- mod$deviance/(n - length(mod$be))
             ind[sela] <- 0
-            r[sela] <- 0
+        }
+    }
+    else if (type == "gamma") {
+        ini <- Rfast::gammacon(y)
+        rho <- ini$deviance
+        phi[1] <- 1
+        ela <- as.vector( cov(y, x) )
+        sel <- which.max( abs(ela) )
+        sela <- sel
+        names(sela) <- NULL
+        options(warn = -1)
+        mod <- Rfast::gammareg(y, x[, sel])
+        res <- y - exp(mod$be[1] + x[, sel] * mod$be[2])
+        rho[2] <- mod$info[2]
+        phi[2] <- mod$info[3]
+        ind[sel] <- 0
+        i <- 2
+        while ( (rho[i - 1] - rho[i])/phi[i] > tol ) {
+            r <- numeric(d)
+            i <- i + 1
+            r[ind] <- Rfast::eachcol.apply(x, res, indices = ind[ind > 
+                0], oper = "*", apply = "sum")
+            sel <- which.max(abs(r))
+            sela <- c(sela, sel)
+            options(warn = -1)
+            mod <- Rfast::normlog.reg(y, x[, sela])
+            res <- y - as.vector(exp(mod$be[1] + x[, sela] %*% 
+                mod$be[-1]))
+            rho[i] <- mod$info[2]
+            phi[i] <- mod$info[3]
+            ind[sela] <- 0
         }
     }
     else if (type == "weibull") {
         ini <- Rfast::weibull.mle(y)
         m <- ini$param[2]
         rho <- 2 * ini$loglik
-        ela <- as.vector( cov(y, x) )
-        epe <- which( is.na(ela) )
-        ind[epe] <- 0
+        ela <- as.vector(cov(y - m, x))
         sel <- which.max(abs(ela))
         sela <- sel
         names(sela) <- NULL
@@ -198,8 +211,8 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
         rho[2] <- 2 * mod$loglik
         ind[sel] <- 0
         i <- 2
-        r <- numeric(d)
-        while ((rho[i] - rho[i - 1]) > tol) {
+        while ( (rho[i] - rho[i - 1]) > tol ) {
+            r <- numeric(d)
             i <- i + 1
             r[ind] <- Rfast::eachcol.apply(x, res, indices = ind[ind > 
                 0], oper = "*", apply = "sum")
@@ -211,36 +224,87 @@ omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic"
                 mod$be[-1]))
             rho[i] <- 2 * mod$loglik
             ind[sela] <- 0
-            r[sela] <- 0
         }
     }
     else if (type == "mv") {
-        can <- which( is.na( Rfast::colsums(x) ) )
-        ind[can] <- 0
-        con <- n * d * log(2 * pi/n) + n * d
+        p <- dim(y)[2]
+        con <- n * p * log(2 * pi) + n * p
         mod <- Rfast::mvnorm.mle(y)
-        rho <-  - 2 * mod$loglik
-        res <- t(y) - mod$mu
+        rho <- -2 * mod$loglik
+        res <- Rfast::eachrow(y, mod$mu, oper = "-")
         ela <- numeric(d)
-        for ( i in ind[ind > 0] ) ela[i] <- sum( (res %*% x[, i])^2 )
+        ela <- Rfast::eachcol.apply(x, res[, 1], indices = ind, 
+            oper = "*", apply = "sum")^2
+        for (i in 2:p) ela <- ela + Rfast::eachcol.apply(x, res[, 
+            i], indices = ind, oper = "*", apply = "sum")^2
         sel <- which.max(ela)
         sela <- sel
         names(sela) <- NULL
         res <- .lm.fit(cbind(1, x[, sela]), y)$residuals
-        rho[2] <- con + n * log( det( crossprod(res)/(n - 2) ) )
+        rho[2] <- con + n * log(det(crossprod(res)/(n - 1)))
         ind[sel] <- 0
         i <- 2
-        r <- numeric(d)
-        while ((rho[i - 1] - rho[i]) > tol) {
+        while ( (rho[i - 1] - rho[i]) > tol ) {
+            r <- numeric(d)
             i <- i + 1
-            for (j in ind[ind > 0]) r[j] <- sum(crossprod(res, 
-                x[, j])^2)
+            r[ind] <- Rfast::eachcol.apply(x, res[, 1], indices = ind[ind > 
+                0], oper = "*", apply = "sum")^2
+            for (j in 2:p) r[ind] <- r[ind] + Rfast::eachcol.apply(x, 
+                res[, j], indices = ind[ind > 0], oper = "*", 
+                apply = "sum")^2
             sel <- which.max(r)
             sela <- c(sela, sel)
             res <- .lm.fit(cbind(1, x[, sela]), y)$residuals
-            rho[i] <- con + n * log( det( crossprod(res)/(n - i) ) )
+            rho[i] <- con + n * log(det(crossprod(res)/(n - i - 
+                1)))
             ind[sela] <- 0
-            r[sela] <- 0
+        }
+    }
+    else if (type == "multinomial") {
+        p <- dim(y1)[2]
+        for (j in 1:p) y1[, j] <- as.numeric(y1[, j])
+        res <- Rfast::eachrow(y1, mod$prob[-1], oper = "-")
+        ela <- numeric(d)
+        ela <- Rfast::eachcol.apply(x, res[, 1], indices = ind, 
+            oper = "*", apply = "sum")^2
+        for (i in 2:p) ela <- ela + Rfast::eachcol.apply(x, res[, 
+            i], indices = ind, oper = "*", apply = "sum")^2
+        sel <- which.max(ela)
+        sela <- sel
+        names(sela) <- NULL
+        mod <- try(Rfast::multinom.reg(y, x[, sela]), silent = TRUE)
+        if (identical(class(mod), "try-error")) {
+            rho[2] <- rho[1]
+        }
+        else {
+            est <- exp(cbind(1, x[, sel]) %*% mod$be)
+            est <- est/(Rfast::rowsums(est) + 1)
+            res <- y1 - est
+            rho[2] <- -2 * mod$loglik
+            ind[sel] <- 0
+        }
+        i <- 2
+        while ( (rho[i - 1] - rho[i]) > tol ) {
+            r <- numeric(d)
+            i <- i + 1
+            r[ind] <- Rfast::eachcol.apply(x, res[, 1], indices = ind[ind > 
+                0], oper = "*", apply = "sum")^2
+            for (j in 2:p) r[ind] <- r[ind] + Rfast::eachcol.apply(x, 
+                res[, j], indices = ind[ind > 0], oper = "*", 
+                apply = "sum")^2
+            sel <- which.max(r)
+            sela <- c(sela, sel)
+            mod <- try(Rfast::multinom.reg(y, x[, sela]), silent = TRUE)
+            if (identical(class(mod), "try-error")) {
+                rho[i] <- rho[i - 1]
+            }
+            else {
+                rho[i] <- -2 * mod$loglik
+                ind[sela] <- 0
+                est <- exp(cbind(1, x[, sela]) %*% mod$be)
+                est <- est/(Rfast::rowsums(est) + 1)
+                res <- y1 - est
+            }
         }
     }
     runtime <- proc.time() - tic

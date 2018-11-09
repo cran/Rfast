@@ -20,7 +20,7 @@ chi2Test_univariate(data, dc)
 \arguments{
 \item{data}{
 A numerical matrix with the data. \bold{The minimum must be 0, otherwise the function can crash or will produce 
-wrong results}.
+wrong results}. The data must be consecutive numbers.
 }
 \item{dc}{
 A numerical value equal to the number of variables (or columns of the data matrix) indicating the number of distinct, unique values (or levels) of each variable.

@@ -1,5 +1,5 @@
 \name{Limited number of eigenvalues and eigenvectors of a symmetric matrix}
-\alias{eigs.sym}
+\alias{eigen.sym}
 \title{
 Limited number of eigenvalues and eigenvectors of a symmetric matrix
 }
@@ -9,7 +9,7 @@ Limited number of eigenvalues and eigenvectors of a symmetric matrix.
 }
 
 \usage{
-eigs.sym(A, k)
+eigen.sym(A, k)
 }
 
 \arguments{
@@ -63,7 +63,7 @@ Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- matrnorm(10000, 500 )
 s <- Rfast::cova(x)
-eigs.sym(s, 10)
+eigen.sym(s, 10)
 x <- s <- NULL
 }
 

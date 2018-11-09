@@ -11,6 +11,7 @@ using namespace Rcpp;
 using namespace arma;
 using namespace std;
 
+//[[Rcpp::export]]
 SEXP col_all(SEXP x){
   const int n=Rf_ncols(x),p=Rf_nrows(x);
   SEXP f=Rf_allocVector(LGLSXP,n);
@@ -1056,27 +1057,29 @@ END_RCPP
 ////////////////////////////////////////////////////////////////
 
 
-NumericVector col_sums(NumericMatrix x,SEXP indices){
-  const int n=Rf_isNull(indices) ? 0 : LENGTH(indices);
-  mat X(x.begin(), x.nrow(), x.ncol(), false);
-  NumericVector f(n==0 ? X.n_cols : n);
-  if(n==0){
-    rowvec ff(f.begin(),X.n_cols,false);
-    ff = sum(X,0);
-  }else{
-    IntegerVector ind(indices);
-    for(int i=0;i<n;++i)
-      f[i]=accu(X.col(ind[i]-1));
-  }
-  return f;
+template<class Ret,class T1,class F1,class F2>
+Ret col_sums(T1 x,SEXP indices){
+    const int n=Rf_isNull(indices) ? 0 : LENGTH(indices);
+    F1 X(x.begin(), x.nrow(), x.ncol(), false);
+    Ret f(n==0 ? X.n_cols : n);
+    if(n==0){
+        F2 ff(f.begin(),X.n_cols,false);
+        ff = sum(X,0);
+    }else{
+        IntegerVector ind(indices);
+        for(int i=0;i<n;++i)
+            f[i]=accu(X.col(ind[i]-1));
+    }
+    return f;
 }
 
-NumericVector row_sums(NumericMatrix x,SEXP indices){
+template<class Ret,class T1,class F1,class F2>
+Ret row_sums(T1 x,SEXP indices){
   const int n=Rf_isNull(indices) ? 0 : LENGTH(indices);
-  mat X(x.begin(), x.nrow(), x.ncol(), false);
-  NumericVector f(n==0 ? X.n_rows : n);
+  F1 X(x.begin(), x.nrow(), x.ncol(), false);
+  Ret f(n==0 ? X.n_rows : n);
   if(n==0){
-    colvec ff(f.begin(),X.n_rows,false);
+    F2 ff(f.begin(),X.n_rows,false);
     ff = sum(X,1);
   }else{
     IntegerVector ind(indices);
@@ -1086,22 +1089,22 @@ NumericVector row_sums(NumericMatrix x,SEXP indices){
   return f;
 }
 
-RcppExport SEXP Rfast_row_sums(SEXP xSEXP,SEXP indices) {
+RcppExport SEXP Rfast_row_sums(SEXP x,SEXP indices) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    __result = row_sums(x,indices);
+    __result = Rf_isInteger(x) ? row_sums<IntegerVector,IntegerMatrix,imat,icolvec>(x,indices)
+        : row_sums<NumericVector,NumericMatrix,mat,colvec>(x,indices);
     return __result;
 END_RCPP
 }
 
-RcppExport SEXP Rfast_col_sums(SEXP xSEXP,SEXP indices) {
+RcppExport SEXP Rfast_col_sums(SEXP x,SEXP indices) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    __result = col_sums(x,indices);
+    __result = Rf_isInteger(x) ? col_sums<IntegerVector,IntegerMatrix,imat,irowvec>(x,indices)
+    		   : col_sums<NumericVector,NumericMatrix,mat,rowvec>(x,indices);
     return __result;
 END_RCPP
 }

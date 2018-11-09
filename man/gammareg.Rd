@@ -10,8 +10,8 @@ Gamma regression with a log-link.
 }
 
 \usage{
-gammareg(y, x, tol = 1e-08, maxiters = 100)
-gammacon(y, tol = 1e-08)
+gammareg(y, x, tol = 1e-07, maxiters = 100)
+gammacon(y, tol = 1e-08, maxiters =50)
 }
 
 \arguments{

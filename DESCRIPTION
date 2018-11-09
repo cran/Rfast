@@ -1,17 +1,17 @@
 Package: Rfast
 Type: Package
 Title: A Collection of Efficient and Extremely Fast R Functions
-Version: 1.9.1
-Date: 2018-07-10
+Version: 1.9.2
+Date: 2018-11-8
 Author: Manos Papadakis, Michail Tsagris, Marios Dimitriadis, Stefanos Fafalios, Ioannis Tsamardinos, Matteo Fasiolo, Giorgos Borboudakis, John Burkardt, Changliang Zou, Kleanthi Lakiotaki and Christina Chatzipantsiou.
-Maintainer: Manos Papadakis <papadakm95@gmail.com>
-Depends: R (>= 3.2.2), Rcpp (>= 0.12.3), RcppZiggurat
+Maintainer: Manos Papadakis <rfastofficial@gmail.com>
+Depends: R (>= 3.5.0), Rcpp (>= 0.12.3), RcppZiggurat
 LinkingTo: Rcpp (>= 0.12.3), RcppArmadillo
 SystemRequirements: C++11
-Description: A collection of fast (utility) functions for data analysis. Column- and row- wise means, medians, variances, minimums, maximums, many t, F and G-square tests, many regressions (normal, logistic, Poisson), are some of the many fast functions.
+Description: A collection of fast (utility) functions for data analysis. Column- and row- wise means, medians, variances, minimums, maximums, many t, F and G-square tests, many regressions (normal, logistic, Poisson), are some of the many fast functions. Reference: Tsagris M, Papadakis M. (2018). Taking R to its limits: 70+ tips. PeerJ Preprints 6:e26605v1 <doi:10.7287/peerj.preprints.26605v1>.
 License: GPL (>= 2.0)
 LazyData: TRUE
 NeedsCompilation: yes
-Packaged: 2018-07-10 14:59:18 UTC; MANOS
+Packaged: 2018-11-08 23:12:26 UTC; MANOS
 Repository: CRAN
-Date/Publication: 2018-07-20 17:40:03 UTC
+Date/Publication: 2018-11-09 14:30:36 UTC

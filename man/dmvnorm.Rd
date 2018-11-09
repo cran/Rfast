@@ -39,9 +39,9 @@ The (log) density of the multivariate normal distribution is calculated for give
 A numerical vector with the density values calculated at each vector (row of the matrix x).
 }
 
-%\references{
-%
-%}
+\references{
+Kanti V. Mardia, John T. Kent and John M. Bibby (1979). Multivariate analysis. Academic Press, London.
+}
 
 \author{
 Michail Tsagris

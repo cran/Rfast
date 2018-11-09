@@ -3,9 +3,7 @@
 #include <RcppArmadillo.h>
 #include <cmath>
 #include "reg_lib.h"
-#include "reg_lib2.h"
 #include "my_k_sorted_array.h"
-#include "mn.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -16,17 +14,16 @@ NumericMatrix dir_knn(NumericMatrix tXnew, NumericMatrix tX, NumericVector Y, Nu
 
   double (*_function_type_)(vec, a_node*, const int);
 
-  if(type == "R"){
+  if(type == "R")
     _function_type_ = &average_value;
-  }
-  else if(type == "WR"){
+  else if(type == "WR")
     _function_type_ = &weighted_average_value;
-  }
-  else if(type == "WC"){
+  else if(type == "WC")
     _function_type_ = &weighted_most_frequent_value;
-  }
+  else if(type == "C")
+    _function_type_ = &most_frequent_value;
   else{
-   _function_type_ = &most_frequent_value;
+    stop("Unknown type, Supported types are: 'R','WR','C','WC'.\n");
   }
 
 
@@ -61,9 +58,8 @@ NumericMatrix dir_knn(NumericMatrix tXnew, NumericMatrix tX, NumericVector Y, Nu
             k_sorted_put(myarray,k0,i,acos(tmpsum));
           }
 
-          for(int j = 0; j < klen; j++){
+          for(int j = 0; j < klen; j++)
             g(l,j)= _function_type_(y, myarray, K[j]);
-          }
 
             // make all elements of the array "invalid" so that the next iteration can begin
             myarray =  refresh_array(myarray, k0);
@@ -88,9 +84,8 @@ NumericMatrix dir_knn(NumericMatrix tXnew, NumericMatrix tX, NumericVector Y, Nu
         k_sorted_put(myarray,k0,i,acos(tmpsum));
       }
 
-      for(int j = 0; j < klen; j++){
+      for(int j = 0; j < klen; j++)
         g(l,j)= _function_type_(y, myarray, K[j]);
-      }
 
         // make all elements of the array "invalid" so that the next iteration can begin
         myarray =  refresh_array(myarray, k0);

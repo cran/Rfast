@@ -3,6 +3,7 @@ univglms <- function (y, x, oiko = NULL, logged = FALSE) {
     n <- dm[1]
     d <- dm[2]
     if (is.null(oiko)) {
+	    y <- as.numeric(y)  
         if ( length( Rfast::sort_unique(y) ) == 2 ) {
             oiko = "binomial"
         }

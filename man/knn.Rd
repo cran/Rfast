@@ -89,7 +89,7 @@ R implementation and documentation: Marios Dimitriadis <kmdimitriadis@gmail.com>
 %%  ~~further notes~~
 %}
 \seealso{
-\code{ \link{logistic_only}, \link{fs.reg}, \link{cor.fsreg} }
+\code{\link{knn.cv}, \link{dirknn}, \link{logistic_only}, \link{fs.reg}, \link{cor.fsreg} }
 }
 
 \examples{

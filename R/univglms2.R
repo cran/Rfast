@@ -3,13 +3,14 @@ univglms2 <- function (y, x, oiko = NULL, logged = FALSE) {
     n <- dm[1]
     d <- dm[2]
     if (is.null(oiko)) {
-        if (length(sort_unique(y)) == 2) {
-            oiko = "binomial"
+	    y <- as.numeric(y)  
+        if (length(Rfast::sort_unique(y)) == 2) {
+            oiko <- "binomial"
         }
         else if (sum(round(y) - y) == 0) {
-            oiko = "poisson"
+            oiko <- "poisson"
         }
-        else oiko = "normal"
+        else oiko <- "normal"
     }
     if (oiko == "binomial") {
         poia <- Rfast::which.is(x)

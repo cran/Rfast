@@ -190,6 +190,20 @@ NumericVector group_med(NumericVector x,IntegerVector group){
   return F;
 }
 
+//[[Rcpp::export]]
+NumericVector group_med2(NumericVector x,IntegerVector group,const int length_unique){
+  const int n=x.size();
+  NumericVector f(length_unique);
+  vector<vector<double>> groups(length_unique,std::vector<double>());
+  for(int i=0;i<n;++i)
+    groups[group[i]-1].push_back(x[i]);
+  for(int i=0;i<length_unique;++i){
+    auto& tmp = groups[i];
+    f[i]=med_helper<vector<double>>(tmp.begin(),tmp.end());
+  }
+  return f;
+}
+
 
 RcppExport SEXP Rfast_group_med(SEXP xSEXP,SEXP groupSEXP) {
 BEGIN_RCPP

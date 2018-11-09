@@ -58,7 +58,7 @@ R implementation and documentation: Stefanos Fafalios <stefanosfafalios@gmail.co
 %}
 
 \seealso{
-\code{\link{knn}, \link{vmf.mle}, \link{spml.mle}
+\code{\link{dirknn.cv}, \link{knn}, \link{vmf.mle}, \link{spml.mle}
 }
 }
 

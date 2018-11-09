@@ -5,7 +5,6 @@ ufactor<-function(x){
     un<- if(is.character(x)) Rfast::Sort(unique(x)) else Rfast::sort_unique(x)
     y$values<-Rfast::Match(x,un)
     y$levels<-un
-    pe <- parent.env(environment())
     class(y)<-"ufactor"
     lockEnvironment(y)
     lockBinding("values",y)

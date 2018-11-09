@@ -1,5 +1,4 @@
 \name{Index of the columns of a data.frame which are a specific type}
-\alias{which_isFactor}
 \alias{which.is}
 \title{
 Index of the columns of a data.frame which are a specific type
@@ -10,7 +9,6 @@ Index of the columns of a data.frame which are a specific type.
 }
 
 \usage{
-which_isFactor(x)
 which.is(x,method="factor")
 }
 
@@ -43,7 +41,6 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-which_isFactor(iris)
 which.is(iris)
 }
 

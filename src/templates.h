@@ -1,4 +1,11 @@
+// [[Rcpp::depends(RcppArmadillo)]]
+#include <RcppArmadillo.h>
 #include <algorithm>
+#include <R.h>
+#include <Rinternals.h>
+
+
+//#include <Rinlinedfuns.h>
 
 using namespace std;
 using namespace arma;

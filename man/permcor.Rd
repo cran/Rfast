@@ -32,11 +32,19 @@ This is a very low computational calculation of the p-value. Try it yourselves.
 A vector consisting of two values, the Pearson correlation and the permutation based p-value. 
 }
 
-\author{
-Marios Dimitriadis, Michail Tsagris and Christina Chatzipantsiou
+\references{
+Chatzipantsiou C., Dimitriadis M., Papadakis M. and Tsagris M. (2018). 
+Extremely efficient permutation and bootstrap hypothesis tests using R. 
+To appear in the Journal of Modern Applied Statistical Methods.
 
-R implementation and documentation: Marios Dimitriadis, Michail Tsagris <kmdimitriadis@gmail.com> 
-and <mtsagris@yahoo.gr> and Christina Chatzipantsiou <chatzipantsiou@gmail.com>
+https://arxiv.org/ftp/arxiv/papers/1806/1806.10947.pdf
+}
+
+\author{
+Marios Dimitriadis and Michail Tsagris
+
+R implementation and documentation: Marios Dimitriadis and Michail Tsagris <kmdimitriadis@gmail.com> 
+and <mtsagris@csd.uoc.gr>
 }
 %\note{
 %%  ~~further notes~~

@@ -9,7 +9,7 @@ Inverse Gaussian regression with a log-link.
 }
 
 \usage{
-invgauss.reg(y, x, tol = 1e-08, maxiters = 100)
+invgauss.reg(y, x, tol = 1e-07, maxiters = 100)
 }
 
 \arguments{

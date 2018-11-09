@@ -200,7 +200,6 @@ SEXP Rfast_sort_int(SEXP xSEXP);
 SEXP Rfast_stable_sort(SEXP x,SEXP descendSEXP);
 SEXP Rfast_spat_med(SEXP xSEXP,SEXP tolSEXP);
 SEXP Rfast_squareform_c(SEXP xSEXP);
-SEXP Rfast_spml_reg_helper(SEXP B1SEXP,SEXP B2SEXP,SEXP xSEXP,SEXP uSEXP,SEXP ciSEXP,SEXP siSEXP,SEXP conSEXP,SEXP tolSEXP);
 SEXP Rfast_total_dists(SEXP xSEXP,SEXP methodSEXP,SEXP sqrSEXP,SEXP pSEXP);
 SEXP Rfast_total_dista(SEXP xSEXP,SEXP ySEXP,SEXP sqrSEXP);
 SEXP Rfast_topological_sort(SEXP dagSEXP);
@@ -219,7 +218,6 @@ SEXP Rfast_var_c_na_rm(SEXP xSEXP,SEXP na_rmSEXP);
 SEXP Rfast_vec_comb_n(SEXP dataSEXP,SEXP nSEXP);
 SEXP Rfast_varcomps_mle(SEXP xSEXP,SEXP inaSEXP,SEXP nSEXP,SEXP tolSEXP);
 SEXP Rfast_vecdist(SEXP x);
-SEXP Rfast_which_isFactor(SEXP xSEXP);
 SEXP Rfast_which_is(SEXP xSEXP,SEXP methodSEXP);
 SEXP Rfast_col_row_value(SEXP xSEXP,SEXP vSEXP);
 
@@ -227,7 +225,7 @@ SEXP Rfast_colrint_mle(SEXP XSEXP,SEXP idSEXP,SEXP ranefSEXP,SEXP tolSEXP,SEXP m
 SEXP Rfast_eigs_sym_c(SEXP XSEXP,SEXP kSEXP);
 SEXP Rfast_geom_regs(SEXP YSEXP,SEXP XSEXP,SEXP tolSEXP,SEXP loggedSEXP,SEXP typeSEXP,SEXP parallelSEXP,SEXP maxitersSEXP);
 SEXP Rfast_dir_knn(SEXP tXnewSEXP,SEXP tXSEXP,SEXP YSEXP,SEXP KSEXP,SEXP typeSEXP,SEXP parallelSEXP);
-SEXP Rfast_multinom_regs(SEXP Y0SEXP,SEXP X0SEXP,SEXP tolSEXP,SEXP loggedSEXP,SEXP maxitersSEXP);
+SEXP Rfast_multinom_regs(SEXP Y0SEXP,SEXP X0SEXP,SEXP tolSEXP,SEXP loggedSEXP,SEXP maxitersSEXP,SEXP parallelSEXP);
 SEXP Rfast_normlog_regs(SEXP YSEXP,SEXP XSEXP,SEXP BESEXP,SEXP conSEXP,SEXP tolSEXP,SEXP loggedSEXP,SEXP parallelSEXP,SEXP maxitersSEXP);
 SEXP Rfast_normlog_reg(SEXP YSEXP,SEXP XSEXP,SEXP tolSEXP,SEXP maxitersSEXP);
 SEXP Rfast_rint_reg(SEXP YSEXP,SEXP XSEXP,SEXP BESEXP,SEXP tolSEXP,SEXP ranefSEXP,SEXP loggedSEXP);
@@ -237,6 +235,7 @@ SEXP Rfast_weibull_mle(SEXP XSEXP,SEXP tolSEX,SEXP maxitersSEXP);
 SEXP Rfast_weib_reg(SEXP YSEXP,SEXP XSEXP,SEXP tolSEXP,SEXP maxitersSEXP);
 SEXP Rfast_spml_mle(SEXP XSEXP,SEXP tolSEXP,SEXP maxitersSEXP);
 SEXP Rfast_spml_regs(SEXP YSEXP,SEXP X0SEXP,SEXP tolSEXP,SEXP loggedSEXP,SEXP maxitersSEXP,SEXP parallelSEXP);
+SEXP Rfast_spml_reg(SEXP YSEXP, SEXP XSEXP,SEXP tolSEXP,SEXP sebSEXP,SEXP maxitersSEXP);
 SEXP Rfast_colweibull_mle(SEXP XSEXP,SEXP tolSEXP,SEXP maxitersSEXP,SEXP parallelSEXP);
 SEXP Rfast_quasi_poisson_only(SEXP xSEXP,SEXP ySEXP,SEXP ylogySEXP,SEXP tolSEXP,SEXP maxitersSEXP);
 
@@ -462,7 +461,6 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_sort_int", (DL_FUNC) &Rfast_sort_int, 1},
   {"Rfast_spat_med", (DL_FUNC) &Rfast_spat_med, 2},
   {"Rfast_squareform_c", (DL_FUNC) &Rfast_squareform_c, 1},
-  {"Rfast_spml_reg_helper", (DL_FUNC) &Rfast_spml_reg_helper, 8},
   {"Rfast_total_dists", (DL_FUNC) &Rfast_total_dists, 4},
   {"Rfast_total_dista", (DL_FUNC) &Rfast_total_dista, 3},
   {"Rfast_topological_sort", (DL_FUNC) &Rfast_topological_sort, 1},
@@ -482,7 +480,6 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_varcomps_mle", (DL_FUNC) &Rfast_varcomps_mle, 4},
   {"Rfast_vecdist", (DL_FUNC) &Rfast_vecdist, 1},
   {"Rfast_vec_comb_n", (DL_FUNC) &Rfast_vec_comb_n, 2},
-  {"Rfast_which_isFactor", (DL_FUNC) &Rfast_which_isFactor, 1},
   {"Rfast_which_is", (DL_FUNC) &Rfast_which_is, 2},
   {"Rfast_col_row_value", (DL_FUNC) &Rfast_col_row_value, 2},
 
@@ -515,7 +512,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_geom_regs", (DL_FUNC) &Rfast_geom_regs, 7},
   {"Rfast_normlog_regs", (DL_FUNC) &Rfast_normlog_regs, 8},
   {"Rfast_dir_knn", (DL_FUNC) &Rfast_dir_knn, 6},
-  {"Rfast_multinom_regs", (DL_FUNC) &Rfast_multinom_regs, 5},
+  {"Rfast_multinom_regs", (DL_FUNC) &Rfast_multinom_regs, 6},
   {"Rfast_normlog_reg", (DL_FUNC) &Rfast_normlog_reg, 4},
   {"Rfast_rint_reg", (DL_FUNC) &Rfast_rint_reg, 6},
   {"Rfast_rint_regs", (DL_FUNC) &Rfast_rint_regs, 7},
@@ -524,6 +521,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_weib_reg", (DL_FUNC) &Rfast_weib_reg, 4},
   {"Rfast_spml_mle", (DL_FUNC) &Rfast_spml_mle, 3},
   {"Rfast_spml_regs", (DL_FUNC) &Rfast_spml_regs, 6},
+  {"Rfast_spml_reg", (DL_FUNC) &Rfast_spml_reg, 5},
   {"Rfast_colweibull_mle", (DL_FUNC) &Rfast_colweibull_mle, 4},
   {"Rfast_quasi_poisson_only", (DL_FUNC) &Rfast_quasi_poisson_only, 5},
   {NULL, NULL, 0}

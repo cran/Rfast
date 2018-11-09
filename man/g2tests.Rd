@@ -20,7 +20,7 @@ chi2tests(data, x, y, dc)
 \arguments{
 \item{data}{
 A numerical matrix with the data. \bold{The minimum must be 0, otherwise the function can crash or will produce 
-wrong results}.
+wrong results}. The data must be consecutive numbers.
 }
 \item{x}{
 An integer number or a vector of integer numbers showing the other variable(s) to be used for the \eqn{G^2} test of 

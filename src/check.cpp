@@ -96,7 +96,8 @@ List check_aliases(const string path_man,const string path_rf,vector<string> no_
   for(unsigned int i=0;i<all_rd_files.size();++i){
     file.open(path_man+all_rd_files[i]+".Rd");
     if(!file.is_open()){
-      stop("Can't open file \"%s\".",all_rd_files[i]);
+      Rcout<<"Can't open file "<<all_rd_files[i]<<".\n";
+      continue;
     }
     tmp=read_aliases(file);
     file.close();
@@ -133,6 +134,10 @@ struct File : public ifstream {
     this->name=name;
     this->open(path+name);
   }
+  void fopen2(string full_path,string name){
+      this->name=name;
+      this->open(full_path);
+  }
   void fclose(){
     this->close();
     name="";
@@ -150,7 +155,8 @@ List check_usage(string path_man,string path_rf,vector<string> no_read){
   for(unsigned int i=0;i<all_rd_files.size();++i){
     file_rd.fopen(path_man,all_rd_files[i]);
     if(!file_rd.is_open()){
-      stop("Can't open file \"%s\".",all_rd_files[i]);
+      Rcout<<"Can't open file "<<all_rd_files[i]<<".\n";
+      continue;
     }
     aliases=read_aliases(file_rd);
     functions=read_usage(file_rd);
@@ -170,9 +176,14 @@ List check_usage(string path_man,string path_rf,vector<string> no_read){
       }else{
         r_file=path_rf+al+".R";
         if(access(r_file.c_str(),F_OK)!=-1){
-            file_r.open(r_file); // open file aliase.R
+            file_r.fopen2(r_file,al); // open file aliase.R
             if(!file_r.is_open()){
-                stop("Can't open file \"%s\".",r_file);
+                Rcout<<"Can't open file "<<r_file<<".\n";
+                continue;
+            }else{
+            if(al == "")//if(file_r.name.empty()){ //check if aliase is empty
+            	Rcout<<"Error: can't find function name of file "<<r_file<<".\n";
+              continue;
             }
             func_from_r_file=read_function_from_r_file(file_r);
             if(curr_func!=func_from_r_file){

@@ -38,7 +38,7 @@ An integer value for running \bold{each} example.
 A character vector with the name of the files that you wish not to read. By default it's empty "".
 }
 \item{print.errors}{
-Print the errors to a file. By default it's "stdeer()".
+Print the errors to a file. By default it's "stderr()".
 }
 \item{print.names}{
 A boolean value (TRUE/FALSE) for printing the names of the files before running the examples.

@@ -9,7 +9,7 @@ Regression with circular dependent variable and Euclidean or categorical indepen
 }
 
 \usage{
-spml.reg(y, x, tol = 1e-07, seb = FALSE)
+spml.reg(y, x, tol = 1e-07, seb = FALSE, maxiters = 100)
 }
 
 \arguments{
@@ -27,6 +27,9 @@ The tolerance value to terminatate the Newton-Raphson algorithm.
 }
 \item{seb}{
 Do you want the standard error of the estimates to be returned? TRUE or FALSE.
+}
+\item{maxiters}{
+The maximum number of iterations to implement.
 }
 }
 

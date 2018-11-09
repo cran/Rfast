@@ -110,7 +110,7 @@ R implementation and documentation: Marios Dimitriadis <kmdimitriadis@gmail.com>
 %}
 
 \seealso{
-\code{\link{knn}, \link{Dist}, \link{dista}
+\code{\link{knn}, \link{Dist}, \link{dista}, \link{dirknn.cv}
 }
 }
 

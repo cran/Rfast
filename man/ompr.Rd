@@ -36,7 +36,7 @@ with 1 degree of freedom plus the logarithm of the sample size.
 \item{type}{
 This denotes the parametric model to be used each time. It depends upon the nature of y. 
 The possible values are "logistic", "poisson", "quasipoisson", "quasibinomial", "normlog",
-"gamma", "weibull", or "mv" (for multivariate response variable).
+"gamma", "weibull", "mv" (for multivariate response variable) or "multinomial".
 }
 }
 

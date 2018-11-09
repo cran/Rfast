@@ -1,32 +1,37 @@
-gammareg <- function(y, x, tol = 1e-08, maxiters = 100) {
+gammareg <- function(y, x, tol = 1e-07, maxiters = 100) {
   X <- model.matrix( y~., data.frame(x) )
   sx <- Rfast::colsums(X)
-  ly <- log(y)
-  mod <- lm.fit(X, ly )
   dm <- dim(X)
   p <- dm[2]
   n <- dm[1]
-  b1 <- mod$coefficients
-  m <- exp( - mod$fitted )
-  com <- y * m * X
+  mod <- Rfast::gammacon(y, tol = tol) 
+  m <- exp(mod$be)
+  be <- c( m, numeric(p - 1) )
+  d1 <-  - 0.5 * mod$deviance - n
+  con <- y * m
+  com <- con * X
   der <-  - Rfast::colsums(com) + sx
   der2 <- crossprod(com, X)
-  b2 <- b1 - solve(der2, der)
+  be <- be - solve(der2, der)
+  m <- as.vector( exp( - X %*% be ) )
+  con <- y * m
+  d2 <- sum( log(con) - con )
   i <- 2
-  while ( sum( abs(b2 - b1) ) > tol  | i < maxiters) {
+  while ( abs(d2 - d1) > tol  & i < maxiters) {
     i <- i + 1
-    b1 <- b2
-    m <- as.vector( exp( - X %*% b1 ) )
-    com <- y * m * X
+    d1 <- d2
+    com <- con * X
     der <-  - Rfast::colsums(com) + sx
     der2 <- crossprod(com, X)
-    b2 <- b1 - solve(der2, der)
+    be <- be - solve(der2, der)
+    m <- as.vector( exp( - X %*% be ) )
+    con <- y * m
+    d2 <- sum( log(con) - con )
   }
-  com <- y * m
-  phi <- sum( (com - 1)^2 ) / (n - p)
-  devi <-  - 2 * sum( log(com) - com ) - 2 * n
+  phi <- sum( (con - 1)^2 ) / (n - p)
+  devi <-  - 2 * d2 - 2 * n
   info <- c(i, devi, phi)
   names(info) <- c("iters", "deviance", "phi")
-  list(info = info, be = b2)
+  names(be) <- colnames(X)
+  list(info = info, be = be)
 }
-

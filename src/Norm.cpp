@@ -9,7 +9,7 @@ using namespace arma;
 double Norm(NumericMatrix x, const char type) {
 	double s=0.0;
 	if(type=='F')
-		s=sum_with< square2<double>,NumericMatrix>(x);
+		s=std::sqrt(sum_with< square2<double>,NumericMatrix>(x));
 	else{
 		mat xx(x.begin(),x.nrow(),x.ncol(),false);
 		switch(type){

@@ -9,69 +9,68 @@ using namespace Rcpp;
 using std::vector;
 
 
-//[[Rcpp::export]]
 vector<int> sort_unique_int(vector<int> x){
-  int aa,mx,mn,count_not_zero=0;
-  bool has_pos=false,has_neg=false;
-  max_neg_pos<int>(&x[0],&x[x.size()-1]+1,mx,mn,has_pos,has_neg);
-  vector<int> pos,f,neg;
-  vector<int>::iterator a=x.begin(),F;
-  const int init_pos=-1,init_neg=0;
-  if(has_pos){
-    pos.resize(mx+1,init_pos);
-  }
-  if(has_neg){
-    neg.resize(1-mn,init_neg);
-  }
-  if(has_pos && has_neg){
-    for(;a!=x.end();++a){
-      aa=*a;
-      aa<0 ? neg[-aa]=aa : pos[aa]=aa;
+    int aa,mx,mn,count_not_zero=0;
+    bool has_pos=false,has_neg=false;
+    max_neg_pos<int>(&x[0],&x[x.size()-1]+1,mx,mn,has_pos,has_neg);
+    vector<int> pos,f,neg;
+    vector<int>::iterator a=x.begin(),F;
+    const int init_pos=-1,init_neg=0;
+    if(has_pos){
+        pos.resize(mx+1,init_pos);
     }
-  }else if(has_pos){
-    for(;a!=x.end();++a){
-      aa=*a;
-      pos[aa]=aa;
+    if(has_neg){
+        neg.resize(1-mn,init_neg);
     }
-    
-  }else{ 
-    for(;a!=x.end();++a){
-      aa=*a;
-      neg[-aa]=aa;
+    if(has_pos && has_neg){
+        for(;a!=x.end();++a){
+            aa=*a;
+            if(aa<0 && neg[-aa]==init_neg){
+                neg[-aa]=aa;
+                ++count_not_zero;
+            }else if(pos[aa]==init_pos){
+                pos[aa]=aa;
+                ++count_not_zero;
+            }
+        }
+    }else if(has_pos){
+        for(;a!=x.end();++a){
+            aa=*a;
+            if(pos[aa]==init_pos){
+                pos[aa]=aa;
+                ++count_not_zero;
+            }
+        }
+    }else{ 
+        for(;a!=x.end();++a){
+            aa=*a;
+            if(neg[-aa]==init_neg){
+                neg[-aa]=aa;
+                ++count_not_zero;
+            }
+        }
     }
-  }
-  if(has_neg){
-    for(auto nn=neg.begin();nn!=neg.end();++nn){
-      if(*nn!=init_neg){
-        ++count_not_zero;
-      }
+    f.resize(count_not_zero);
+    F=f.begin();
+    if(has_neg){
+        for(auto nr=neg.rbegin();nr!=neg.rend();++nr){
+            if(*nr!=init_neg){
+                *F++=*nr;
+            }
+        }
     }
-  }
-  if(has_pos){
-    for(a=pos.begin();a!=pos.end();++a){
-      if(*a!=init_pos){
-        ++count_not_zero;
-      }
+    if(has_pos){
+        for(a=pos.begin();a!=pos.end();++a){
+            if(*a!=init_pos){
+                *F++=*a;
+            }
+        }
     }
-  }
-  f.resize(count_not_zero);
-  F=f.begin();
-  if(has_neg){
-    for(auto nr=neg.rbegin();nr!=neg.rend();++nr){
-      if(*nr!=init_neg){
-        *F++=*nr;
-      }
-    }
-  }
-  if(has_pos){
-    for(a=pos.begin();a!=pos.end();++a){
-      if(*a!=init_pos){
-        *F++=*a;
-      }
-    }
-  }
-  return f;
+    return f;
 }
+
+
+
 
 
 /*//[[Rcpp::export]]
@@ -156,49 +155,48 @@ END_RCPP
 
 using std::vector;
 
+
 //[[Rcpp::export]]
 int len_sort_unique_int(IntegerVector x){
-  int aa,mx,mn,count_not_zero=0;
-  bool has_neg=false,has_pos=false;
-  max_neg_pos<int>(&x[0],&x[x.size()-1]+1,mx,mn,has_pos,has_neg);
-  vector<int> pos,f,neg;
-  vector<int>::iterator pp,nn,F;
-  IntegerVector::iterator a=x.begin();
-  if(has_pos)
-    pos.resize(mx+1,INT_MAX);
-  if(has_neg)
-    neg.resize(1-mn,INT_MAX);
-  if(has_pos && has_neg){
-    for(nn=neg.begin(),pp=pos.begin();a!=x.end();++a){
-      aa=*a;
-      aa<0 ? *(nn-aa)=aa : *(pp+aa)=aa;
+    int aa,mx,mn,count_not_zero=0;
+    bool has_neg=false,has_pos=false;
+    max_neg_pos<int>(&x[0],&x[x.size()-1]+1,mx,mn,has_pos,has_neg);
+    vector<int> pos,f,neg;
+    vector<int>::iterator pp,nn,F;
+    IntegerVector::iterator a=x.begin();
+    if(has_pos)
+        pos.resize(mx+1,INT_MAX);
+    if(has_neg)
+        neg.resize(1-mn,INT_MAX);
+    if(has_pos && has_neg){
+        for(nn=neg.begin(),pp=pos.begin();a!=x.end();++a){
+            aa=*a;
+            if(aa<0 && nn[-aa]==INT_MAX){
+                nn[-aa]=aa;
+                ++count_not_zero;
+            }else if(pp[aa]==INT_MAX){
+                pp[aa]=aa;
+                ++count_not_zero;
+            }
+        }
+    }else if(has_pos){
+        for(pp=pos.begin();a!=x.end();++a){
+            aa=*a;
+            if(pp[aa]==INT_MAX){
+                pp[aa]=aa;
+                ++count_not_zero;
+            }
+        }
+    }else{ 
+        for(nn=neg.begin();a!=x.end();++a){
+            aa=*a;
+            if(nn[-aa]==INT_MAX){
+                nn[-aa]=aa;
+                ++count_not_zero;
+            }
+        }
     }
-  }else if(has_pos){
-    for(pp=pos.begin();a!=x.end();++a){
-      aa=*a;
-      *(pp+aa)=aa;
-    }
-  }else{ 
-    for(nn=neg.begin();a!=x.end();++a){
-      aa=*a;
-      *(nn-aa)=aa;
-    }
-  }
-  if(has_neg){
-    for(nn=neg.begin();nn!=neg.end();++nn){
-      if(*nn!=INT_MAX){
-        count_not_zero++;
-      }
-    }
-  }
-  if(has_pos){
-    for(pp=pos.begin();pp!=pos.end();++pp){
-      if(*pp!=INT_MAX){
-        count_not_zero++;
-      }
-    }
-  }
-  return count_not_zero;
+    return count_not_zero;
 }
 
 RcppExport SEXP Rfast_len_sort_unique_int(SEXP xSEXP){

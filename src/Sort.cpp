@@ -183,15 +183,15 @@ vector<int> sort_int(vector<int> x){
         int aa;
         for(;a!=x.end();++a){
             aa=*a;
-            aa<0 ? neg[-aa+mxn]++ : pos[aa-mnp]++;
+            aa<0 ? ++neg[-aa+mxn] : ++pos[aa-mnp];
         }
     }else if(has_pos){
         for(;a!=x.end();++a){
-            pos[*a-mnp]++;
+            ++pos[*a-mnp];
         }
     }else{ 
         for(;a!=x.end();++a){
-            neg[*a-mxn]++;
+            ++neg[*a-mxn];
         }
     }
     

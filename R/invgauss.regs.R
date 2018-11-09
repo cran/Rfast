@@ -27,7 +27,7 @@ invgauss.regs <- function(y, x, tol = 1e-08, logged = FALSE, maxiters = 100) {
     be1 <- c(a, b)
     be2 <- be1 - c( derb2 * dera - derab * derb, - derab * dera + dera2 * derb ) / ( dera2 * derb2 - derab^2 )
 	i <- 2  
-    while ( sum( abs(be1 - be2) ) > tol  |  i < maxiters ) {
+    while ( sum( abs(be1 - be2) ) > tol  &  i < maxiters ) {
 	  i <- i + 1
       be1 <- be2
       a <- be1[1]   ;   b <- be1[2]

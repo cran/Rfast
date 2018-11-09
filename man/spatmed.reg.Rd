@@ -55,7 +55,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 %}
 
 \seealso{
-\code{\link{lmfit}, \link{spat.med}, \link{sscov}
+\code{ \link{spat.med}, \link{sscov}, \link{lmfit}
 }
 }
 

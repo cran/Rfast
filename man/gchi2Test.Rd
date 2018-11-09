@@ -15,10 +15,10 @@ gchi2Test(x, y, logged = FALSE)
 
 \arguments{
 \item{x}{
-A numerical vector or a factor variable with data.
+A numerical vector or a factor variable with data. The data must be consecutive numbers.
 }
 \item{y}{
-A numerical vector or a factor variable with data.
+A numerical vector or a factor variable with data. The data must be consecutive numbers.
 }
 \item{logged}{
 Should the p-values be returned (FALSE) or their logarithm (TRUE)? 

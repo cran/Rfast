@@ -3,15 +3,73 @@
 #include <RcppArmadillo.h>
 #include "reg_lib.h"
 #include "templates.h"
+#include "my_k_sorted_array.h"
 #include <algorithm>
 #include "mn.h"
-#include <iostream>
 
 using namespace std;
 using namespace arma;
 using namespace Rcpp;
 
 //[[Rcpp::plugins(openmp)]]
+
+double average_value(vec y, a_node* my_ar, const int size){
+  double sum=0.0;
+  a_node* it = my_ar;
+  for(int i=0;i<size;i++,it++)
+    sum+= y(it->index);
+
+  return sum/size;
+}
+
+double weighted_average_value(vec y, a_node* my_ar, const int size){
+  double sum=0.0, divider = 0.0;
+  a_node* it = my_ar;
+  for(int i=0;i<size;i++,it++){
+      sum+= y(it->index)/exp(it->value);
+      divider+=1/exp(it->value);
+  }
+
+  return sum/divider;
+}
+
+double weighted_most_frequent_value(vec y, a_node* my_ar, const int size){
+  std::map<int,double> counts;
+  a_node* tmp = my_ar;
+  for(int i=0;i<size;i++,tmp++){
+      counts[(int)y(tmp->index)]+=1/exp(tmp->value);
+
+  }
+
+  map<int, double>::iterator tmpit;
+  int mostFrequent = -1;
+  double maxCount = 0;
+  for(tmpit = counts.begin(); tmpit!= counts.end(); tmpit++) {
+    if(tmpit->second > maxCount) {
+      mostFrequent = tmpit->first;
+      maxCount = tmpit->second;
+    }
+  }
+  return mostFrequent;
+}
+
+double most_frequent_value(vec y, a_node* my_ar, const int size){
+  std::map<int,int> counts;
+  a_node* tmp = my_ar;
+  for(int i=0;i<size;i++,tmp++)
+    counts[(int)y(tmp->index)]++;
+  
+  map<int, int>::iterator tmpit;
+  int mostFrequent = -1;
+  int maxCount = 0;
+  for(tmpit = counts.begin(); tmpit!= counts.end(); tmpit++) {
+    if(tmpit->second > maxCount) {
+      mostFrequent = tmpit->first;
+      maxCount = tmpit->second;
+    }
+  }
+  return mostFrequent;
+}
 
 double vmf_mle2(double nR, const int n, const double tol, const double maxiters){
   double apk, k2, R = nR/n, R2 = R*R, k1 = R * (2 - R2)/(1 - R2);
@@ -30,123 +88,72 @@ double vmf_mle2(double nR, const int n, const double tol, const double maxiters)
 
   return k1;
 }
+//lik1 <-  - 0.5 * sum( mu^2 ) + sum( log1p( tau * ptau * con / exp(f * tau^2) ) )
+double calc_spml_loglik(mat::col_iterator mu1, mat::col_iterator mu2, vec::iterator tau, vec::iterator ptau, const int size){
+  double f= -0.5, con = 2.506628274631;
+  double ret1 = 0.0, ret2 = 0.0;
 
-vec my_pow2(vec inp,vec out,const double power,const int sz){
-  for(double *startx=&inp[0],*starty=&out[0],*end=startx+sz;startx!=end;++startx,++starty){
+  for(int i = 0;i<size;i++,ptau++,tau++,mu2++,mu1++){
+    ret1+= (*mu1)*(*mu1)+(*mu2)*(*mu2);
+    ret2+=  log1p(((*tau)*(*ptau))*con/ exp(f*(*tau)*(*tau)));
+  }
+
+  return -0.5*ret1+ret2;
+}
+
+double spml_mle2(mat u, vec ci2, vec cisi, vec si2, const int n, const double tol, const int maxiters){
+  vec su(2);
+  su(0) = sum(u.col(0)), su(1) = sum(u.col(1));
+
+  double nR = sqrt(sum(su%su)), kappa = vmf_mle2(nR, n, tol, maxiters);
+
+  vec mu = su*(1/nR);
+
+  vec mu1 = mu*kappa;
+  double f = -0.5, con = 2.506628274631;
+  vec tau = u*mu1, ptau = pnormc(tau);
+
+  vec rat = ptau/(exp(f * tau%tau)/con + tau % ptau);
+
+  vec psit = tau + rat;
+  vec psit2 = 2 - rat%(tau + rat);
+
+  vec der(2);
+  der[0] = sum(u.col(0)%psit) - n * mu1[0];
+  der[1] = sum(u.col(1)%psit) - n * mu1[1];
+
+  double dera = der[0],derb = der[1],dera2 = sum(psit2%ci2)-n,derab = sum(psit2%cisi),derb2 = sum(psit2%si2)-n;
+
+  double down = dera2 * derb2 - derab*derab;
+  vec mu2(2);
+  mu2[0] = mu1[0] - (derb2 * dera - derab * derb)/down;
+  mu2[1] = mu1[1] - (-derab * dera + dera2 * derb)/down;
+
+  int i = 2;
+  while (i++<maxiters && sum(abs(mu2 - mu1)) > tol) {
+    mu1 = mu2;
+    tau = u*mu1;
+    ptau = pnormc(tau);
+    rat = ptau/(exp(f * (tau%tau))/con + tau % ptau);
+    psit = tau + rat;
+    psit2 = 2 - rat%(tau + rat);
+    der[0] = sum(u.col(0)%psit) - n * mu1[0];
+    der[1] = sum(u.col(1)%psit) - n * mu1[1];
+    dera = der[0],derb = der[1],dera2 = sum(psit2%ci2)-n,derab = sum(psit2%cisi),derb2 = sum(psit2%si2)-n;
+    down = dera2 * derb2 - derab*derab;
+    mu2[0] = mu1[0] - (derb2 * dera - derab * derb)/down;
+    mu2[1] = mu1[1] - (-derab * dera + dera2 * derb)/down;
+
+  }
+
+  return -0.5 * n * (mu2[0]*mu2[0]+mu2[1]*mu2[1]) + sum_with<log1p, colvec>(((tau % ptau) * con)/exp(f*tau%tau)) - n * 1.83787706640935;
+}
+
+void my_pow2(vec inp,double *out,const double power,const int sz){
+  for(double *startx=&inp[0],*starty=out,*end=startx+sz;startx!=end;++startx,++starty)
     *starty=std::pow(*startx,power);
-  }
 
-  return out;
-}
-
-double getDeviance(int xRowSz, vec y){
-  double p = sum(y)/xRowSz;
-
-  return  -2 * sum(y * log(p) + (1 - y) * log(1 - p));
-}
-
-double my_lchoose(int n, int k){
-  return lgamma( n + 1 ) - lgamma(k+1) - lgamma( n - k + 1 );
-}
-
-mat bindColsToMat(vec a, vec *vecs, int vecsz, mat ret){
-  vec *tmp = vecs;
-  for(int i = 0; i < vecsz; i++,tmp++){
-    ret.col(i) = *tmp;
-  }
-  ret.col(vecsz) = a;
-
-  return ret;
-}
-
-mat bindColsToMat2(int exept, vec *vecs, int vecsz, mat ret){
-  for(int i = 0; i < vecsz; i++){
-    if(i < exept)
-      ret.col(i) = vecs[i];
-    else if(i > exept)
-      ret.col(i-1) = vecs[i];
-  }
-  return ret;
-}
-
-void initXcols(double* xidxs, int size){
-    #ifdef _OPENMP
-    #pragma omp simd
-    #endif
-  for(int i = 0; i < size; i++)
-    xidxs[i] = i;
-}
-
-double* removeIdx(int start, double *array, int size){
-  if(start >= size/2 ){
-    for(int i = start; i < size - 1; i++){
-      array[i] = array[i+1];
-    }
-    return array;
-  }else{
-    for(int i = start; i > 0; i--){
-      array[i] = array[i-1];
-    }
-    array = &array[1];
-    return array;
-  }
-}
-
-double* removeXColumn(int idx, double *xidxs, int size){
-  // the vector x,column(idx) will always be located at xcols at an i such that i <= idx where xcols[i] = x,column(idx)
-  int start;
-  if(idx > size - 1)
-    start = size-1;
-  else
-    start = idx;
-
-  for(int i = start; i > 0; i--){
-    if(xidxs[i] == idx){
-      start = i;
-      break;
-    }
-  }
-
-    return removeIdx(start, xidxs, size);
-}
-
-double* removeDIdx(int start, double *array, int size){
-  if(start >= size/2 ){
-    for(int i = start; i < size - 1; i++){
-      array[i] = array[i+1];
-    }
-    return array;
-  }else{
-    for(int i = start; i > 0; i--){
-      array[i] = array[i-1];
-    }
-    array = &array[1];
-    return array;
-  }
-}
-
-vec* removeVecIdx(int start, vec *array, int size){
-  if(start >= size/2 ){
-    for(int i = start; i < size - 1; i++){
-      array[i] = array[i+1];
-    }
-    return array;
-  }else{
-    for(int i = start; i > 0; i--){
-      array[i] = array[i-1];
-    }
-    array = &array[1];
-    return array;
-  }
-}
-
-double calcylogy(vec y, int sz){
-  double ret = 0.0;
-  for(int i = 0; i< sz; i++){
-    if(y[i]>0)
-      ret+=y[i]*log(y[i]);
-  }
-    return ret;
+  return;
 }
 
 double calc_f(vec nix, double n, vec ni2hi2, double S, double x, int size){
@@ -160,13 +167,48 @@ double calc_f(vec nix, double n, vec ni2hi2, double S, double x, int size){
   return sum1+n*log(S-x*sum2);
 }
 
+vec gold_rat3(double n, vec ni, vec ni2, double S, vec hi2,const int size, const double tol=1e-07){
+  double a = 0, b = 50;
+  const double ratio=0.618033988749895;
+  double x1=b-ratio*b, x2=ratio*b;
+  vec nix1 = ni*x1, nix2 = ni*x2, ni2hi2 = ni2%hi2;
+
+  double f1 = calc_f(nix1, n, ni2hi2, S, x1, size);
+  double f2 = calc_f(nix2, n, ni2hi2, S, x2, size);
+  double bmina = b - a;
+  while (abs(bmina)>tol){
+    if(f2>f1){
+      b=x2;
+      bmina = b - a;
+      x2=x1;
+      f2=f1;
+      x1=b - ratio * (bmina);
+      nix1 = ni*x1;
+      f1 = calc_f(nix1, n, ni2hi2, S, x1, size);
+    }
+    else {
+      a=x1;
+      bmina = b - a;
+      x1=x2;
+      f1=f2;
+      x2=a + ratio * (bmina);
+      nix2 = ni*x2;
+      f2 = calc_f(nix2, n, ni2hi2, S, x2, size);
+    }
+  }
+  vec ret(2);
+  ret(0) = 0.5*(x1+x2);
+  ret(1) = (f1+f2)/2;
+
+  return ret;
+}
+
 double log1pColvecSum(colvec input, int sz){
   double ret = 0.0;
   colvec::iterator iter1 = input.begin(), end = input.end();
 
-  for(; iter1 != end; ++iter1){
+  for(; iter1 != end; ++iter1)
     ret+= log1p(*iter1);
-  }
 
   return ret;
 }
@@ -175,9 +217,8 @@ colvec log1pColvec(colvec input, int sz){
   colvec ret(sz);
   colvec::iterator iter1 = input.begin(),iter2 = ret.begin(), end = input.end();
 
-  for(; iter1 != end; ++iter1,++iter2){
+  for(; iter1 != end; ++iter1,++iter2)
     *iter2 = log1p(*iter1);
-  }
 
   return ret;
 }
@@ -256,7 +297,7 @@ double calc_multinom_ini(mat Y1,vec m0){
 double calcSumLog(mat ma, vec poia, int sz){
   double ret = 0.0;
   for(int i=0; i < sz;i++){
-    ret+=log(ma(poia(i)));
+    ret+=sum(log(ma(poia(i))));
   }
   return ret;
 }
@@ -266,9 +307,8 @@ mat colvec_mat_cbind(vec v, mat m){
   mat ret(n,d+1);
   ret.col(0)= v;
 
-  for(int i =1; i<d+1;i++){
+  for(int i =1; i<d+1;i++)
     ret.col(i) = m.col(i-1);
-  }
 
   return ret;
 }
@@ -301,9 +341,8 @@ double calcDevRes(mat p,vec y,mat est){
 
 vec subvec(vec v, int start, int size){
   vec ret(size);
-  for(int i=start,j = 0;i<size+start;i++,j++){
+  for(int i=start,j = 0;i<size+start;i++,j++)
     ret(j) = v(i);
-  }
   return ret;
 }
 
@@ -394,55 +433,6 @@ mat varcomps_mle3(vec x, IntegerVector ina,const int N, int n,const bool ranef, 
   return ret;
 }
 
-double spml_mle2(mat u, vec ci2, vec cisi, vec si2, const int n, const double tol, const int maxiters){
-  vec su(2);
-  su(0) = sum(u.col(0)), su(1) = sum(u.col(1));
-
-  double nR = sqrt(sum(su%su)), kappa = vmf_mle2(nR, n, tol, maxiters);
-
-  vec mu = su*(1/nR);
-
-  vec mu1 = mu*kappa;
-  double f = -0.5, con = 2.506628274631;
-  vec tau = u*mu1, ptau = pnormc(tau);
-
-  vec rat = ptau/(exp(f * tau%tau)/con + tau % ptau);
-
-  vec psit = tau + rat;
-  vec psit2 = 2 - rat%(tau + rat);
-
-  vec der(2);
-  der[0] = sum(u.col(0)%psit) - n * mu1[0];
-  der[1] = sum(u.col(1)%psit) - n * mu1[1];
-
-  double dera = der[0],derb = der[1],dera2 = sum(psit2%ci2)-n,derab = sum(psit2%cisi),derb2 = sum(psit2%si2)-n;
-
-  double down = dera2 * derb2 - derab*derab;
-  vec mu2(2);
-  mu2[0] = mu1[0] - (derb2 * dera - derab * derb)/down;
-  mu2[1] = mu1[1] - (-derab * dera + dera2 * derb)/down;
-
-  int i = 2;
-  while (i++<maxiters && sum(abs(mu2 - mu1)) > tol) {
-    mu1 = mu2;
-    tau = u*mu1;
-    ptau = pnormc(tau);
-    rat = ptau/(exp(f * (tau%tau))/con + tau % ptau);
-    psit = tau + rat;
-    psit2 = 2 - rat%(tau + rat);
-    der[0] = sum(u.col(0)%psit) - n * mu1[0];
-    der[1] = sum(u.col(1)%psit) - n * mu1[1];
-    dera = der[0],derb = der[1],dera2 = sum(psit2%ci2)-n,derab = sum(psit2%cisi),derb2 = sum(psit2%si2)-n;
-    down = dera2 * derb2 - derab*derab;
-    mu2[0] = mu1[0] - (derb2 * dera - derab * derb)/down;
-    mu2[1] = mu1[1] - (-derab * dera + dera2 * derb)/down;
-
-  }
-
-  return -0.5 * n * (mu2[0]*mu2[0]+mu2[1]*mu2[1]) + log1pColvecSum(((tau % ptau) * con)/exp(f*tau%tau),n) - n * 1.83787706640935;
-}
-
-
 vec weibull_mle2(vec x, int n, const double tol, const int maxiters){
   int i=2;
   vec lx = log(x),lx2 = lx%lx, y = x;
@@ -451,7 +441,7 @@ vec weibull_mle2(vec x, int n, const double tol, const int maxiters){
 
   while (++i<maxiters && sum(abs(b2 - b1)) > tol) {
     b1 = b2;
-    y = my_pow2(x,y,b1,n);
+    my_pow2(x,&y[0],b1,n);
     co = sum(y % lx);
     sy = sum(y);
     fb = 1/b1 + mlx - co/sy;
@@ -459,123 +449,12 @@ vec weibull_mle2(vec x, int n, const double tol, const int maxiters){
     b2 = b1 - fb/fb2;
   }
 
-  vec param(2);
+  vec param(3);
+  double theta = pow(sy/n,1/b2);
+  my_pow2(conv_to<vec>::from(x/theta),&y[0],b2,n);
   param[0] = b2;
-  param[1] = pow(sy/n,1/b2);
+  param[1] = theta;
+  param[2] = n * log(b2) - n * b2 * log(theta) + (b2 - 1) * n * mlx - sum(y);
 
   return param;
 }
-
-double rint_mle2(vec x, vec ni, IntegerVector id, const double tol = 1e-09, int maxiters = 100){
-  int n = x.size(),idmx = max(id);
-  double sxy = sum(x);
-  vec sx = group_sum_helper<vec,vec,IntegerVector>(x, id, nullptr,&idmx);
-
-  if (var(ni) == 0) {
-    return varcomps_mle2(x,id,idmx,tol);
-  }
-  else {
-    vec mx = sx/ni;
-    vec com = ni % sx;
-    double b1 = sxy/n;
-    vec xminb1 = x - b1;
-
-    double S = sum(xminb1%xminb1);
-
-    vec mxminb1 = mx-b1;
-    vec hi2 = mxminb1%mxminb1;
-
-    vec d(2);
-    vec ni2 = ni%ni;
-    d = gold_rat3(n, ni, ni2, S, hi2,idmx, tol);
-    vec oneplnid = 1 + ni * d[0];
-    double down = n - d[0] * sum(ni2/(oneplnid));
-    double b2 = (sxy - d[0] * sum(com/(oneplnid)))/down;
-    int i = 2;
-    while (i++ < maxiters && abs(b2 - b1) > tol) {
-      b1 = b2;
-      xminb1 = x - b1;
-      S = sum(xminb1%xminb1);
-      mxminb1 = mx-b1;
-      hi2 = mxminb1%mxminb1;
-      d = gold_rat3(n, ni, ni2, S, hi2,idmx, tol);
-      oneplnid = 1 + ni * d[0];
-      down = n - d[0] * sum(ni2/(oneplnid));
-      b2 = (sxy - d[0] * sum(com/(oneplnid)))/down;
-    }
-
-    return -0.5 *( d[1] + n * (1.83787706640935-log(n) + 1));
-  }
-}
-
-double gold_rat2(double n, vec ni, vec ni2, double S, vec hi2,const int size, const double tol=1e-07){
-  double a = 0, b = 50;
-  const double ratio=0.618033988749895;
-  double x1=b-ratio*b, x2=ratio*b;
-
-  vec nix1 = ni*x1,nix2 = ni*x2, ni2hi2 = ni2%hi2;
-
-  double f1 = calc_f(nix1, n, ni2hi2, S, x1, size);
-  double f2 = calc_f(nix2, n, ni2hi2, S, x2, size);
-  double bmina = b - a;
-  while (abs(bmina)>tol){
-    if(f2>f1){
-      b=x2;
-      bmina = b - a;
-      x2=x1;
-      f2=f1;
-      x1=b - ratio * (bmina);
-      nix1 = ni*x1;
-      f1 = calc_f(nix1, n, ni2hi2, S, x1, size);
-    }
-    else {
-      a=x1;
-      bmina = b - a;
-      x1=x2;
-      f1=f2;
-      x2=a + ratio * (bmina);
-      nix2 = ni*x2;
-      f2 = calc_f(nix2, n, ni2hi2, S, x2, size);
-    }
-  }
-
-  return 0.5*(x1+x2);
-}
-
-vec gold_rat3(double n, vec ni, vec ni2, double S, vec hi2,const int size, const double tol=1e-07){
-  double a = 0, b = 50;
-  const double ratio=0.618033988749895;
-  double x1=b-ratio*b, x2=ratio*b;
-  vec nix1 = ni*x1, nix2 = ni*x2, ni2hi2 = ni2%hi2;
-
-  double f1 = calc_f(nix1, n, ni2hi2, S, x1, size);
-  double f2 = calc_f(nix2, n, ni2hi2, S, x2, size);
-  double bmina = b - a;
-  while (abs(bmina)>tol){
-    if(f2>f1){
-      b=x2;
-      bmina = b - a;
-      x2=x1;
-      f2=f1;
-      x1=b - ratio * (bmina);
-      nix1 = ni*x1;
-      f1 = calc_f(nix1, n, ni2hi2, S, x1, size);
-    }
-    else {
-      a=x1;
-      bmina = b - a;
-      x1=x2;
-      f1=f2;
-      x2=a + ratio * (bmina);
-      nix2 = ni*x2;
-      f2 = calc_f(nix2, n, ni2hi2, S, x2, size);
-    }
-  }
-  vec ret(2);
-  ret(0) = 0.5*(x1+x2);
-  ret(1) = (f1+f2)/2;
-
-  return ret;
-}
-
-

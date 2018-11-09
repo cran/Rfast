@@ -9,7 +9,7 @@ Many simple Gamma regressions with a log-link.
 }
 
 \usage{
-gammaregs(y, x, tol = 1e-08, logged = FALSE, maxiters = 100)
+gammaregs(y, x, tol = 1e-07, logged = FALSE, maxiters = 100)
 }
 
 \arguments{

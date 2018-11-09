@@ -196,19 +196,28 @@ bool get_example(ifstream &file,string &res){
 }
 
 string read_example(ifstream &file,int& long_lines){
-  string als;
-  string s;
-  while(!get_example(file,s));
-  getline(file,s);
-  while(s[s.size()-1]!='}'){
-    if(s.size()>99){ // 100 max lines
-      ++long_lines;
-    }
-    s+="\n";
-    als+=s;
+    string als;
+    string s;
+    unsigned int count_curly_bracket=1;/*at least there will be an empty example section*/
+    while(!get_example(file,s));
     getline(file,s);
-  }
-  return als;
+    while(count_curly_bracket>0){/* check for {} and extract the example correct*/
+        if(s.size()>99){ // 100 max lines
+            ++long_lines;
+        }
+        for(auto& symbol : s){
+            if(symbol=='{')
+                ++count_curly_bracket;
+            else if(symbol=='}')
+                --count_curly_bracket;
+        }
+        s+="\n";
+        als+=s;
+        getline(file,s);
+    }
+    als[als.size()-2]='\n'; // replace } with new line
+    als.erase(als.end()-1); // remove extra new line
+    return als;
 }
 
 bool is_usage(string &s){

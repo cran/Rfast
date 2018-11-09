@@ -1,9 +1,10 @@
 score.glms <- function(y, x, oiko = NULL, logged = FALSE ) {
 
  if ( is.null(oiko) ) {
-   if ( sort_unique.length(y) == 2 ) {
-       oiko = "binomial"
-   }   else oiko = "poisson"
+   y <- as.numeric(y)
+   if ( Rfast::sort_unique.length(y) == 2 ) {
+       oiko <- "binomial"
+   }   else oiko <- "poisson"
  } 
 
   n <- length(y) 

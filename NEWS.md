@@ -1,11 +1,69 @@
 <h1 align="center"> _Rfast_ </h1>
 
-> ####New version 
+> <b>New version</b> </br>
+Date release: **25/10/2018** 
+>
+
+***
+
+> <h3>**_Statistical functions_**</h3>
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  |	    Function	    |           What's new!             |
+>>  | --------------------- | ------------------------------------------- |
+>>  | omp                   | Time improvement.                 |
+>>  | ompr                  | Time improvement.                 |
+>>  | cor.fbed              | Time improvement.                 |
+>>  | multinom.mle          | Time improvement.                 |
+>>  | weib.reg              | Fix a bug and time improvement.   |
+>>  | spatmed.reg           | Time improvement.                 |
+>>  | invgauss.reg          | Time improvement.                 |
+>>  | invgauss.regs         | Time improvement.                 |
+>>  | gammareg              | Time improvement.                 |
+>>  | gammaregs             | Time improvement.                 |
+>>  | gammacon              | Time improvement.                 |
+>>  | colvm.mle             | Time improvement.                 |
+>>  | gammaregs             | Time improvement.                 |
+>>  | el.test1              | Time improvement.                 |
+>>  | Norm                  | Fix a bug.                        |
+***
+>
+>>2. <u> **New** </u>
+>>
+>>  | 	     Function	      |          What's new!            |
+>>  | --------------------- | ------------------------------------------- |
+>>  | omp	                  |  Multinomial regression now added. |
+>
+***
+> <h3>**_Utility functions_**</h3>  
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  | 	    Function	    |            What's new!                  |
+>>  | --------------------- | ------------------------------------------- |
+>>  | which_isFactor        |  Removed and replaced by "which.is". |
+>>  | checkUsage            |  Bix a bug. |
+>>  | colsums               |  Time improvement for integer matrices. |
+>>  | rowsums               |  Time improvement for integer matrices. |
+>>  | group.med             |  Faster version. |
+>>  | sort_unique.length    |  slightly faster version. |
+>>  | sort_unique           |  slightly faster version. |
+>>  | Stack                 |  Fix a bug and add function clear for efficient reuse of the Stack. |
+>>  | read.example          |  Fix a bug. |
+***
+>
+> <h3><b>Comments</b></h3> 
+>>1. From now on the Rfast needs R version > 3.5.x
+>
+
+
+> <h4>version</h4> 1.9.1 </br>
 Date release: **10/07/2018**
 
 ***
 
-> ###**_Statistical functions_**  
+> <h3>**_Statistical functions_**</h3>
 >
 >>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >>
@@ -20,12 +78,11 @@ Date release: **10/07/2018**
 >>
 >>  | 	   Function		      |                           What's new!                           |
 >>  | ------------------	  | --------------------------------------------------------------- |
->>  |                         |                                                                 |
  
 
 ***
 
-> ###**_Utility functions_**  
+> <h3>**_Utility functions_**</h3>  
 >
 >>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >>
@@ -43,12 +100,12 @@ Date release: **10/07/2018**
 >>  |     colrow.value      | Search if a column and row is filled with a specific value. |
 
 
-> ####version 1.9.0
+> <h4>version</h4> 1.9.0 </br>
 Date release: **15/05/2018**
 
 ***
 
-> ###**_Statistical functions_**  
+> <h3>**_Statistical functions_**</h3>
 >
 >>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >>
@@ -93,7 +150,7 @@ Date release: **15/05/2018**
 
 ***
 
-> ###**_Utility functions_**  
+> <h3>**_Utility functions_**</h3>  
 >
 >>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >>
@@ -108,7 +165,7 @@ Date release: **15/05/2018**
 >>  |   Match               | Improved.                                   |
 >>  |   nth                 | Improved method for integers.               |
 >>  |   colshuffle          | Fix a bug.                                  |
->>  |   transpose           | Now can handle generic matrix using parallel                                  |
+>>  |   transpose           | Now can handle generic matrix using parallel|
 >>  |   colshuffle          | Fix a bug.                                  |
 ***
 >
@@ -141,12 +198,12 @@ Date release: **15/05/2018**
 
 
 
-> ####version 1.8.8
+> <h4>version</h4> 1.8.8 </br>
 Date release: **10/03/2018**
 
 ***
 
-> ###**_Statistical functions_**  
+> <h3>**_Statistical functions_**</h3>
 >
 >>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >>
@@ -195,7 +252,7 @@ Date release: **10/03/2018**
 
 ***
 
-> ###**_Utility functions_**  
+> <h3>**_Utility functions_**</h3>  
 >
 >>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >>
