@@ -16,26 +16,24 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
   int n = X0.nrow(), D = X0.ncol();
 
   mat x(X0.begin(), n,D,false);
-  mat Y1 = design_matrix_helper<mat,NumericVector>(Y0);
+  mat Y = design_matrix_helper<mat,NumericVector>(Y0);
 
-  vec tmpvec(Y1.n_cols);
+  rowvec m0 = mean(Y);
 
-  tmpvec = conv_to<vec>::from(mean(Y1));
+  vec poia = indexesOfNum(Y,1);
+  int poiasize = poia.size();
 
-  double ini = calc_multinom_ini(Y1,tmpvec);
+  double ini = calc_multinom_ini(Y,conv_to<vec>::from(m0));
 
-  mat Y(n,Y1.n_cols-1);
-  for(unsigned int i = 0; i < Y1.n_cols-1;i++)
-    Y.col(i) = Y1.col(i+1);
+  Y.shed_col(0);
 
   n = Y.n_rows;
   int d = Y.n_cols;
 
-  mat id(2,d),b10(2,d,fill::zeros),e0(d,n);
+  mat id,b10(2,d,fill::zeros),e0;
 
-  rowvec m0(d),b0(d);
-  for(int i = 0; i < d; i++)
-    m0[i] = tmpvec[i+1];
+  rowvec b0(d);
+  m0.shed_col(0);
 
   b0 = log(m0/(1-m0));
   b10.row(0) = b0;
@@ -43,8 +41,6 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
 
   id = create_id_mat(d);
 
-  vec poia = indexesOfNum(Y1,1);
-  int poiasize = poia.size();
   double exp20 = exp(20);
 
   int dx2 = 2*d;
@@ -56,8 +52,8 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
     #pragma omp parallel
     {
     #endif
-      mat dera(n,dx2),der2(dx2,dx2,fill::zeros), b1(2,d),b2(2,d),m1(n, d),m(n,d),e1(n,d),ma(n,d+1),crossress(2,2),X(n,2);
-      vec der(dx2),idcoli(2),idcolj(2),mcolij(n),slv;
+      mat dera(n,dx2),der2(dx2,dx2,fill::zeros), b1,b2(2,d),m1,m,e1,crossress,X(n,2),xCrossx;
+      vec der(dx2),idcoli,idcolj,slv;
       mat::iterator slvit, b2it, b1it;
       int i=0,j=0,ij=0, k=0;
       X.col(0) = one;
@@ -66,7 +62,7 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
       #endif
       for(int l = 0; l < D; l++) {
         X.col(1) = x.col(l);
-
+        xCrossx = cross_x_y<mat,mat,vec>(X, X);
         for(i = 0; i < d; i++) {
           idcoli = id.col(i);
 
@@ -75,19 +71,19 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
           for (j = i; j < d; j++) {
             if (i != j) {
               idcolj = id.col(j);
-              crossress = -cross_x_y<mat,mat,vec>(m0(i) * m0(j) * X, X);
+              crossress = -(m0(i) * m0(j))*xCrossx;
               der2(idcolj[0], idcoli[0]) =  crossress(0,0);
               der2(idcolj[0], idcoli[1]) =  crossress(0,1);
               der2(idcolj[1], idcoli[0]) =  crossress(1,0);
               der2(idcolj[1], idcoli[1]) =  crossress(1,1);
 
-              der2(idcoli[0], idcolj[0]) =  der2(idcolj[0], idcoli[0]);
-              der2(idcoli[0], idcolj[1]) =  der2(idcolj[0], idcoli[1]);
-              der2(idcoli[1], idcolj[0]) =  der2(idcolj[1], idcoli[0]);
-              der2(idcoli[1], idcolj[1]) =  der2(idcolj[1], idcoli[1]);
+              der2(idcoli[0], idcolj[0]) =  crossress(0,0);
+              der2(idcoli[0], idcolj[1]) =  crossress(0,1);
+              der2(idcoli[1], idcolj[0]) =  crossress(1,0);
+              der2(idcoli[1], idcolj[1]) =  crossress(1,1);
             }
             else {
-              crossress = cross_x_y<mat,mat,vec>((m0(i) * (1 - m0(i))) * X, X);
+              crossress = ((m0(i) * (1 - m0(i)))) * xCrossx;
 
               der2(idcoli[0], idcoli[0]) =  crossress(0,0);
               der2(idcoli[0], idcoli[1]) =  crossress(0,1);
@@ -109,7 +105,7 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
           *b2it = (*b1it)+(*slvit);
 
         ij=2;
-        while(ij++<maxiters && accu(abs(b2-b1)) > tol) {
+        while(ij++<maxiters && sum_with<abs,mat>(b2-b1) > tol) {
           b1 = b2;
 
           m1 = clamp(exp(X*b1),0,exp20);
@@ -132,10 +128,10 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
                 der2(idcoli[1], idcolj[0]) =  crossress(1,0);
                 der2(idcoli[1], idcolj[1]) =  crossress(1,1);
 
-                der2(idcolj[0], idcoli[0]) =  der2(idcoli[0], idcolj[0]);
-                der2(idcolj[0], idcoli[1]) =  der2(idcoli[0], idcolj[1]);
-                der2(idcolj[1], idcoli[0]) =  der2(idcoli[1], idcolj[0]);
-                der2(idcolj[1], idcoli[1]) =  der2(idcoli[1], idcolj[1]);
+                der2(idcolj[0], idcoli[0]) =  crossress(0,0);
+                der2(idcolj[0], idcoli[1]) =  crossress(0,1);
+                der2(idcolj[1], idcoli[0]) =  crossress(1,0);
+                der2(idcolj[1], idcoli[1]) =  crossress(1,1);
               }
               else {
                 crossress = cross_x_y<mat,mat,vec>(X.each_col()%(m.col(i) % (one - m.col(i))), X);
@@ -157,11 +153,10 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
             *b2it = (*b1it)+(*slvit);
         }
 
-        ma = colvec_mat_cbind(one, m1);
+        m1.insert_cols(0,one);
+        m1 = m1.each_col() / sum(m1,1);
 
-        ma = ma.each_col() / sum(ma,1);
-
-        ret(l,0) = 2 * calcSumLog(ma,poia,poiasize) - ini;
+        ret(l,0) = 2 * calcSumLog(m1,poia,poiasize) - ini;
         ret(l,1) = R::pchisq(ret(l,0), d, false, logged);
       }
       #ifdef _OPENMP
@@ -169,15 +164,15 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
       #endif
   }
   else{
-    mat dera(n,dx2),der2(dx2,dx2,fill::zeros), b1(2,d),b2(2,d),m1(n, d),m(n,d),e1(n,d),ma(n,d+1),crossress(2,2),X(n,2);
-    vec der(dx2),idcoli(2),idcolj(2),mcolij(n),slv;
+    mat dera(n,dx2),der2(dx2,dx2,fill::zeros), b1(2,d),b2(2,d),m1,m,e1,crossress,X(n,2),xCrossx;
+    vec der(dx2),idcoli,idcolj,slv;
     mat::iterator slvit, b2it, b1it;
     int i=0,j=0,ij=0, k=0;
     X.col(0) = one;
 
     for(int l = 0; l < D; l++) {
       X.col(1) = x.col(l);
-
+      xCrossx = cross_x_y<mat,mat,vec>(X, X);
       for(i = 0; i < d; i++) {
         idcoli = id.col(i);
 
@@ -186,19 +181,19 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
         for (j = i; j < d; j++) {
           if (i != j) {
             idcolj = id.col(j);
-            crossress = -cross_x_y<mat,mat,vec>(m0(i) * m0(j) * X, X);
+            crossress = -(m0(i) * m0(j))*xCrossx;
             der2(idcolj[0], idcoli[0]) =  crossress(0,0);
             der2(idcolj[0], idcoli[1]) =  crossress(0,1);
             der2(idcolj[1], idcoli[0]) =  crossress(1,0);
             der2(idcolj[1], idcoli[1]) =  crossress(1,1);
 
-            der2(idcoli[0], idcolj[0]) =  der2(idcolj[0], idcoli[0]);
-            der2(idcoli[0], idcolj[1]) =  der2(idcolj[0], idcoli[1]);
-            der2(idcoli[1], idcolj[0]) =  der2(idcolj[1], idcoli[0]);
-            der2(idcoli[1], idcolj[1]) =  der2(idcolj[1], idcoli[1]);
+            der2(idcoli[0], idcolj[0]) =  crossress(0,0);
+            der2(idcoli[0], idcolj[1]) =  crossress(0,1);
+            der2(idcoli[1], idcolj[0]) =  crossress(1,0);
+            der2(idcoli[1], idcolj[1]) =  crossress(1,1);
           }
           else {
-            crossress = cross_x_y<mat,mat,vec>((m0(i) * (1 - m0(i))) * X, X);
+            crossress = ((m0(i) * (1 - m0(i)))) * xCrossx;
 
             der2(idcoli[0], idcoli[0]) =  crossress(0,0);
             der2(idcoli[0], idcoli[1]) =  crossress(0,1);
@@ -220,7 +215,7 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
         *b2it = (*b1it)+(*slvit);
 
       ij=2;
-      while(ij++<maxiters && accu(abs(b2-b1)) > tol) {
+      while(ij++<maxiters && sum_with<abs,mat>(b2-b1) > tol) {
         b1 = b2;
 
         m1 = clamp(exp(X*b1),0,exp20);
@@ -238,15 +233,16 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
               idcolj = id.col(j);
 
               crossress = -cross_x_y<mat,mat,vec>(X.each_col()%(m.col(i) % m.col(j)), X);
+
               der2(idcoli[0], idcolj[0]) =  crossress(0,0);
               der2(idcoli[0], idcolj[1]) =  crossress(0,1);
               der2(idcoli[1], idcolj[0]) =  crossress(1,0);
               der2(idcoli[1], idcolj[1]) =  crossress(1,1);
 
-              der2(idcolj[0], idcoli[0]) =  der2(idcoli[0], idcolj[0]);
-              der2(idcolj[0], idcoli[1]) =  der2(idcoli[0], idcolj[1]);
-              der2(idcolj[1], idcoli[0]) =  der2(idcoli[1], idcolj[0]);
-              der2(idcolj[1], idcoli[1]) =  der2(idcoli[1], idcolj[1]);
+              der2(idcolj[0], idcoli[0]) =  crossress(0,0);
+              der2(idcolj[0], idcoli[1]) =  crossress(0,1);
+              der2(idcolj[1], idcoli[0]) =  crossress(1,0);
+              der2(idcolj[1], idcoli[1]) =  crossress(1,1);
             }
             else {
               crossress = cross_x_y<mat,mat,vec>(X.each_col()%(m.col(i) % (one - m.col(i))), X);
@@ -268,11 +264,10 @@ NumericMatrix multinom_regs(NumericVector Y0, NumericMatrix X0, const double tol
           *b2it = (*b1it)+(*slvit);
       }
 
-      ma = colvec_mat_cbind(one, m1);
+      m1.insert_cols(0,one);
+      m1 = m1.each_col() / sum(m1,1);
 
-      ma = ma.each_col() / sum(ma,1);
-
-      ret(l,0) = 2 * calcSumLog(ma,poia,poiasize) - ini;
+      ret(l,0) = 2 * calcSumLog(m1,poia,poiasize) - ini;
       ret(l,1) = R::pchisq(ret(l,0), d, false, logged);
     }
   }

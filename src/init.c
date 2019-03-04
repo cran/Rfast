@@ -43,8 +43,8 @@ SEXP Rfast_chi2Test_univariate(SEXP dataSEXP,SEXP dcSEXP);
 SEXP Rfast_chi2tests(SEXP dataSEXP,SEXP xSEXP,SEXP ySEXP,SEXP dcSEXP);
 SEXP Rfast_check_namespace(SEXP dir_to_exportSEXP,SEXP dir_to_fileSEXP);
 SEXP Rfast_check_aliases(SEXP dir_to_manSEXP,SEXP dir_to_fileSEXP);
-SEXP Rfast_check_true_false(SEXP path_manSEXP,SEXP no_readSEXP);
-SEXP Rfast_check_usage(SEXP path_manSEXP,SEXP path_rfSEXP,SEXP no_readSEXP);
+SEXP Rfast_check_true_false(SEXP path_manSEXP);
+SEXP Rfast_check_usage(SEXP path_manSEXP,SEXP path_rfSEXP);
 SEXP Rfast_col_any(SEXP x);
 SEXP Rfast_col_anovas(SEXP ySEXP,SEXP xSEXP);
 SEXP Rfast_cholesky(SEXP x);
@@ -81,13 +81,14 @@ SEXP Rfast_g2Test_univariate(SEXP dataSEXP,SEXP dcSEXP);
 SEXP Rfast_g2Test_perm(SEXP dataSEXP,SEXP xSEXP,SEXP ySEXP,SEXP csSEXP,SEXP dcSEXP,SEXP npermSEXP);
 SEXP Rfast_g2tests_perm(SEXP dataSEXP,SEXP xSEXP,SEXP ySEXP,SEXP dcSEXP,SEXP npermSEXP);
 SEXP Rfast_g2tests(SEXP dataSEXP,SEXP xSEXP,SEXP ySEXP,SEXP dcSEXP);
+SEXP Rfast_group(SEXP xSEXP,SEXP methodSEXP,SEXP groupSEXP,SEXP method_varSEXP,SEXP minSEXP,SEXP maxSEXP);
 SEXP Rfast_group_sum(SEXP xSEXP,SEXP groupSEXP,SEXP minn,SEXP maxx);
 SEXP Rfast_group_all(SEXP xSEXP,SEXP groupSEXP,SEXP nSEXP);
 SEXP Rfast_group_any(SEXP xSEXP,SEXP groupSEXP,SEXP nSEXP);
 SEXP Rfast_group_mad(SEXP xSEXP,SEXP groupSEXP,SEXP methodSEXP);
 SEXP Rfast_group_max(SEXP xSEXP,SEXP groupSEXP,SEXP minn,SEXP maxx);
 SEXP Rfast_group_mean(SEXP xSEXP,SEXP groupSEXP,SEXP max_nSEXP);
-SEXP Rfast_group_med(SEXP xSEXP,SEXP groupSEXP);
+SEXP Rfast_group_med(SEXP xSEXP,SEXP groupSEXP,SEXP length_unique);
 SEXP Rfast_group_min(SEXP xSEXP,SEXP groupSEXP,SEXP max_nSEXP);
 SEXP Rfast_group_min_max(SEXP xSEXP,SEXP groupSEXP,SEXP max_nSEXP);
 SEXP Rfast_group_var(SEXP xSEXP,SEXP groupSEXP,SEXP nSEXP);
@@ -102,7 +103,6 @@ SEXP Rfast_is_element_string(SEXP xSEXP,SEXP elSEXP);
 SEXP Rfast_is_integer(SEXP xSEXP);
 SEXP Rfast_k_nn(SEXP ds_extraSEXP,SEXP ySEXP,SEXP dsSEXP,SEXP idxsSEXP,SEXP dist_typeSEXP,SEXP typeSEXP,SEXP methodSEXP,SEXP freq_optionSEXP,SEXP mem_eff);
 SEXP Rfast_k_nn_cv(SEXP foldsSEXP,SEXP ySEXP,SEXP dsSEXP,SEXP idxsSEXP,SEXP dist_typeSEXP,SEXP typeSEXP,SEXP methodSEXP,SEXP freq_optionSEXP,SEXP pred_retSEXP,SEXP mem_eff);
-SEXP Rfast_k_comb_n(SEXP nSEXP,SEXP kSEXP);
 SEXP Rfast_lowerbound(SEXP xSEXP,SEXP vSEXP);
 SEXP Rfast_Lgamma(SEXP x);
 SEXP Rfast_len_sort_unique_int(SEXP xSEXP);
@@ -178,7 +178,7 @@ SEXP Rfast_row_prods(SEXP xSEXP);
 SEXP Rfast_row_false(SEXP xSEXP);
 SEXP Rfast_row_order(SEXP xSEXP,SEXP stableSEXP,SEXP descendingSEXP);
 SEXP Rfast_row_true_false(SEXP xSEXP);
-SEXP Rfast_read_examples(SEXP path_manSEXP,SEXP no_readSEXP);
+SEXP Rfast_read_examples(SEXP path_manSEXP);
 SEXP Rfast_row_count_values(SEXP xSEXP,SEXP valuesSEXP);
 SEXP Rfast_row_mads(SEXP x);
 SEXP Rfast_row_max_indices(SEXP xSEXP);
@@ -215,14 +215,14 @@ SEXP Rfast_upper_tri_assign(SEXP xSEXP,SEXP vSEXP,SEXP dgSEXP);
 SEXP Rfast_upper_tri_b(SEXP nclSEXP, SEXP nrwSEXP,SEXP dgSEXP);
 SEXP Rfast_var_c(SEXP xSEXP);
 SEXP Rfast_var_c_na_rm(SEXP xSEXP,SEXP na_rmSEXP);
-SEXP Rfast_vec_comb_n(SEXP dataSEXP,SEXP nSEXP);
+SEXP Rfast_comb_n(SEXP dataSEXP,SEXP nSEXP,SEXP simplifySEXP);
 SEXP Rfast_varcomps_mle(SEXP xSEXP,SEXP inaSEXP,SEXP nSEXP,SEXP tolSEXP);
 SEXP Rfast_vecdist(SEXP x);
 SEXP Rfast_which_is(SEXP xSEXP,SEXP methodSEXP);
 SEXP Rfast_col_row_value(SEXP xSEXP,SEXP vSEXP);
 
 SEXP Rfast_colrint_mle(SEXP XSEXP,SEXP idSEXP,SEXP ranefSEXP,SEXP tolSEXP,SEXP maxitersSEXP,SEXP parallelSEXP);
-SEXP Rfast_eigs_sym_c(SEXP XSEXP,SEXP kSEXP);
+SEXP Rfast_eigs_sym_c(SEXP XSEXP,SEXP kSEXP,SEXP vectorsSEXP);
 SEXP Rfast_geom_regs(SEXP YSEXP,SEXP XSEXP,SEXP tolSEXP,SEXP loggedSEXP,SEXP typeSEXP,SEXP parallelSEXP,SEXP maxitersSEXP);
 SEXP Rfast_dir_knn(SEXP tXnewSEXP,SEXP tXSEXP,SEXP YSEXP,SEXP KSEXP,SEXP typeSEXP,SEXP parallelSEXP);
 SEXP Rfast_multinom_regs(SEXP Y0SEXP,SEXP X0SEXP,SEXP tolSEXP,SEXP loggedSEXP,SEXP maxitersSEXP,SEXP parallelSEXP);
@@ -303,9 +303,9 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_chi2Test", (DL_FUNC) &Rfast_chi2Test, 5},
   {"Rfast_chi2tests", (DL_FUNC) &Rfast_chi2tests, 4},
   {"Rfast_check_namespace", (DL_FUNC) &Rfast_check_namespace, 2},
-  {"Rfast_check_aliases", (DL_FUNC) &Rfast_check_aliases, 3},
-  {"Rfast_check_true_false", (DL_FUNC) &Rfast_check_true_false, 2},
-  {"Rfast_check_usage", (DL_FUNC) &Rfast_check_usage, 3},
+  {"Rfast_check_aliases", (DL_FUNC) &Rfast_check_aliases, 2},
+  {"Rfast_check_true_false", (DL_FUNC) &Rfast_check_true_false, 1},
+  {"Rfast_check_usage", (DL_FUNC) &Rfast_check_usage, 2},
   {"Rfast_col_any", (DL_FUNC) &Rfast_col_any, 1},
   {"Rfast_col_anovas", (DL_FUNC) &Rfast_col_anovas, 2},
   {"Rfast_cholesky", (DL_FUNC) &Rfast_cholesky, 1},
@@ -342,13 +342,14 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_g2Test", (DL_FUNC) &Rfast_g2Test, 5},
   {"Rfast_g2tests_perm", (DL_FUNC) &Rfast_g2tests_perm, 5},
   {"Rfast_g2tests", (DL_FUNC) &Rfast_g2tests, 4},
+  {"Rfast_group", (DL_FUNC) &Rfast_group, 6},
   {"Rfast_group_sum", (DL_FUNC) &Rfast_group_sum, 4},
   {"Rfast_group_all", (DL_FUNC) &Rfast_group_all, 3},
   {"Rfast_group_any", (DL_FUNC) &Rfast_group_any, 3},
   {"Rfast_group_mad", (DL_FUNC) &Rfast_group_mad, 3},
   {"Rfast_group_max", (DL_FUNC) &Rfast_group_max, 4},
   {"Rfast_group_mean", (DL_FUNC) &Rfast_group_mean, 3},
-  {"Rfast_group_med", (DL_FUNC) &Rfast_group_med, 2},
+  {"Rfast_group_med", (DL_FUNC) &Rfast_group_med, 3},
   {"Rfast_group_min", (DL_FUNC) &Rfast_group_min, 3},
   {"Rfast_group_min_max", (DL_FUNC) &Rfast_group_min_max, 3},
   {"Rfast_group_var", (DL_FUNC) &Rfast_group_var, 3},
@@ -363,7 +364,6 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_is_integer", (DL_FUNC) &Rfast_is_integer, 1},
   {"Rfast_k_nn", (DL_FUNC) &Rfast_k_nn, 9},
   {"Rfast_k_nn_cv", (DL_FUNC) &Rfast_k_nn_cv, 10},
-  {"Rfast_k_comb_n", (DL_FUNC) &Rfast_k_comb_n, 2},
   {"Rfast_lowerbound", (DL_FUNC) &Rfast_lowerbound, 2},
   {"Rfast_Lgamma", (DL_FUNC) &Rfast_Lgamma, 1},
   {"Rfast_len_sort_unique_int", (DL_FUNC) &Rfast_len_sort_unique_int, 1},
@@ -440,7 +440,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_row_false", (DL_FUNC) &Rfast_row_false, 1},
   {"Rfast_row_order", (DL_FUNC) &Rfast_row_order, 3},
   {"Rfast_row_true_false", (DL_FUNC) &Rfast_row_true_false, 1},
-  {"Rfast_read_examples", (DL_FUNC) &Rfast_read_examples, 2},
+  {"Rfast_read_examples", (DL_FUNC) &Rfast_read_examples, 1},
   {"Rfast_row_mads", (DL_FUNC) &Rfast_row_mads, 1},
   {"Rfast_row_max_indices", (DL_FUNC) &Rfast_row_max_indices, 1},
   {"Rfast_row_min_indices", (DL_FUNC) &Rfast_row_min_indices, 1},
@@ -479,7 +479,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_var_c_na_rm", (DL_FUNC) &Rfast_var_c_na_rm, 2},
   {"Rfast_varcomps_mle", (DL_FUNC) &Rfast_varcomps_mle, 4},
   {"Rfast_vecdist", (DL_FUNC) &Rfast_vecdist, 1},
-  {"Rfast_vec_comb_n", (DL_FUNC) &Rfast_vec_comb_n, 2},
+  {"Rfast_comb_n", (DL_FUNC) &Rfast_comb_n, 3},
   {"Rfast_which_is", (DL_FUNC) &Rfast_which_is, 2},
   {"Rfast_col_row_value", (DL_FUNC) &Rfast_col_row_value, 2},
 
@@ -508,7 +508,7 @@ static const R_CallMethodDef CallEntries[] = {
   {"Rfast_sort_mat_p", (DL_FUNC) &Rfast_sort_mat_p, 3},
 
   {"Rfast_colrint_mle", (DL_FUNC) &Rfast_colrint_mle, 6},
-  {"Rfast_eigs_sym_c", (DL_FUNC) &Rfast_eigs_sym_c, 2},
+  {"Rfast_eigs_sym_c", (DL_FUNC) &Rfast_eigs_sym_c, 3},
   {"Rfast_geom_regs", (DL_FUNC) &Rfast_geom_regs, 7},
   {"Rfast_normlog_regs", (DL_FUNC) &Rfast_normlog_regs, 8},
   {"Rfast_dir_knn", (DL_FUNC) &Rfast_dir_knn, 6},

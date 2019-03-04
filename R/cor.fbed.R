@@ -1,4 +1,4 @@
-cor.fbed <- function(y, x, alpha = 0.05, K = 0) {
+cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
   quan <- 1 - alpha/2
   sig <- log(alpha)
   dm <- dim(x)
@@ -11,8 +11,8 @@ cor.fbed <- function(y, x, alpha = 0.05, K = 0) {
   pva <- NULL
 
   runtime <- proc.time()
-  x <- Rfast::standardise(x, center = TRUE, scale = FALSE)
-  y <- y - mean(y)
+  if (xstand)   x <- Rfast::standardise(x, center = TRUE, scale = FALSE)
+  if (ystand)   y <- y - mean(y)
   options(warn = -1)
   yx <- as.vector( cor(y, x) )
   n.tests <- p

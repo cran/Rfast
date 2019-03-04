@@ -1,10 +1,10 @@
-omp <- function (y, x, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic") {
+omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic") {
     tic <- proc.time()
     dm <- dim(x)
     d <- dm[2]
     n <- dm[1]
     ind <- 1:d
-    x <- Rfast::standardise(x)
+	if (xstand)   x <- Rfast::standardise(x)
     phi <- NULL
     if (type == "logistic") {
         p <- sum(y)/n

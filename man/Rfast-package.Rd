@@ -1,3 +1,5 @@
+%[dont read]
+
 \name{Rfast-package}
 \alias{Rfast-package}
 \docType{package}
@@ -16,8 +18,8 @@ Note 3: In general, make sure you give the correct input, in order to get the co
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.9.2 \cr
-Date: \tab 2018-08-11\cr
+Version: \tab 1.9.3 \cr
+Date: \tab 2019-03-04\cr
 License: \tab GPL-2\cr
 }
 }
@@ -43,6 +45,6 @@ Phillip Si is greatly acknowledged for his help with the Floyd-Warshal algorithm
 help with NEWS file and for his suggestions. Zacharias Papadovassilakis gave us the inspiration for the memory 
 efficient version of the k-NN algorithm. Yannis Pantazis explained us how the orhtogonal matching pursuit works. 
 Achim Zeileis for his help with the quasi Poisson regression models. Pedro J. Aphalo for finding a bug.
-Dimitris Kyriakis for finding a bug. 
+Dimitris Kyriakis for finding a bug. Cyrille Conord for finding a bug.
 }
 

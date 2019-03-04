@@ -13,10 +13,10 @@ List g2Test(NumericMatrix data, int x, int y, NumericVector cs, NumericVector dc
   int *ics = new int[cs.size()];
   int *idc = new int[dc.size()];
   for (int i = 0; i < cs.size(); ++i) {
-    ics[i] = (int) cs[i] - 1;
+    ics[i] =  cs[i] - 1;
   }
   for (int i = 0; i < dc.size(); ++i) {
-    idc[i] = (int) dc[i];
+    idc[i] =  dc[i];
   }
   
   TestResult result = g2Test(data, x-1, y-1, ics, cs.size(), idc);
@@ -33,10 +33,9 @@ List g2Test(NumericMatrix data, int x, int y, NumericVector cs, NumericVector dc
 
 List g2Test_univariate_perm(NumericMatrix data, NumericVector dc, int nperm) {
   int nvars = data.ncol();
-  int *ics = new int[0];
   int *idc = new int[dc.size()];
   for (int i = 0; i < dc.size(); ++i) {
-    idc[i] = (int) dc[i];
+    idc[i] =  dc[i];
   }
   
   int nout = nvars * (nvars - 1) / 2;
@@ -48,7 +47,7 @@ List g2Test_univariate_perm(NumericMatrix data, NumericVector dc, int nperm) {
   int idx = 0;
   for(int i = 0; i < nvars; ++i) {
     for(int j = i+1; j < nvars; ++j) {
-      TestResult result = permG2Test(data, i, j, ics, 0, idc, nperm);
+      TestResult result = permG2Test(data, i, j, nullptr, 0, idc, nperm);
       xout[idx] = i + 1;
       yout[idx] = j + 1;
       pvalues[idx] = result.pvalue;
@@ -57,7 +56,6 @@ List g2Test_univariate_perm(NumericMatrix data, NumericVector dc, int nperm) {
     }
   }
   
-  delete[] ics;
   delete[] idc;  
   
   List out;
@@ -70,10 +68,9 @@ List g2Test_univariate_perm(NumericMatrix data, NumericVector dc, int nperm) {
 
 
 List g2tests_perm(NumericMatrix data, NumericVector x, int y, NumericVector dc, int nperm) {
-	int *ics = new int[0];
 	int *idc = new int[dc.size()];
 	for (int i = 0; i < dc.size(); ++i) {
-		idc[i] = (int) dc[i];
+		idc[i] = dc[i];
 	}
 
 	int nout = x.size();
@@ -85,15 +82,14 @@ List g2tests_perm(NumericMatrix data, NumericVector x, int y, NumericVector dc, 
 	y = y - 1;
 	int xlen = x.size();
 	for(int i = 0; i < xlen; ++i) {
-		int curx = (int) x[i] - 1;
-		TestResult result = permG2Test(data, curx, y, ics, 0, idc, nperm);
+		int curx = x[i] - 1;
+		TestResult result = permG2Test(data, curx, y, nullptr, 0, idc, nperm);
 		xout[i] = curx;
 		yout[i] = y;
 		pvalues[i] = result.pvalue;
 		statistics[i] = result.stat;
 	}
 
-	delete[] ics;
 	delete[] idc;  
 
 	List out;
@@ -109,7 +105,7 @@ List g2Test_univariate(NumericMatrix data, NumericVector dc) {
   int nvars = data.ncol();
   int *idc = new int[dc.size()];
   for (int i = 0; i < dc.size(); ++i) {
-    idc[i] = (int) dc[i];
+    idc[i] =  dc[i];
   }
   
   int nout = nvars * (nvars - 1) / 2;
@@ -145,7 +141,7 @@ List g2Test_univariate(NumericMatrix data, NumericVector dc) {
 List g2tests(NumericMatrix data, NumericVector x, int y, NumericVector dc) {
 	int *idc = new int[dc.size()];
 	for (int i = 0; i < dc.size(); ++i) {
-		idc[i] = (int) dc[i];
+		idc[i] =  dc[i];
 	}
 
 	int nout = x.size();
@@ -157,7 +153,7 @@ List g2tests(NumericMatrix data, NumericVector x, int y, NumericVector dc) {
 	y = y-1;
 	int xlen = x.size();
 	for(int i = 0; i < xlen; ++i) {
-		int curx = (int) x[i] - 1;
+		int curx =  x[i] - 1;
 		TestResult result = g2Test(data, curx, y, idc);
 		xout[i] = curx;
 		yout[i] = y;
@@ -180,10 +176,10 @@ List g2Test_perm(NumericMatrix data, int x, int y, NumericVector cs, NumericVect
   int *ics = new int[cs.size()];
   int *idc = new int[dc.size()];
   for (int i = 0; i < cs.size(); ++i) {
-    ics[i] = (int) cs[i] - 1;
+    ics[i] =  cs[i] - 1;
   }
   for (int i = 0; i < dc.size(); ++i) {
-    idc[i] = (int) dc[i];
+    idc[i] =  dc[i];
   }
   
   TestResult result = permG2Test(data, x-1, y-1, ics, cs.size(), idc, nperm);
@@ -206,10 +202,10 @@ List chi2Test(NumericMatrix data, int x, int y, NumericVector cs, NumericVector 
   int *ics = new int[cs.size()];
   int *idc = new int[dc.size()];
   for (int i = 0; i < cs.size(); ++i) {
-    ics[i] = (int) cs[i] - 1;
+    ics[i] =  cs[i] - 1;
   }
   for (int i = 0; i < dc.size(); ++i) {
-    idc[i] = (int) dc[i];
+    idc[i] =  dc[i];
   }
   
   TestResult result = chi2Test(data, x-1, y-1, ics, cs.size(), idc);
@@ -228,7 +224,7 @@ List chi2Test_univariate(NumericMatrix data, NumericVector dc) {
   int nvars = data.ncol();
   int *idc = new int[dc.size()];
   for (int i = 0; i < dc.size(); ++i) {
-    idc[i] = (int) dc[i];
+    idc[i] =  dc[i];
   }
   
   int nout = nvars * (nvars - 1) / 2;
@@ -263,7 +259,7 @@ List chi2Test_univariate(NumericMatrix data, NumericVector dc) {
 List chi2tests(NumericMatrix data, NumericVector x, int y, NumericVector dc) {
 	int *idc = new int[dc.size()];
 	for (int i = 0; i < dc.size(); ++i) {
-		idc[i] = (int) dc[i];
+		idc[i] =  dc[i];
 	}
 
 	int nout = x.size();
@@ -275,7 +271,7 @@ List chi2tests(NumericMatrix data, NumericVector x, int y, NumericVector dc) {
 	y = y-1;
 	int xlen = x.size();
 	for(int i = 0; i < xlen; ++i) {
-		int curx = (int) x[i] - 1;
+		int curx =  x[i] - 1;
 		TestResult result = chi2Test(data, curx, y, idc);
 		xout[i] = curx;
 		yout[i] = y;

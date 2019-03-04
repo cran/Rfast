@@ -172,59 +172,68 @@ BEGIN_RCPP
 END_RCPP
 }
 
-//////////////////////////////////////////////////////////////////////////
-
-using namespace Rcpp;
-using std::prev_permutation;
-using std::vector;
-
-SEXP k_comb_n(const int N, const int K){
-  SEXP x=Rf_allocVector(INTSXP,K*R::choose(N,K));
-  int *xx=INTEGER(x);
-  string bitmask(K, 1); // K leading 1's
-  bitmask.resize(N, 0); // N-K trailing 0's
-  int i;
-  do {
-    for(i=0;i<N;++i) // [0..N-1] integers
-      if(bitmask[i]) 
-        *xx++=i+1;
-  }while(prev_permutation(bitmask.begin(),bitmask.end()));
-  return x;
-}
-
-RcppExport SEXP Rfast_k_comb_n(SEXP nSEXP,SEXP kSEXP){
-BEGIN_RCPP
-    RObject __result;
-    RNGScope __rngScope;
-    traits::input_parameter< const int >::type n(nSEXP);
-    traits::input_parameter< const int >::type k(kSEXP);
-    __result = k_comb_n(n,k);
-    return __result;
-END_RCPP
-}
-
 /////////////////////////////////////////////////////////////////////////////////////
 
-NumericMatrix find_combn(NumericVector data, const int n) {
-	static int combn_col = 0;
-	const int size = data.size();
-	const int nrows = n;
-	const int ncols = R::choose(size, n); 
-	NumericMatrix combn_dataset(nrows, ncols);
-	std::vector<double> combn_data(n);
-	const int start_idx = 0;
-	combn_col = 0; 
-	combn(data, n, start_idx, combn_data, combn_dataset, combn_col);
-	return combn_dataset;
+static void combn_mat(arma::vec& vals, const int n, const unsigned int start_idx, 
+    std::vector<double>& combn_data, double*& combn_col) {
+  if (!n) {
+    for (unsigned int i = 0; i < combn_data.size(); ++i) {
+      *combn_col++ = combn_data[i];
+    }
+    return; 
+  }
+  for (unsigned int i = start_idx; i <= (vals.size() - n); ++i) {
+    combn_data.at(combn_data.size() - n) = vals(i);
+    combn_mat(vals, n - 1, i + 1, combn_data, combn_col);
+  }
 }
 
-RcppExport SEXP Rfast_vec_comb_n(SEXP dataSEXP,SEXP nSEXP){
+static void combn_list(arma::vec& vals, const int n, const int start_idx, 
+    std::vector<double>& combn_data, int& combn_col,
+    Rcpp::List& combn_ds) {
+  if (!n) {
+    std::vector<double> tmp_combn_data(combn_data.size());
+    for (size_t i = 0; i < combn_data.size(); ++i) {
+      tmp_combn_data[i] = combn_data[i];
+    }
+    combn_ds[combn_col++] = tmp_combn_data;
+    return;
+  }
+  for (unsigned int i = start_idx; i <= (vals.size() - n); ++i) {
+    combn_data[combn_data.size() - n] = vals[i];
+    combn_list(vals, n - 1, i + 1, combn_data, combn_col, combn_ds);
+  }
+}
+
+SEXP find_combn(arma::vec vals, const int n, const bool ret_mat = true) {
+  const unsigned int nrows = n;
+  const unsigned int ncols = std::round(R::choose(vals.size(), n));
+  std::vector<double> combn_data(nrows);
+  const unsigned int start_idx = 0;
+  SEXP combn_ds;
+  if (ret_mat) {
+    static double* combn_col;
+    combn_ds = PROTECT(Rf_allocMatrix(REALSXP, nrows, ncols));
+    combn_col = REAL(combn_ds); combn_mat(vals, n, start_idx, combn_data, combn_col);
+    UNPROTECT(1);
+  }
+  else {
+    static int combn_col;
+    Rcpp::List combn_ds_tmp(ncols);
+    combn_col = 0; combn_list(vals, n, start_idx, combn_data, combn_col, combn_ds_tmp);
+    combn_ds = combn_ds_tmp;
+  }
+  return combn_ds;
+}
+
+RcppExport SEXP Rfast_comb_n(SEXP dataSEXP,SEXP nSEXP,SEXP simplifySEXP){
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
-    traits::input_parameter< NumericVector >::type data(dataSEXP);
+    traits::input_parameter< arma::vec >::type data(dataSEXP);
     traits::input_parameter< const int >::type n(nSEXP);
-    __result = wrap(find_combn(data,n));
+    traits::input_parameter< const bool >::type simplify(simplifySEXP);
+    __result = find_combn(data,n,simplify);
     return __result;
 END_RCPP
 }

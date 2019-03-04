@@ -1,4 +1,5 @@
 \name{Some summary statistics of a vector for each level of a grouping variable}
+\alias{group}
 \alias{group.var}
 \alias{group.all}
 \alias{group.any}
@@ -17,12 +18,14 @@ Some summary statistics of a vector for each level of a grouping variable.
 }
 
 \usage{
+group(x,ina,method="sum",ina.min=NULL,ina.max = NULL,
+	ina.length.unique=NULL,mad.method="median")
 group.var(x, ina,ina.max = max(ina))
 group.all(x, ina,ina.max = max(ina))
 group.any(x, ina,ina.max = max(ina))
 group.mad(x, ina,method = "median")
 group.mean(x, ina,ina.max = max(ina))
-group.med(x, ina)
+group.med(x, ina,ina.length.unique=length(unique(ina)))
 group.min(x, ina,ina.max = max(ina))
 group.max(x, ina,ina.min = NULL,ina.max = NULL)
 group.min_max(x, ina,ina.max = max(ina))
@@ -35,14 +38,20 @@ A numerical vector with data.
 \item{ina}{
 A numerical vector with numbers. Note that zero and negative values are not allowed as this can cause R to run forever or crash.
 }
+\item{ina.length.unique}{
+Length of the unique numerical values of ina argument.
+}
 \item{method}{
-A character vector with values "median", for median absolute deviation or "mean", for mean absolute deviation. 
+A character vector with values "sum", "var", "all", "any", "mad", "mean", "med", "min", "max", "min.max".
 }
 \item{ina.max}{
 Maximum number for vector ina. 
 }
 \item{ina.min}{
 Minimum number for vector ina. 
+}
+\item{mad.method}{
+A character vector with values "median", for median absolute deviation or "mean", for mean absolute deviation. This works only with method="mad". 
 }
 }
 
@@ -74,6 +83,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com> and M
 x <- rgamma(100,1, 4)
 ina <- sample(1:5, 100, TRUE)
 group.var(x, ina)
+group(x, ina,method="var")
 #group.mean(x, ina) #run
 #group.med(x, ina)  #run
 }

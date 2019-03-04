@@ -1,4 +1,4 @@
-
+#[dont read]
 
 delete <- new.env(size=1)
 class(delete)<-"delete"

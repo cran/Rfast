@@ -14,11 +14,11 @@ Check Namespace/Rd and examples files.
 
 \usage{
 checkNamespace(path.namespace,path.rfolder)
-checkAliases(path.man,path.rfolder,dont.read = "")
-checkTF(path.man,dont.read = "")
-checkExamples(path.man,each = 1,dont.read = "",print.errors = stderr(),
+checkAliases(path.man,path.rfolder)
+checkTF(path.man)
+checkExamples(path.man,each = 1,print.errors = stderr(),
 	print.names = FALSE)
-checkUsage(path.man,path.rfolder,dont.read = "")
+checkUsage(path.man,path.rfolder)
 }
 
 \arguments{
@@ -33,9 +33,6 @@ An full path to the directory that contains the "Rd" files.
 }
 \item{each}{
 An integer value for running \bold{each} example.
-}
-\item{dont.read}{
-A character vector with the name of the files that you wish not to read. By default it's empty "".
 }
 \item{print.errors}{
 Print the errors to a file. By default it's "stderr()".
@@ -61,12 +58,14 @@ For function checkUsage: reads from the man directory all the Rd files and for e
 This functions has 2 limitations: 
 	1) each function should be in one R file with name function_name.R and only this function can be inside the file.
 	2) if you want multiple functions inside this file then the main function should be the first on top.
+
+For functions "checkTF", "checkUsage", "checkAliases" you can choose which files not to read for both R and Rd. You must add in the first line of the file in comment the "attribute" "[dont read]". Then each function will now which file to read or not. For Rd you add "\%[dont read]" and for R "#[dont read]". Finally, these functions wil return in the result a list of which files had this attribute.
 }
 
 \value{
 For function "checkNamespace": a vector with the names of missing R files.
 
-For function "checkAliases": a list with 3 fields.
+For function "checkAliases": a list with 4 fields.
 \item{Missing Man files}{
 A vector with the names of the missing Rd files.
 }
@@ -76,29 +75,55 @@ A vector with the names of the missing R files.
 \item{Duplicate alias}{
 A vector with the names of the dublicate aliases.
 }
+\item{dont read}{
+A list with 2 fields
+R: A character vector whith the names of the files that had attribute "#[dont read]"
+Rd: A character vector whith the names of the files that had attribute "\%[dont read]"
+}
 
-For function "checkExamples": a list with 2 fields 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For function "checkExamples": a list with 3 fields 
 \item{Errors}{
 A character vector with the names of the Rd files that produced an error.
 }
 \item{Big Examples}{
 A character vector with the names of the Rd files that has big examples per line.
 }
+\item{dont read}{
+A list with 2 fields
+R: A character vector whith the names of the files that had attribute "#[dont read]"
+Rd: A character vector whith the names of the files that had attribute "\%[dont read]"
+}
 
-For function "checkTF": a list with 2 fields 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For function "checkTF": a list with 3 fields 
 \item{TRUE}{
 A character vector with the names of the Rd files that has "T".
 }
 \item{FALSE}{
 A character vector with the names of the Rd files that has "F".
 }
+\item{dont read}{
+A list with 2 fields
+R: A character vector whith the names of the files that had attribute "#[dont read]"
+Rd: A character vector whith the names of the files that had attribute "\%[dont read]"
+}
 
-For function "checkUsage": a list with 2 fields 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+For function "checkUsage": a list with 3 fields 
 \item{missing functions}{
 A character vector with the name of the file that is missing and the Rd file that is found.
 }
 \item{missmatch functions}{
 A character vector with the name of the file that has missmatch function and the Rd file that is found.
+}
+\item{dont read}{
+A list with 2 fields
+R: A character vector whith the names of the files that had attribute "#[dont read]"
+Rd: A character vector whith the names of the files that had attribute "\%[dont read]"
 }
 }
 
@@ -114,15 +139,15 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 \dontrun{
-# for example: path.namespace="C:\\some_file\\NAMESPACE"
-# for example: path.rfolder="C:\\some_file\\R\"
-# for example: path.man="C:\\some_file\\man\"
-# system.time( a<-checkNamespace(path.namespace,path.rfolder) )
-# system.time( b<-checkAliases(path.man,path.rfolder) )
-# system.time( b<-checkExamples(path.man) )
-# system.time( b<-checkExamples(path.man,2) )
-# system.time( b<-checkTF(path.man) )
-# system.time( b<-checkTF(path.man,path.rfolder) )
+ for example: path.namespace="C:\\some_file\\NAMESPACE"
+ for example: path.rfolder="C:\\some_file\\R\\"
+ for example: path.man="C:\\some_file\\man\\"
+ system.time( a<-checkNamespace(path.namespace,path.rfolder) )
+ system.time( b<-checkAliases(path.man,path.rfolder) )
+ system.time( b<-checkExamples(path.man) )
+ system.time( b<-checkExamples(path.man,2) )
+ system.time( b<-checkTF(path.man) )
+ system.time( b<-checkTF(path.man,path.rfolder) )
 }
 }
 

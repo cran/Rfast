@@ -4,7 +4,7 @@
 #include "system_files.h"
 #include <algorithm>
 
-
+using namespace std;
 using std::vector;
 using std::string;
 using std::count;
@@ -19,6 +19,11 @@ using std::binary_search;
 using std::endl;
 
 void print_error(){}
+
+void reset_file(ifstream& file){
+  file.clear();
+  file.seekg(0,ios::beg);
+}
 
 vector<string> split_words(string x){
   x.erase(remove(x.begin(),x.end(), ' '),x.end());
@@ -166,10 +171,10 @@ void remove_alias_and_spaces(string &s){
 
 vector<string> read_aliases(ifstream &file){
   DEBUG("Start read_aliases");
+  reset_file(file);
   vector<string> als;
   string s;
   do{
-    DEBUG(122);
     getline(file,s);
     if(is_alias(s)){
       remove_alias_and_spaces(s);
@@ -236,10 +241,11 @@ bool get_usage(ifstream &file,string &res){
 }
 
 vector<string> read_usage(ifstream &file){
+  DEBUG("START read_usage");
   vector<string> usg;
   string s;
   bool sinexeia_apo_kato_grammi=false;
-  DEBUG("START read_usage");
+  reset_file(file);
   while(!get_usage(file,s));
   do{
     getline(file,s);
@@ -267,7 +273,7 @@ vector<string> read_usage(ifstream &file){
 }
 
 void remove_spaces(string& s){
-  s.erase(remove_if(s.begin(),s.end(),isspace),s.end());
+  s.erase(remove_if(s.begin(),s.end(),[&](char& x){return isspace(x);}),s.end());
 }
 
 
@@ -275,6 +281,7 @@ string read_function_from_r_file(ifstream &file){
   string func;
   string s;
   size_t bg;
+  reset_file(file);
   DEBUG("START read_function_from_r_file");
   do{
     getline(file,s);
@@ -292,7 +299,7 @@ string read_function_from_r_file(ifstream &file){
   DEBUG("function: ",func);
   string keyword_function1 = "<-function";
   string keyword_function2 = "=function";
-  int keyword_function_size = keyword_function1.size(); 
+  int keyword_function_size = keyword_function1.size();
   bg=func.find(keyword_function1);
   DEBUG(bg);
   if(bg==string::npos){
@@ -300,11 +307,28 @@ string read_function_from_r_file(ifstream &file){
       bg=func.find(keyword_function2);
       keyword_function_size = keyword_function2.size(); 
   }
-  DEBUG(291);
   func.erase(func.begin()+bg,func.begin()+bg+keyword_function_size);
   DEBUG(func);
   func.erase(func.end()-1);
   DEBUG(func);
   DEBUG("END read_function_from_r_file");
   return func;
+}
+
+bool check_read_file(ifstream& file,char attr){
+    DEBUG("Start checking file");
+    string s;
+    bool ret=true;
+    while(getline(file,s)){
+        if(s[0]==attr and s.size()>=sizeof("[dont read]") and //sizeof("[dont read]") 11 + \0
+               s[1]=='[' and s[2]=='d' and s[3]=='o' and s[4]=='n' and s[5]=='t' and s[6]==' ' and s[7]=='r' and 
+               s[8]=='e' and s[9]=='a' and s[10]=='d' and s[11]==']'){
+            ret=false;
+            break;
+        }else if(!std::isspace(s[0])){
+            break;
+        }
+    }
+    DEBUG("End checking file");
+    return ret;
 }

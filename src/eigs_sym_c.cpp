@@ -5,7 +5,7 @@ using namespace arma;
 // [[Rcpp::depends(RcppArmadillo)]]
 
 //[[Rcpp::export]]
-List eigs_sym_c(NumericMatrix X,const int k){
+List eigs_sym_c(NumericMatrix X,const int k, const bool vectors){
   List l;
   mat x(X.begin(),X.nrow(),X.ncol(),false);
   vec eigval;
@@ -14,18 +14,23 @@ List eigs_sym_c(NumericMatrix X,const int k){
   eigs_sym( eigval, eigvec, conv_to<sp_mat>::from(x), k);
 
   l["values"] = flipud(eigval);
-  l["vectors"] = fliplr(eigvec);
+  
+  if(vectors){
+	l["vectors"] = fliplr(eigvec);
+  }
+  
   return l;
 }
 
 
-RcppExport SEXP Rfast_eigs_sym_c(SEXP XSEXP,SEXP kSEXP) {
+RcppExport SEXP Rfast_eigs_sym_c(SEXP XSEXP,SEXP kSEXP,SEXP vectorsSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type X(XSEXP);
     traits::input_parameter< const int >::type k(kSEXP);
-    __result = eigs_sym_c(X,k);
+	traits::input_parameter< const bool >::type vectors(vectorsSEXP);
+    __result = eigs_sym_c(X,k,vectors);
     return __result;
 END_RCPP
 }

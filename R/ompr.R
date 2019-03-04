@@ -1,11 +1,11 @@
-ompr <- function (y, x, method = "BIC", tol = 2) {
+ompr <- function (y, x, ystand = TRUE, xstand = TRUE, method = "BIC", tol = 2) {
     dm <- dim(x)
     d <- dm[2]
     n <- dm[1]
     ind <- 1:d
     m <- sum(y)/n
-    y <- y - m
-    x <- Rfast::eachrow(x, sqrt(Rfast::colsums(x^2)), oper = "/")
+	if (ystand)   y <- (y - m)/Rfast::Var(y, std = TRUE)
+    if (xstand)   x <- Rfast::standardise(x)
     if (method == "sse") {
         rho <- Rfast::Var(y) * (n - 1)
         r <- cov(y, x)

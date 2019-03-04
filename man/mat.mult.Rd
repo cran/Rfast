@@ -55,12 +55,14 @@ and Michail Tsagris <mtsagris@yahoo.gr>.
 }
 
 \examples{
+\dontrun{
 x <- matrnorm(100, 100)
 y <- matrnorm(100, 100)
 a <- x %*% y
 b <- mat.mult(x, y)
 x <- NULL
 y <- NULL
+}
 }
 
 

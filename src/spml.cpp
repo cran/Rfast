@@ -231,7 +231,7 @@ BEGIN_RCPP
     traits::input_parameter< const bool >::type logged(loggedSEXP);
     traits::input_parameter< const int >::type maxiters(maxitersSEXP);
     traits::input_parameter< const int >::type parallel(parallelSEXP);
-    __result = wrap(spml_regs(Y,X0,tol,logged,maxiters,parallel));
+    __result = spml_regs(Y,X0,tol,logged,maxiters,parallel);
     return __result;
 END_RCPP
 }
@@ -241,6 +241,7 @@ END_RCPP
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+//[[Rcpp::export]]
 List spml_reg(NumericMatrix Y, NumericMatrix X, const double tol, const bool seb, const int maxiters){
   int n = X.nrow(), D = X.ncol(), yD = Y.ncol();
   List l;
@@ -265,9 +266,9 @@ List spml_reg(NumericMatrix Y, NumericMatrix X, const double tol, const bool seb
   tau = sum(u%mu,1);
   ptau = pnormc(tau);
   lik2 = calc_spml_loglik(mu.begin_col(0),mu.begin_col(1),tau.begin(),ptau.begin(),n);
-  mat cross_res, der2(4,4), a11,a12,a22;
-  mat::iterator der2_begin = der2.begin(), tmpit;
-  vec der(4), slv;
+  mat der2, a11,a12,a22;
+
+  mat der, slv;
   int i = 2;
 
   while(i++<maxiters && lik2 - lik1 > tol){
@@ -277,26 +278,29 @@ List spml_reg(NumericMatrix Y, NumericMatrix X, const double tol, const bool seb
     psit = tau + rat;
 
     psit2 = 2 -((tau+rat)%rat);
-    cross_res = cross_x_y<mat,mat,vec>(x, u.each_col()%psit-mu);
-    der[0] = cross_res[0],der[1] = cross_res[1],der[2] = cross_res[2],der[3] = cross_res[3];
+    der = cross_x_y<mat,mat,vec>(x, u.each_col()%psit-mu);
+    der.reshape(2*D,1);
+
 
 
     a11 = cross_x_y<mat,mat,vec>(x, x.each_col() % (psit2%ci2 - 1));
     a12 = cross_x_y<mat,mat,vec>(x, x.each_col() % (psit2%cisi));
     a22 = cross_x_y<mat,mat,vec>(x, x.each_col() % (psit2%si2 - 1));
-    tmpit = der2_begin;
+
+    der2 = join_cols(join_rows(a11,a12),join_rows(a12,a22));
 
     // in our case equivalent to cbind( rbind(a11, a12), rbind(a12, a22) )
+    /*
     (*(tmpit)) = a11[0], (*(++tmpit)) = a11[2], (*(++tmpit)) = a12[0], (*(++tmpit)) = a12[2];
     (*(++tmpit)) = a11[1], (*(++tmpit)) = a11[3], (*(++tmpit)) = a12[1], (*(++tmpit)) = a12[3];
     (*(++tmpit)) = a12[0], (*(++tmpit)) = a12[2], (*(++tmpit)) = a22[0], (*(++tmpit)) = a22[2];
     (*(++tmpit)) = a12[1], (*(++tmpit)) = a12[3], (*(++tmpit)) = a22[1], (*(++tmpit)) = a22[3];
+     */
 
     slv = solve(der2, der);
-    be[0] = be[0] - slv[0];
-    be[1] = be[1] - slv[1];
-    be[2] = be[2] - slv[2];
-    be[3] = be[3] - slv[3];
+    slv.reshape(D,2);
+    be = be - slv;
+
     mu = x * be;
     tau = sum(u%mu,1);
     ptau = pnormc(tau);
@@ -305,27 +309,29 @@ List spml_reg(NumericMatrix Y, NumericMatrix X, const double tol, const bool seb
   }
 
   l["iters"] = i;
-  l["loglik"] = lik2 - n*1.8378770664;
+  l["loglik"] = lik2 - n*1.83787706641;
   l["be"] = be;
-
   if ( seb ) {
-    l["seb"] =  sqrt(((mat)solve( -der2, eye<mat>(4,4) )).diag());
+    mat seb = sqrt(((mat)solve( -der2, eye<mat>(2*D,2*D) )).diag());
+
+    seb.reshape(D,2);
+    l["seb"] =  seb;
   }
   return l;
 }
 
 RcppExport SEXP Rfast_spml_reg(SEXP YSEXP, SEXP XSEXP,SEXP tolSEXP,SEXP sebSEXP,SEXP maxitersSEXP) {
-BEGIN_RCPP
-    RObject __result;
-    RNGScope __rngScope;
-    traits::input_parameter< NumericMatrix >::type Y(YSEXP);
-    traits::input_parameter< NumericMatrix >::type X(XSEXP);
-    traits::input_parameter< const double >::type tol(tolSEXP);
-    traits::input_parameter< const bool >::type seb(sebSEXP);
-	traits::input_parameter< const int >::type maxiters(maxitersSEXP);
-    __result = wrap(spml_reg(Y,X,tol,seb,maxiters));
-    return __result;
-END_RCPP
+  BEGIN_RCPP
+  RObject __result;
+  RNGScope __rngScope;
+  traits::input_parameter< NumericMatrix >::type Y(YSEXP);
+  traits::input_parameter< NumericMatrix >::type X(XSEXP);
+  traits::input_parameter< const double >::type tol(tolSEXP);
+  traits::input_parameter< const bool >::type seb(sebSEXP);
+  traits::input_parameter< const int >::type maxiters(maxitersSEXP);
+  __result = wrap(spml_reg(Y,X,tol,seb,maxiters));
+  return __result;
+  END_RCPP
 }
 
 
@@ -416,3 +422,4 @@ RcppExport SEXP Rfast_spml_mle(SEXP XSEXP,SEXP tolSEXP,SEXP maxitersSEXP) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
+

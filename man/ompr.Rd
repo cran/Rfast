@@ -10,8 +10,8 @@ Orthogonal matching pursuit regression.
 }
 
 \usage{
-ompr(y, x, method = "BIC", tol = 2 )
-omp(y, x, tol = qchisq(0.95, 1) + log( length(y) ), type = "logistic" ) 
+ompr(y, x, ystand = TRUE, xstand = TRUE, method = "BIC", tol = 2 )
+omp(y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log( length(y) ), type = "logistic" ) 
 }
 
 \arguments{
@@ -22,6 +22,12 @@ values, strictly positive or proportions including 0 and 1.
 }
 \item{x}{
 A matrix with the data, where the rows denote the samples and the columns are the variables. 
+}
+\item{ystand}{
+If this is TRUE the response variable is centered. The mean is subtracted from every value.
+}
+\item{xstand}{
+If this is TRUE the independent variables are standardised. 
 }
 \item{method}{
 You can choose between the change in the BIC ("BIC"), the adjusted \eqn{R^2} or 

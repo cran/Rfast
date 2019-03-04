@@ -11,7 +11,7 @@ Reading the files of a directory.
 
 \usage{
 read.directory(path.directory)
-read.examples(path.man,dont.read = "")
+read.examples(path.man)
 }
 
 \arguments{
@@ -22,9 +22,6 @@ For example: \"C:\\Users\\username\\Documents\\R\\Rfast_1.8.0\\R\"
 \item{path.man}{
 The full path to the directory with the Rd files in it. 
 For example: \"C:\\Users\\username\\Documents\\R\\Rfast_1.8.0\\man\\\"
-}
-\item{dont.read}{
-A character vector with the name of the files that you wish not to read. By default it's empty \"\".
 }
 }
 
@@ -49,6 +46,8 @@ A character vector with the name of the file that each examples belongs.
 \item{long_lines}{
 A character vector with the name of the file that has large examples.
 }
+
+You can choose which files not to read for both R and Rd. You must add in the first line of the file in comment the "attribute" "\%[dont read]". Finally, that function wil return in the result a list of which files had this attribute.
 }
 
 %\references{

@@ -36,9 +36,3 @@ betaprime.mle <- function(x, tol = 1e-09) {
    loglik <- (a - 1) * slx - (a + b) * slx2 - n * lbeta(a, b)
    list(iters = i, loglik = loglik, param = anew)   
 }
-
-
-
-
-
-

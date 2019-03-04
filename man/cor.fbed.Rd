@@ -9,7 +9,7 @@ FBED variable selection method using the correlation.
 }
 
 \usage{
-cor.fbed(y, x, alpha = 0.05, K = 0)
+cor.fbed(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0)
 }
 
 \arguments{
@@ -18,6 +18,12 @@ The response variable, a numeric vector.
 }
 \item{x}{
 A matrix with the data, where the rows denote the samples and the columns are the variables. 
+}
+\item{ystand}{
+If this is TRUE the response variable is centered. The mean is subtracted from every value.
+}
+\item{xstand}{
+If this is TRUE the independent variables are standardised. 
 }
 \item{alpha}{
 The significance level, set to 0.05 by default.

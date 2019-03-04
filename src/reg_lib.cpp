@@ -58,7 +58,7 @@ double most_frequent_value(vec y, a_node* my_ar, const int size){
   a_node* tmp = my_ar;
   for(int i=0;i<size;i++,tmp++)
     counts[(int)y(tmp->index)]++;
-  
+
   map<int, int>::iterator tmpit;
   int mostFrequent = -1;
   int maxCount = 0;
@@ -203,16 +203,6 @@ vec gold_rat3(double n, vec ni, vec ni2, double S, vec hi2,const int size, const
   return ret;
 }
 
-double log1pColvecSum(colvec input, int sz){
-  double ret = 0.0;
-  colvec::iterator iter1 = input.begin(), end = input.end();
-
-  for(; iter1 != end; ++iter1)
-    ret+= log1p(*iter1);
-
-  return ret;
-}
-
 colvec log1pColvec(colvec input, int sz){
   colvec ret(sz);
   colvec::iterator iter1 = input.begin(),iter2 = ret.begin(), end = input.end();
@@ -221,6 +211,15 @@ colvec log1pColvec(colvec input, int sz){
     *iter2 = log1p(*iter1);
 
   return ret;
+}
+
+//lik = n * anew[0] + anew[1] * tmpsumX - sum(y1% log1pColvec(exp( anew[0] + anew[1] * tmpX),n));
+double get_geom_lik(const double a1,const double a2, const double sX, double *tmpX, double *y1,const int n){
+  double ret = 0.0;
+  for(int i =0;i<n;i++,y1++,tmpX++){
+    ret+= (*y1)*std::log1p(std::exp(a1+a2*(*tmpX)));
+  }
+  return n*a1+a2*sX-ret;
 }
 
 vec indexesOfNum(mat m, int num){
@@ -235,40 +234,6 @@ vec indexesOfNum(mat m, int num){
     tmp.resize(j);
 
     return tmp;
-}
-
-double sumabsmat(mat b2,mat b1, int parallel){
-  double sum = 0.0;
-  int n = b2.n_rows,d = b2.n_cols;
-#ifdef _OPENMP
-#pragma omp parallel if(parallel)
-{
-#endif
-  double subtr,privsum = 0.0;
-#ifdef _OPENMP
-#pragma omp for
-#endif
-  for(int i = 0;i<d;i++){
-    for(int j = 0; j < n; j++){
-      subtr = b1(j,i)-b2(j,i);
-      if(subtr < 0)
-        privsum+=-subtr;
-      else
-        privsum+=subtr;
-    }
-  }
-#ifdef _OPENMP
-#pragma omp critical
-{
-#endif
-  sum+=privsum;
-#ifdef _OPENMP
-}
-#endif
-#ifdef _OPENMP
-}
-#endif
-return sum;
 }
 
 mat create_id_mat(int d){
@@ -297,7 +262,7 @@ double calc_multinom_ini(mat Y1,vec m0){
 double calcSumLog(mat ma, vec poia, int sz){
   double ret = 0.0;
   for(int i=0; i < sz;i++){
-    ret+=sum(log(ma(poia(i))));
+    ret+=log(ma(poia[i]));
   }
   return ret;
 }

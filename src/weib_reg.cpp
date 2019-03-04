@@ -33,9 +33,9 @@ List weib_reg(NumericVector Y, NumericMatrix X, const double tol = 1e-07, const 
 
 
   mat xcom = x.each_col()%com;
-  rowvec derb =  ek*(sum(xcom)-sx);
+  rowvec derb =  sum(xcom)-sx;
 
-  mat derb2 = (- ek*ek) * cross_x_y<mat,mat,vec>(xcom, x);
+  mat derb2 = - ek * cross_x_y<mat,mat,vec>(xcom, x);
   be = be -solve(derb2, derb.t());
 
   lam = -(x*be);
@@ -57,8 +57,8 @@ List weib_reg(NumericVector Y, NumericMatrix X, const double tol = 1e-07, const 
     derk = n + ek * (sly + sum(lam)) - sum(comlogcom);
     derk2 = derk - n - sum(comlogcom%logcom);
     xcom = x.each_col()%com;
-    derb =  ek * (sum(xcom)- sx);
-    derb2 = (- ek*ek) * cross_x_y<mat,mat,vec>(xcom, x);
+    derb =  sum(xcom)- sx;
+    derb2 = -ek * cross_x_y<mat,mat,vec>(xcom, x);
     k = k - derk/derk2;
     be = be - solve(derb2, derb.t());
     lam = -(x*be);

@@ -157,19 +157,17 @@ rowvec colMedians(mat x){
 }
 
 //comb_n
-void combn(Rcpp::NumericVector& data, const int n,
-       const int start_idx, std::vector<double>& combn_data,
-       Rcpp::NumericMatrix& combn_dataset, int& combn_col) {
+void combn(arma::vec& vals, const int n, const unsigned int start_idx, 
+    std::vector<double>& combn_data, double*& combn_col) {
   if (!n) {
-    for (size_t i = 0; i < combn_data.size(); ++i) {
-      combn_dataset(i, combn_col) = combn_data[i];
+    for (unsigned int i = 0; i < combn_data.size(); ++i) {
+      *combn_col++ = combn_data[i];
     }
-    combn_col++;
     return;
   }
-  for (int i = start_idx; i <= (data.size() - n); ++i) {
-    combn_data[combn_data.size() - n] = data[i];
-    combn(data, n - 1, i + 1, combn_data, combn_dataset, combn_col);
+  for (unsigned int i = start_idx; i <= (vals.size() - n); ++i) {
+    combn_data.at(combn_data.size() - n) = vals(i);
+    combn(vals, n - 1, i + 1, combn_data, combn_col);
   }
 }
 

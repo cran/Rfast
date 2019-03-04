@@ -78,7 +78,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
     traits::input_parameter< const bool >::type by_row(by_rowSEXP);
-    __result = wrap(sort_mat_p(x,descend,by_row));
+    __result = sort_mat_p(x,descend,by_row);
     return __result;
 END_RCPP
 }
@@ -155,7 +155,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
     traits::input_parameter< const bool >::type by_row(by_rowSEXP);
-    __result = wrap(stable_sort_mat_p(x,descend,by_row));
+    __result = stable_sort_mat_p(x,descend,by_row);
     return __result;
 END_RCPP
 }

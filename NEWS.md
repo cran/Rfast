@@ -1,6 +1,47 @@
 <h1 align="center"> _Rfast_ </h1>
 
 > <b>New version</b> </br>
+Date release: **04/03/2019** 
+>
+
+***
+
+> <h3>**_Statistical functions_**</h3>
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  |	    Function	    |           What's new!             |
+>>  | --------------------- | ------------------------------------------- |
+>>  | omp                   | Time improvement.                 |
+***
+>
+>>2. <u> **New** </u>
+>>
+>>  | 	     Function	      |          What's new!            |
+>>  | --------------------- | ------------------------------------------- |
+>>  | omp	                  |  Multinomial regression now added. |
+>>  | omp	                  |  Option to standardise the predictor variables. |
+>>  | cor.fbed	              |  Option to standardise the predictor variables. |
+>>  | cor.fsreg	              |  Option to standardise the predictor variables. |
+>>  | el.test2	              |  Empirical likelihood test for two sample means. |
+>
+***
+> <h3>**_Utility functions_**</h3>  
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  | 	    Function	    |            What's new!                  |
+>>  | --------------------- | ------------------------------------------- |
+>>  | sort_mat              |  Replaced by "colSort" and "rowSort" and will be remoevd in the next udate. |
+>>  | checkUsage            |  Remove uneccessary option. |
+>>  | read.examples         |  Remove uneccessary option. |
+>>  | checkTF               |  Remove uneccessary option. |
+>>  | checkAliases          |  Remove uneccessary option. |
+>>  | comb_n                |  Add option for return list or matrix. |
+>>  | rownth                |  Fix of a bug. |
+>
+
+> <h4>version</h4> 1.9.2</br>
 Date release: **25/10/2018** 
 >
 

@@ -1,16 +1,18 @@
-\name{Two sample exponential empirical likelihood test}
+\name{Two sample empirical and exponential empirical likelihood test}
 \alias{eel.test2}
+\alias{el.test2}
 
 \title{
-Two sample exponential empirical likelihood test
+Two sample empirical and exponential empirical likelihood test
 }
 
 \description{
-Two sample exponential empirical likelihood test.
+Two sample empirical and exponential empirical likelihood test.
 }
 
 \usage{
 eel.test2(x, y, tol = 1e-09, logged = FALSE)
+el.test2(x, y, tol = 1e-07, logged = FALSE)
 }
 
 \arguments{
@@ -29,9 +31,9 @@ Should the logarithm of the p-value be returned? TRUE or FALSE.
 }
 
 \details{
-Exponential empirical likelihood is a non parametric method. In this case we use it as the non parametric alternative 
-to the t-test. Newton-Raphson is used to maximise the log-likelihood ratio test statistic. In the case of no solution, 
-NULL is returned.  
+Empirical and exponential empirical likelihood are two non parametric hypothesis testing methods. We can use them as 
+non parametric alternatives to the t-test. Newton-Raphson is used to maximise the log-likelihood ratio test statistic. 
+In the case of no solution, NULL is returned.  
 }
 
 \value{
@@ -70,14 +72,10 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- rnorm(100)
-y <- rnorm(200)
+x <- rnorm(200)
+y <- rnorm(300)
 system.time( eel.test2(x, y) )
-x <- rnorm(100)
-system.time( eel.test2(x, y) )
-x <- rnorm(50)
-y <- rexp(100)
-system.time( eel.test2(x, y) )
+system.time( el.test2(x, y) )
 }
 
 \keyword{ Hypothesis testing }

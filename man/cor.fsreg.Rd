@@ -9,7 +9,8 @@ Correlation based forward regression.
 }
 
 \usage{
-cor.fsreg(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = "BIC") 
+cor.fsreg(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, 
+tolb = 2, tolr = 0.02, stopping = "BIC") 
 }
 
 \arguments{
@@ -18,6 +19,12 @@ A numerical vector.
 }
 \item{x}{
 A matrix with data, the predictor variables. 
+}
+\item{ystand}{
+If this is TRUE the response variable is centered. The mean is subtracted from every value.
+}
+\item{xstand}{
+If this is TRUE the independent variables are standardised. 
 }
 \item{threshold}{
 The significance level, set to 0.05 by default. Bear in mind that the logarithm of it is used, as the 

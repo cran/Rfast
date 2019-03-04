@@ -278,8 +278,7 @@ SEXP col_nth_p(NumericMatrix x,IntegerVector elems,const bool descend,const bool
     #endif
     for(int i=0;i<n;++i){
       colvec y=xx.col(i);
-      int elem=elems[i]-1;
-      FF[i]=nth_helper_index<colvec>(y,elem,descend,na_rm);
+      FF[i]=nth_helper_index<colvec>(y,elems[i],descend,na_rm);
     }
   }else{
     #ifdef _OPENMP
@@ -287,8 +286,7 @@ SEXP col_nth_p(NumericMatrix x,IntegerVector elems,const bool descend,const bool
     #endif
     for(int i=0;i<n;++i){
       colvec y=xx.col(i);
-      int elem=elems[i]-1;
-      FF[i]=nth_helper<colvec>(y,elem,descend,na_rm);
+      FF[i]=nth_helper<colvec>(y,elems[i],descend,na_rm);
     }
   }
   UNPROTECT(1);
@@ -322,8 +320,7 @@ SEXP row_nth_p(NumericMatrix x,IntegerVector elems,const bool descend,const bool
     #endif
     for(int i=0;i<n;++i){
       rowvec y=xx.row(i);
-      int elem=elems[i]-1;
-      FF[i]=nth_helper_index<rowvec>(y,elem,descend,na_rm);
+      FF[i]=nth_helper_index<rowvec>(y,elems[i],descend,na_rm);
     }
   }else{
     F=PROTECT(Rf_allocVector(REALSXP,n));
@@ -333,8 +330,7 @@ SEXP row_nth_p(NumericMatrix x,IntegerVector elems,const bool descend,const bool
     #endif
     for(int i=0;i<n;++i){
       rowvec y=xx.row(i);
-      int elem=elems[i]-1;
-      FF[i]=nth_helper<rowvec>(y,elem,descend,na_rm);
+      FF[i]=nth_helper<rowvec>(y,elems[i],descend,na_rm);
     }
   }
   UNPROTECT(1);
@@ -379,7 +375,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< const bool >::type stable(stableSEXP);
     traits::input_parameter< const bool >::type descending(descendingSEXP);
-    __result = wrap(col_order_p(x,stable,descending));
+    __result = col_order_p(x,stable,descending);
     return __result;
 END_RCPP
 }
@@ -405,7 +401,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< const bool >::type stable(stableSEXP);
     traits::input_parameter< const bool >::type descending(descendingSEXP);
-    __result = wrap(row_order_p(x,stable,descending));
+    __result = row_order_p(x,stable,descending);
     return __result;
 END_RCPP
 }
@@ -459,7 +455,7 @@ BEGIN_RCPP
     traits::input_parameter< string >::type method(methodSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
     traits::input_parameter< const bool >::type stable(stableSEXP);
-    __result = wrap(col_ranks_p(x,method,descend,stable));
+    __result = col_ranks_p(x,method,descend,stable);
     return __result;
 END_RCPP
 }
@@ -510,7 +506,7 @@ BEGIN_RCPP
     traits::input_parameter< string >::type method(methodSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
     traits::input_parameter< const bool >::type stable(stableSEXP);
-    __result = wrap(row_ranks_p(x,method,descend,stable));
+    __result = row_ranks_p(x,method,descend,stable);
     return __result;
 END_RCPP
 }
@@ -589,7 +585,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type n(nSEXP);
-    __result = wrap(col_max_p(n));
+    __result = col_max_p(n);
     return __result;
 END_RCPP
 }
@@ -617,7 +613,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    __result = wrap(col_mean_p(x));
+    __result = col_mean_p(x);
     return __result;
 END_RCPP
 }
@@ -644,7 +640,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type n(nSEXP);
-    __result = wrap(col_min_p(n));
+    __result = col_min_p(n);
     return __result;
 END_RCPP
 }
@@ -726,7 +722,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< NumericVector >::type values(valuesSEXP);
-    __result = wrap(col_count_values_p(x,values));
+    __result = col_count_values_p(x,values);
     return __result;
 END_RCPP
 }
@@ -753,7 +749,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< NumericVector >::type values(valuesSEXP);
-    __result = wrap(row_count_values_p(x,values));
+    __result = row_count_values_p(x,values);
     return __result;
 END_RCPP
 }

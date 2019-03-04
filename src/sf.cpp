@@ -19,7 +19,7 @@ BEGIN_RCPP
     traits::input_parameter< vec >::type x(xSEXP);
     traits::input_parameter< vec >::type y(ySEXP);
     traits::input_parameter< const unsigned int >::type r(rSEXP);
-    __result = wrap(perm_cor(x,y,r));
+    __result = perm_cor(x,y,r);
     return __result;
 END_RCPP
 }	
@@ -37,7 +37,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericMatrix>::type ds(dsSEXP);
     traits::input_parameter< const double >::type tol(tolSEXP);
     traits::input_parameter< const string >::type type(typeSEXP);
-    __result = wrap(bic_fs_reg(y,ds,tol,type));
+    __result = bic_fs_reg(y,ds,tol,type);
     return __result;
 END_RCPP
 }
@@ -64,7 +64,7 @@ BEGIN_RCPP
     traits::input_parameter< const double >::type sig(sigSEXP);
     traits::input_parameter< const double >::type tol(tolSEXP);
     traits::input_parameter< const string >::type method(methodSEXP);
-    __result = wrap(fs_reg(y,ds,sig,tol,method));
+    __result = fs_reg(y,ds,sig,tol,method);
     return __result;
 END_RCPP
 }
@@ -82,7 +82,7 @@ BEGIN_RCPP
     traits::input_parameter< arma::mat >::type ds(dsSEXP);
     traits::input_parameter< const double >::type sig(sigSEXP);
     traits::input_parameter< const std::string >::type type(typeSEXP);
-    __result = wrap(bs_reg(y,ds,sig,type));
+    __result = bs_reg(y,ds,sig,type);
     return __result;
 END_RCPP
 }
@@ -104,7 +104,7 @@ BEGIN_RCPP
     traits::input_parameter< mat >::type stats_init(stats_initSEXP);
     traits::input_parameter< mat >::type pvalues_init(pvalues_initSEXP);
     traits::input_parameter< ivec >::type is_init_vals(is_init_valsSEXP);
-    __result = wrap(pc_skel(ds,method,sig,r,stats_init,pvalues_init,is_init_vals));
+    __result = pc_skel(ds,method,sig,r,stats_init,pvalues_init,is_init_vals);
     return __result;
 END_RCPP
 }
@@ -129,7 +129,7 @@ BEGIN_RCPP
     traits::input_parameter< const string >::type method(methodSEXP);
     traits::input_parameter< const unsigned int >::type freq_option(freq_optionSEXP);
     traits::input_parameter< const bool >::type mem_eff(mem_effSEXP);
-    __result = wrap(k_nn(ds_extra,y,ds,idxs,dist_type,type,method,freq_option,mem_eff));
+    __result = k_nn(ds_extra,y,ds,idxs,dist_type,type,method,freq_option,mem_eff);
     return __result;
 END_RCPP
 }
@@ -154,7 +154,7 @@ BEGIN_RCPP
     traits::input_parameter< const unsigned int >::type freq_option(freq_optionSEXP);
     traits::input_parameter< const bool >::type pred_ret(pred_retSEXP);
     traits::input_parameter< const bool >::type mem_eff(mem_effSEXP);
-    __result = wrap(k_nn_cv(folds,y,ds,idxs,dist_type,type,method,freq_option,pred_ret,mem_eff));
+    __result = k_nn_cv(folds,y,ds,idxs,dist_type,type,method,freq_option,pred_ret,mem_eff);
     return __result;
 END_RCPP
 }

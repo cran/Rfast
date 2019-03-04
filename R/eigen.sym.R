@@ -1,3 +1,3 @@
-eigen.sym <- function(A, k) {
-  .Call(Rfast_eigs_sym_c,A, k)
+eigen.sym <- function(A, k, vectors = TRUE) {
+  .Call(Rfast_eigs_sym_c,A,k,vectors)
 }

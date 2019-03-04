@@ -1,7 +1,7 @@
 
 
-checkExamples<-function(path.man,each = 1,dont.read = "",print.errors = stderr(),print.names = FALSE){
-  examples_files <- .Call(Rfast_read_examples,path.man,dont.read)
+checkExamples<-function(path.man,each = 1,print.errors = stderr(),print.names = FALSE){
+  examples_files <- .Call(Rfast_read_examples,path.man)
   error_files<-vector("character")
   examples <- examples_files$examples
   file_names<-examples_files$files
@@ -29,5 +29,5 @@ checkExamples<-function(path.man,each = 1,dont.read = "",print.errors = stderr()
       }
     }
   }
-  list("Errors"=error_files,"Big Examples"=examples_files$long_lines)
+  list("Errors"=error_files,"Big Examples"=examples_files$long_lines,"dont read"=examples_files$`dont read`)
 }

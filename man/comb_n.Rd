@@ -9,21 +9,26 @@ All k possible combinations from n elements.
 }
 
 \usage{
-comb_n(n, k)
+comb_n(n, k,simplify=TRUE)
 }
 
 \arguments{
 \item{n}{
-A positive or negative \bold{INTEGER} number or a vector with numbers. 
+A positive \bold{INTEGER} number or a vector with numbers. 
 }
 \item{k}{
 A positive integer number at most equal to n or at most equal to the length of n, if n is a vector.
+}
+\item{simplify}{
+A logical value for return List instead of matrix.
 }
 }
 
 
 \value{
-A matrix with k columns and rows equal to the number of possible unique combinations of n with k elements. 
+A matrix with k columns and rows equal to the number of possible unique combinations of n with k elements.
+If simplify is set to TRUE then a list with k values where each value has length equal to the number of 
+possible unique combinations of n with k elements.
 }
 
 \references{

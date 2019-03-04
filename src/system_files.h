@@ -47,11 +47,13 @@ bool get_example(ifstream&,string&);
 vector<string> read_directory(string);
 string read_example(ifstream &,int&);
 bool binary_help(vector<string>::iterator,vector<string>::iterator,string&,vector<string>::iterator&);
-void dont_read_man(vector<string>&,vector<string>&);
 vector<string> read_usage(ifstream &);
 string read_function_from_r_file(ifstream &);
 void remove_spaces(string&);
-List read_examples(string,vector<string>);
+List read_examples(string);
+bool check_read_file(ifstream&,char);
+void dont_read_man(vector<string>&,vector<string>&);
+void reset_file(ifstream& file);
 
 template<class T>
 bool find_string(string& s,T f){

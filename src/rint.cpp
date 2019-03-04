@@ -12,7 +12,9 @@ using namespace std;
 
 //[[Rcpp::export]]
 List rint_reg(NumericMatrix X, NumericVector Y, IntegerVector id, const double tol, const bool ranef, const int maxiters){
-  int n = X.nrow(), p = X.ncol(), idmx = max(id);
+  int n = X.nrow(), p = X.ncol(), idmx,idmn;
+  maximum<int>(id.begin(),id.end(),idmx);
+  minimum<int>(id.begin(),id.end(),idmn);
   mat x(X.begin(), n,p,false),xx(p,p),sx(idmx,p),sxy(p,1),mx(idmx,p);
   vec y(Y.begin(),n,false),my(idmx);
 
@@ -21,15 +23,15 @@ List rint_reg(NumericMatrix X, NumericVector Y, IntegerVector id, const double t
 
   xx = cross_x<mat,mat>(x);
   for(int i=0;i<p;i++)
-    sx.col(i) = group_sum_helper<vec,vec,IntegerVector>(x.col(i), id, nullptr,&idmx);
+    sx.col(i) = group_sum_helper<vec,vec,IntegerVector>(x.col(i), id, &idmn,&idmx);
   sxy = cross_x_y<mat,mat,vec>(x,y);
-  colvec sy = group_sum_helper<colvec,vec,IntegerVector>(y, id, nullptr,&idmx);
+  colvec sy = group_sum_helper<colvec,vec,IntegerVector>(y, id, &idmn,&idmx);
   mx = sx.each_col()/ni;
   my = sy/ni;
 
   mat b1 = solve(xx,sxy,solve_opts::fast);
   vec tmp = y - x*b1;
-  double S = sum(tmp%tmp);
+  double S = sum_with<square2<double>, vec>(tmp);
   vec tmp2 = my-mx*b1;
   vec hi2 = tmp2%tmp2;
   vec ni2 = ni%ni;
@@ -45,7 +47,7 @@ List rint_reg(NumericMatrix X, NumericVector Y, IntegerVector id, const double t
     b1.col(0) = b2;
 
     tmp = y - x*b1;
-    S = accu(tmp%tmp);
+	S = sum_with<square2<double>, vec>(tmp);
     tmp2 = my-mx*b1;
     hi2 = tmp2%tmp2;
 
@@ -65,11 +67,11 @@ List rint_reg(NumericMatrix X, NumericVector Y, IntegerVector id, const double t
   info(5) = info(4) + (p + 2) * logn;
   l["info"] = info;
   l["be"] = b2;
-  l["seb"] = sqrt(((mat)solve(xx-d(0)*cross_x_y<mat,mat,vec>(sx.each_col()/oneplnid,sx),mat(p,p,fill::eye),solve_opts::fast)).diag()*info(2));
+  l["seb"] = sqrt(((mat)solve(xx-d(0)*cross_x_y<mat,mat,vec>(sx.each_col()/oneplnid,sx),eye(p,p),solve_opts::fast)).diag()*info(2));
 
   if(ranef){
     mat er = y - x * (conv_to<colvec>::from(b2));
-    l["ranef"] =  d[0] * ni/(oneplnid) % group_sum_helper<vec,vec,IntegerVector>(er.col(0), id, nullptr,&idmx)/ni;
+    l["ranef"] =  d[0] * ni/(oneplnid) % group_sum_helper<vec,vec,IntegerVector>(er.col(0), id, &idmn,&idmx)/ni;
   }
   return l;
 }
@@ -98,16 +100,19 @@ NumericMatrix rint_regs(NumericMatrix X, NumericVector Y, IntegerVector id, cons
   //if(ret != 1 && ret != 2 and ret != 3)
   //  stop("Invalid return option, ret should be 1, 2 or 3\n");
   //1 - stat,pval, 2- all, 3 bic
-  int n = X.nrow(), D = X.ncol(), idmx = max(id);
+  int n = X.nrow(), D = X.ncol(), idmx,idmn;
   mat x(X.begin(), n,D,false);
   vec y(Y.begin(),n,false);
+
+  maximum<int>(id.begin(),id.end(),idmx);
+  minimum<int>(id.begin(),id.end(),idmn);
 
   int ret = 1;
 
   vec ni=Tabulate<vec,IntegerVector>(id,idmx);
 
   vec ni2 = ni%ni;
-  colvec sy = group_sum_helper<colvec,vec,IntegerVector>(y, id, nullptr,&idmx);
+  colvec sy = group_sum_helper<colvec,vec,IntegerVector>(y, id, &idmn,&idmx);
   vec my = sy/ni;
   double Sy = sum(sy),logn = log(n);
   vec r = conv_to<vec>::from(cov(y,x));
@@ -122,93 +127,24 @@ NumericMatrix rint_regs(NumericMatrix X, NumericVector Y, IntegerVector id, cons
   mat be(D,2);
   be.col(0) = a;
   be.col(1) = b;
-  vec stat,bic;
 
-  if(ret == 1 || ret == 2)
-    stat = vec(D);
-  if(ret == 2 || ret == 3)
-    bic = vec(D);
+  NumericMatrix mymat;
 
-  if(parallel){
-      #ifdef _OPENMP
-      #pragma omp parallel
-      {
-      #endif
-        vec Xi(n), sxy(2), b1(2), tmpvec(n), tmpvec2(idmx), hi2(idmx),b2(2),B(2), mx(idmx);
-        mat sx(idmx,2), temptcom(idmx,2), tcom(2,idmx), A(2,2);
-        vec oneplnid;
-        sx.col(0) = ni;
-        sx.col(1) = ni;
-        int ij=0;
-        sxy[0] = Sy;
-        double S=0,down=0, se=0,seb=0,info1=0,info2=0;
-        vec d(2);
-        mat  xx(2,2);
-        xx(0,0) = n;
-        #ifdef _OPENMP
-        #pragma omp for
-        #endif
-        for(int i = 0; i < D; i++) {
-          Xi = x.col(i);
-          xx(0,1) = xs[i];
-          xx(1,0) = xs[i];
-          xx(1,1) = xs2[i];
-          sx.col(1) = group_sum_helper<vec,vec,IntegerVector>(Xi, id, nullptr,&idmx);
-          sxy[1] = sum(Xi % y);
-          mx = sx.col(1)/ni;
-          b1[0] = be.row(i)[0];
-          b1[1] = be.row(i)[1];
-          tmpvec = y - b1(0) - b1(1) * Xi;
-          S = sum(tmpvec % tmpvec);
-          tmpvec2 = my - b1(0) - b1(1) * mx;
-          hi2 = tmpvec2 % tmpvec2;
-          d = gold_rat3(n, ni, ni2, S, hi2,idmx, tol);
-          oneplnid = (1+ ni * d[0]);
-          temptcom.col(0) = sx.col(0)/oneplnid;
-          temptcom.col(1) = sx.col(1)/oneplnid;
-          tcom = -d[0] * temptcom.t();
-
-          A = xx + tcom * sx;
-
-          B = sxy + tcom * sy;
-
-          down = A(0,0) * A(1,1) - A(0,1)*A(0,1);
-          b2(0) = (A(1,1) * B(0) - A(0,1) * B(1))/down;
-          b2(1) = (- A(0,1) * B(0) + A(0,0) * B(1))/down;
-          ij = 2;
-          while(ij++<maxiters && sum(abs(b2 - b1))>tol){
-            b1 = b2;
-            tmpvec = y - b1(0) - b1(1) * Xi;
-            S = sum(tmpvec%tmpvec);
-            tmpvec2 = my - b1(0) - b1(1) * mx;
-            hi2 = tmpvec2 % tmpvec2;
-            d = gold_rat3(n, ni, ni2, S, hi2, idmx,tol);
-            oneplnid = (1+ ni * d[0]);
-            temptcom.col(0) = sx.col(0)/oneplnid;
-            temptcom.col(1) = sx.col(1)/oneplnid;
-            tcom = -d[0] * temptcom.t();
-            A = xx + tcom * sx;
-            B = sxy + tcom * sy;
-            down = A(0,0) * A(1,1) - A(0,1) * A(0,1);
-            b2(0) = (A(1,1) * B(0) - A(0,1) * B(1))/down;
-            b2(1) = (- A(0,1) * B(0) + A(0,0) * B(1))/down;
-          }
-          if(ret == 1 || ret == 2){
-            se = (S - d[0] * sum(ni2 % hi2/ oneplnid ) )/n;
-            seb = A(0,0) / down * se;
-            stat(i) = b2(1)*b2(1)/ seb;
-          }
-          if(ret == 2 || ret == 3){
-            info1 = -0.5 * d[1]-0.5*n*(1.837877-logn+1);
-            info2 = -2 * info1;
-            bic(i) = info2 + (D + 2) * logn;
-          }
-        }
-      #ifdef _OPENMP
-      }
-      #endif
+  if(ret==1){
+    mymat = NumericMatrix(D,2);
+  }
+  else if(ret==2){
+    mymat = NumericMatrix(D,3);
   }
   else{
+    mymat = NumericMatrix(D,1);
+  }
+
+  if(parallel){
+  #ifdef _OPENMP
+  #pragma omp parallel
+  {
+  #endif
     vec Xi(n), sxy(2), b1(2), tmpvec(n), tmpvec2(idmx), hi2(idmx),b2(2),B(2), mx(idmx);
     mat sx(idmx,2), temptcom(idmx,2), tcom(2,idmx), A(2,2);
     vec oneplnid;
@@ -216,26 +152,27 @@ NumericMatrix rint_regs(NumericMatrix X, NumericVector Y, IntegerVector id, cons
     sx.col(1) = ni;
     int ij=0;
     sxy[0] = Sy;
-
-    double S=0,down=0, se=0,seb=0,info1=0,info2=0;
+    double S=0,down=0, se=0,seb=0,info1=0,info2=0,stat,bic;
     vec d(2);
     mat  xx(2,2);
     xx(0,0) = n;
-
+    #ifdef _OPENMP
+    #pragma omp for
+    #endif
     for(int i = 0; i < D; i++) {
       Xi = x.col(i);
       xx(0,1) = xs[i];
       xx(1,0) = xs[i];
       xx(1,1) = xs2[i];
-      sx.col(1) =  group_sum_helper<vec,vec,IntegerVector>(Xi, id, nullptr,&idmx);
+      sx.col(1) = group_sum_helper<vec,vec,IntegerVector>(Xi, id, &idmn,&idmx);
       sxy[1] = sum(Xi % y);
       mx = sx.col(1)/ni;
       b1[0] = be.row(i)[0];
       b1[1] = be.row(i)[1];
       tmpvec = y - b1(0) - b1(1) * Xi;
-      S = sum(tmpvec % tmpvec);
+      S = sum_with<square2<double>, vec>(tmpvec);
       tmpvec2 = my - b1(0) - b1(1) * mx;
-      hi2 = tmpvec2 % tmpvec2;
+      hi2 = tmpvec2%tmpvec2;
       d = gold_rat3(n, ni, ni2, S, hi2,idmx, tol);
       oneplnid = (1+ ni * d[0]);
       temptcom.col(0) = sx.col(0)/oneplnid;
@@ -250,12 +187,12 @@ NumericMatrix rint_regs(NumericMatrix X, NumericVector Y, IntegerVector id, cons
       b2(0) = (A(1,1) * B(0) - A(0,1) * B(1))/down;
       b2(1) = (- A(0,1) * B(0) + A(0,0) * B(1))/down;
       ij = 2;
-      while(ij++<maxiters && sum(abs(b2 - b1))>tol){
+      while(ij++<maxiters && sum_with<std::abs,vec>(b2 - b1)>tol){
         b1 = b2;
         tmpvec = y - b1(0) - b1(1) * Xi;
-        S = sum(tmpvec%tmpvec);
+        S = sum_with< square2<double>, vec>(tmpvec);
         tmpvec2 = my - b1(0) - b1(1) * mx;
-        hi2 = tmpvec2 % tmpvec2;
+        hi2 = tmpvec2%tmpvec2;
         d = gold_rat3(n, ni, ni2, S, hi2, idmx,tol);
         oneplnid = (1+ ni * d[0]);
         temptcom.col(0) = sx.col(0)/oneplnid;
@@ -267,66 +204,126 @@ NumericMatrix rint_regs(NumericMatrix X, NumericVector Y, IntegerVector id, cons
         b2(0) = (A(1,1) * B(0) - A(0,1) * B(1))/down;
         b2(1) = (- A(0,1) * B(0) + A(0,0) * B(1))/down;
       }
-      if(ret == 1 || ret == 2){
+      if(ret==1){
         se = (S - d[0] * sum(ni2 % hi2/ oneplnid ) )/n;
         seb = A(0,0) / down * se;
-        stat(i) = b2(1)*b2(1)/ seb;
+        stat = b2(1)*b2(1)/ seb;
+
+        mymat(i,0) = stat;
+        mymat(i,1) = R::pf(mymat(i,0), 1, n-4, false, logged);
       }
-      if(ret == 2 || ret == 3){
+      else if(ret == 2){
+        se = (S - d[0] * sum(ni2 % hi2/ oneplnid ) )/n;
+        seb = A(0,0) / down * se;
+        stat = b2(1)*b2(1)/ seb;
+
         info1 = -0.5 * d[1]-0.5*n*(1.837877-logn+1);
         info2 = -2 * info1;
-        bic(i) = info2 + (D + 2) * logn;
+        bic = info2 + (D + 2) * logn;
+
+        mymat(i,0) = stat;
+        mymat(i,1) = R::pf(mymat(i,0), 1, n, false, logged);
+        mymat(i,2) = bic;
+      }
+      else{
+        info1 = -0.5 * d[1]-0.5*n*(1.837877-logn+1);
+        info2 = -2 * info1;
+        bic = info2 + (D + 2) * logn;
+        mymat(i,0) = bic;
+      }
+    }
+    #ifdef _OPENMP
+    }
+    #endif
+  }
+  else{
+    vec Xi(n), sxy(2), b1(2), tmpvec(n), tmpvec2(idmx), hi2(idmx),b2(2),B(2), mx(idmx);
+    mat sx(idmx,2), temptcom(idmx,2), tcom(2,idmx), A(2,2);
+    vec oneplnid;
+    sx.col(0) = ni;
+    sx.col(1) = ni;
+    int ij=0;
+    sxy[0] = Sy;
+
+    double S=0,down=0, se=0,seb=0,info1=0,info2=0,stat,bic;
+    vec d(2);
+    mat  xx(2,2);
+    xx(0,0) = n;
+
+    for(int i = 0; i < D; i++) {
+      Xi = x.col(i);
+      xx(0,1) = xs[i];
+      xx(1,0) = xs[i];
+      xx(1,1) = xs2[i];
+      sx.col(1) =  group_sum_helper<vec,vec,IntegerVector>(Xi, id, &idmn,&idmx);
+      sxy[1] = sum(Xi % y);
+      mx = sx.col(1)/ni;
+      b1[0] = be.row(i)[0];
+      b1[1] = be.row(i)[1];
+      tmpvec = y - b1(0) - b1(1) * Xi;
+      S = sum_with< square2<double>, vec>(tmpvec);
+      tmpvec2 = my - b1(0) - b1(1) * mx;
+      hi2 = tmpvec2%tmpvec2;
+      d = gold_rat3(n, ni, ni2, S, hi2,idmx, tol);
+      oneplnid = (1+ ni * d[0]);
+      temptcom.col(0) = sx.col(0)/oneplnid;
+      temptcom.col(1) = sx.col(1)/oneplnid;
+      tcom = -d[0] * temptcom.t();
+
+      A = xx + tcom * sx;
+
+      B = sxy + tcom * sy;
+
+      down = A(0,0) * A(1,1) - A(0,1)*A(0,1);
+      b2(0) = (A(1,1) * B(0) - A(0,1) * B(1))/down;
+      b2(1) = (- A(0,1) * B(0) + A(0,0) * B(1))/down;
+      ij = 2;
+      while(ij++<maxiters && sum_with<std::abs,vec>(b2 - b1)>tol){
+        b1 = b2;
+        tmpvec = y - b1(0) - b1(1) * Xi;
+        S = sum_with< square2<double>, vec>(tmpvec);
+        tmpvec2 = my - b1(0) - b1(1) * mx;
+        hi2 = tmpvec2%tmpvec2;
+        d = gold_rat3(n, ni, ni2, S, hi2, idmx,tol);
+        oneplnid = (1+ ni * d[0]);
+        temptcom.col(0) = sx.col(0)/oneplnid;
+        temptcom.col(1) = sx.col(1)/oneplnid;
+        tcom = -d[0] * temptcom.t();
+        A = xx + tcom * sx;
+        B = sxy + tcom * sy;
+        down = A(0,0) * A(1,1) - A(0,1) * A(0,1);
+        b2(0) = (A(1,1) * B(0) - A(0,1) * B(1))/down;
+        b2(1) = (- A(0,1) * B(0) + A(0,0) * B(1))/down;
+      }
+      if(ret==1){
+        se = (S - d[0] * sum(ni2 % hi2/ oneplnid ) )/n;
+        seb = A(0,0) / down * se;
+        stat = b2(1)*b2(1)/ seb;
+
+        mymat(i,0) = stat;
+        mymat(i,1) = R::pf(mymat(i,0), 1, n-4, false, logged);
+      }
+      else if(ret == 2){
+        se = (S - d[0] * sum(ni2 % hi2/ oneplnid ) )/n;
+        seb = A(0,0) / down * se;
+        stat = b2(1)*b2(1)/ seb;
+
+        info1 = -0.5 * d[1]-0.5*n*(1.837877-logn+1);
+        info2 = -2 * info1;
+        bic = info2 + (D + 2) * logn;
+
+        mymat(i,0) = stat;
+        mymat(i,1) = R::pf(mymat(i,0), 1, n, false, logged);
+        mymat(i,2) = bic;
+      }
+      else{
+        info1 = -0.5 * d[1]-0.5*n*(1.837877-logn+1);
+        info2 = -2 * info1;
+        bic = info2 + (D + 2) * logn;
+        mymat(i,0) = bic;
       }
     }
   }
-  n = n-4;
-  NumericMatrix mymat;
-  if(ret == 1){
-    if(parallel){
-        mymat = NumericMatrix(D,2);
-        #ifdef _OPENMP
-        #pragma omp parallel for
-        #endif
-        for(int i = 0; i < D; i++){
-          mymat(i,0) = stat(i);
-          mymat(i,1) = R::pf(mymat(i,0), 1, n, false, logged);
-        }
-    }
-    else{
-        mymat = NumericMatrix(D,2);
-        for(int i = 0; i < D; i++){
-          mymat(i,0) = stat(i);
-          mymat(i,1) = R::pf(mymat(i,0), 1, n, false, logged);
-        }
-    }
-
-  }
-  else if(ret == 3){
-    return as<NumericMatrix>(wrap(bic));
-  }
-  else{
-    if(parallel){
-        mymat = NumericMatrix(D,3);
-        #ifdef _OPENMP
-        #pragma omp parallel for
-        #endif
-        for(int i = 0; i < D; i++){
-          mymat(i,0) = stat(i);
-          mymat(i,1) = R::pf(mymat(i,0), 1, n, false, logged);
-          mymat(i,2) = bic(i);
-        }
-    }
-    else{
-        mymat = NumericMatrix(D,3);
-
-        for(int i = 0; i < D; i++){
-          mymat(i,0) = stat(i);
-          mymat(i,1) = R::pf(mymat(i,0), 1, n, false, logged);
-          mymat(i,2) = bic(i);
-        }
-    }
-  }
-
 
   return mymat;
 }
@@ -353,10 +350,12 @@ RcppExport SEXP Rfast_rint_regs(SEXP XSEXP,SEXP YSEXP,SEXP idSEXP,SEXP tolSEXP,S
 
 //[[Rcpp::export]]
 List rint_mle(NumericVector X, IntegerVector id, const bool ranef, const double tol, const int maxiters){
-  int n = X.size(),idmx = max(id);
+  int n = X.size(),idmx,idmn;
+  maximum<int>(id.begin(),id.end(),idmx);
+  minimum<int>(id.begin(),id.end(),idmn);
   vec x(X.begin(),n,false);
   double sxy = sum(x);
-  vec sx = group_sum_helper<vec,vec,IntegerVector>(x, id, nullptr,&idmx);
+  vec sx = group_sum_helper<vec,vec,IntegerVector>(x, id, &idmn,&idmx);
 
   List res;
 

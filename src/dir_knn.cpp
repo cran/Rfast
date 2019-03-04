@@ -58,8 +58,9 @@ NumericMatrix dir_knn(NumericMatrix tXnew, NumericMatrix tX, NumericVector Y, Nu
             k_sorted_put(myarray,k0,i,acos(tmpsum));
           }
 
-          for(int j = 0; j < klen; j++)
+          for(int j = 0; j < klen; j++){
             g(l,j)= _function_type_(y, myarray, K[j]);
+          }
 
             // make all elements of the array "invalid" so that the next iteration can begin
             myarray =  refresh_array(myarray, k0);
@@ -106,7 +107,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericVector >::type K(KSEXP);
     traits::input_parameter< const string >::type type(typeSEXP);
     traits::input_parameter< const bool >::type parallel(parallelSEXP);
-    __result = wrap(dir_knn(tXnew,tX,Y,K,type,parallel));
+    __result = dir_knn(tXnew,tX,Y,K,type,parallel);
     return __result;
 END_RCPP
 }

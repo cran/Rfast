@@ -74,7 +74,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericVector >::type y(ySEXP);
     traits::input_parameter< const double >::type tol(tolSEXP);
     traits::input_parameter< const int >::type maxiters(maxitersSEXP);
-    __result = wrap(glm_logistic(x,y,tol,maxiters));
+    __result = glm_logistic(x,y,tol,maxiters);
     return __result;
 END_RCPP
 }
@@ -115,7 +115,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericVector >::type y(ySEXP);
     traits::input_parameter< const double >::type ylogy(ylogySEXP);
     traits::input_parameter< const double >::type tol(tolSEXP);
-    __result = wrap(glm_poisson(x,y,ylogy,tol));
+    __result = glm_poisson(x,y,ylogy,tol);
     return __result;
 END_RCPP
 }

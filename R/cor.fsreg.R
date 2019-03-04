@@ -1,12 +1,12 @@
-cor.fsreg <- function(y, x, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = "BIC") {
+cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = "BIC") {
   threshold <- log(threshold)
   dm <- dim(x)
   n <- dm[1]
   p <- dm[2]
   con <- n * log(2 * pi) + n  
   logn <- log(n)
-  x <- Rfast::standardise(x, center = TRUE, scale = FALSE)
-  y <- y - mean(y)
+  if (xstand)   x <- Rfast::standardise(x, center = TRUE, scale = FALSE)
+  if (ystand)   y <- y - mean(y)
   options(warn = -1)
   yx <- cor(y, x) 
   sel <- which.max( abs(yx) )

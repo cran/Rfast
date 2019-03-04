@@ -9,7 +9,7 @@ Limited number of eigenvalues and eigenvectors of a symmetric matrix.
 }
 
 \usage{
-eigen.sym(A, k)
+eigen.sym(A, k, vectors = TRUE)
 }
 
 \arguments{
@@ -18,6 +18,9 @@ A symmetric matrix.
 }
 \item{k}{
 The number of eigenvalues and eigenvectors to extract.
+}
+\item{vectors}{
+A flag that indicates if the eigenvectors will be returned (default: vectors = True)
 }
 }
 

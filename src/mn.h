@@ -23,8 +23,8 @@ double trigamma(double);
 void i4mat_floyd(int, NumericVector &);
 void i4mat_floyd_with_paths(const int, NumericVector&,NumericVector&);
 rowvec colMedians(mat);
-void combn(NumericVector&,const int,const int, vector<double>&,
-       NumericMatrix&,int&);
+void combn(arma::vec& vals, const int n, const unsigned int start_idx, 
+		std::vector<double>& combn_data, double*& combn_col);
 int my_round(const double);
 double my_round_gen_na_rm(double,const int&);
 double my_round_gen_simple(double,const int&);

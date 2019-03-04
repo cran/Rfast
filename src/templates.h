@@ -487,12 +487,13 @@ Ret cross_x(T x){
   Ret f(ncl,ncl);
   double a;
   int i,j;
-  for(i=0;i<ncl;++i)
+  for(i=0;i<ncl;++i){
     for(j=i;j<ncl;++j){
       a=sum(x.col(j)%x.col(i));
       f(i,j)=a;
       f(j,i)=a;
     }
+  }
 
     return f;
 }
@@ -998,6 +999,12 @@ NumericVector negative_or_positive_min_max(NumericVector &x){
         }
     }
     return NumericVector::create(mn,mx);
+}
+
+template<class T>
+double nth_simple(T& x,const int& elem){
+  nth_element(x.begin(),x.begin()+elem-1,x.end());
+  return x[elem-1];
 }
 
 template<class T>

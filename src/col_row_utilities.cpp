@@ -336,20 +336,20 @@ SEXP row_meds_helper_2(SEXP X){
 //[[Rcpp::export]]
 SEXP col_mads(SEXP x){
   SEXP y=PROTECT(col_meds_helper_1(x));
-  y=eachrow_min_abs(x,y);
-  y=col_meds_helper_2(y);
-  UNPROTECT(1);
-  return y;
+  SEXP y2=PROTECT(eachrow_min_abs(x,y));
+  SEXP y3=PROTECT(col_meds_helper_2(y2));
+  UNPROTECT(3);
+  return y3;
 }
 
 
 //[[Rcpp::export]]
 SEXP row_mads(SEXP x){
   SEXP y=PROTECT(row_meds_helper_1(x));
-  y=eachcol_min_abs(x,y);
-  y=row_meds_helper_2(y);
-  UNPROTECT(1);
-  return y;
+  SEXP y2=PROTECT(eachcol_min_abs(x,y));
+  SEXP y3=PROTECT(row_meds_helper_2(y2));
+  UNPROTECT(3);
+  return y3;
 }
 
 RcppExport SEXP Rfast_row_mads(SEXP x) {
@@ -800,14 +800,14 @@ SEXP col_nth(NumericMatrix x,IntegerVector elems,const bool descend,const bool n
       int *ff=INTEGER(F);
       for(int i=0;i!=n;++ff,++i,++els){
           y=x.column(i);
-          *ff=nth_helper_index<NumericVector>(y,*els-1,descend,na_rm);
+          *ff=nth_helper_index<NumericVector>(y,*els,descend,na_rm);
       }
     }else{
       F=PROTECT(Rf_allocVector(REALSXP,n));
       double *ff=REAL(F);
       for(int i=0;i!=n;++ff,++i,++els){
           y=x.column(i);
-          *ff=nth_helper<NumericVector>(y,*els-1,descend,na_rm);
+          *ff=nth_helper<NumericVector>(y,*els,descend,na_rm);
       }
     }
     return F;
@@ -838,14 +838,14 @@ SEXP row_nth(NumericMatrix x,IntegerVector elems,const bool descend,const bool n
       int *ff=INTEGER(F);
       for(int i=0;i!=n;++ff,++i,++els){
         y=x.row(i);
-        *ff=nth_helper_index<NumericVector>(y,*els-1,descend,na_rm);
+        *ff=nth_helper_index<NumericVector>(y,*els,descend,na_rm);
       }
     }else{
       F=PROTECT(Rf_allocVector(REALSXP,n));
       double *ff=REAL(F);
       for(int i=0;i!=n;++ff,++i,++els){
         y=x.row(i);
-        *ff=nth_helper<NumericVector>(y,*els-1,descend,na_rm);
+        *ff=nth_helper<NumericVector>(y,*els,descend,na_rm);
       }
     }
     return F;

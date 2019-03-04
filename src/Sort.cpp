@@ -52,9 +52,9 @@ SEXP Sort(SEXP x,const bool descend,SEXP na){
   if(Rf_isNull(na))
     return Sort_simple(x,descend);
   else if(R_IsNA(Rf_asReal(na))){
-    return wrap(Sort_na_rm(x,descend));
+    return Sort_na_rm(x,descend);
   }else{
-    return wrap(Sort_na_last(x,descend));
+    return Sort_na_last(x,descend);
   }
   stop("Wrong type of na.last argument.\n");
 }
@@ -85,7 +85,7 @@ RcppExport SEXP Rfast_Sort_na_first(SEXP xSEXP,SEXP descendSEXP){
   RNGScope __rngScope;
   traits::input_parameter< vector<double> >::type x(xSEXP);
   traits::input_parameter< const bool >::type descend(descendSEXP);
-  __result = wrap(Sort_na_first(x,descend));
+  __result = Sort_na_first(x,descend);
   return __result;
   END_RCPP
 }
@@ -103,7 +103,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< CharacterVector >::type x(xSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
-    __result = wrap(sort_string(x,descend));
+    __result = sort_string(x,descend);
     return __result;
 END_RCPP
 }

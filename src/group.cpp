@@ -2,11 +2,19 @@
 #include <RcppArmadillo.h>
 #include "templates.h"
 #include "mn.h"
+#include <string>
+
+using std::string;
 
 using namespace Rcpp;
 
 
-LogicalVector group_all(LogicalVector x,IntegerVector group,const int n){
+LogicalVector group_all(LogicalVector x,IntegerVector group,SEXP maxSEXP){
+	int n;
+	if(Rf_isNull(maxSEXP))
+		maximum<int>(group.begin(),group.end(),n);
+	else
+		n=Rf_asInteger(maxSEXP);
   IntegerVector::iterator kk=group.begin();
   pr<int,int> *y=new pr<int,int>[n];
   int i,c=0,k;
@@ -32,22 +40,25 @@ LogicalVector group_all(LogicalVector x,IntegerVector group,const int n){
   return F;
 }
 
-
 RcppExport SEXP Rfast_group_all(SEXP xSEXP,SEXP groupSEXP,SEXP nSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< LogicalVector >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type group(groupSEXP);
-    traits::input_parameter< const int >::type n(nSEXP);
-    __result = wrap(group_all(x,group,n));
+    __result = group_all(x,group,nSEXP);
     return __result;
 END_RCPP
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
-NumericMatrix group_min_max(NumericVector x,IntegerVector group,const int n){
+NumericMatrix group_min_max(NumericVector x,IntegerVector group,SEXP maxSEXP){
+	int n;
+	if(Rf_isNull(maxSEXP))
+		maximum<int>(group.begin(),group.end(),n);
+	else
+		n=Rf_asInteger(maxSEXP);
   IntegerVector::iterator kk=group.begin();
   const double int_max=INT_MAX;
   NumericVector mn(n,int_max),mx(n,(double)(INT_MIN));
@@ -81,17 +92,13 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type group(groupSEXP);
-    traits::input_parameter< const int  >::type max_n(max_nSEXP);
-    __result = wrap(group_min_max(x,group,max_n));
+    __result = group_min_max(x,group,max_nSEXP);
     return __result;
 END_RCPP
 }
 
-
 //////////////////////////////////////////////////////////////////////////////
 
-
-//[[Rcpp::export]]
 NumericVector group_sum(NumericVector x,IntegerVector key,SEXP minn,SEXP maxx){
   int *mn=nullptr,*mx=nullptr;
     if(!Rf_isNull(minn))
@@ -108,17 +115,19 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type group(groupSEXP);
-    __result = wrap(group_sum(x,group,minn,maxx));
+    __result = group_sum(x,group,minn,maxx);
     return __result;
 END_RCPP
 }
 
-
-
 /////////////////////////////////////////////////////////////////////////
 
-
-NumericVector group_min(NumericVector x,IntegerVector group,const int n){
+NumericVector group_min(NumericVector x,IntegerVector group,SEXP maxSEXP){
+	int n;
+	if(Rf_isNull(maxSEXP))
+		maximum<int>(group.begin(),group.end(),n);
+	else
+		n=Rf_asInteger(maxSEXP);
   IntegerVector::iterator kk=group.begin();
   const double int_max=INT_MAX;
   NumericVector f(n,int_max);
@@ -145,17 +154,14 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type group(groupSEXP);
-    traits::input_parameter< const int >::type max_n(max_nSEXP);
-    __result = wrap(group_min(x,group,max_n));
+    __result = group_min(x,group,max_nSEXP);
     return __result;
 END_RCPP
 }
 
-
 ////////////////////////////////////////////////////////////////////////
 
-
-NumericVector group_med(NumericVector x,IntegerVector group){
+/*NumericVector group_med(NumericVector x,IntegerVector group){
   const int n=x.size(),n_1=n+1;
   IntegerVector::iterator kk=group.begin();
   NumericVector f(n);
@@ -188,10 +194,9 @@ NumericVector group_med(NumericVector x,IntegerVector group){
   delete[] y;
   delete[] ind;
   return F;
-}
+}*/
 
-//[[Rcpp::export]]
-NumericVector group_med2(NumericVector x,IntegerVector group,const int length_unique){
+NumericVector group_med(NumericVector x,IntegerVector group,const int length_unique){
   const int n=x.size();
   NumericVector f(length_unique);
   vector<vector<double>> groups(length_unique,std::vector<double>());
@@ -204,22 +209,26 @@ NumericVector group_med2(NumericVector x,IntegerVector group,const int length_un
   return f;
 }
 
-
-RcppExport SEXP Rfast_group_med(SEXP xSEXP,SEXP groupSEXP) {
+RcppExport SEXP Rfast_group_med(SEXP xSEXP,SEXP groupSEXP,SEXP length_uniqueSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type group(groupSEXP);
-    __result = wrap(group_med(x,group));
+    traits::input_parameter< const int >::type length_unique(length_uniqueSEXP);
+    __result = group_med(x,group,length_unique);
     return __result;
 END_RCPP
 }
 
 ///////////////////////////////////////////////////////////////////
 
-
-NumericVector group_mean(NumericVector x,IntegerVector group,const int n){
+NumericVector group_mean(NumericVector x,IntegerVector group,SEXP maxSEXP){
+	int n;
+	if(Rf_isNull(maxSEXP))
+		maximum<int>(group.begin(),group.end(),n);
+	else
+		n=Rf_asInteger(maxSEXP);
   IntegerVector::iterator kk=group.begin();
   pr<double,int> *f=new pr<double,int>[n];
   NumericVector::iterator xx=x.begin(),rr;
@@ -248,15 +257,12 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type group(groupSEXP);
-    traits::input_parameter< const int >::type max_n(max_nSEXP);
-    __result = wrap(group_mean(x,group,max_n));
+    __result = group_mean(x,group,max_nSEXP);
     return __result;
 END_RCPP
 }
 
-
 /////////////////////////////////////////////////////////////////////////////
-
 
 NumericVector group_max(NumericVector x,IntegerVector key,SEXP minn,SEXP maxx){
   int mn,mx;
@@ -301,13 +307,12 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericVector >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type group(groupSEXP);
-    __result = wrap(group_max(x,group,minn,maxx));
+    __result = group_max(x,group,minn,maxx);
     return __result;
 END_RCPP
 }
 
 ////////////////////////////////////////////////////////////////////////////
-
 
 static double mean_ad(NumericVector::iterator first,NumericVector::iterator last){
   const int n=first-last+1;
@@ -328,7 +333,6 @@ static double med_ad(NumericVector::iterator first,NumericVector::iterator last)
   return med_helper<NumericVector>(first,last)*center;
 }
 
-//[[Rcpp::export]]
 NumericVector group_mad(NumericVector x,IntegerVector group,const string method){
   const int n=x.size(),n_1=n+1;
   IntegerVector::iterator kk=group.begin();
@@ -371,8 +375,6 @@ NumericVector group_mad(NumericVector x,IntegerVector group,const string method)
   delete[] ind;
   return F;
 }
- 
-
 
 RcppExport SEXP Rfast_group_mad(SEXP xSEXP,SEXP groupSEXP,SEXP methodSEXP) {
 BEGIN_RCPP
@@ -381,15 +383,19 @@ BEGIN_RCPP
     traits::input_parameter< NumericVector >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type group(groupSEXP);
     traits::input_parameter< const string >::type method(methodSEXP);
-    __result = wrap(group_mad(x,group,method));
+    __result = group_mad(x,group,method);
     return __result;
 END_RCPP
 }
 
 ////////////////////////////////////////////////////////////////////////////
 
-
-LogicalVector group_any(LogicalVector x,IntegerVector group,const int n){
+LogicalVector group_any(LogicalVector x,IntegerVector group,SEXP maxSEXP){
+	int n;
+	if(Rf_isNull(maxSEXP))
+		maximum<int>(group.begin(),group.end(),n);
+	else
+		n=Rf_asInteger(maxSEXP);
   IntegerVector::iterator kk=group.begin();
   pr<int,int> *y=new pr<int,int>[n];
   int i,c=0,k;
@@ -414,21 +420,18 @@ LogicalVector group_any(LogicalVector x,IntegerVector group,const int n){
   return F;
 }
 
-
 RcppExport SEXP Rfast_group_any(SEXP xSEXP,SEXP groupSEXP,SEXP nSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< LogicalVector >::type x(xSEXP);
     traits::input_parameter< IntegerVector >::type group(groupSEXP);
-    traits::input_parameter< const int >::type n(nSEXP);
-    __result = wrap(group_any(x,group,n));
+    __result = group_any(x,group,nSEXP);
     return __result;
 END_RCPP
 }
 
 //////////////////////////////////////////////////////////////////////////
-
 
 struct var_h{
   double x2;
@@ -438,7 +441,12 @@ struct var_h{
   var_h() : x2(0), x(0), n(0), is_good(false) {}
 };
 
-NumericVector group_var(NumericVector x,IntegerVector group,const int n){
+NumericVector group_var(NumericVector x,IntegerVector group,SEXP maxSEXP){
+	int n;
+	if(Rf_isNull(maxSEXP))
+		maximum<int>(group.begin(),group.end(),n);
+	else
+		n=Rf_asInteger(maxSEXP);
   IntegerVector::iterator kk=group.begin();
   var_h *y=new var_h[n];
   int i,c=0,k;
@@ -473,17 +481,58 @@ NumericVector group_var(NumericVector x,IntegerVector group,const int n){
   return F;
 }
 
-
 RcppExport SEXP Rfast_group_var(SEXP xSEXP,SEXP groupSEXP,SEXP nSEXP) {
   BEGIN_RCPP
   RObject __result;
   RNGScope __rngScope;
   traits::input_parameter< NumericVector >::type x(xSEXP);
   traits::input_parameter< IntegerVector >::type group(groupSEXP);
-  traits::input_parameter< const int  >::type n(nSEXP);
-  __result = wrap(group_var(x,group,n));
+  __result = group_var(x,group,nSEXP);
   return __result;
   END_RCPP
 }
 
 ///////////////////////////////////////////////////////////////////////////
+RcppExport SEXP Rfast_group(SEXP xSEXP,SEXP groupSEXP,SEXP methodSEXP,SEXP minSEXP,SEXP maxSEXP,SEXP method_madSEXP) {
+  BEGIN_RCPP
+  RObject __result;
+  RNGScope __rngScope;
+  string method = as<string>(methodSEXP);
+  traits::input_parameter< IntegerVector >::type group(groupSEXP);
+
+  if(method=="all"){
+  	traits::input_parameter< LogicalVector >::type x(xSEXP);
+  	__result = group_all(x,group,maxSEXP);
+  }else if(method=="min.max"){
+  	traits::input_parameter< NumericVector >::type x(xSEXP);
+  	__result = group_min_max(x,group,maxSEXP);
+  }else if(method=="sum"){
+  	traits::input_parameter< NumericVector >::type x(xSEXP);
+  	__result = group_sum(x,group,minSEXP,maxSEXP);
+  }else if(method=="min"){
+  	traits::input_parameter< NumericVector >::type x(xSEXP);
+  	__result = group_min(x,group,maxSEXP);
+  }else if(method=="med"){
+  	traits::input_parameter< NumericVector >::type x(xSEXP);
+  	traits::input_parameter< const int >::type mmax(maxSEXP);
+  	__result = group_med(x,group,mmax);
+  }else if(method=="mean"){
+  	traits::input_parameter< NumericVector >::type x(xSEXP);
+  	__result = group_mean(x,group,maxSEXP);
+  }else if(method=="max"){
+  	traits::input_parameter< NumericVector >::type x(xSEXP);
+  	__result = group_max(x,group,minSEXP,maxSEXP);
+  }else if(method=="mad"){
+  	traits::input_parameter< NumericVector >::type x(xSEXP);
+  	traits::input_parameter< const string >::type method_mad(method_madSEXP);
+  	__result = group_mad(x,group,method_mad);
+  }else if(method=="any"){
+  	traits::input_parameter< LogicalVector >::type x(xSEXP);
+  	__result = group_any(x,group,maxSEXP);
+  }else if(method=="var"){
+  	traits::input_parameter< NumericVector >::type x(xSEXP);
+  	__result = group_var(x,group,maxSEXP);
+  }
+  return __result;
+  END_RCPP
+}

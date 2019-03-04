@@ -40,7 +40,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< NumericMatrix >::type y(ySEXP);
-    __result = wrap(dcor(x,y));
+    __result = dcor(x,y);
     return __result;
 END_RCPP
 }
@@ -73,7 +73,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< NumericMatrix >::type y(ySEXP);
-    __result = wrap(dcov(x,y));
+    __result = dcov(x,y);
     return __result;
 END_RCPP
 }
@@ -98,7 +98,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    __result = wrap(dvar(x));
+    __result = dvar(x);
     return __result;
 END_RCPP
 }
@@ -119,7 +119,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< NumericMatrix >::type y(ySEXP);
-    __result = wrap(edist(x,y));
+    __result = edist(x,y);
     return __result;
 END_RCPP
 }
@@ -173,7 +173,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< NumericMatrix >::type y(ySEXP);
-    __result = wrap(bcdcor(x,y));
+    __result = bcdcor(x,y);
     return __result;
 END_RCPP
 }
