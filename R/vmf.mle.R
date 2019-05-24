@@ -1,3 +1,4 @@
+#[export]
 vmf.mle <- function(x, tol = 1e-07) {
   dm <- dim(x)
   p <- dm[2]  ## dimensionality of the data

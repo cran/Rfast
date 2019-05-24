@@ -1,3 +1,4 @@
+#[export]
 col.yule <- function(x, y = NULL, ina) {
   if (is.null(y)) {
     difa <- 3 * x[ina == 1, ] - x[ina == 2, ]

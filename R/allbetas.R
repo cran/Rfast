@@ -1,9 +1,12 @@
+#[export]
 allbetas <- function(y, x, pvalue = FALSE, logged = FALSE) {
 
-  r <- as.vector( cov(y, x) )
-  n <- length(y)
+  n <- dim(x)[1]
+  denom <- n - 1
   my <- sum(y) / n
   m <- Rfast::colmeans(x)
+  r <- ( Rfast::eachcol.apply(x, y) - n * my * m )/denom
+
   sx <- Rfast::colVars(x, suma = n * m)
   be <- r / sx
   a <- my - be * m

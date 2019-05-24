@@ -9,7 +9,7 @@ Exponential empirical likelihood for a one sample mean vector hypothesis testing
 }
 
 \usage{
-mv.eeltest1(x, mu, tol = 1e-06, R = 1)
+mv.eeltest1(x, mu, tol = 1e-06)
 }
 
 \arguments{
@@ -21,9 +21,6 @@ The hypothesized mean vector.
 }
 \item{tol}{
 The tolerance value used to stop the Newton-Raphson algorithm.
-}
-\item{R}{
-The number of bootstrap samples used to calculate the p-value. If R = 1 (default value), no bootstrap calibration is performed
 }
 }
 

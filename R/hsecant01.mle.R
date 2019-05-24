@@ -1,3 +1,4 @@
+#[export]
 hsecant01.mle <- function(x, tol = 1e-09) {
   
   sy1 <- sum( log(x) )  ;   sy2 <-  sum( log( 1 - x) )

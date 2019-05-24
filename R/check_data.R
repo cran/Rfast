@@ -1,3 +1,4 @@
+#[export]
 check_data <- function (x, ina = NULL) {
     if (!is.matrix(x)) 
         x <- Rfast::data.frame.to_matrix(x)

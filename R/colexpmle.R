@@ -1,3 +1,4 @@
+#[export]
 colexpmle <- function (x) {
     n <- dim(x)[1]
     lambda <- Rfast::colmeans(x)

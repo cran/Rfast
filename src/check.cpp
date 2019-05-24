@@ -140,10 +140,6 @@ struct File : public ifstream {
     this->name=name;
     this->open(path+name);
   }
-  void fopen2(string full_path,string name){
-      this->name=name;
-      this->open(full_path);
-  }
   void fclose(){
     this->close();
     name="";
@@ -153,71 +149,64 @@ using std::remove;
 
 //[[Rcpp::export]]
 List check_usage(string path_man,string path_rf){
-  DEBUG("START");
-  File file_rd,file_r;
-  vector<string> all_rd_files=read_directory(path_man),dontread_rd,dontread_r;
-  vector<string> missing_functions,aliases,functions,missmatch_functions,name_of_functions_in_usage;
-  string r_file;
-  for(unsigned int i=0;i<all_rd_files.size();++i){
-    file_rd.fopen(path_man,all_rd_files[i]);
-    if(!file_rd.is_open()){
-      Rcout<<"Can't open file "<<all_rd_files[i]<<".\n";
-      continue;
-    }
-    if(!check_read_file(file_rd,'%')){
-        dontread_rd.push_back(file_rd.name);
-      DEBUG("Find attribute dont read file with name: "+file_rd.name);
-    }else{
-        aliases=read_aliases(file_rd);
-        functions=read_usage(file_rd);
+    DEBUG("START");
+    File file_rd,file_r;
+    vector<string> all_rd_files=read_directory(path_man),dontread_rd,dontread_r;
+    std::vector<string> exported_functions_names,not_exported_functions_names;
+    vector<string> missing_functions,aliases,functions_usage,missmatch_functions,name_of_functions_in_usage;
+    string r_file,function_signature;
     
-        string curr_func,func_from_r_file;
-        for(auto& al : aliases){
-          for(auto& tmp : functions){
-            if(tmp.compare(0,al.size(),al)==0 && tmp[al.size()]=='('){ // otan to onoma einai idio akrivos kai ameso meta ksekinaei "("
-              curr_func=tmp;
-              break;
-            }
-          }
-          if(curr_func.empty()){
-            missing_functions.push_back(al+" not in "+file_rd.name);
-          }else{
-            r_file=path_rf+al+".R";
-            if(access(r_file.c_str(),F_OK)!=-1){
-                file_r.fopen2(r_file,al); // open file aliase.R
-                if(!file_r.is_open()){
-                    Rcout<<"Can't open file "<<r_file<<".\n";
-                    continue;
-                }else{
-                    if(al == ""){//if(file_r.name.empty()){ //check if aliase is empty
-                    	Rcout<<"Error: can't find function name of file "<<r_file<<".\n";
-                        continue;
+    List functions = read_functions_and_signatures(path_rf),functions_signatures = functions["signatures"];
+    
+    for(unsigned int i=0;i<all_rd_files.size();++i){
+        file_rd.fopen(path_man,all_rd_files[i]);
+        if(!file_rd.is_open()){
+            Rcout<<"Can't open file "<<all_rd_files[i]<<".\n";
+            continue;
+        }
+        if(!check_read_file(file_rd,'%')){
+            dontread_rd.push_back(file_rd.name);
+            DEBUG("Find attribute dont read file with name: "+file_rd.name);
+        }else{
+            
+            aliases=read_aliases(file_rd);
+            functions_usage=read_usage(file_rd);
+            
+            string curr_func,func_from_r_file;
+            for(auto& al : aliases){
+                for(auto& tmp : functions_usage){
+                    if(tmp.compare(0,al.size(),al)==0 && tmp[al.size()]=='('){ // otan to onoma einai idio akrivos kai ameso meta ksekinaei "("
+                        curr_func=tmp;
+                        break;
                     }
                 }
-                if(check_read_file(file_r,'#')){
-                  func_from_r_file=read_function_from_r_file(file_r);
-                  DEBUG("current: "+curr_func+" , fromRfile: "+func_from_r_file);
-                  if(curr_func!=func_from_r_file){
-                      DEBUG(curr_func+" : "+func_from_r_file);
-                      missmatch_functions.push_back(file_r.name+" != "+file_rd.name);
-                  }
+                if(curr_func.empty()){
+                    missing_functions.push_back(al+" not in "+file_rd.name); // aliase not in usage
                 }else{
-                    dontread_r.push_back(file_r.name);
-                    DEBUG("Find attribute dont read in file: "+file_r.name);
+                    if(functions_signatures.containsElementNamed(al.c_str())){ //  an iparxei to aliase
+                        List functions_details = functions_signatures[al];
+                        r_file = as<string>(functions_details["filename"]); // to onoma toy arxeiou pou iparxei to aliase
+                        function_signature = as<string>(functions_details["signature"]); // ipografi tis sinartiseis
+                        
+                        DEBUG("current: "+curr_func+" , fromRfile: "+function_signature);
+                        if(curr_func!=function_signature){
+                            DEBUG(curr_func+" : "+function_signature);
+                            missmatch_functions.push_back(al+" != "+file_rd.name);
+                        }
+                    }else{
+                        missing_functions.push_back(al);
+                    }
                 }
-              file_r.close();
             }
-          }
         }
+        file_rd.fclose();
     }
-    file_rd.fclose();
-  }
-  List L;
-  L["missing functions"]=missing_functions;
-  L["missmatch_functions"]=missmatch_functions;
-  L["dont read"]=List::create(_["R"]=dontread_r,_["Rd"]=dontread_rd);
-  DEBUG("END");
-  return L;
+    List L;
+    L["missing functions"]=missing_functions;
+    L["missmatch_functions"]=missmatch_functions;
+    L["dont read"]=List::create(_["R"]=functions["dont read"],_["Rd"]=dontread_rd);
+    DEBUG("END");
+    return L;
 }
 
 RcppExport SEXP Rfast_check_usage(SEXP path_manSEXP,SEXP path_rfSEXP) {

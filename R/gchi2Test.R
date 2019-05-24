@@ -1,3 +1,4 @@
+#[export]
 gchi2Test <- function(x, y, logged = FALSE) {
   a <- Rfast::Table(x, y, names = FALSE)
   dof <- prod( dim(a) - 1 )

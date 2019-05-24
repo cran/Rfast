@@ -1,3 +1,4 @@
+#[export]
 colgammamle <- function (x, tol = 1e-07) {
     n <- dim(x)[1]
     m <- Rfast::colmeans(x)

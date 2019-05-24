@@ -1,3 +1,4 @@
+#[export]
 normlog.mle <- function(x) {
   n <- length(x)
   mx <- sum(x) /n

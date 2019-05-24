@@ -1,3 +1,4 @@
+#[export]
 lomax.mle <- function(x, tol = 1e-09) {
   n <- length(x)
   x2 <- x^2

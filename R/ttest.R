@@ -1,3 +1,4 @@
+#[export]
 ttest <- function(x, m, alternative = "unequal", logged = FALSE, conf = NULL) {
 
   n <- dim(x)[1] 

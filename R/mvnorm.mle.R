@@ -1,3 +1,4 @@
+#[export]
 mvnorm.mle <- function(x) {
    m <- Rfast::colmeans(x)
    dm <- dim(x)

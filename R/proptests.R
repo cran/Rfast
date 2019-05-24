@@ -1,3 +1,4 @@
+#[export]
 proptests <- function(x1, x2, n1, n2) {
    p1 <- x1 / n1
    p2 <- x2 / n2

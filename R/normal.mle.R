@@ -1,3 +1,4 @@
+#[export]
 normal.mle <- function(x) {
     n <- length(x)
     m <- sum(x)/n

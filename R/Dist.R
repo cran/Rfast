@@ -1,6 +1,6 @@
 
 
-
+#[export]
 Dist <- function(x,method = "euclidean", square = FALSE,p=0,vector = FALSE) {
   x <- t(x)
   if(method == "hellinger"){

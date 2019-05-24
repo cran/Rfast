@@ -1,3 +1,4 @@
+#[export]
 colpoisdisp.tests <- function(y, alternative = "either", logged = FALSE) {
   n <- dim(y)[1]
   m <- Rfast::colmeans(y)

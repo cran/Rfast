@@ -1,3 +1,4 @@
+#[export]
 qpois.reg <- function (x, y, full = FALSE, tol = 1e-09, maxiters = 100) {
     x <- model.matrix(y ~ ., data.frame(x))
     mod <- .Call(Rfast_qpois_reg, x, y, sum(y * log(y), na.rm = TRUE), 

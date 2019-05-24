@@ -1,3 +1,4 @@
+#[export]
 gaussiannb.pred <- function(xnew, m, s, ni) {
   con <- 2 * log( ni )
   dets <- Rfast::rowsums( log(s) )

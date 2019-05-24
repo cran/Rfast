@@ -1,3 +1,4 @@
+#[export]
 boot.ttest2 <- function(x, y, B = 999) {
    n1 <- length(x)
    n2 <- length(y)

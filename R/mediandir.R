@@ -9,6 +9,7 @@
 #### Cabrera, J., & Watson, G. S. (1990). On a spherical median related distribution.
 #### Communications in Statistics-Theory and Methods, 19(6): 1973-1986.
 ################################
+#[export]
 mediandir <- function(x) {
   ## x is the directional data
   dm <- dim(x)

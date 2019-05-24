@@ -1,3 +1,4 @@
+#[export]
 pareto.mle <- function(x) {
   n <- length(x)
   xm <- min(x) 

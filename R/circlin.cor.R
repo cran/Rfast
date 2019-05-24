@@ -1,3 +1,4 @@
+#[export]
 circlin.cor <- function(theta, x) {
   n <- length(theta)  ## sample size
   costheta <- cos(theta)

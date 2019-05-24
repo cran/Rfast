@@ -1,3 +1,4 @@
+#[export]
 anova1 <- function (x, ina, logged = FALSE) {
   ina <- as.numeric(ina)
   k <- max(ina)
@@ -5,7 +6,7 @@ anova1 <- function (x, ina, logged = FALSE) {
   ni <- ni[ni > 0]
   n <- length(x)
   sx2 <- sum(x^2)
-  m <- Rfast::group.sum(x, ina)
+  m <- Rfast::group(x, ina)
   a <- sum(m^2/ni)
   b <- sum(m)^2/n
   mst <- (a - b) / (k - 1)

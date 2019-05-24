@@ -1,3 +1,4 @@
+#[export]
 ordinal.mle <- function(y, link = "logit") {
   ina <- tabulate(y)
   k <- length(ina)

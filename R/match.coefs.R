@@ -1,3 +1,4 @@
+#[export]
 match.coefs <- function (x, y = NULL, ina, type = "jacc") {
   if (is.null(y)) {
     difa <- 3 * x[ina == 1, ] - x[ina == 2, ]

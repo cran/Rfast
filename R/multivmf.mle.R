@@ -1,3 +1,4 @@
+#[export]
 multivmf.mle <- function(x, ina, tol = 1e-07, ell = FALSE) {
     ni <- tabulate(ina)
     dm <- dim(x)

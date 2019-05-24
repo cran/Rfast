@@ -1,3 +1,4 @@
+#[export]
 all_equals<-function(x,y,round_digits = FALSE,without_attr=FALSE,fast_result=FALSE){
 	if(!fast_result){
 		dmx <- dim(x) ; dmy <- dim(y)

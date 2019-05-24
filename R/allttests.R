@@ -1,3 +1,4 @@
+#[export]
 allttests <- function (x, y = NULL, ina, logged = FALSE) {
     if (is.null(y)) {
         x1 <- x[ina == 1, ]

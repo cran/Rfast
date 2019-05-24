@@ -1,3 +1,4 @@
+
 ################################
 #### References: S Rao Jammalamadaka and A SenGupta (2001)
 #### Topics in circular statistics
@@ -5,6 +6,7 @@
 #### References: Mardia Kanti V. and Jupp Peter E. (2000)
 #### Directional statistics
 ################################
+#[export]
 vm.mle <- function(x, tol = 1e-09) {
  
   n <- length(x)  ## sample size

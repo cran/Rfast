@@ -1,3 +1,4 @@
+#[export]
 colrayleigh.mle <- function(x) {
     n <- dim(x)[1]
     sigma <- 0.5 * Rfast::colmeans(x^2)

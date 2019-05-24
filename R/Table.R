@@ -1,4 +1,9 @@
+#[export]
+Table.sign <- function(x,names = TRUE,useNA = FALSE) {
+  .Call(Rfast_table_sign,x,useNA,names)
+}
 
+#[export]
 Table <- function(x,y=NULL,names = TRUE,useNA = FALSE,rm.zeros = FALSE) {
 	if(names){
 		if(is.null(y)){

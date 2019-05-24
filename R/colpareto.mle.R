@@ -1,3 +1,4 @@
+#[export]
 colpareto.mle <- function(x) {
     n <- dim(x)[1]
     xm <- Rfast::colMins(x, value = TRUE)

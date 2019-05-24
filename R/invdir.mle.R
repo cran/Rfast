@@ -1,3 +1,4 @@
+#[export]
 invdir.mle <- function(x, tol = 1e-09) {
 
   n <- dim(x)[1]

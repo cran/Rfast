@@ -1,9 +1,10 @@
+#[export]
 varcomps.mom <- function(x, ina) {
   ni <- tabulate(ina)
   k <- length(ni)
   n <- length(x)
   sx2 <- sum(x^2)
-  m <- Rfast::group.sum(x, ina)
+  m <- Rfast::group(x, ina)
   a <- sum(m^2/ni)
   b <- sum(m)^2/n
   df1 <- k - 1

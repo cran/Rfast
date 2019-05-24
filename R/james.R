@@ -1,3 +1,4 @@
+#[export]
 james <- function(y1, y2, a = 0.05, R = 1) {
   p <- dim(y1)[2]  ## dimensionality of the data
   n1 <- dim(y1)[1]   ;   n2 <- dim(y2)[1]  ## sample sizes

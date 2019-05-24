@@ -1,3 +1,4 @@
+#[export]
 ompr <- function (y, x, ystand = TRUE, xstand = TRUE, method = "BIC", tol = 2) {
     dm <- dim(x)
     d <- dm[2]
@@ -6,9 +7,10 @@ ompr <- function (y, x, ystand = TRUE, xstand = TRUE, method = "BIC", tol = 2) {
     m <- sum(y)/n
 	if (ystand)   y <- (y - m)/Rfast::Var(y, std = TRUE)
     if (xstand)   x <- Rfast::standardise(x)
+	
     if (method == "sse") {
         rho <- Rfast::Var(y) * (n - 1)
-        r <- cov(y, x)
+        r <- Rfast::eachcol.apply(x, y)
         epe <- which( is.na(r) )
         ind[epe] <- 0
         sel <- which.max(abs(r))
@@ -37,7 +39,7 @@ ompr <- function (y, x, ystand = TRUE, xstand = TRUE, method = "BIC", tol = 2) {
     else if (method == "BIC") {
         con <- n * log(2 * pi) + n
         rho <- n * log(Var(y) * (n - 1)/n) + 2 * log(n)
-        r <- cov(y, x)
+        r <- Rfast::eachcol.apply(x, y)
         epe <- which( is.na(r) )
         ind[epe] <- 0
         sel <- which.max(abs(r))
@@ -65,7 +67,7 @@ ompr <- function (y, x, ystand = TRUE, xstand = TRUE, method = "BIC", tol = 2) {
     else if (method == "ar2") {
         down <- Var(y) * (n - 1)
         rho <- 0
-        r <- cov(y, x)
+        r <- Rfast::eachcol.apply(x, y)
         epe <- which( is.na(r) )
         ind[epe] <- 0
         sel <- which.max(abs(r))

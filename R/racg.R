@@ -3,6 +3,7 @@
 #### Tsagris Michail 03/2016
 #### mtsagris@yahoo.gr
 ################################
+#[export]
 racg <- function(n, sigma) {
   ## n is the sample size,
   ## mu is the mean vector and

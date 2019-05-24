@@ -1,3 +1,4 @@
+#[export]
 bc <- function(x, low = -1, up = 1) {
   lx <- log(x)
   slx <- sum( lx )

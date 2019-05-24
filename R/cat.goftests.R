@@ -1,3 +1,5 @@
+
+#[export]
 cat.goftests <- function(x, props, type = "gsquare", logged = FALSE) {
   obs <- Rfast::colTabulate(x)
   est <- props * dim(x)[1]

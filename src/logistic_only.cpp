@@ -164,7 +164,7 @@ RcppExport SEXP Rfast_logistic_only_b(SEXP xSEXP,SEXP ySEXP,SEXP tolSEXP) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-NumericVector poisson_only(NumericMatrix X, NumericVector Y,const double ylogy){
+NumericVector poisson_only(NumericMatrix X, NumericVector Y,const double ylogy,const double tol){
   const unsigned int n=X.nrow(),pcols=X.ncol(),d=2;
   unsigned int i;
   colvec b_old(d),b_new(d),L1(d),yhat(n),y(Y.begin(),n,false);
@@ -178,7 +178,7 @@ NumericVector poisson_only(NumericMatrix X, NumericVector Y,const double ylogy){
     z_col_1=x.col(i);
     z.col(1)=z_col_1;
     z_tr.row(1)=mat(z_col_1.begin(),1,n,false);
-    for(dif=1.0;dif>0.000000001;){
+    for(dif=1.0;dif>tol;){
       sm=szm=sz2m=0.0;
       yhat=z*b_old;
       m=exp(yhat);
@@ -200,14 +200,16 @@ NumericVector poisson_only(NumericMatrix X, NumericVector Y,const double ylogy){
 }
 
 // poisson
-RcppExport SEXP Rfast_poisson_only(SEXP xSEXP,SEXP ySEXP,SEXP ylogySEXP) {
+RcppExport SEXP Rfast_poisson_only(SEXP xSEXP,SEXP ySEXP,SEXP ylogySEXP,SEXP tolSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< NumericVector >::type y(ySEXP);
     traits::input_parameter< const double >::type ylogy(ylogySEXP);
-    __result = poisson_only(x,y,ylogy);
+    traits::input_parameter< const double >::type tol(tolSEXP);
+    __result = poisson_only(x,y,ylogy,tol);
+
     return __result;
 END_RCPP
 }
@@ -288,7 +290,7 @@ NumericMatrix quasi_poisson_only(NumericMatrix X, NumericVector Y, const double 
     z.col(1)=z_col_1;
     z_tr.row(1)=mat(z_col_1.begin(),1,n,false);
     ij=2;
-    for(dif=1.0;dif>0.000000001;){
+    for(dif=1.0;dif>tol;){
       sm=szm=sz2m=0.0;
       yhat=z*b_old;
       m=(exp(yhat));

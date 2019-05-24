@@ -1,3 +1,4 @@
+#[export]
 expmle <- function (x) {
     n <- length(x)
     lambda <- sum(x)/n

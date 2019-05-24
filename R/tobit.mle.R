@@ -1,3 +1,4 @@
+#[export]
 tobit.mle <- function(y, tol = 1e-09) {
   y1 <- y[y >0]  ;  n1 <- length(y1)
   n <- length(y)

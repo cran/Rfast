@@ -1,3 +1,4 @@
+#[export]
 collindley.mle <- function(x) {
     n <- dim(x)[1]
     sx <- Rfast::colsums(x)

@@ -1,3 +1,4 @@
+#[export]
 ftests <- function(x, ina, logged = FALSE) {
   ni <- tabulate(ina)  ## sample sizes
   ni <- ni[ni > 0]

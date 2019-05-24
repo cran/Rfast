@@ -1,3 +1,4 @@
+#[export]
 anovas <- function (x, ina, logged = FALSE) {
     ina <- as.numeric(ina)
     k <- max(ina)

@@ -1,3 +1,5 @@
+
+#[export]
 pooled.cov <- function(x, ina) {
   s <- crossprod(x)
   ni <- sqrt( tabulate(ina) )

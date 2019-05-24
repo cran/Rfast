@@ -1,3 +1,4 @@
+#[export]
 lmfit <- function(x, y, w = NULL) {
   if ( is.null(w) ) {
     be <- solve( crossprod(x), crossprod(x, y) )

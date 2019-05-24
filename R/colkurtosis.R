@@ -1,3 +1,4 @@
+#[export]
 colkurtosis <- function(x, pvalue = FALSE) {
   m <- Rfast::colmeans(x)
   y <- Rfast::eachrow(x, m, oper = "-" )^2

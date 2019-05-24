@@ -1,3 +1,4 @@
+#[export]
 poisson.cat1 <- function(y, x, logged = FALSE) {
   ni <- tabulate(x)
   si <- rowsum(y, x)

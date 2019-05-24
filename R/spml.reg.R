@@ -1,3 +1,4 @@
+#[export]
 spml.reg <- function(y, x, tol = 1e-07, seb = FALSE, maxiters = 100) {
   x <- model.matrix(~., data.frame(x) )
   y <- as.matrix(y)

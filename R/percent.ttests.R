@@ -1,3 +1,4 @@
+#[export]
 percent.ttests <- function(x, y, logged = FALSE) {
   n1 <- dim(x)[1]
   n2 <- dim(y)[1]

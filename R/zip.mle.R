@@ -1,3 +1,4 @@
+#[export]
 zip.mle <- function(x, tol = 1e-09) {
   no <- sum(x == 0)
   n <- length(x)  

@@ -1,9 +1,10 @@
+#[export]
 geom.anova <- function (y, ina, type = 1, logged = FALSE) {
   ni <- tabulate(ina)
   ni <- ni[ni > 0]
   k <- length(ni)
   if (type == 1) {   
-     si <- rowsum(y, ina)
+     si <- Rfast::group(y, ina)
      pi <-  1/(1 + si/ni )
      ell1 <- sum( ni * log(pi) + si * log(1 - pi) )
      prob <- 1/(1 + sum(si)/sum(ni))
@@ -11,7 +12,7 @@ geom.anova <- function (y, ina, type = 1, logged = FALSE) {
      stat <- 2 * ell1 - ell0
      pvalue <- pchisq(stat, k - 1, lower.tail = FALSE, log.p = logged)     
   }  else {
-     si <- rowsum(y, ina)
+     si <- Rfast::group(y, ina)
      pi <- ni/si
      ell1 <- sum( ni * log(pi) + (ni/pi - ni) * log(1 - pi) )
      n <- sum(ni)

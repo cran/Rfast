@@ -7,6 +7,7 @@
 #### http://arxiv.org/pdf/1307.5706v2.pdf
 #### mtsagris@yahoo.gr
 ################################
+#[export]
 sscov <- function(x, me = NULL, tol = 1e-09) {
   n <- dim(x)[1]  ## sample size
   if ( is.null(me) )  me <- Rfast::spat.med(x, tol)  ## spatial median of x

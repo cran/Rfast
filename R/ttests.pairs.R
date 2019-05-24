@@ -1,3 +1,4 @@
+#[export]
 ttests.pairs <- function(x, logged = FALSE) {
   
   n <- dim(x)[1]

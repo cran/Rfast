@@ -1,3 +1,4 @@
+#[export]
 score.expregs <- function(y, x, logged = FALSE) {
   lam <- mean(y)
   u <- Rfast::colsums(x * y) * lam - Rfast::colsums(x) 

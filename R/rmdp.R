@@ -1,3 +1,4 @@
+#[export]
 rmdp <- function(y, alpha = 0.05, itertime = 100) {
   ## y is the data
   ## alpha is the significance level

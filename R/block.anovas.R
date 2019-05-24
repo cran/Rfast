@@ -1,3 +1,4 @@
+#[export]
 block.anovas <- function(x, treat, block, logged = FALSE) {
   a <- Rfast::sort_unique.length(treat)
   b <- Rfast::sort_unique.length(block)

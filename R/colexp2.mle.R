@@ -1,3 +1,4 @@
+#[export]
 colexp2.mle <- function(x) {
   a <- Rfast::colMins(x)
   n <- dim(x)[1]

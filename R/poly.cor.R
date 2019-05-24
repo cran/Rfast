@@ -1,3 +1,4 @@
+#[export]
 poly.cor <- function(x, y) {
   ###########
   funa <- function(rho, a1, a2, z) {

@@ -1,3 +1,4 @@
+#[export]
 betabinom.mle <- function(x, N, tol = 1e-07) {
   x1 <- x    ;    x2 <- N - x
   z1 <- Rfast::sort_unique(x1)

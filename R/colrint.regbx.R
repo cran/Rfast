@@ -1,3 +1,4 @@
+#[export]
 colrint.regbx <- function(y, x, id) {
   mod <- Rfast::lmfit(cbind(1, x), y) 
   be <- mod$be

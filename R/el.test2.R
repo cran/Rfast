@@ -1,3 +1,4 @@
+#[export]
 el.test2 <- function(x, y, tol = 1e-07, logged = FALSE) {
   n1 <- length(x)
   n2 <- length(y)

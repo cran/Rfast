@@ -68,6 +68,8 @@ List read_examples(string path_man){
     }else{
       DEBUG("Find attribute dont read file with name: "+all_rd_files[i]);
       dontread_rd.push_back(all_rd_files[i]);
+      all_rd_files.erase(all_rd_files.begin()+i);
+      --i;
     }
     file.close();
   }

@@ -1,3 +1,4 @@
+#[export]
 anova_qpois.reg <- function(mod, poia = NULL) {
    b <- mod$info[, 1]
    vb <- mod$varb

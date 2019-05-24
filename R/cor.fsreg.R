@@ -1,3 +1,4 @@
+#[export]
 cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb = 2, tolr = 0.02, stopping = "BIC") {
   threshold <- log(threshold)
   dm <- dim(x)
@@ -5,12 +6,12 @@ cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb
   p <- dm[2]
   con <- n * log(2 * pi) + n  
   logn <- log(n)
-  if (xstand)   x <- Rfast::standardise(x, center = TRUE, scale = FALSE)
-  if (ystand)   y <- y - mean(y)
+  if (xstand)   x <- Rfast::standardise(x, center = TRUE, scale = TRUE)
+  if (ystand)   y <- ( y - mean(y) ) / Rfast::Var(y, std = TRUE)
   options(warn = -1)
-  yx <- cor(y, x) 
+  yx <- Rfast::eachcol.apply(x, y) / (n - 1)
   sel <- which.max( abs(yx) )
-  r <- yx[sel]
+  r <- yx[sel] 
   stat <- abs( 0.5 * log( (1 + r) / (1 - r) ) * sqrt(n - 3) )  ## 
   pv <- log(2) + pt(stat, n - 3, lower.tail = FALSE, log.p = TRUE)  ## logged p-values  
   model <- NULL
@@ -123,7 +124,7 @@ cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb
         e2 <- .lm.fit(z, x)$residuals
         ## yx.z <- colsums(e1 * e2) / sqrt( colsums(e2^2) * sum(e1^2) ) 
 		options(warn = -1)
-        yx.z <- cor(e2, e1) 
+        yx.z <- cor(e1, e2) 
         sel <- which.max( abs(yx.z) )  
         r <- yx.z[sel]
         stat <- abs( 0.5 * log( (1 + r) / (1 - r) ) * sqrt(m) )  ## 
@@ -192,7 +193,7 @@ cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb
         e2 <- .lm.fit(z, x)$residuals
         ## yx.z <- Rfast::colsums(e1 * e2) / sqrt( Rfast::colsums(e2^2) * sum(e1^2) ) 
 		options(warn = -1)
-        yx.z <- cor(e2, e1) 
+        yx.z <- cor(e1, e2) 
         sel <- which.max( abs(yx.z) )  
         r <- yx.z[sel]
         stat <- abs( 0.5 * log( (1 + r) / (1 - r) ) * sqrt(m) )  ## 

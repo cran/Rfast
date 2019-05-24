@@ -1,3 +1,4 @@
+#[export]
 maxboltz.mle <- function(x) {
   n <- length(x)
   a <- sqrt( sum(x^2) / 3 / n )

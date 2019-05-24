@@ -1,3 +1,4 @@
+#[export]
 tmle <- function(x, v = 5, tol = 1e-08) {
   
   n <- length(x)   ;    m <- sum(x) / n

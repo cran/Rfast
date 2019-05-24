@@ -1,6 +1,61 @@
 <h1 align="center"> _Rfast_ </h1>
 
 > <b>New version</b> </br>
+Date release: **05/22/2019** 
+>
+
+***
+
+> <h3>**_Statistical functions_**</h3>
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  |	    Function	    |           What's new!             |
+>>  | allbetas              | Time improvement |
+>>  | cor.fbed              | Time improvement |
+>>  | cor.fsreg             | Time improvement |
+>>  | omp                   | Time improvement |
+>>  | ompr                  | Time improvement |
+>>  | score.betaregs        | Time improvement |
+>>  | score.gammaregs       | Time improvement |
+>>  | score.glms            | Time improvement |
+>>  | score.invgaussregs    | Time improvement |
+>>  | score.negbinregs      | Time improvement |
+>>  | score.ztpregs         | Time improvement |
+
+>>  | group.any         | Deprecated and replaced by group |
+>>  | group.all         | Deprecated and replaced by group |
+>>  | group.min         | Deprecated and replaced by group |
+>>  | group.max         | Deprecated and replaced by group |
+>>  | group.min_max     | Deprecated and replaced by group |
+>>  | group.mean        | Deprecated and replaced by group |
+>>  | group.med         | Deprecated and replaced by group |
+>>  | group.mad         | Deprecated and replaced by group |
+>>  | group.var         | Deprecated and replaced by group |
+>>  | group.sum         | Deprecated and replaced by group |
+>>  | groupcolVars      | Deprecated and replaced by "Rfast2::colGroup(...,method="var")" |
+>>  | sort_mat          | Deprecated and replaced by "colSort" and "rowSort" |
+***
+>
+>>2. <u> **New** </u>
+>>
+>>  | 	     Function	      |          What's new!            |
+>>  | --------------------- | ------------------------------------------- |
+>>  |                       |  											  |
+>
+***
+> <h3>**_Utility functions_**</h3>  
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  | 	    Function	    |            What's new!                  |
+>>  | --------------------- | ------------------------------------------- |
+>>  | AddToNamespace        | remove unused option       |
+>>  | check_usage           | improved version           |
+>>  | nth                   | fix bug				     |
+>
+
+> <h4>version</h4> 1.9.3</br>
 Date release: **04/03/2019** 
 >
 
@@ -32,7 +87,7 @@ Date release: **04/03/2019**
 >>
 >>  | 	    Function	    |            What's new!                  |
 >>  | --------------------- | ------------------------------------------- |
->>  | sort_mat              |  Replaced by "colSort" and "rowSort" and will be remoevd in the next udate. |
+>>  | sort_mat              |  Replaced by "colSort" and "rowSort" and will be removed in the next udate. |
 >>  | checkUsage            |  Remove uneccessary option. |
 >>  | read.examples         |  Remove uneccessary option. |
 >>  | checkTF               |  Remove uneccessary option. |

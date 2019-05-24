@@ -36,11 +36,6 @@ only for vectors.
 A matrix with one column, the sum of x for each distinct value of ina.
 }
 
-%\references{
-%Tsamardinos I., Aliferis C. F. and Statnikov, A. (2003). Time and sample efficient discovery of Markov blankets and direct causal relations. 
-%In Proceedings of the 9th ACM SIGKDD international conference on Knowledge discovery and data mining (pp. 673-678). 
-%}
-
 \author{
 We found the C++ code (written by Francois Romain) in
 http://stackoverflow.com/questions/16975034/rcpp-equivalent-for-rowsum
@@ -55,10 +50,12 @@ R Documentation: Michail Tsagris <mtsagris@yahoo.gr>.
 }
 
 \examples{
+\dontrun{
 x <- rnorm(1000)
 ina <- sample(1:5, 1000, replace = TRUE)
 a1 <- group.sum(x, ina)
 a2 <- rowsum(x, ina)
+}
 }
 
 \keyword{ Grouped sums }

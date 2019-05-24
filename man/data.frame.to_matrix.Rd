@@ -1,4 +1,4 @@
-\name{ data.frame.to_matrix }
+\name{Convert a dataframe to matrix}
 \alias{data.frame.to_matrix}
 \title{
 Convert a dataframe to matrix

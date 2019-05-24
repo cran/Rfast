@@ -1,3 +1,4 @@
+#[export]
 loglogistic.mle <- function(x, tol = 1e-09) {
   y <- log(x)
   n <- length(x)

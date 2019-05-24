@@ -1,4 +1,4 @@
-
+#[export]
 floyd<-function(x){
   i4_huge<-2147483647
   y<-as.vector(x)

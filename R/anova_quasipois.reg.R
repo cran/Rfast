@@ -1,3 +1,4 @@
+#[export]
 anova_quasipois.reg <- function(mod0, mod1, n) {
    phi <- mod1$phi   
    df1 <- length(mod1$be) - length(mod0$be) 

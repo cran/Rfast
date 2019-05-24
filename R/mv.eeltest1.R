@@ -1,4 +1,5 @@
-mv.eeltest1 <- function(x, mu, tol = 1e-06, R = 1) {
+#[export]
+mv.eeltest1 <- function(x, mu, tol = 1e-06) {
   ## x is the multivariate data
   ## xa can also be univariate data
   ## mu is the hypothesized mean

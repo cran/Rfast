@@ -1,3 +1,4 @@
+#[export]
 halfnorm.mle <- function(x) {
   n <- length(x)
   s <- sqrt( sum(x^2) / n )

@@ -1,3 +1,4 @@
+#[export]
 rm.lines <- function(y, x, logged = FALSE) {
   z <- x - mean( x )
   xi <- z / sum( z^2 )

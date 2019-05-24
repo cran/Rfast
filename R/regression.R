@@ -1,3 +1,4 @@
+#[export]
 regression <- function (x, y, logged = FALSE) {
     if (is.matrix(x)) {
         n <- length(y)

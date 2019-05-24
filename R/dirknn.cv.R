@@ -1,3 +1,4 @@
+#[export]
 dirknn.cv <- function(y, x, k = 5:10, type = "C", folds = NULL, nfolds = 10, 
 stratified = TRUE, seed = FALSE, parallel = FALSE, pred.ret = FALSE) {
   

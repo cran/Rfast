@@ -1,3 +1,4 @@
+#[export]
 Rnorm <- function(n, m = 0, s = 1) {
   if (m == 0 & s == 1) {
     x <- RcppZiggurat::zrnorm(n)

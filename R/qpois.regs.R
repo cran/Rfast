@@ -1,3 +1,4 @@
+#[export]
 qpois.regs <- function (x, y, tol = 1e-09, logged = FALSE) {
   ylogy <- sum(y * log(y), na.rm = T)
   stat <- .Call(Rfast_qpois_regs,x, y, tol, ylogy, mean(y))

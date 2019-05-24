@@ -1,3 +1,4 @@
+#[export]
 colpois.tests <- function(y, logged = FALSE) {
   m <- Rfast::colmeans(y)
   n <- dim(y)[1]

@@ -1,3 +1,5 @@
+
+#[export]
 colnormlog.mle <- function(x) {
     dm <- dim(x)
     n <- dm[1]

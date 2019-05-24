@@ -1,3 +1,5 @@
+
+#[export]
 colquasipoisson.anovas <- function (y, x, logged = FALSE) {
   dm <- dim(x)
   n <- dm[1]
@@ -13,11 +15,11 @@ colquasipoisson.anovas <- function (y, x, logged = FALSE) {
     ina <- x[, i]
     ni <- tabulate(ina)
     k <- length(ni)
-    si <- Rfast::group.sum(y, ina)
+    si <- Rfast::group(y, ina)
     mi <- si/ni
     d1 <- sum(si * log(mi))
     up <- 2 * d1 - d0
-    yi2 <- Rfast::group.sum(yi2, ina)/mi
+    yi2 <- Rfast::group(yi2, ina)/mi
     phi[i] <- (sum(yi2) - sy) / (n - k)    
     stat[i] <- up / phi[i]
     pvalue[i] <- pf(stat[i], k - 1, n - k, lower.tail = FALSE, log.p = logged)

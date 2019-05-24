@@ -1,3 +1,4 @@
+#[export]
 ibeta.mle <- function(x, tol = 1e-09) {
  
   if ( all(x > 0  &  x < 1) ) {   

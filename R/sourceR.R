@@ -1,4 +1,4 @@
-
+#[export]
 sourceR <- function(path,local=FALSE,encode = "UTF-8",print.errors=FALSE) {
   file_names <- .Call('Rfast_read_directory', PACKAGE = 'Rfast',path)
   error_files<-vector("character")

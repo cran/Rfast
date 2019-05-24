@@ -1,3 +1,4 @@
+#[export]
 univglms <- function (y, x, oiko = NULL, logged = FALSE) {
     dm <- dim(x)
     n <- dm[1]

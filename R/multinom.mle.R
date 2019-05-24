@@ -1,3 +1,4 @@
+#[export]
 multinom.mle <- function(x) {
   N <- sum( x[1, ] )
   p <- Rfast::colmeans(x) / N

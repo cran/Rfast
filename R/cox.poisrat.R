@@ -1,3 +1,4 @@
+#[export]
 cox.poisrat <- function(x, y, alpha = 0.05) {
   s1 <- sum(x)
   s2 <- sum(y)

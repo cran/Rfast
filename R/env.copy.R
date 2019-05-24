@@ -1,5 +1,5 @@
 
-
+#[export]
 env.copy<-function(x,all.names=FALSE){
     y<-new.env()
     all.vars<-ls(x,all.names = all.names)

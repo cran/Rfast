@@ -1,3 +1,4 @@
+#[export]
 logitnorm.mle <- function(x) {
   n <- length(x)
   lx1 <- log(x)

@@ -1,3 +1,4 @@
+#[export]
 sftest <- function (x, logged = FALSE) {
     x <- Rfast::Sort(x)
     n <- length(x)

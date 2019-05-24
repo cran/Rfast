@@ -1,3 +1,4 @@
+#[export]
 el.test1 <- function (x, mu, tol = 1e-07, logged = FALSE) {
     y <- x - mu
     g <- function(lambda, y) sum(log1p(lambda * y))

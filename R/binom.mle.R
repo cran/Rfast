@@ -1,3 +1,4 @@
+#[export]
 binom.mle <- function(x, N = NULL, tol = 1e-07) {
   
   if ( !is.null(N) ) {

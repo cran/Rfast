@@ -1,3 +1,4 @@
+#[export]
 mvt.mle <- function(x, v = 5, tol = 1e-07){
   ## x contains the data
   ## v is the degrees of freedom, set to 5 by default

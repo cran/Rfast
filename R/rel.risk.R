@@ -1,3 +1,4 @@
+#[export]
 rel.risk <- function (x, a = 0.05, logged = FALSE) {
     d1 <- 1/(x[1] + x[3] )
     d2 <- 1/(x[2] + x[4] )

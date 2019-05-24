@@ -1,5 +1,4 @@
-
-
+#[export]
 varcomps.mle <- function(x,ina,tol=1e-09) {
 	mat<-.Call(Rfast_varcomps_mle,x,ina,Rfast::sort_unique.length(ina),tol)
 	syina<-mat$syina

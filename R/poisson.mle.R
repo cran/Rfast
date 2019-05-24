@@ -1,3 +1,4 @@
+#[export]
 poisson.mle <- function(x) {
    n <- length(x)
    sx <- sum(x)

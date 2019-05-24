@@ -1,3 +1,4 @@
+#[export]
 vartests <- function(x, ina, type = "levene", logged = FALSE) {
   ## type can be either "levene" or "bf" (Brown-Forsythe)
   ina <- as.numeric(ina)  

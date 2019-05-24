@@ -1,5 +1,5 @@
 
-
+#[export]
 ufactor<-function(x){
     y<-new.env()
     un<- if(is.character(x)) Rfast::Sort(unique(x)) else Rfast::sort_unique(x)

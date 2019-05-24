@@ -1,3 +1,4 @@
+#[export]
 kruskaltests <- function(x, ina, logged = FALSE) { 
   n <- length(ina)
   R <- Rfast::colRanks(x)

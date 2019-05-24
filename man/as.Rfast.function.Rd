@@ -22,7 +22,7 @@ A logical function for return the column-row wise function.
 }
 
 \details{
-Given the name of R function returns the coresponding from Rfast.
+Given the name of R function, it returns the coresponding function's name from Rfast.
 }
 
 \value{

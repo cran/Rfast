@@ -1,3 +1,4 @@
+#[export]
 glm_logistic <- function (x, y, full = FALSE, tol = 1e-09,maxiters = 100) {
     x <- model.matrix(y ~ ., data.frame(x))
     mod <- .Call(Rfast_glm_logistic, x, y,tol,maxiters)

@@ -1,3 +1,4 @@
+#[export]
 cova <- function(x, center = FALSE) {
   n <- dim(x)[1]
   if ( !center ) {

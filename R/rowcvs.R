@@ -1,3 +1,4 @@
+#[export]
 rowcvs <- function(x, ln = FALSE, unbiased = FALSE) {
   if (ln) {
     s <- Rfast::rowVars( Rfast::Log(x) )

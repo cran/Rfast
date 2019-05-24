@@ -1,3 +1,4 @@
+#[export]
 gaussian.nb <- function(xnew = NULL, x, ina) {
   est <- NULL
   ni <- tabulate(ina)

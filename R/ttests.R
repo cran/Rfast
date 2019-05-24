@@ -1,3 +1,4 @@
+#[export]
 ttests <- function(x, y = NULL, ina, paired = FALSE, logged = FALSE, parallel = FALSE) {
 
   if ( !paired ) {

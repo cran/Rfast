@@ -1,3 +1,4 @@
+#[export]
 odds <- function(x, y = NULL, ina, logged = FALSE) {
   
   if ( is.null(y) ) {

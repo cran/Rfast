@@ -1,4 +1,4 @@
-
+#[export]
 sourceRd <- function(path,print.errors=FALSE) {
   file_names <- Rfast::read.directory(path)
   error_files<-vector("character")

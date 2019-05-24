@@ -12,9 +12,9 @@ using std::binary_search;
 
 
 //[[Rcpp::export]]
-vector<string> add_to_namespace(const string dir_to_export,const string dir_to_file,const bool sorting,vector<string> no_read){
+vector<string> add_to_namespace(const string dir_to_export,const string dir_to_file,const bool sorting){
   int which_string_has_export=0,len_which_not_exp=1;
-  vector<string> newfiles=readDirectory(dir_to_file,2),already_exported_files,which_not_exported;
+  vector<string> newfiles=read_functions_and_signatures(dir_to_file)["export"],already_exported_files,which_not_exported;
   if(newfiles.empty()){
   	stop("Warning: empty folder.\n");
   }
@@ -29,7 +29,6 @@ vector<string> add_to_namespace(const string dir_to_export,const string dir_to_f
     if(sorting){
       exported_files.clear();
     }
-  	dont_read_man(newfiles,no_read);
     for(unsigned int i=0;i<newfiles.size();++i){
         exported_files+=newfiles[i]+',';
     }
@@ -37,7 +36,6 @@ vector<string> add_to_namespace(const string dir_to_export,const string dir_to_f
     exported_files[exported_files.size()-1]=')';
   }else{
     already_exported_files=split_words(exported_files);
-    dont_read_man(already_exported_files,no_read);
     sort(already_exported_files.begin(),already_exported_files.end());
     for(unsigned int i=0;i<newfiles.size();++i){
       if(binary_search(already_exported_files.begin(),already_exported_files.end(),newfiles[i])==false){
@@ -61,8 +59,7 @@ BEGIN_RCPP
     traits::input_parameter< const string >::type dir_to_export(dir_to_exportSEXP);
     traits::input_parameter< const string >::type dir_to_file(dir_to_fileSEXP);
     traits::input_parameter< const bool >::type sorting(sortingSEXP);
-    traits::input_parameter< vector<string>  >::type no_read(no_readSEXP);
-    __result = add_to_namespace(dir_to_export,dir_to_file,sorting,no_read);
+    __result = add_to_namespace(dir_to_export,dir_to_file,sorting);
     return __result;
 END_RCPP
 }

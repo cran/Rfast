@@ -1,4 +1,5 @@
 ######### Simulation using any symmetric A matrix
+#[export]
 rbingham <- function(n, A) {
   p <- dim(A)[2]  ## dimensionality of A
   eig <- eigen(A)

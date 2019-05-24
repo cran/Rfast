@@ -3,7 +3,7 @@
 
 
 
-SEXP Rfast_add_to_namespace(SEXP dir_to_exportSEXP,SEXP dir_to_fileSEXP,SEXP sortingSEXP, SEXP no_readSEXP);
+SEXP Rfast_add_to_namespace(SEXP dir_to_exportSEXP,SEXP dir_to_fileSEXP,SEXP sortingSEXP);
 SEXP Rfast_as_integer(SEXP x,SEXP sortedSEXP,SEXP initSEXP);
 SEXP Rfast_apply_condition(SEXP x,SEXP methodSEXP,SEXP operSEXP,SEXP valSEXP);
 SEXP Rfast_bcdcor(SEXP xSEXP,SEXP ySEXP);
@@ -158,7 +158,7 @@ SEXP Rfast_row_any(SEXP xSEXP);
 SEXP Rfast_row_means(SEXP xSEXP);
 SEXP Rfast_row_max(SEXP xSEXP);
 SEXP Rfast_row_meds(SEXP xSEXP);
-SEXP Rfast_row_min(SEXP xSEXP,SEXP valueSEXP);
+SEXP Rfast_row_min(SEXP xSEXP);
 SEXP Rfast_row_len_sort_un_int(SEXP xSEXP);
 SEXP Rfast_row_ranks(SEXP xSEXP,SEXP methodSEXP,SEXP descendSEXP,SEXP stableSEXP);
 SEXP Rfast_row_sums(SEXP xSEXP,SEXP SEXPindices);
@@ -230,7 +230,7 @@ SEXP Rfast_normlog_regs(SEXP YSEXP,SEXP XSEXP,SEXP BESEXP,SEXP conSEXP,SEXP tolS
 SEXP Rfast_normlog_reg(SEXP YSEXP,SEXP XSEXP,SEXP tolSEXP,SEXP maxitersSEXP);
 SEXP Rfast_rint_reg(SEXP YSEXP,SEXP XSEXP,SEXP BESEXP,SEXP tolSEXP,SEXP ranefSEXP,SEXP loggedSEXP);
 SEXP Rfast_rint_regs(SEXP XSEXP,SEXP YSEXP,SEXP idSEXP,SEXP tolSEXP,SEXP loggedSEXP,SEXP parallelSEXP,SEXP maxitersSEXP);
-SEXP Rfast_rint_mle(SEXP XSEXP,SEXP idSEXP,SEXP ranefSEXP,SEXP tolSEX,SEXP maxitersSEXP,SEXP parallelSEXP);
+SEXP Rfast_rint_mle(SEXP XSEXP,SEXP idSEXP,SEXP ranefSEXP,SEXP tolSEX,SEXP maxitersSEXP);
 SEXP Rfast_weibull_mle(SEXP XSEXP,SEXP tolSEX,SEXP maxitersSEXP);
 SEXP Rfast_weib_reg(SEXP YSEXP,SEXP XSEXP,SEXP tolSEXP,SEXP maxitersSEXP);
 SEXP Rfast_spml_mle(SEXP XSEXP,SEXP tolSEXP,SEXP maxitersSEXP);
@@ -264,7 +264,7 @@ SEXP Rfast_sort_mat_p(SEXP xSEXP,SEXP descendSEXP,SEXP by_rowSEXP);
 SEXP Rfast_transpose_g_p(SEXP xSEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-  {"Rfast_add_to_namespace", (DL_FUNC) &Rfast_add_to_namespace, 4},
+  {"Rfast_add_to_namespace", (DL_FUNC) &Rfast_add_to_namespace, 3},
   {"Rfast_apply_condition", (DL_FUNC) &Rfast_apply_condition, 4},
   {"Rfast_as_integer", (DL_FUNC) &Rfast_as_integer, 3},
   {"Rfast_bcdcor", (DL_FUNC) &Rfast_bcdcor, 2},

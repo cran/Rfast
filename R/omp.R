@@ -1,3 +1,4 @@
+#[export]
 omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), type = "logistic") {
     tic <- proc.time()
     dm <- dim(x)
@@ -9,7 +10,7 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
     if (type == "logistic") {
         p <- sum(y)/n
         rho <- -2 * (n * p * log(p) + (n - n * p) * log(1 - p))
-        ela <- as.vector( cov(y, x) )
+        ela <- Rfast::eachcol.apply(x, y)
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
@@ -39,7 +40,7 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         m <- sum(y)/n
         rho <- 2 * sum(y * log(y), na.rm = TRUE) - 2 * n * m * 
             log(m)
-        ela <- as.vector( cov(y, x) )
+        ela <- Rfast::eachcol.apply(x, y)
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
@@ -69,7 +70,7 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         rho <- 2 * sum(y * log(y), na.rm = TRUE) - 2 * n * m * 
             log(m)
         phi <- 1
-        ela <- as.vector( cov(y, x) )
+        ela <- Rfast::eachcol.apply(x, y)
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
@@ -102,7 +103,7 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         rho <- 2 * sum(y * log(y/p), na.rm = TRUE) + 2 * sum(y0 * 
             log(y0/(1 - p)), na.rm = TRUE)
         phi[1] <- 1
-        ela <- as.vector( cov(y, x) )
+        ela <- Rfast::eachcol.apply(x, y)
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
@@ -139,7 +140,7 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         ini <- Rfast::normlog.mle(y)
         rho <- sum( (y - ini$param[1])^2 )
         phi[1] <- 1
-        ela <- as.vector( cov(y, x) )
+        ela <- Rfast::eachcol.apply(x, y)
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
@@ -170,7 +171,7 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         ini <- Rfast::gammacon(y)
         rho <- ini$deviance
         phi[1] <- 1
-        ela <- as.vector( cov(y, x) )
+        ela <- Rfast::eachcol.apply(x, y)
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
@@ -199,9 +200,8 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
     }
     else if (type == "weibull") {
         ini <- Rfast::weibull.mle(y)
-        m <- ini$param[2]
         rho <- 2 * ini$loglik
-        ela <- as.vector(cov(y - m, x))
+        ela <- Rfast::eachcol.apply(x, y)
         sel <- which.max(abs(ela))
         sela <- sel
         names(sela) <- NULL

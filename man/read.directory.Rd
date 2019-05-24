@@ -30,7 +30,7 @@ For function \"read.directory\":
 Takes as an argument a full path to a directory and returns the names of the files.
 
 For function \"read.examples\":
-Takes as an argument a full path to the directory of the Rd files and the name of the files that shouldn't read.
+Takes as an argument a full path to the directory of the Rd files. If you don't want the program to read any file add at the top of the file the attribute "\%[dont read]".
 }
 
 \value{

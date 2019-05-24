@@ -1,3 +1,4 @@
+#[export]
 colvarcomps.mom <- function(x, id, parallel = FALSE) {
   k <- Rfast::sort_unique.length(id) 
   ni <- tabulate(id)

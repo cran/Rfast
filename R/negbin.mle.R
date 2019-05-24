@@ -1,3 +1,4 @@
+#[export]
 negbin.mle <- function(x, type = 1, tol = 1e-09) {
 
   n <- length(x)

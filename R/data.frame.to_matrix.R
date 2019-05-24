@@ -1,4 +1,4 @@
-
+#[export]
 data.frame.to_matrix <- function(x,col.names = NULL,row.names = NULL) {
 	if(is.null(col.names) && is.null(row.names)){
 		x <- .Call(Rfast_frame_to_matrix,x)

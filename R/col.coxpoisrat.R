@@ -1,3 +1,4 @@
+#[export]
 col.coxpoisrat <- function(x, y, alpha = 0.05) {
   s1 <- Rfast::colsums(x)
   s2 <- Rfast::colsums(y)

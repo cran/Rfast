@@ -1,3 +1,4 @@
+#[export]
 geom.anovas <- function (y, ina, type = 1, logged = FALSE) {
   ni <- tabulate(ina)
   ni <- ni[ni > 0]

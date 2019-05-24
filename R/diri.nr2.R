@@ -1,3 +1,4 @@
+#[export]
 diri.nr2 <- function(x, type = 1, tol = 1e-07) {
 
   dm <- dim(x)
@@ -6,9 +7,9 @@ diri.nr2 <- function(x, type = 1, tol = 1e-07) {
 
   if (type == 1) {
 
-    m <- colmeans(x)
+    m <- Rfast::colmeans(x)
     zx <- t( Log(x) )
-    down <-  - sum( m * ( rowmeans( zx ) - log(m) ) )
+    down <-  - sum( m * ( Rfast::rowmeans( zx ) - log(m) ) )
     sa <- 0.5 * (p - 1) / down  ## initial value for precision
     a1 <- sa * m  ## initial values
     gm <- rowsums(zx)
@@ -33,8 +34,8 @@ diri.nr2 <- function(x, type = 1, tol = 1e-07) {
 
   } else {
     zx <- t( Log(x) )
-    ma <- rowmeans(zx)
-    m <- colmeans(x)
+    ma <- Rfast::rowmeans(zx)
+    m <- Rfast::colmeans(x)
     down <- -sum(m * (ma - log(m)))
     sa <- 0.5 * (p - 1)/down
     a1 <- sa * m

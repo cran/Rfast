@@ -1,3 +1,4 @@
+#[export]
 rm.anova <- function(y, logged = FALSE) {
   dm <- dim(y)  
   d <- dim(y)[2]

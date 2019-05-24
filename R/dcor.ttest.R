@@ -1,3 +1,4 @@
+#[export]
 dcor.ttest <- function(x, y, logged = FALSE) {
   n <- dim(x)[1]
   bcr <- bcdcor(x ,y)

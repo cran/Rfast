@@ -1,3 +1,4 @@
+#[export]
 gammacon <- function (y, tol = 1e-08, maxiters = 50) {
   n <- length(y)
   sx <- n

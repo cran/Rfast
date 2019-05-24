@@ -1,3 +1,4 @@
+#[export]
 gammanb <- function(xnew = NULL, x, ina, tol = 1e-07) {
   est <- NULL
   ni <- tabulate(ina)

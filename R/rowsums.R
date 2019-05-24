@@ -1,4 +1,4 @@
-
+#[export]
 rowsums <- function(x,indices = NULL,parallel = FALSE) {
 	if(parallel){
   		.Call(Rfast_row_sums_p,x)

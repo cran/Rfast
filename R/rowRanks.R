@@ -1,9 +1,0 @@
-
-
-rowRanks <- function(x,method = "average",descending = FALSE,stable = FALSE, parallel = FALSE) {
-	if(parallel){
-  		.Call(Rfast_row_ranks_p,x,method,descending,stable)
-	}else{
-		.Call(Rfast_row_ranks,x,method,descending,stable)
-	}
-}

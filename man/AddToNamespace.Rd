@@ -10,7 +10,7 @@ Insert/remove function names in/from the NAMESPACE file.
 }
 
 \usage{
-AddToNamespace(path.namespace,path.rfolder,sort = FALSE,dontread = "")
+AddToNamespace(path.namespace,path.rfolder,sort = FALSE)
 RemoveFromNamespace(path.namespace,files.to.remove)
 }
 
@@ -27,13 +27,10 @@ An boolean value for sorting the exported functions in file NAMESPACE.
 \item{files.to.remove}{
 An character with the names of the functions to be removed form file NAMESPACE.
 }
-\item{dontread}{
-A character vector with the name of the files (without extension) that you wish not to read. By default it's empty "".
-}
 }
 
 \details{
-AddToNameSpace: Reads the files that are exported in NAMESPACE and the files inside rfolder (where R files are) and insert every file that is not exported. To work properly must each R file to have the same name with the exported function. Also every file must have only one function.
+AddToNameSpace: Reads the files that are exported in NAMESPACE and the functions that are inside rfolder (where R files are) and insert every function that is not exported. For that you must add the attribute "#[export]" above an fucntion you wish to export. Also, if you don't want the program to read any file just add at the top of the file the attribute "#[dont read]".
 
 RemoveFromNamespace: Remove every function, from argument "files.to.remove", from NAMESPACE.
 }

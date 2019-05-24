@@ -1020,11 +1020,12 @@ double nth_simple(T& x,const int& elem,const bool& descend){
 template<class T>
 double nth_na_rm(T& x,const int& elem,const bool& descend){
     const int new_end=remove_if(x.begin(),x.end(),R_IsNA)-x.begin();
-    descend ?
-    nth_element(x.begin(),x.begin()+((elem<new_end) ? elem-1-new_end : elem-1),x.end(),[&](double a,double b){return a>b;})
-    :
-    nth_element(x.begin(),x.begin()+((elem<new_end) ? elem-1-new_end : elem-1),x.end());
-  
+    if(elem<new_end){
+	    descend ?
+	    nth_element(x.begin(),x.begin()+elem-1,x.begin()+new_end,[&](double a,double b){return a>b;})
+	    :
+	    nth_element(x.begin(),x.begin()+elem-1,x.begin()+new_end);
+    }
     return x[elem-1];
 }
 

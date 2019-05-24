@@ -1,3 +1,4 @@
+#[export]
 logistic.cat1 <- function(y, x, logged = FALSE) {
   N <- Rfast::Table(y, x) 
   cj <- log( N[2, ] / N[1, ] )

@@ -1,4 +1,4 @@
-
+#[export]
 Stack<-function(x,type=NULL){
     y<-new.env()
     class(y)<-"Stack"

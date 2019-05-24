@@ -55,6 +55,12 @@ bool check_read_file(ifstream&,char);
 void dont_read_man(vector<string>&,vector<string>&);
 void reset_file(ifstream& file);
 
+bool is_dont_read(string& s,char attr);
+bool is_export(string& s);
+string read_current_signature_function_from_r_file(string& line,string keyword_function,ifstream &file,const int position_of_function_key);
+void read_functions_from_r_file(const string filename,vector<string> &exported_functions_names,vector<string> &not_exported_functions_names,List& signatures,bool& found_dont_read);
+List read_functions_and_signatures(string path);
+
 template<class T>
 bool find_string(string& s,T f){
   return s.find(f)!=string::npos;

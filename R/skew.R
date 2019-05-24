@@ -1,3 +1,4 @@
+#[export]
 skew <- function(x, pvalue = FALSE){
   n <- length(x)
   y <- x - sum(x) / n

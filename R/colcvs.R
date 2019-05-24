@@ -1,3 +1,4 @@
+#[export]
 colcvs <- function(x, ln = FALSE, unbiased = FALSE) {
   if (ln) {
     s <- Rfast::colVars( Log(x) )

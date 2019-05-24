@@ -1,6 +1,6 @@
 
 
-
+#[export]
 total.dist <- function(x,method = "euclidean", square = FALSE,p=0) {
   x <- t(x)
   if(method == "hellinger"){

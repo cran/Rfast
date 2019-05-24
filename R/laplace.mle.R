@@ -1,3 +1,4 @@
+#[export]
 laplace.mle <- function(x) {
   n <- length(x)
   m <- Rfast::med(x)

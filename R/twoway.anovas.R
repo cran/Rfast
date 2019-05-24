@@ -1,3 +1,4 @@
+#[export]
 twoway.anovas <- function(y, x1, x2, interact = FALSE, logged = FALSE) {
   a <- Rfast::sort_unique.length(x1)
   b <- Rfast::sort_unique.length(x2)

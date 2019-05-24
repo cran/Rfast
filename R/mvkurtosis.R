@@ -1,3 +1,4 @@
+#[export]
 mvkurtosis <- function(x) {
   n <- dim(x)[1]
   m <- Rfast::colmeans(x)

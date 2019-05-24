@@ -1,3 +1,4 @@
+#[export]
 geom.mle <- function (x, type = 1) {
     if (type == 1) {
         sx <- sum(x) 

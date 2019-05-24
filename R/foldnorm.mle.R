@@ -1,3 +1,4 @@
+#[export]
 foldnorm.mle <- function(x, tol = 1e-09) {
   n <- length(x)
   m <- sum(x) / n

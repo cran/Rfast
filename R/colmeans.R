@@ -1,4 +1,4 @@
-
+#[export]
 colmeans <- function(x,parallel = FALSE) {
 	if(parallel){
 		.Call(Rfast_col_mean_p,x)

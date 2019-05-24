@@ -57,8 +57,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 x <- matrix( rnorm(100 * 100), ncol = 100 )
 a2 <- colVars(x)
+\dontrun{
 groupcolVars( as.matrix(iris[, 1:4]), as.numeric(iris[, 5]) )
-
+}
 x<-a2<-NULL
 }
 

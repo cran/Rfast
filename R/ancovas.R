@@ -1,3 +1,4 @@
+#[export]
 ancovas <- function(y, ina, x, logged = FALSE) {
   ni <- tabulate(ina)
   ni <- ni[ni > 0]
@@ -11,8 +12,8 @@ ancovas <- function(y, ina, x, logged = FALSE) {
   sxx <- sum(x^2) - sx^2/N
   sxy <- Rfast::colsums(x * y) - com2
   tyy <- Rfast::colsums( rowsum(y, ina)^2/ni ) - com
-  txx <- sum( Rfast::group.sum(x, ina)^2/ni ) - sx^2/N
-  txy <- Rfast::colsums( Rfast::group.sum(x, ina)/ni * rowsum(y, ina) ) - com2
+  txx <- sum( Rfast::group(x, ina)^2/ni ) - sx^2/N
+  txy <- Rfast::colsums( Rfast::group(x, ina)/ni * rowsum(y, ina) ) - com2
   eyy <- syy - tyy
   exx <- sxx - txx
   exy <- sxy - txy

@@ -1,3 +1,4 @@
+#[export]
 mcnemars <- function(x, y = NULL, ina, logged = FALSE) { 
   if ( is.null(y) ) {
     difa <- x[ina == 1, ] - x[ina == 2, ]	

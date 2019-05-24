@@ -1,3 +1,5 @@
+
+#[export]
 normlog.regs <- function (y, x, tol = 1e-08, logged = FALSE, parallel = FALSE, 
     maxiters = 100)  {
     

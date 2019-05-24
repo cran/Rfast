@@ -1,12 +1,12 @@
-\name{One sample empirical and exponential empirical likelihood test}
+\name{Empirical and exponential empirical likelihood tests for one sample}
 \alias{eel.test1}
 \alias{el.test1}
 \title{
-One sample exponential empirical likelihood test
+Empirical and exponential empirical likelihood tests for one sample
 }
 
 \description{
-One sample exponential empirical likelihood test.
+Empirical and exponential empirical likelihood tests for one sample.
 }
 
 \usage{

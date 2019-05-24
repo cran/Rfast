@@ -1,3 +1,4 @@
+#[export]
 lognorm.mle <- function (x) {
     n <- length(x)
     x <- log(x)

@@ -1,9 +1,16 @@
-\name{Many score based GLM regressions}
+\name{Many score based regressions}
 \alias{score.glms}
 \alias{score.multinomregs}
 \alias{score.negbinregs}
+\alias{score.weibregs}
+\alias{score.betaregs}
+\alias{score.gammaregs}
+\alias{score.expregs}
+\alias{score.invgaussregs}
+\alias{score.ztpregs}
+\alias{score.geomregs}
 \title{
-Many score based GLM regressions
+Many score based regressions
 }
 
 \description{
@@ -11,16 +18,27 @@ Many score based GLM regressions.
 }
 
 \usage{
-score.glms(y, x, oiko = NULL, logged = FALSE ) 
-score.multinomregs(y, x, logged = FALSE ) 
-score.negbinregs(y, x, logged = FALSE ) 
+score.glms(y, x, oiko = NULL, logged = FALSE) 
+score.multinomregs(y, x, logged = FALSE) 
+score.negbinregs(y, x, logged = FALSE) 
+score.weibregs(y, x, logged = FALSE) 
+score.betaregs(y, x, logged = FALSE) 
+score.gammaregs(y, x, logged = FALSE) 
+score.expregs(y, x, logged = FALSE)
+score.invgaussregs(y, x, logged = FALSE)
+score.ztpregs(y, x, logged = FALSE)
+score.geomregs(y, x, logged = FALSE)
 }
 
 \arguments{
 \item{y}{
 A vector with either discrete or binary data for the Poisson or negative binomial and binary logistic regression respectively. 
-Otherwise it is a vector with discrete values or factor values for the multinomial regression. If the vector 
-is binary and choose multinomial regression the function checks and transfers to the binary logistic regression.
+A vector with discrete values or factor values for the multinomial regression. If the vector 
+is binary and choose multinomial regression the function checks and transfers to the binary logistic regression. 
+
+For the Weibull, gamma and exponential regressions they must be strictly positive data, 
+lifetimes or durations for example. For the beta regression they must be numbers between 0 and 1. For the 
+zero truncated Poisson regression (score.ztpregs) they must be integer valued data strictly greater than 0. 
 }
 \item{x}{
 A matrix with data, the predictor variables. 
@@ -41,7 +59,9 @@ The first derivative (score) of the log-likelihood is known and in closed form a
 the fitted values are all equal to the mean of the response variable y. The variance of the score is also known 
 in closed form. The test is not the same as the likelihood ratio test. It is size correct nonetheless but it 
 is a bit less efficient and less powerful. For big sample sizes though (5000 or more) the results are the same. 
-It is also much faster then the classical log-likelihood ratio test.  
+We have seen via simulation studies is that it is size correct to large sample sizes, at elast a few thousands. 
+You can try for yourselves and see that even with 500 the results are pretty close. The score test is pretty faster 
+then the classical log-likelihood ratio test.  
 }
 
 \value{
@@ -51,6 +71,8 @@ via the \eqn{\chi^2} distribution.
 }
 
 \references{
+Hosmer, DW. JR, Lemeshow S. and Sturdivant R.X. (2013). Applied Logistic Regression. New Jersey ,Wiley, 3rd Edition.
+
 Campbell, M.J. (2001). Statistics at Square Two: Understand Modern Statistical Applications in Medicine, pg. 112.
 London, BMJ Books. 
  
@@ -83,9 +105,13 @@ y <- rbinom(500, 1, 0.6)   ## binary logistic regression
 a1 <- univglms(y, x) 
 system.time( score.glms(y, x) )
 a2 <- score.glms(y, x)
-x <- NULL
 cor(a1, a2)
 mean(a1 - a2)
+
+y <- rweibull(500, 2, 3)   
+a <- score.weibregs(y, x) 
+mean(a[, 2] < 0.05) 
+x <- NULL
 }
 
 \keyword{ GLMS }

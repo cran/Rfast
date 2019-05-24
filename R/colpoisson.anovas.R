@@ -1,3 +1,4 @@
+#[export]
 colpoisson.anovas <- function (y, x, logged = FALSE) {
   dm <- dim(x)
   n <- dm[1]

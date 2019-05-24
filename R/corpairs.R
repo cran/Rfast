@@ -1,3 +1,4 @@
+#[export]
 corpairs <- function(x, y, rho = NULL, logged = FALSE, parallel = FALSE) {
 
   mx <- Rfast::colsums(x, parallel = parallel)

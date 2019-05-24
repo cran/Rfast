@@ -5,6 +5,7 @@
 #include <algorithm>
 
 using namespace std;
+using namespace Rcpp;
 using std::vector;
 using std::string;
 using std::count;
@@ -320,9 +321,7 @@ bool check_read_file(ifstream& file,char attr){
     string s;
     bool ret=true;
     while(getline(file,s)){
-        if(s[0]==attr and s.size()>=sizeof("[dont read]") and //sizeof("[dont read]") 11 + \0
-               s[1]=='[' and s[2]=='d' and s[3]=='o' and s[4]=='n' and s[5]=='t' and s[6]==' ' and s[7]=='r' and 
-               s[8]=='e' and s[9]=='a' and s[10]=='d' and s[11]==']'){
+        if(is_dont_read(s,attr)){
             ret=false;
             break;
         }else if(!std::isspace(s[0])){
@@ -331,4 +330,143 @@ bool check_read_file(ifstream& file,char attr){
     }
     DEBUG("End checking file");
     return ret;
+}
+
+bool is_dont_read(string& s,char attr){
+    return s[0]==attr and s.size()>=sizeof("[dont read]") and //sizeof("[dont read]") 11 + \0
+    s[1]=='[' and s[2]=='d' and s[3]=='o' and s[4]=='n' and s[5]=='t' and s[6]==' ' and s[7]=='r' and 
+    s[8]=='e' and s[9]=='a' and s[10]=='d' and s[11]==']';
+}
+
+bool is_export(string& s){
+    return s[0]=='#' and s.size()>=sizeof("[export]") and //sizeof("[export]") 8 + \0
+           s[1]=='[' and s[2]=='e' and s[3]=='x' and s[4]=='p' and 
+           s[5]=='o' and s[6]=='r' and s[7]=='t' and s[8]==']';
+}
+
+
+string read_current_signature_function_from_r_file(string& line,string keyword_function,ifstream &file,const int position_of_function_key){
+    string func=line;
+    DEBUG("START read_function_from_r_file");
+    remove_spaces(line);
+    if(!find_string(line,"){")){ // periptosi pou paei kai se alli grammi i sinartisi
+        do{
+            getline(file,line);
+            remove_spaces(line);
+            func+=line;
+        } while (!find_string(line,"{")); 
+    }
+    DEBUG("function: ",func);
+    func.erase(func.begin()+position_of_function_key,func.begin()+position_of_function_key+keyword_function.size());
+    DEBUG(func);
+    func.erase(func.end()-1);
+    DEBUG(func);
+    DEBUG("END read_function_from_r_file");
+    return func;
+}
+
+//proipothesi na einai dilomeno h sinartisi tou stil a<-function h a=function
+void read_functions_from_r_file(const string filename,vector<string> &exported_functions_names,vector<string> &not_exported_functions_names,List& signatures,bool& found_dont_read){
+    
+    ifstream file(filename.c_str());
+    size_t position_of_function_key1=0,position_of_function_key2=0;
+    string line;
+    int depth_scope=0,number_of_line=0,number_of_export_line=0;
+    bool found_export=false;
+    
+    while(getline(file,line) and isspace(line[0])){
+        ++number_of_line;
+    }
+    
+    if(is_dont_read(line,'#')){
+        found_dont_read=true;
+        DEBUG("found dont read: "+number_of_line);
+    }else{    
+        auto read_name_from_function = [&](string& line){
+            string function_name;
+            DEBUG(line);
+            
+            for(unsigned int i=0;i<line.size();++i){
+                char ch=line[i];
+                
+                if(std::isspace(ch))
+                    continue;
+                else if(ch=='{'){
+                    ++depth_scope;
+                    DEBUG("depth: "+to_string(depth_scope));
+                    continue;
+                }else if(ch=='}'){
+                    --depth_scope;
+                    DEBUG("depth: "+to_string(depth_scope));
+                    continue;
+                }
+                if(ch=='<' and i+9<line.size()){//an bro < kai exo akoma 9 theseis na psakso
+                    position_of_function_key1=line.find("<-function");
+                    // an brika to function kai eimai sto global scope
+                    if(position_of_function_key1==i and depth_scope==0){
+                        if(found_export){
+                            DEBUG("<-function export: "+function_name);
+                            exported_functions_names.push_back(function_name);
+                            signatures[function_name]=List::create(_["signature"]=read_current_signature_function_from_r_file(line,"<-function",file,position_of_function_key1),_["filename"]=filename);
+                        }else{
+                            DEBUG("<-function: "+function_name);
+                            not_exported_functions_names.push_back(function_name);
+                        }
+                        found_export=false;
+                    }
+                }else if(ch=='=' and i+8<line.size()){//an bro = kai exo akoma 8 theseis na psakso
+                    position_of_function_key2=line.find("=function");
+                    // an brika to function kai eimai sto global scope
+                    if(position_of_function_key1==i and depth_scope==0){
+                        DEBUG("=function: "+function_name);
+                        if(found_export){
+                            DEBUG("<-function export: "+function_name);
+                            exported_functions_names.push_back(function_name);
+                            signatures[function_name]=List::create(_["signature"]=read_current_signature_function_from_r_file(line,"=function",file,position_of_function_key2),_["filename"]=filename);
+                        }else{
+                            DEBUG("<-function: "+function_name);
+                            not_exported_functions_names.push_back(function_name);
+                        }
+                        found_export=false;
+                    }
+                }
+                function_name+=ch;
+            }
+            if(found_export and number_of_export_line==number_of_line-1){//an exo vrei export  stin porigoumeni grammi kai h epomeni einai space
+                Rcout<<"Warning: In file '"<<filename<<"' unused [export] attribute in line "<<number_of_export_line<<".\n";
+            }
+            found_export=false;
+        };
+        
+        do{
+            ++number_of_line;
+            remove_spaces(line);
+            if(is_export(line) and depth_scope==0){ //mono oi sinartiseis poy einai sto global scope epitrepontai na einai export
+                DEBUG("found export: "+line);
+                number_of_export_line=number_of_line;
+                found_export=true;
+                continue;
+            }else if(line[0]=='#'){ // pass comments
+                DEBUG("found comments: "+line);
+                continue;
+            }
+            read_name_from_function(line);
+        }while(getline(file,line));
+    }
+}
+
+List read_functions_and_signatures(string path){
+    std::vector<string> exported_functions_names,not_exported_functions_names,files=read_directory(path),dont_read;
+    exported_functions_names.reserve(500);
+    not_exported_functions_names.reserve(500);
+    bool found_dont_read=false;
+    List signatures;
+    for(auto& file : files){
+        read_functions_from_r_file(path+"\\"+file,exported_functions_names,not_exported_functions_names,signatures,found_dont_read);
+        if(found_dont_read){
+            found_dont_read=false;
+            dont_read.push_back(file);
+        }
+    }
+    return List::create(_["dont read"]=dont_read,_["export"]=exported_functions_names,_["without export"]=not_exported_functions_names,_["signatures"]=signatures);
 }

@@ -1,3 +1,4 @@
+#[export]
 ztp.mle <- function(x, tol = 1e-09) {
   sx <- sum(x)
   n <- length(x)

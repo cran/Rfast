@@ -1,3 +1,4 @@
+#[export]
 mcnemar <- function(x, y, logged = FALSE) { 
   b1 <- sum(x == 1 & y == 0)
   b2 <- sum(x == 0 & y == 1)

@@ -23,7 +23,7 @@ A matrix containing the Euclidean data of the second group.
 The tolerance level used to terminate the Newton-Raphson algorithm.
 }
 \item{R}{
-If R is 0, the classical chi-sqaure distribution is used, if R = 1, the corrected chi-sqaure distribution (James, 1954) is used and if R = 2, the modified F distribution (Krishnamoorthy and Yanping, 2006) is used. If R is greater than 3 bootstrap calibration is performed.
+If R is 0, the classical chi-sqaure distribution is used, if R = 1, the corrected chi-square distribution (James, 1954) is used and if R = 2, the modified F distribution (Krishnamoorthy and Yanping, 2006) is used.
 }
 }
 

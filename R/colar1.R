@@ -1,3 +1,4 @@
+#[export]
 colar1 <- function (y, method = "cmle") {
     N <- dim(y)[1]
     if (method == "cmle") {

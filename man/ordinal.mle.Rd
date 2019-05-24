@@ -1,7 +1,7 @@
 \name{MLE of the ordinal model without covariates}
 \alias{ordinal.mle}
 \title{
-Natural logarithm of the beta functionMLE of the ordinal model without covariates
+MLE of the ordinal model without covariates
 }
 
 \description{

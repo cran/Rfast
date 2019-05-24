@@ -3,6 +3,7 @@
 #### Tsagris Michail 07/2014
 #### mtsagris@yahoo.gr
 ################################
+#[export]
 rmvt <- function(n, mu, sigma, v) {
   ## n is the sample size
   ## mu is the mean vector

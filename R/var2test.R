@@ -1,3 +1,4 @@
+#[export]
 var2test <- function(x, y, alternative = "unequal", logged = FALSE) {
   s1 <- Rfast::Var(x)
   s2 <- Rfast::Var(y)

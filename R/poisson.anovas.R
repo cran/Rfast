@@ -1,3 +1,4 @@
+#[export]
 poisson.anovas <- function(y, ina, logged = FALSE) {
   ni <- tabulate(ina)
   ni <- ni[ni > 0]

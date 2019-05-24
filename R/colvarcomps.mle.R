@@ -1,3 +1,4 @@
+#[export]
 colvarcomps.mle <- function (x, id, ranef = FALSE, tol = 1e-08, maxiters = 100, 
     parallel = FALSE) {
     if ( Rfast::Var( tabulate(id) ) != 0) {

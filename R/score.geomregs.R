@@ -1,3 +1,5 @@
+
+#[export]
 score.geomregs <- function(y, x, logged = FALSE) {
   p <- Rfast::geom.mle(y)$prob
   sx <- Rfast::colsums(x)

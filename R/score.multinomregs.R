@@ -1,3 +1,4 @@
+#[export]
 score.multinomregs <- function(y, x, logged = FALSE) {
   n <- length(y)
   p <- dim(x)[2]

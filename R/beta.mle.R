@@ -1,3 +1,4 @@
+#[export]
 beta.mle <- function(x, tol = 1e-09) {
   n <- length(x)
   sly1 <- sum( log(x) ) / n

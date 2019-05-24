@@ -1,3 +1,4 @@
+#[export]
 var2tests <- function(x, y = NULL, ina, alternative = "unequal", logged = FALSE) {
   
   if ( is.null(y) )  {

@@ -6,6 +6,7 @@
 #### http://www.stat.nus.edu.sg/export/sites/dsap/research/documents/tr01_2000.pdf
 #### mtsagris@yahoo.gr
 ################################
+#[export]
 spatmed.reg <- function(y, x, tol = 1e-07) {
 
   x <- model.matrix(y ~ ., data.frame(x) )

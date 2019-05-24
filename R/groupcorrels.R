@@ -1,3 +1,4 @@
+#[export]
 groupcorrels <- function(y, x, type ="pearson", ina) {
   p <- dim(x)[2]
   a <- Rfast::sort_unique(ina)

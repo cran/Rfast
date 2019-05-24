@@ -1,3 +1,4 @@
+#[export]
 colanovas <- function(y, x, logged = FALSE) {
   if ( is.data.frame(x) ) {
 	x <- Rfast::data.frame.to_matrix(x)

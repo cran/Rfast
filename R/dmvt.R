@@ -1,3 +1,4 @@
+#[export]
 dmvt <- function(x, mu, sigma, nu, logged = FALSE) {
   p <- length(mu)
   den <- lgamma( (nu + p)/2 ) - lgamma(nu/2) - 0.5 * p * log(pi * nu) - 

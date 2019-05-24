@@ -1,3 +1,4 @@
+#[export]
 cqtests <- function(x, treat, block, logged = FALSE) {
   k <- length( Rfast::sort_unique.length(treat) )
   cj <- rowsum(x, treat)

@@ -1,3 +1,4 @@
+#[export]
 iag.mle <- function (x, tol = 1e-07) {
     n <- dim(x)[1]
     mod <- Rfast::vmf.mle(x)

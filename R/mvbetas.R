@@ -1,10 +1,12 @@
+#[export]
 mvbetas <- function (y, x, pvalue = FALSE) {
 
-    r <- as.vector( cov(x, y) )
-    n <- length(x)
+    n <- dim(y)[1]
     my <- Rfast::colmeans(y)
     mx <- sum(x)/n
     sx <- ( sum(x^2) - sum(x)^2 / n ) / (n - 1)
+    denom <- n - 1    
+    r <- ( Rfast::eachcol.apply(y, x) - n * mx * my ) /denom
     be <- r/sx
     a <- my - be * mx
     

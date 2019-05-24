@@ -1,3 +1,4 @@
+#[export]
 rmvlaplace <- function(n, lam, mu, G) {
   ## n is the sample size
   ## lam is the parameter of the exponential distribution

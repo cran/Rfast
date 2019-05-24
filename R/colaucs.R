@@ -1,3 +1,5 @@
+
+#[export]
 colaucs <- function (group, preds) {
     ri <- Rfast::colRanks(preds) 
     n <- length(group)

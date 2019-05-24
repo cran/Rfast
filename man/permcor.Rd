@@ -33,7 +33,7 @@ A vector consisting of two values, the Pearson correlation and the permutation b
 }
 
 \references{
-Chatzipantsiou C., Dimitriadis M., Papadakis M. and Tsagris M. (2018). 
+Chatzipantsiou C., Dimitriadis M., Papadakis M. and Tsagris M. (2019). 
 Extremely efficient permutation and bootstrap hypothesis tests using R. 
 To appear in the Journal of Modern Applied Statistical Methods.
 

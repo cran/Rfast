@@ -1,3 +1,4 @@
+#[export]
 betageom.mle <- function(x, tol = 1e-07) {
 
   n <- length(x)

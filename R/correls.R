@@ -1,3 +1,4 @@
+#[export]
 correls <- function(y, x, type = "pearson", a = 0.05, rho = 0) {
   n <- length(y)
 

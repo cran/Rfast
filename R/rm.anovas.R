@@ -1,3 +1,4 @@
+#[export]
 rm.anovas <- function(y, x, logged = FALSE) {
   d <- length(x)
   n <- dim(y)[1]/d

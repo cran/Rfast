@@ -1,3 +1,4 @@
+#[export]
 acg.mle <- function (x, tol = 1e-07) {
     p <- dim(x)[2]
     n <- dim(x)[1]

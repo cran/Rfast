@@ -1,3 +1,4 @@
+#[export]
 list.ftests <- function(x, logged = FALSE) {
     k <- length(x)
     p <- dim(x[[ 1 ]])[2]

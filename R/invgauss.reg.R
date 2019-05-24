@@ -1,3 +1,4 @@
+#[export]
 invgauss.reg <- function (y, x, tol = 1e-07, maxiters = 100) {
     X <- model.matrix(~., data.frame(x))
     dm <- dim(X)

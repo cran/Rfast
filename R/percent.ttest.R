@@ -1,3 +1,4 @@
+#[export]
 percent.ttest <- function(x, y, logged = FALSE) {
   n1 <- length(x)
   n2 <- length(y)

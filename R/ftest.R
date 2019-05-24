@@ -1,9 +1,10 @@
+#[export]
 ftest <- function (x, ina, logged = FALSE) {
   ni <- tabulate(ina)
   ni <- ni[ni > 0]
   k <- length(ni)
-  m <- Rfast::group.sum(x, ina)/ni
-  s <- Rfast::group.sum(x^2, ina)
+  m <- Rfast::group(x, ina)/ni
+  s <- Rfast::group(x^2, ina)
   s <- (s - m^2 * ni)/(ni - 1)
   w <- ni/s
   W <- sum(w)

@@ -1,3 +1,4 @@
+#[export]
 mvlnorm.mle <- function(x) {
   dm <- dim(x)
   d <- dm[2]

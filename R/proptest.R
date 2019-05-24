@@ -1,3 +1,4 @@
+#[export]
 proptest <- function(x, n, p, alternative = "unequal", logged = FALSE) {
 
   s <- sqrt( n * p * (1 - p) )

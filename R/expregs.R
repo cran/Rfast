@@ -1,3 +1,4 @@
+#[export]
 expregs <- function(y, x, di, tol = 1e-09, logged = FALSE) {
     
   dm <- dim(x)

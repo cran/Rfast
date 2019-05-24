@@ -1,5 +1,4 @@
-
-
+#[export]
 colrange <- function(x, cont = TRUE){
 	if(cont){
 		x <- .Call(Rfast_col_min_max,x)

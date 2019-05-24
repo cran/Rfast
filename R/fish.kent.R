@@ -1,3 +1,4 @@
+#[export]
 fish.kent <- function(x, logged = FALSE) {
   n <- dim(x)[1]
   estim <- Rfast::vmf.mle(x)

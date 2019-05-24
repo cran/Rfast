@@ -1,3 +1,4 @@
+#[export]
 poisdisp.test <- function(y, alternative = "either", logged = FALSE) {
   n <- length(y)
   m <- sum(y)/n

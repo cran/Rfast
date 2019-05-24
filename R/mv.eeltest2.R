@@ -1,3 +1,4 @@
+#[export]
 mv.eeltest2 <- function(y1, y2, tol = 1e-07, R = 0) {
   ## y1 and y2 are the two matrices containing the multivariate (or univariate data)
   ## R is the type of calibration

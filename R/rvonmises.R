@@ -8,6 +8,7 @@
 #### Inderjit S. Dhillon and Suvrit Sra (2003)
 #### Modeling Data using Directional Distributions (Technical report, The University of Texas at Austin)
 ################################
+#[export]
 rvonmises <- function(n, m, k, rads = TRUE) {
   if ( !rads )  m <- m / 180 * pi  ## turn the degrees into radians
   mu <- c( cos(m), sin(m) )

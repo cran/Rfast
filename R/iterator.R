@@ -1,3 +1,4 @@
+#[export]
 iterator<-function(x,method="ceil",type="vector",by=1){
     if((type=="vector" || type=="list") && method!="ceil"){
         stop("Vector myst have method ceil.")

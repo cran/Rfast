@@ -1,3 +1,4 @@
+#[export]
 vartest <- function(x, sigma, alternative = "unequal", logged = FALSE, conf = NULL) {
 
   n <- dim(x)[1]

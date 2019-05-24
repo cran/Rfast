@@ -1,3 +1,4 @@
+#[export]
 cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
   quan <- 1 - alpha/2
   sig <- log(alpha)
@@ -12,9 +13,9 @@ cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
 
   runtime <- proc.time()
   if (xstand)   x <- Rfast::standardise(x, center = TRUE, scale = FALSE)
-  if (ystand)   y <- y - mean(y)
+  if (ystand)   y <- ( y - mean(y) ) / Rfast::Var(y, std = TRUE)
   options(warn = -1)
-  yx <- as.vector( cor(y, x) )
+  yx <- Rfast::eachcol.apply(x, y) / (n - 1)
   n.tests <- p
   stat <- abs( 0.5 * log( (1 + yx) / (1 - yx) ) * sqrt(n - 3) ) 
   critvalue <- qt(quan, n - 3)

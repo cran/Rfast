@@ -1,3 +1,4 @@
+#[export]
 prop.reg <- function (y, x, varb = "quasi", tol = 1e-09, maxiters = 100) {
     X <- model.matrix(~., data.frame(x))
     L <- .Call(Rfast_prop_reg, X, y, tol, maxiters)

@@ -1,3 +1,4 @@
+#[export]
 score.glms <- function(y, x, oiko = NULL, logged = FALSE ) {
 
  if ( is.null(oiko) ) {
@@ -8,14 +9,11 @@ score.glms <- function(y, x, oiko = NULL, logged = FALSE ) {
  } 
 
   n <- length(y) 
-  sx2 <- Rfast::colsums(x^2)
-  my <- sum(y) / n
-  sx <- Rfast::colsums(x)
-  up <- as.vector( cov(y, x) ) * (n - 1)  ## score function
+  r <- as.numeric( cor(y, x) )
   if ( oiko == "binomial" ) {
-    down <- ( sx2 - sx^2 / n ) * ( my - my^2 ) ## variance
-  } else   down <- ( sx2 - sx^2 / n ) * my ## variance
-  stat <- up / sqrt(down)
+    stat <- r * sqrt(n)  
+  } else  stat <- ( Var(y, std = T) / sqrt( sum(y) / n ) * sqrt(n - 1) ) * r 
+
   if ( logged ) {
     pvalue <- log(2) + pt( abs(stat), n - 2, lower.tail = FALSE, log.p = TRUE )
   } else  pvalue <- 2 * pt( abs(stat), n - 2, lower.tail = FALSE )

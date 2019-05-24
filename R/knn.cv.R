@@ -1,5 +1,5 @@
 
-
+#[export]
 knn.cv <- function(folds = NULL, nfolds = 10, stratified = FALSE, seed = FALSE, y, x, k, dist.type = "euclidean", type = "C", 
 				   method = "average", freq.option = 0, pred.ret = FALSE, mem.eff = FALSE) {
   if (is.null(folds)) folds <- generateFolds(y, nfolds = nfolds, stratified = stratified, seed = seed) 

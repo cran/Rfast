@@ -1,4 +1,4 @@
-
+#[export]
 Sort <- function(x,descending=FALSE,partial=NULL,stable=FALSE,na.last=NULL) {
 	if(stable){
 		.Call(Rfast_stable_sort,x,descending)
@@ -14,4 +14,53 @@ Sort <- function(x,descending=FALSE,partial=NULL,stable=FALSE,na.last=NULL) {
 			.Call(Rfast_Sort,x,descending,na.last)
 		}
 	}
+}
+
+#[export]
+Sort.int <- function(x) {
+  .Call(Rfast_sort_int,x)
+}
+
+#[export]
+rowSort <- function(x,descending=FALSE,stable=FALSE,parallel=FALSE) {
+	if(parallel){
+	  	if(stable){
+			.Call(Rfast_stable_sort_mat_p,x,descending,TRUE)
+		}else{
+			.Call(Rfast_sort_mat_p,x,descending,TRUE)
+		}
+	}else{
+		if(stable){
+			.Call(Rfast_stable_sort_mat,x,descending,TRUE)
+		}else{
+			.Call(Rfast_sort_mat,x,descending,TRUE)
+		}
+	}
+}
+
+#[export]
+colSort <- function(x,descending=FALSE,stable=FALSE,parallel=FALSE) {
+	if(parallel){
+	  	if(stable){
+			.Call(Rfast_stable_sort_mat_p,x,descending,FALSE)
+		}else{
+			.Call(Rfast_sort_mat_p,x,descending,FALSE)
+		}
+	}else{
+		if(stable){
+			.Call(Rfast_stable_sort_mat,x,descending,FALSE)
+		}else{
+			.Call(Rfast_sort_mat,x,descending,FALSE)
+		}
+	}
+}
+
+#[export]
+sort_mat <- function(x,by.row=FALSE,descending=FALSE,stable=FALSE,parallel=FALSE) {
+	.Defunct(if(by.row) "Rfast::rowSort" else "Rfast::colSort","Rfast")
+}
+
+#[export]
+sort_cor_vectors <- function(x, base, stable = FALSE, descending = FALSE) {
+  x[Rfast::Order(base,stable,descending)]
 }

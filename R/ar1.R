@@ -1,3 +1,4 @@
+#[export]
 ar1 <- function(y, method = "cmle") {
   N <- length(y)
   if ( method == "cmle" ) {

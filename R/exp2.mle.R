@@ -1,3 +1,4 @@
+#[export]
 exp2.mle <- function(x) {
   a <- min(x)
   n <- length(x)

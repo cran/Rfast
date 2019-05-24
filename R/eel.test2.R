@@ -1,3 +1,4 @@
+#[export]
 eel.test2 <- function(x, y, tol = 1e-09, logged = FALSE) {
 
    funa2 <- function(x, y, n1, n2) { 

@@ -1,3 +1,4 @@
+#[export]
 multinom.reg <- function(y, x, tol = 1e-07, maxiters = 50) {
   Y <- Rfast::design_matrix(y)[, -1]
   if ( !is.matrix(Y) ) {

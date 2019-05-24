@@ -1,5 +1,7 @@
-\name{Many univariate simple binary logistic regressions}
+\name{Many univariate simple logistic and Poisson regressions}
 \alias{logistic_only}
+\alias{poisson_only}
+
 \title{
 Many univariate simple binary logistic regressions
 }
@@ -10,6 +12,7 @@ It performs very many univariate simple binary logistic regressions.
 
 \usage{
 logistic_only(x, y, tol = 1e-09, b_values = FALSE)
+poisson_only(x, y, tol = 1e-09, b_values = FALSE)
 }
 
 \arguments{
@@ -17,7 +20,9 @@ logistic_only(x, y, tol = 1e-09, b_values = FALSE)
 A matrix with the data, where the rows denote the samples (and the two groups) and the columns are the variables. Currently only continuous variables are allowed.
 }
 \item{y}{
-The dependent variable; a numerical vector with two values (0  and 1). 
+The dependent variable; a numerical vector with two values (0 and 1) for the logistic regressions and 
+a vector with many discrete values (count data) for the Poisson regressions. 
+
 }
 \item{tol}{
 The tolerance value to terminate the Newton-Raphson algorithm.
@@ -47,25 +52,28 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \seealso{
-\code{\link{allbetas}, \link{correls}, \link{poisson_only}, \link{regression}
+\code{ \link{univglms}, \link{score.glms}, \link{prop.regs}, \link{quasi.poisson_only}, \link{allbetas}, \link{correls}, \link{regression}
 }
 }
 
 \examples{
 ## 300 variables, hence 300 univariate regressions are to be fitted
-x = matrix( rnorm(100 * 300), ncol = 300 )
+x <- matrix( rnorm(100 * 300), ncol = 300 )
 
 ## 100 observations in total
-y = rbinom(100, 1, 0.6)   ## binary logistic regression
+y <- rbinom(100, 1, 0.6)   ## binary logistic regression
 system.time( logistic_only(x, y) )
-a1 = logistic_only(x, y)
+a1 <- logistic_only(x, y)
  
 a2 <- numeric(300)
 system.time( for (i in 1:300) a2[i] = glm(y ~ x[, i], binomial)$deviance )
-a2 = as.vector(a2)
+a2 <- as.vector(a2)
 all.equal(a1, a2)
 
-a1<-a2<-y<-x<-NULL
+y <- rpois(100, 10)
+system.time( poisson_only(x, y) )
+
+a1 <- a2 <- x <- NULL
 }
 
 \keyword{ Logistic regressions }

@@ -50,16 +50,16 @@ For function "checkAliases": reads from the man directory all the Rd files, then
 	2) All aliases belongs to functions.
 	3) If there are dublicated aliases.
 
-For function "checkExamples": reads from the man directory all the Rd files, then read from each file the examples and then run each of them. If you want to print the errors in any file then set "print.errors=file_name" or in the standard error "print.errors=stderr()" and then you will see all the errors for every file. For succeed run of your code you should first run "library(PACKAGE_NAME)". The argument "print.names" it is very helpful because if any of you function crashes R during running you will never know which one was. So setting it "TRUE", it will print the name of each file before runnign it's example.It might crash, but you will know which file. \bold{Remember that there always an error timeout so it might didn't crash the current file but one from the previous.}
+For function "checkExamples": reads from the man directory all the Rd files, then read from each file the examples and then run each of them. If you want to print the errors in any file then set "print.errors=file_name" or in the standard error "print.errors=stderr()" and then you will see all the errors for every file. For succeed run of your code you should first run "library(PACKAGE_NAME)". 
+The argument "print.names" it is very helpful because if any of you function crashes R during running you will never know which one was. 
+So setting it "TRUE", it will print the name of each file before runnign it's example.It might crash, but you will know which file. 
+\bold{Remember that there is always an error timeout so it might didn't crash the current file but one from the previous.}
 
 For function checkTF: reads from the man directory all the Rd files, then read from each file the examples and checks if any examples has the values "T" and "F" instead "TRUE" and "FALSE". The "T","F" is wrong.
 
 For function checkUsage: reads from the man directory all the Rd files and for each man check if the usage section has the right signature for the functions from the R directory.
-This functions has 2 limitations: 
-	1) each function should be in one R file with name function_name.R and only this function can be inside the file.
-	2) if you want multiple functions inside this file then the main function should be the first on top.
 
-For functions "checkTF", "checkUsage", "checkAliases" you can choose which files not to read for both R and Rd. You must add in the first line of the file in comment the "attribute" "[dont read]". Then each function will now which file to read or not. For Rd you add "\%[dont read]" and for R "#[dont read]". Finally, these functions wil return in the result a list of which files had this attribute.
+For functions "checkTF", "checkUsage", "checkAliases" you can choose which files not to read for both R and Rd. You must add in the first line of the file in comment the "attribute" "[dont read]". Then each function will now which file to read or not. For Rd you add "\%[dont read]" and for R "#[dont read]". Finally, these functions will return in the result a list of which files had this attribute.
 }
 
 \value{

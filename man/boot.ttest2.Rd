@@ -37,6 +37,12 @@ A vector with the test statistic and the bootstrap p-value.
 B.L. Welch (1951). On the comparison of several mean values: an alternative approach. Biometrika, 38(3/4), 330-336.
 
 Efron Bradley and Robert J. Tibshirani (1993). An introduction to the bootstrap. New York: Chapman \& Hall/CRC.
+
+Chatzipantsiou C., Dimitriadis M., Papadakis M. and Tsagris M. (2019). 
+Extremely efficient permutation and bootstrap hypothesis tests using R. 
+To appear in the Journal of Modern Applied Statistical Methods.
+
+https://arxiv.org/ftp/arxiv/papers/1806/1806.10947.pdf 
 }
 
 \author{

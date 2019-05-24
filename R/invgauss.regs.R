@@ -1,3 +1,4 @@
+#[export]
 invgauss.regs <- function(y, x, tol = 1e-08, logged = FALSE, maxiters = 100) {
   
   dm <- dim(x)

@@ -1,4 +1,4 @@
-
+#[export]
 dista <- function(xnew,x,type = "euclidean",k=0,index=FALSE,trans = TRUE,square = FALSE) {
 	if(k>0){
 		if(index){

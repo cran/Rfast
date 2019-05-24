@@ -1,3 +1,5 @@
+
+#[export]
 colmaxboltz.mle <- function(x) {
     n <- dim(x)[1]
     a <- sqrt( Rfast::colsums(x^2) / (3 * n) )

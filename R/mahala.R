@@ -1,4 +1,4 @@
-
+#[export]
 mahala <- function(x,mu,sigma,ischol = FALSE) {
   if (!is.matrix(x)) 
     x <- matrix(x, 1, length(x))

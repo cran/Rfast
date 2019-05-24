@@ -1,3 +1,5 @@
+
+#[export]
 ttest2 <- function(x, y, paired = FALSE, logged = FALSE) {
 
   if ( !paired ) {

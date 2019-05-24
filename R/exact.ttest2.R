@@ -1,3 +1,4 @@
+#[export]
 exact.ttest2 <- function(x, y) {
   n1 <- length(x)
   n2 <- length(y)

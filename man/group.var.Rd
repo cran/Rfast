@@ -80,12 +80,14 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com> and M
 }
 
 \examples{
+\dontrun{
 x <- rgamma(100,1, 4)
 ina <- sample(1:5, 100, TRUE)
 group.var(x, ina)
 group(x, ina,method="var")
 #group.mean(x, ina) #run
 #group.med(x, ina)  #run
+}
 }
 
 \keyword{ Variance }

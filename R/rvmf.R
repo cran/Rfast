@@ -1,3 +1,4 @@
+#[export]
 rvmf <- function (n, mu, k) {
     rotation <- function(a, b) {
         p <- length(a)

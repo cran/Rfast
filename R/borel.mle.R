@@ -1,3 +1,4 @@
+#[export]
 borel.mle <- function(x) {
   n <- length(x)
   sx <- sum(x) 

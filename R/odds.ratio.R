@@ -1,3 +1,4 @@
+#[export]
 odds.ratio <- function(x, a = 0.05, logged = FALSE) {
   or <- x[1] * x[4] / (x[2] * x[3])
   z <- log(or) 

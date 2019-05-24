@@ -1,3 +1,5 @@
+
+#[export]
 multinom.nb <- function(xnew, x, ina) {
   ni <- tabulate(ina)
   ni <- ni[ni > 0]

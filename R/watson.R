@@ -1,3 +1,4 @@
+#[export]
 watson <- function(u) {
   u <- Rfast::Sort(u) / (2 * pi)
   n <- length(u)

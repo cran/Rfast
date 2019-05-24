@@ -1,3 +1,4 @@
+#[export]
 btmprobs <- function(x, tol = 1e-09) {
   wi <- Rfast::rowsums(x)
   p1 <- p2 <- wi / sum(x)

@@ -1,3 +1,4 @@
+#[export]
 standardise <- function (x, center = TRUE, scale = TRUE) {
   if ( center & scale ) {
     y <- t(x) - Rfast::colmeans(x)

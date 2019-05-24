@@ -1,3 +1,4 @@
+#[export]
 gammaregs <- function(y, x, tol = 1e-07, logged = FALSE, maxiters = 100) {
   
     dm <- dim(x)

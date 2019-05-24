@@ -1,3 +1,4 @@
+#[export]
 geom.nb <- function (xnew, x, ina, type = 1) {
     ni <- tabulate(ina)
 	ni <- ni[ni > 0]

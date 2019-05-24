@@ -1,3 +1,4 @@
+#[export]
 gammareg <- function(y, x, tol = 1e-07, maxiters = 100) {
   X <- model.matrix( y~., data.frame(x) )
   sx <- Rfast::colsums(X)

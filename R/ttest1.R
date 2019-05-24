@@ -1,3 +1,4 @@
+#[export]
 ttest1 <- function(x, m, alternative = "unequal", logged = FALSE, conf = NULL) {
 
   n <- length(x) 

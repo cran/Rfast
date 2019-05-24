@@ -1,3 +1,4 @@
+#[export]
 wigner.mle <- function(x, tol = 1e-09) {
   n <- length(x)
   r <- max( abs(x ) )
