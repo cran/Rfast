@@ -12,9 +12,10 @@ cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
   pva <- NULL
 
   runtime <- proc.time()
-  if (xstand)   x <- Rfast::standardise(x, center = TRUE, scale = FALSE)
+  if (xstand)   x <- Rfast::standardise(x)
   if (ystand)   y <- ( y - mean(y) ) / Rfast::Var(y, std = TRUE)
-  options(warn = -1)
+  oop <- options(warn = -1)
+  on.exit( options(oop) )
   yx <- Rfast::eachcol.apply(x, y) / (n - 1)
   n.tests <- p
   stat <- abs( 0.5 * log( (1 + yx) / (1 - yx) ) * sqrt(n - 3) ) 
@@ -33,7 +34,6 @@ cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
     z <- x[, sel]
     
     if ( length(s) > 0 ) {
-      options(warn = -1)
       xz <- as.vector( cor(z, x[, ind[s] ]) )
       n.tests <- n.tests + length( ind[s] )
       yx.z <- abs( ( yx[ ind[s] ] - xz * r ) / sqrt(1 - xz^2) / sqrt(1 - r^2) ) 
@@ -54,7 +54,6 @@ cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
         stat <- numeric(p)
         m <- n - 3 - length(sela)
         er <- .lm.fit( z, cbind(y, x[, ind[s]]) )$residuals
-        options(warn = -1)
         r <- cor(er[, 1], er[, -1])
         n.tests <- n.tests + length( ind[s] )
         stat[ ind[s] ] <- abs( 0.5 * log( (1 + r) / (1 - r) ) * sqrt(m) )    
@@ -77,7 +76,6 @@ cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
     #e1 <- .lm.fit(z, y)$residuals
     #e2 <- .lm.fit(z, x[, ind[-sela] ])$residuals
     er <- .lm.fit( z, cbind(y, x[, ind[-sela]]) )$residuals
-    options(warn = -1)
     #r <- cor(e2, e1) 
     r <- cor(er[, 1], er[, -1])
     n.tests[2] <- length( ind[-sela] )
@@ -97,7 +95,6 @@ cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
       #e1 <- .lm.fit(z, y)$residuals
       #e2 <- .lm.fit(z, x[, ind[-sela] ])$residuals
       er <- .lm.fit( z, cbind(y, x[, ind[s]]) )$residuals
-      options(warn = -1)
       #r <- cor(e2, e1) 
       r <- cor(er[, 1], er[, -1])
       n.tests[2] <- n.tests[2] + length( ind[s] )
@@ -121,7 +118,6 @@ cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
     #e1 <- .lm.fit(z, y)$residuals
     #e2 <- .lm.fit(z, x[, ind[-sela] ])$residuals
     er <- .lm.fit( z, cbind(y, x[, ind[-sela]]) )$residuals
-    options(warn = -1)
     #r <- cor(e2, e1) 
     r <- cor(er[, 1], er[, -1])
     n.tests[2] <- length( ind[-sela] )
@@ -141,7 +137,6 @@ cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
       #e1 <- .lm.fit(z, y)$residuals
       #e2 <- .lm.fit(z, x[, ind[-sela] ])$residuals
       er <- .lm.fit( z, cbind(y, x[, ind[s]]) )$residuals
-      options(warn = -1)
       #r <- cor(e2, e1) 
       r <- cor(er[, 1], er[, -1])
       n.tests[2] <- n.tests[2] + length( ind[s] )
@@ -166,7 +161,6 @@ cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
       #e1 <- .lm.fit(z, y)$residuals
       #e2 <- .lm.fit(z, x[, ind[-sela] ])$residuals
       er <- .lm.fit( z, cbind(y, x[, ind[-sela]]) )$residuals
-      options(warn = -1)
       #r <- cor(e2, e1) 
       r <- cor(er[, 1], er[, -1])
       n.tests[vim + 1] <- length( ind[-sela] )
@@ -186,7 +180,6 @@ cor.fbed <- function(y, x, ystand = TRUE, xstand = TRUE, alpha = 0.05, K = 0) {
         #e1 <- .lm.fit(z, y)$residuals
         #e2 <- .lm.fit(z, x[, ind[-sela] ])$residuals
         er <- .lm.fit( z, cbind(y, x[, ind[s]]) )$residuals
-        options(warn = -1)
         #r <- cor(e2, e1) 
         r <- cor(er[, 1], er[, -1])
         n.tests[vim + 1] <- n.tests[vim + 1] + length( ind[s] )

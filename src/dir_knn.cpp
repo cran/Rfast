@@ -53,14 +53,12 @@ NumericMatrix dir_knn(NumericMatrix tXnew, NumericMatrix tX, NumericVector Y, Nu
             tmpsum = sum(tx.col(i)%txnew.col(l));
             if(tmpsum > 1)
               tmpsum = 1;
-            else if(tmpsum < -1)
-              tmpsum = -1;
-            k_sorted_put(myarray,k0,i,acos(tmpsum));
+
+            k_sorted_put(myarray,k0,i,-tmpsum);
           }
 
-          for(int j = 0; j < klen; j++){
+          for(int j = 0; j < klen; j++)
             g(l,j)= _function_type_(y, myarray, K[j]);
-          }
 
             // make all elements of the array "invalid" so that the next iteration can begin
             myarray =  refresh_array(myarray, k0);
@@ -80,9 +78,8 @@ NumericMatrix dir_knn(NumericMatrix tXnew, NumericMatrix tX, NumericVector Y, Nu
         tmpsum = sum(tx.col(i)%txnew.col(l));
         if(tmpsum > 1)
           tmpsum = 1;
-        else if(tmpsum < -1)
-          tmpsum = -1;
-        k_sorted_put(myarray,k0,i,acos(tmpsum));
+
+        k_sorted_put(myarray,k0,i,-tmpsum);
       }
 
       for(int j = 0; j < klen; j++)

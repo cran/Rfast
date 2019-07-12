@@ -52,7 +52,7 @@ vector<string> add_to_namespace(const string dir_to_export,const string dir_to_f
   return which_not_exported;
 }
 
-RcppExport SEXP Rfast_add_to_namespace(SEXP dir_to_exportSEXP,SEXP dir_to_fileSEXP,SEXP sortingSEXP,SEXP no_readSEXP) {
+RcppExport SEXP Rfast_add_to_namespace(SEXP dir_to_exportSEXP,SEXP dir_to_fileSEXP,SEXP sortingSEXP) {
 BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;

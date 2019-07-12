@@ -30,7 +30,8 @@ makefolds <- function(target, nfolds = 10, stratified = TRUE, seed = FALSE) {
   if (seed)  set.seed(1234)
 
   if ( !stratified ) {
-    options(warn = -1)
+    oop <- options(warn = -1)
+    on.exit( options(oop) )
     mat <- matrix(sample(length(target)), ncol = nfolds)
     for (i in 1:c(nfolds - 1)) runs[[i]] <- mat[, i]
     names <- prod(dim(mat)) - length(target)

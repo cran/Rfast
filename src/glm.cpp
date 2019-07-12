@@ -6,63 +6,74 @@
 using namespace Rcpp;
 using namespace arma;
 
-static double calcDevRes(colvec p,colvec y,colvec expyhat){
-  int psize = p.n_elem;
-  double s=0.0;
-  for(int i=0;i<psize;i++){
-    if(y(i)==1){
-      if(p(i) == 0){
-        s+= expyhat(i);
-      }
-      else{
-        s+=log(p(i));
-      }
-    }
-    else{
-      if(p(i) == 1){
-        s+= expyhat(i);
-      }
-      else{
-        s+=log(1-p(i));
-      }
-    }
+double calc_neg_ll(double *wx, double *expwx, double *y, const int size){
+  double sum = 0.0;
+  double *wit = wx, *yit = y;
+  for(int i=0;i<size;i++,wit++,yit++){
+    if(*wit<=30)
+      sum+=(*yit-1)*(*wit)+log(expwx[i]);
+    else
+      sum+=(*yit)*(*wit);
   }
-  
-  return s;
+  return sum;
 }
 
-
 //[[Rcpp::export]]
-List glm_logistic(NumericMatrix X, NumericVector Y,const double tol,const int maxiters){
-  const unsigned int n=X.nrow(),pcols=X.ncol(),d=pcols;
-  colvec be(d,fill::zeros),yhat(n),expyhat,y(Y.begin(),n,false),W(n,fill::zeros),p(n);
-  mat x(X.begin(),n,pcols,false);
-  double my = accu(y)/n,d1=(n*my*log(my)+(n-n*my)*log(1-my)),d2;
-  be(0)=log(my)-log(1-my);
-  mat der=cross_x_y<mat,mat,colvec>(x,y-my);
-  mat der2=cross_x_y<mat,mat,colvec>(x,x*my*(1-my));
-  be=be+solve(der2,der);
-  yhat = x*be;
-  expyhat=exp(-yhat);
-  p = 1 / (1 + expyhat);
-  d2=calcDevRes(p,y,expyhat);
-  int i=2;
-  for(;d2-d1>tol && i<maxiters;++i){
-    d1=d2;
-    der=cross_x_y<mat,mat,colvec>(x,y-p);
-  	W=p%(1-p);
-  	der2=cross_x_y<mat,mat,colvec>(x,x.each_col()%W);
-  	be=be+solve(der2,der);
-  	yhat = x*be;
-  	expyhat=exp(-yhat );
-  	p = 1 / (1 + expyhat);
-  	d2=calcDevRes(p,y,expyhat);
-  }
+List glm_logistic(NumericMatrix X, NumericVector Y, const double tol = 1e-06, const int maxiters = 100){
+  int N = X.nrow(),P = X.ncol();
+  mat x(X.begin(), N, P,false);
+  vec y(Y.begin(), N,false);
   List l;
-  l["deviance"]= -2.0 * d2;
-  l["be"]=be;
-  l["der2"]=der2;
-  l["iter"]=i;
+
+
+  double ta, alpha = 1e-4, beta = 0.5, lltol = 1e-06, ttol = 1e-09;
+  vec B(P, fill::zeros), nextB, expwxinv = vec(N,fill::zeros)+0.5, pp, u;
+  double prevNegLL, negLL = 0.6931472*N;
+
+  //0->newton, 1->CONJUGATE, 2->GRADIENT
+
+  int iters;
+  mat g, lambda, eye(P,P,fill::eye), wx, expwx, der2;
+
+  for(iters=0; iters<maxiters; iters++){
+    g = cross_x_y<mat,mat,vec>(x, expwxinv-y);
+
+    pp = expwxinv % (1 - expwxinv);
+    der2 = cross_x_y<mat,mat,vec>(x, x.each_col() % pp);
+    u =  solve( der2, g, solve_opts::fast);
+
+    lambda = cross_x_y<mat,mat,vec>(g,u);
+
+    // Backtracking line search
+    ta = 1/beta;
+    prevNegLL = negLL;
+
+    do{
+      ta = ta * beta;
+      nextB = B + ta * u;
+      wx = x * nextB;
+      expwx = 1 + exp(wx);
+      negLL = calc_neg_ll(&wx[0], &expwx[0], &y[0], N);
+    } while(negLL > prevNegLL + alpha * ta * lambda[0] && ta > ttol);
+
+    B = nextB;
+    if ( isinf(negLL) || lambda[0]*ta/2 < tol || prevNegLL - negLL < lltol) {
+      if ( NumericVector::is_na(negLL)) {
+        Rcout<<"Infinity found"<<endl;
+      }
+      break;
+    }
+    expwxinv = 1/expwx;
+  }
+  double dev = 2 * negLL;
+  if ( isinf(dev) )
+    dev = 1e+308;
+
+  l["iter"] = iters+1;
+  l["be"] = -B;
+  l["deviance"] = dev;
+  l["der2"] = der2;
+  
   return l;
 }
 

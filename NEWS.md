@@ -1,7 +1,42 @@
 <h1 align="center"> _Rfast_ </h1>
 
 > <b>New version</b> </br>
-Date release: **05/22/2019** 
+Date release: **07/06/2019** 
+>
+
+***
+
+> <h3>**_Statistical functions_**</h3>
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  |	    Function	    |           What's new!             |
+>>  | spml.mle              |         Fix of a bug.             |
+>>  | dirknn                |         Time improvement.         |
+>>  | glm_logistic          |  Made the code more robust.       |
+>>  | vmf.mle               |  Made the code more robust.       |
+>>  | cor.fbed              |         Fix of a bug.             |
+>>  | Dist                  |         Fix of a bug.             |
+***
+>
+>>2. <u> **New** </u>
+>>
+>>  | 	     Function	      |          What's new!            |
+>>  | --------------------- | ------------------------------------------- |
+>>  |                       |  											  |
+>
+***
+> <h3>**_Utility functions_**</h3>  
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  | 	    Function	    |            What's new!                  |
+>>  | --------------------- | ------------------------------------------- |
+>>  |         |        |
+>
+
+> <h4>version</h4> 1.9.4</br>
+Date release: **05/24/2019** 
 >
 
 ***
@@ -22,7 +57,6 @@ Date release: **05/22/2019**
 >>  | score.invgaussregs    | Time improvement |
 >>  | score.negbinregs      | Time improvement |
 >>  | score.ztpregs         | Time improvement |
-
 >>  | group.any         | Deprecated and replaced by group |
 >>  | group.all         | Deprecated and replaced by group |
 >>  | group.min         | Deprecated and replaced by group |

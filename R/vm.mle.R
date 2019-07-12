@@ -31,7 +31,7 @@ vm.mle <- function(x, tol = 1e-09) {
       k2 <- k1 + der/ der2
     }
       
-  } else k1 <- k1
+  } else k2 <- k1
   
   param <- c(mu, k2) 
   names(param) <- c("mean", "concentration")

@@ -93,11 +93,12 @@ using std::remove;
 
 List check_aliases(const string path_man,const string path_rf){
   ifstream file;
-  vector<string> aliases,all_r_files=readDirectory(path_rf,2),all_rd_files=readDirectory(path_man,3),tmp,dontread_rd;
-  for(unsigned int i=0;i<all_rd_files.size();++i){
-    file.open(path_man+all_rd_files[i]+".Rd");
+  vector<string> aliases,all_r_functions=read_functions_and_signatures(path_rf)["export"],all_rd_files=readDirectory(path_man,3),tmp,dontread_rd;
+
+  for(auto& rd_file : all_rd_files){
+    file.open(path_man+rd_file+".Rd");
     if(!file.is_open()){
-      Rcout<<"Can't open file "<<all_rd_files[i]<<".\n";
+      Rcout<<"Can't open file "<<rd_file<<".\n";
       continue;
     }
     if(check_read_file(file,'%')){
@@ -106,16 +107,16 @@ List check_aliases(const string path_man,const string path_rf){
         aliases.push_back(tmp[j]);
       }
     }else{
-      DEBUG("Find attribute dont read file with name: "+all_rd_files[i]);
-      dontread_rd.push_back(all_rd_files[i]);
+      DEBUG("Find attribute dont read file with name: "+rd_file);
+      dontread_rd.push_back(rd_file);
     }
     file.close();
   }
   sort(aliases.begin(),aliases.end());
-  sort(all_r_files.begin(),all_r_files.end());
+  sort(all_r_functions.begin(),all_r_functions.end());
   List ls;
-  ls["Missing Man files"]=find_which(all_r_files,aliases);
-  ls["Missing R files"]=find_which(aliases,all_r_files);
+  ls["Missing Man files"]=find_which(all_r_functions,aliases);
+  ls["Missing R files"]=find_which(aliases,all_r_functions);
   ls["Duplicate alias"]=find_duplis(aliases);
   ls["dont read"]=List::create(_["Rd"]=dontread_rd);
   return ls;

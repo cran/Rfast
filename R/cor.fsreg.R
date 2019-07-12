@@ -6,9 +6,10 @@ cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb
   p <- dm[2]
   con <- n * log(2 * pi) + n  
   logn <- log(n)
-  if (xstand)   x <- Rfast::standardise(x, center = TRUE, scale = TRUE)
+  if (xstand)   x <- Rfast::standardise(x)
   if (ystand)   y <- ( y - mean(y) ) / Rfast::Var(y, std = TRUE)
-  options(warn = -1)
+  oop <- options(warn = -1)
+  on.exit( options(oop) )
   yx <- Rfast::eachcol.apply(x, y) / (n - 1)
   sel <- which.max( abs(yx) )
   r <- yx[sel] 
@@ -28,7 +29,6 @@ cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb
       tool[1] <- n * log( sum(model$residuals^2)/n ) + con + 3 * logn 
     } else  info <- rbind(info, c(0, 0, 0))  
     if ( !is.null(model) ) {
-	options(warn = -1)
       xz <- as.vector( cor(z, x) )
       yx.z <- ( yx - xz * r ) / sqrt(1 - xz^2) / sqrt(1 - r^2)
       sel <- which.max( abs(yx.z) )
@@ -56,7 +56,6 @@ cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb
         e1 <- model$residuals
         e2 <- .lm.fit(z, x)$residuals
         ## yx.z <- colsums(e1 * e2) / sqrt( Rfast::colsums(e2^2) * sum(e1^2) ) 
-		options(warn = -1)
         yx.z <- cor(e2, e1) 
         sel <- which.max( abs(yx.z) )  
         r <- yx.z[sel]
@@ -123,7 +122,6 @@ cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb
         e1 <- model$residuals
         e2 <- .lm.fit(z, x)$residuals
         ## yx.z <- colsums(e1 * e2) / sqrt( colsums(e2^2) * sum(e1^2) ) 
-		options(warn = -1)
         yx.z <- cor(e1, e2) 
         sel <- which.max( abs(yx.z) )  
         r <- yx.z[sel]
@@ -156,13 +154,11 @@ cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb
       info <- cbind(sel, pv, stat)
       z <- x[, sel, drop = FALSE]
       model <- .lm.fit(z, y)   
-      options(warn = -1)
       r2 <- 1 - cor(y, model$residuals )^2
       toolr[1] <- 1 - (1 - r2) * (n - 1 ) / ( n - 2)
       toolb[1] <- n * log( sum(model$residuals^2)/n ) + con + 3 * logn 
     } else  info <- rbind(info, c(0, 0, 0))
       if ( !is.null(model) ) {
-	  options(warn = -1)
         xz <- as.vector( cor(z, x) )
         yx.z <- ( yx - xz * r ) / sqrt(1 - xz^2) / sqrt(1 - r2)
         sel <- which.max( abs(yx.z) )
@@ -192,7 +188,6 @@ cor.fsreg <- function(y, x, ystand = TRUE, xstand = TRUE, threshold = 0.05, tolb
         e1 <- model$residuals
         e2 <- .lm.fit(z, x)$residuals
         ## yx.z <- Rfast::colsums(e1 * e2) / sqrt( Rfast::colsums(e2^2) * sum(e1^2) ) 
-		options(warn = -1)
         yx.z <- cor(e1, e2) 
         sel <- which.max( abs(yx.z) )  
         r <- yx.z[sel]

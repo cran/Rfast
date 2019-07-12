@@ -810,6 +810,7 @@ SEXP col_nth(NumericMatrix x,IntegerVector elems,const bool descend,const bool n
           *ff=nth_helper<NumericVector>(y,*els,descend,na_rm);
       }
     }
+    UNPROTECT(1);
     return F;
 }
 
@@ -848,6 +849,7 @@ SEXP row_nth(NumericMatrix x,IntegerVector elems,const bool descend,const bool n
         *ff=nth_helper<NumericVector>(y,*els,descend,na_rm);
       }
     }
+    UNPROTECT(1);
     return F;
 }
 

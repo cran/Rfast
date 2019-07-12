@@ -20,7 +20,7 @@ A matrix with data. The distances will be calculated between pairs of rows.
 In the case of \bold{vecdist} this is a vector.
 }
 \item{method}{
-This is either "euclidean", "manhattan", "canberra1", "canberra2", "minimum", "maximum", "minkowski","bhattacharyya", "hellinger", "total_variation" or "kullback_leibler/jensen_shannon".
+This is either "euclidean", "manhattan", "canberra1", "canberra2", "minimum", "maximum", "minkowski", "bhattacharyya", "hellinger", "kullback_leibler" or "jensen_shannon".
 The last two options are basically the same. 
 }
 \item{square}{
@@ -36,7 +36,7 @@ For return a vector instead a matrix.
 }
 
 \details{
-The distance matrix is computer with an extra argument for the Euclidean distances.
+The distance matrix is computer with an extra argument for the Euclidean distances. The "kullback_leibler" refers to the symmetric Kullback-Leibler divergence.
 }
 
 \value{

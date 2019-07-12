@@ -9,7 +9,7 @@ It performs very many univariate simple linear regressions with or without categ
 }
 
 \usage{
-regression(x, y, logged = FALSE)
+regression(x, y, poia = NULL, logged = FALSE)
 }
 
 \arguments{
@@ -20,6 +20,9 @@ predictor variables you should the function \code{\link{allbetas}} instead as it
 }
 \item{y}{
 The dependent variable; a numerical vector.
+}
+\item{poia}{
+If the "x" is a data.frame and you know the indices of the columns which are categorical variables supply it here.
 }
 \item{logged}{
 Do you want the logarithm of the p-values be returned? The default value is FALSE.

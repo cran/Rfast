@@ -2,9 +2,11 @@
 binom.mle <- function(x, N = NULL, tol = 1e-07) {
   
   if ( !is.null(N) ) {
-    p <- sum(x) / length(x) / N 
+    if ( length(N) == 1 ) {
+	  p <- sum(x) / length(x) / N 
+    } else  p <- sum(x) / sum(N)
     loglik <- sum( dbinom(x, N, p, log = TRUE) )
-    res <- list(loglik = loglik, prob = p)
+    res <- list(loglik = loglik, prob = p)   
   } else {
    
     n <- length(x)

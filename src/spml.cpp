@@ -339,7 +339,7 @@ RcppExport SEXP Rfast_spml_reg(SEXP YSEXP, SEXP XSEXP,SEXP tolSEXP,SEXP sebSEXP,
 
 
 List spml_mle(NumericMatrix X, const double tol, const int maxiters){
-  int n = X.size(), yD = X.ncol();
+  int n = X.nrow(), yD = X.ncol();
   mat x(X.begin(),n, yD,false);
   List l;
   mat u(n,2);

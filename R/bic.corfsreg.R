@@ -11,7 +11,8 @@ bic.corfsreg <- function (y, x, tol = 2) {
     tool <- sela <- numeric( min(n, p) )
     tool[1] <- n * log( Var(y) * (n - 1) /n) + 2 * logn 
     sela[1] <- 0
-	options(warn = -1)
+	oop <- options(warn = -1)
+    on.exit( options(oop) )
     yx <- Rfast::eachcol.apply(x, y)
     sel <- which.max(abs(yx))
     r <- yx[sel] / (n - 1)
@@ -29,7 +30,6 @@ bic.corfsreg <- function (y, x, tol = 2) {
       res <- .lm.fit(z, cbind(y, x))$residuals
       e1 <- res[, 1]
       e2 <- res[, -1]
-      options(warn = -1)
       yx.z <- cor(e1, e2)
       sel <- which.max( abs(yx.z) )
       z <- cbind(z, x[, sel])

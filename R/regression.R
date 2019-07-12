@@ -1,5 +1,5 @@
 #[export]
-regression <- function (x, y, logged = FALSE) {
+regression <- function (x, y, poia = NULL, logged = FALSE) {
     if (is.matrix(x)) {
         n <- length(y)
         rho <- as.vector(cor(y, x))
@@ -12,8 +12,9 @@ regression <- function (x, y, logged = FALSE) {
         else pvalue <- 2 * pt(abs(stat), n - 2, lower.tail = FALSE)
     }
     else {
-        poia <- Rfast::which.is(x)
-        if (length(poia) == 0) {
+        
+        if ( is.null(poia) )  poia <- Rfast::which.is(x)
+        if ( length(poia) == 0 ) {
             n <- length(y)
             rho <- as.vector(cor(y, x))
             sqdof <- sqrt(n - 2)
@@ -40,7 +41,8 @@ regression <- function (x, y, logged = FALSE) {
             }
             else pvalue[-poia] <- 2 * pt(abs(stat[-poia]), n - 
                 2, lower.tail = FALSE)
-            mod <- Rfast::colanovas(y, x[, poia, drop = FALSE], logged = logged)
+            mod <- Rfast::colanovas(y, x[, poia, drop = FALSE], 
+                logged = logged)
             stat[poia] <- mod[, 1]
             pvalue[poia] <- mod[, 2]
         }

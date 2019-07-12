@@ -156,5 +156,6 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \keyword{ Checking R }
 \keyword{ Checking Rd }
 \keyword{ Checking Examples }
-\keyword{ Checking for TRUE,FALSE }
+\keyword{ Checking for TRUE }
+\keyword{ Checking for FALSE }
 \keyword{ Checking Usage section }

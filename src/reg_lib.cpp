@@ -23,11 +23,12 @@ double average_value(vec y, a_node* my_ar, const int size){
 }
 
 double weighted_average_value(vec y, a_node* my_ar, const int size){
-  double sum=0.0, divider = 0.0;
+  double sum=0.0, divider = 0.0,acos;
   a_node* it = my_ar;
   for(int i=0;i<size;i++,it++){
-      sum+= y(it->index)/exp(it->value);
-      divider+=1/exp(it->value);
+    acos = std::exp(std::acos(-it->value));
+    sum+= y(it->index)/acos;
+    divider+=1/acos;
   }
 
   return sum/divider;
@@ -36,9 +37,11 @@ double weighted_average_value(vec y, a_node* my_ar, const int size){
 double weighted_most_frequent_value(vec y, a_node* my_ar, const int size){
   std::map<int,double> counts;
   a_node* tmp = my_ar;
-  for(int i=0;i<size;i++,tmp++){
-      counts[(int)y(tmp->index)]+=1/exp(tmp->value);
+  double acos;
 
+  for(int i=0;i<size;i++,tmp++){
+      acos = std::exp(std::acos(-tmp->value));
+      counts[(int)y(tmp->index)]+=1/acos;
   }
 
   map<int, double>::iterator tmpit;

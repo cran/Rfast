@@ -7,6 +7,9 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
     ind <- 1:d
 	if (xstand)   x <- Rfast::standardise(x)
     phi <- NULL
+    oop <- options(warn = -1)
+    on.exit( options(oop) )
+
     if (type == "logistic") {
         p <- sum(y)/n
         rho <- -2 * (n * p * log(p) + (n - n * p) * log(1 - p))
@@ -14,7 +17,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
-        options(warn = -1)
         mod <- Rfast::glm_logistic(x[, sel], y)
         est <- exp(-mod$be[1] - x[, sel] * mod$be[2])
         res <- y - 1/(1 + est)
@@ -28,7 +30,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
                 0], oper = "*", apply = "sum")
             sel <- which.max(abs(r))
             sela <- c(sela, sel)
-            options(warn = -1)
             mod <- Rfast::glm_logistic(x[, sela], y)
             est <- as.vector(exp(-mod$be[1] - x[, sela] %*% mod$be[-1]))
             res <- y - 1/(1 + est)
@@ -44,7 +45,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
-        options(warn = -1)
         mod <- Rfast::glm_poisson(x[, sel], y)
         res <- y - exp(mod$be[1] + x[, sel] * mod$be[2])
         rho[2] <- mod$devi
@@ -57,7 +57,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
                 0], oper = "*", apply = "sum")
             sel <- which.max(abs(r))
             sela <- c(sela, sel)
-            options(warn = -1)
             mod <- Rfast::glm_poisson(x[, sela], y)
             res <- y - as.vector(exp(mod$be[1] + x[, sela] %*% 
                 mod$be[-1]))
@@ -74,7 +73,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
-        options(warn = -1)
         mod <- Rfast::qpois.reg(x[, sel], y)
         phi[2] <- mod$phi
         res <- y - exp(mod$be[1] + x[, sel] * mod$be[2])
@@ -88,7 +86,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
                 0], oper = "*", apply = "sum")
             sel <- which.max(abs(r))
             sela <- c(sela, sel)
-            options(warn = -1)
             mod <- Rfast::qpois.reg(x[, sela], y)
             res <- y - as.vector(exp(mod$be[1] + x[, sela] %*% 
                 mod$be[-1]))
@@ -107,7 +104,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
-        options(warn = -1)
         mod <- Rfast::prop.reg(y, x[, sel], varb = "glm")
         phi[2] <- mod$phi
         est <- exp(-mod$info[1, 1] - x[, sel] * mod$info[2, 1])
@@ -124,7 +120,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
                 0], oper = "*", apply = "sum")
             sel <- which.max(abs(r))
             sela <- c(sela, sel)
-            options(warn = -1)
             mod <- Rfast::prop.reg(y, x[, sela], varb = "glm")
             est <- as.vector(exp(-mod$info[1, 1] - x[, sela] %*% 
                 mod$info[-1, 1]))
@@ -144,7 +139,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
-        options(warn = -1)
         mod <- Rfast::normlog.reg(y, x[, sel])
         res <- y - exp(mod$be[1] + x[, sel] * mod$be[2])
         rho[2] <- mod$deviance
@@ -158,7 +152,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
                 0], oper = "*", apply = "sum")
             sel <- which.max(abs(r))
             sela <- c(sela, sel)
-            options(warn = -1)
             mod <- Rfast::normlog.reg(y, x[, sela])
             res <- y - as.vector(exp(mod$be[1] + x[, sela] %*% 
                 mod$be[-1]))
@@ -175,7 +168,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         sel <- which.max( abs(ela) )
         sela <- sel
         names(sela) <- NULL
-        options(warn = -1)
         mod <- Rfast::gammareg(y, x[, sel])
         res <- y - exp(mod$be[1] + x[, sel] * mod$be[2])
         rho[2] <- mod$info[2]
@@ -189,7 +181,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
                 0], oper = "*", apply = "sum")
             sel <- which.max(abs(r))
             sela <- c(sela, sel)
-            options(warn = -1)
             mod <- Rfast::normlog.reg(y, x[, sela])
             res <- y - as.vector(exp(mod$be[1] + x[, sela] %*% 
                 mod$be[-1]))
@@ -205,7 +196,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
         sel <- which.max(abs(ela))
         sela <- sel
         names(sela) <- NULL
-        options(warn = -1)
         mod <- Rfast::weib.reg(y, x[, sel])
         res <- y - exp(mod$be[1] + x[, sel] * mod$be[2])
         rho[2] <- 2 * mod$loglik
@@ -218,7 +208,6 @@ omp <- function (y, x, xstand = TRUE, tol = qchisq(0.95, 1) + log(length(y)), ty
                 0], oper = "*", apply = "sum")
             sel <- which.max(abs(r))
             sela <- c(sela, sel)
-            options(warn = -1)
             mod <- Rfast::weib.reg(y, x[, sela])
             res <- y - as.vector(exp(mod$be[1] + x[, sela] %*% 
                 mod$be[-1]))

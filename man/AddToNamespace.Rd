@@ -25,7 +25,7 @@ An full path to the directory the new files to be added are stored.
 An boolean value for sorting the exported functions in file NAMESPACE.
 }
 \item{files.to.remove}{
-An character with the names of the functions to be removed form file NAMESPACE.
+An character with the names of the functions to be removed from file NAMESPACE.
 }
 }
 

@@ -14,7 +14,8 @@ dirknn(xnew, x, y, k, type = "C", parallel = FALSE)
 
 \arguments{
 \item{xnew}{
-The new data whose membership is to be predicted, a numeric matrix with unit vectors.
+The new data whose membership is to be predicted, a numeric matrix with unit vectors. 
+In case you have one vector only make it a row vector (i.e. matrix with one row).
 }
 \item{x}{
 The data, a numeric matrix with unit vectors.

@@ -42,6 +42,7 @@ where the minimum is zero and type 2 for the case of the minimum being 1.
 }
 \item{N}{
 This is for the binomial distribution only, specifying the total number of successes. If NULL, it is sestimated by the data.
+It can also be a vector of successes.
 }
 \item{tol}{
 The tolerance level up to which the maximisation stops set to 1e-09 by default.

@@ -13,7 +13,7 @@ gammanb <- function(xnew = NULL, x, ina, tol = 1e-07) {
     b[i, ] <- res[, 2]
   }
   rownames(a) <- rownames(b) <- paste("Group", 1:k)
-  if ( is.null(xnew) ) {
+  if ( !is.null(xnew) ) {
     score <-  - tcrossprod(b, xnew) + tcrossprod(a - 1, Rfast::Log(xnew)) - 
     Rfast::rowsums( Rfast::Lgamma(a) - a * Rfast::Log(b) )
 	est <- Rfast::colMaxs(score)
