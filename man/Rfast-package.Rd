@@ -18,8 +18,8 @@ Note 3: In general, make sure you give the correct input, in order to get the co
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 1.9.5 \cr
-Date: \tab 2019-07-06\cr
+Version: \tab 1.9.6 \cr
+Date: \tab 2019-11-14\cr
 License: \tab GPL-2\cr
 }
 }
@@ -30,7 +30,7 @@ Ioannis Tsamardinos <tsamard@csd.uoc.gr>, Matteo Fasiolo <matteo.fasiolo@gmail.c
 Kleanthi Lakiotaki <kliolak@gmail.com>, Changliang Zou <nk.chlzou@gmail.com>, Christina Chatzipantsiou <chatzipantsiou@gmail.com>
 }
 
-\section{Maintainers }{
+\section{Maintainers}{
 Manos Papadakis <papadakm95@gmail.com>
 }
 
@@ -51,5 +51,39 @@ Pedro J. Aphalo for finding a bug.
 Dimitris Kyriakis for finding a bug. 
 Cyrille Conord for finding a bug.
 Aaron Robotham for finding a bug.
+Calvin Pan from the Department of Human Genetics at UCLA found a bug in the function glm_logistic and he is greatly acknowledged for that.
+Adam Muschielok from Rodenstock GmbH found a bug in the function vmf.mle and he is greatly acknowledged for that.
+
+From now on the Rfast can be used in C++ via LinkingTo mechanism.
+The main namespace is "Rfast". Inside "Rfast" you will find two more namespaces, "vector" and "matrix".
+Namespace "vector" for calling functions using an Rcpp's or RcppArmadillo's vector.
+Namespace "matrix" for calling functions using an Rcpp's or RcppArmadillo's matrices.
+The signatures of the functions and the arguments are the same that are exported in R.
+For namespace "vector" the functions that are available are:
+  
+	median(x)
+	var(x, std = false, na_rm = false)
+	mad(x, method = "median", na_rm = false)  
+	shuffle(x,engine = Engine(time(0)) // Engine by default is default_random_engine. You can use anyone from C++.
+
+For namespace "matrix" the functions that are available are:
+  
+	transpose(x)
+	matrix_multiplication(x,y)
+	colSort(x, descend = false, stable = false, parallel = false)
+	rowSort(x, descend = false, stable = false, parallel = false)
+	is_symmetric(x)
+	colMedian(x, na_rm = false, parallel = false)
+	rowMedian(x, na_rm = false, parallel = false)
+	colVars(x, std = false, na_rm = false, parallel = false)
+	rowVars(x, std = false, na_rm = false, parallel = false)
+	colMads(x, method = "median", na_rm = false, parallel = false)
+	rowMads(x, method = "median", na_rm = false, parallel = false)
+	colShuffle(x,engine = Engine(time(0)) // Engine by default is default_random_engine. You can use anyone from C++.
+	rowShuffle(x,engine = Engine(time(0)) // Engine by default is default_random_engine. You can use anyone from C++.
+	
+How to use it:
+	1. Just add in "LinkingTo" in your NAMESPACE file the "Rfast" or in Rstudio "//[[Rcpp::depends(Rfast)]]".
+	2. Include in your cpp files the header "Rfast.h" and enjoy!
 }
 

@@ -11,13 +11,19 @@ Column and row-wise mean absolute deviations.
 
 
 \usage{
-colMads(x,parallel = FALSE)
-rowMads(x,parallel = FALSE)
+colMads(x,method = "median",na.rm=FALSE,parallel = FALSE)
+rowMads(x,method = "median",na.rm=FALSE,parallel = FALSE)
 }
 
 \arguments{
 \item{x}{
 A matrix with the data.
+}
+\item{method}{
+A character vector with values "median", for median absolute deviation or "mean", for mean absolute deviation. 
+}
+\item{na.rm}{
+A logical value TRUE/FALSE to remove NAs.
 }
 \item{parallel}{
 A boolean value for parallel version.

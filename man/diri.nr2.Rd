@@ -63,7 +63,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 x <- matrix( rgamma(100 * 4, c(5, 6, 7, 8), 1), ncol = 4)
 x <- x / rowsums(x)
-diri.nr2(x) 
+res<-diri.nr2(x) 
 }
 
 \keyword{ Dirichlet distribution }

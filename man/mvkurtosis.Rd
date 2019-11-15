@@ -47,7 +47,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>.
 
 \examples{
 x <- as.matrix(iris[, 1:4])
-mvkurtosis(x)
+res<-mvkurtosis(x)
 }
 
 \keyword{ Multivariate data }

@@ -1,5 +1,6 @@
 \name{Median of a vector}
 \alias{med}
+\alias{Median}
 \title{
 Median of a vector
 }
@@ -10,6 +11,7 @@ Median of a vector.
 
 \usage{
 med(x,na.rm=FALSE)
+Median(x,na.rm=FALSE)
 }
 
 \arguments{
@@ -42,8 +44,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <- rnorm(1000)
-system.time( for (i in 1:100) med(x) )
-system.time( for (i in 1:100) median(x) )
+a1 <- Median(x) 
+a2 <- median(x)
 }
 
 \keyword{ nth elements }

@@ -60,7 +60,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 x <- as.matrix(iris[, 1:4])
 system.time( for(i in 1:100) invdir.mle(x) )
-invdir.mle(x)
+res<-invdir.mle(x)
 }
 
 \keyword{ Inverted Dirichlet distribution }

@@ -42,7 +42,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 
 \seealso{
-\code{\link{med}, \link{colMedians}, \link{colMeans} (buit-in R function)
+\code{\link{Median}, \link{colMedians}, \link{colMeans} (buit-in R function)
 }
 }
 

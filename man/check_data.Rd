@@ -48,15 +48,15 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <- matrix( rnorm(100 * 100), ncol = 100 )
-check_data(x)
+res<-check_data(x)
 
 ## some variables have a constant value
 x[, c(1,10, 50, 70)] <- 1
-check_data(x)
+res<-check_data(x)
 id <- rep(1:4, each = 25 )
 x[1:25, 2] <- 0
-check_data(x)  ## did not use the id variable
-check_data(x, id)  ## see now
+res<-check_data(x)  ## did not use the id variable
+res<-check_data(x, id)  ## see now
 x <- NULL
 }
 

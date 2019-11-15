@@ -87,9 +87,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Stef
 \examples{
 y <- rcauchy(100, 3, 1)
 x <- y %% (2 * pi)
-vm.mle(x)
-spml.mle(x)
-wrapcauchy.mle(x)
+res<-vm.mle(x)
+res<-spml.mle(x)
+res<-wrapcauchy.mle(x)
 x <- NULL
 }
 

@@ -63,9 +63,9 @@ nvars <- 2
 nsamples <- 5000
 data <- matrix( sample( 0:(nvalues - 1), nvars * nsamples, replace = TRUE ), nsamples, nvars )
 
-gchi2Test(data[, 1], data[, 2])
-g2Test_univariate( data, rep(3, 2) )  ## G^2 test
-chisq.test(data[, 1], data[, 2])  ## X^2 test from R
+res<-gchi2Test(data[, 1], data[, 2])
+res<-g2Test_univariate( data, rep(3, 2) )  ## G^2 test
+res<-chisq.test(data[, 1], data[, 2])  ## X^2 test from R
   
 data<-NULL
 }

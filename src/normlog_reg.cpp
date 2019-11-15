@@ -3,7 +3,7 @@
 #include <RcppArmadillo.h>
 #include <cmath>
 #include "reg_lib.h"
-#include "templates.h"
+#include "Rfast.h"
 
 using namespace Rcpp;
 using namespace arma;

@@ -22,7 +22,7 @@ as.Rfast.function<-function(Rfunction.name,margin=NULL){
         details<-3
     }
     else if(Rfunction.name=="mad"){
-        Rffunc<-if(margin.is.true) "Mads" else "mad2"
+        Rffunc<-if(margin.is.true) "Mads" else "Mad"
         details<-4
     }
     else if(Rfunction.name=="max"){
@@ -34,7 +34,7 @@ as.Rfast.function<-function(Rfunction.name,margin=NULL){
         details<-3
     }
     else if(Rfunction.name=="median"){
-        Rffunc<-if(margin.is.true) "Medians" else "med"
+        Rffunc<-if(margin.is.true) "Medians" else "Median"
         details<-4
     }
     else if(Rfunction.name=="min"){
@@ -83,7 +83,7 @@ as.Rfast.function<-function(Rfunction.name,margin=NULL){
         Rffunc<-if(margin.is.true) "Vars" else "Var"
         details<-4
     }else if(Rfunction.name=="rowsum"){
-        Rffunc<-"group.sum"
+        Rffunc<-"group"
     }else if(Rfunction.name=="lower.tri"){
         Rffunc<-"lower_tri"
     }else if(Rfunction.name=="upper.tri"){
@@ -127,13 +127,13 @@ as.Rfast.function<-function(Rfunction.name,margin=NULL){
     }else if(Rfunction.name=="table"){
         Rffunc<-"Table"
     }else{
-        stop("Error: unsupported function.")
+        stop("Error: unsupported function from Rfast.")
     }
 
     if(details==0 && margin.is.true){
         stop("Error: this function is not supported column-row method.")
     }else if(details>0 && details!=4 && !margin.is.true){
-        stop("Error: this function is supported for column-row method.")
+        stop("Error: this function is supported only for column-row method.")
     }else if(details==1 && margin==2){
         stop("Error: this function is supported only for row method.")
     }else if(details==2 && margin==1){
@@ -147,8 +147,8 @@ as.Rfast.function<-function(Rfunction.name,margin=NULL){
 }
 
 #[export]
-AddToNamespace <- function(path.namespace,path.rfolder,sort = FALSE) {
-  .Call(Rfast_add_to_namespace,path.namespace,path.rfolder,sort)
+AddToNamespace <- function(path.namespace,path.rfolder) {
+  .Call(Rfast_add_to_namespace,path.namespace,path.rfolder)
 }
 
 #[export]

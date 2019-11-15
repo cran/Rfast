@@ -2,7 +2,7 @@
 
 
 #include <RcppArmadillo.h>
-#include "templates.h"
+#include "Rfast.h"
 
 using namespace Rcpp;
 
@@ -147,7 +147,7 @@ BEGIN_RCPP
     traits::input_parameter< string >::type method(methodSEXP);
     traits::input_parameter< string >::type oper(operSEXP);
     traits::input_parameter< int >::type val(valSEXP);
-    __result = apply_condition(x,method,oper,val);
+    __result = wrap(apply_condition(x,method,oper,val));
     return __result;
 END_RCPP
 }

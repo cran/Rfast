@@ -25,17 +25,12 @@ submatrix <- function(x,rowStart=1,rowEnd=1,colStart=1,colEnd=1) {
 
 #[export]
 transpose <- function(x) {
-	dm<-dim(x)
-	if(dm[1]==dm[2]){
-  		.Call(Rfast_transpose_sq,x)
-  	}else{
-  		.Call(Rfast_transpose_g_p,x)
-  	}
+	.Call(Rfast_transpose,x)
 }
 
 #[export]
 mat.mult <- function(x,y) {
-	.Call(Rfast_mat_mult_p,t(x),y)
+	.Call(Rfast_mat_mult_p,x,y)
 }
 
 #[export]

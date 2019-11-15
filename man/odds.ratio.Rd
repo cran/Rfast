@@ -64,8 +64,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 x <- rpois(4, 30)+2
-odds.ratio(x)
-odds.ratio( matrix(x, ncol = 2) )
+res<-odds.ratio(x)
+res<-odds.ratio( matrix(x, ncol = 2) )
 }
 
 \keyword{ Odds ratio }

@@ -39,7 +39,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 
 \seealso{
-\code{\link{rowMins}, \link{colFalse}, \link{nth}, \link{rowrange}, \link{rowMedians}, \link{rowVars}, \link{sort_mat}, \link{colTrue}
+\code{\link{rowMins}, \link{colFalse}, \link{nth}, \link{rowrange}, \link{rowMedians}, \link{rowVars}, \link{colTrue}
 }
 }
 

@@ -45,7 +45,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 }
 
 \examples{
-data.frame.to_matrix(iris)
+res<-data.frame.to_matrix(iris)
 }
 
 \keyword{ Dataframe to Matrix }

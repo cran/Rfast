@@ -57,7 +57,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 \examples{
 x <- rpois(100, 10)
 y <- rpois(100, 10)
-cox.poisrat(x, y)
+res<-cox.poisrat(x, y)
 }
 
 

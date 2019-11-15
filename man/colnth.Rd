@@ -59,7 +59,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 
 \seealso{
-\code{\link{med}, \link{colMedians}, \link{colMeans} (buit-in R function)
+\code{\link{Median}, \link{colMedians}, \link{colMeans} (buit-in R function)
 }
 }
 

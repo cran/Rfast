@@ -67,7 +67,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Gior
 
 \examples{
 x <- Rfast::rmvnorm(100, numeric(10), diag( rexp(10, 0.5) ) )
-mv.eeltest1(x, numeric(10) )
+res<-mv.eeltest1(x, numeric(10) )
 }
 
 \keyword{ Hypothesis test }

@@ -59,7 +59,7 @@ y <- c(74.5,81.5,83.6,68.6,73.1,79.4,
 72.5,68.3,67.8,71.5,65.0,67.7,
 80.8,89.9,83.2,83.0,85.7,79.6)
 y <- matrix(y, ncol = 6, byrow = TRUE)
-rm.anova(y)
+res<-rm.anova(y)
 }
 
 \keyword{ Repeated measures }

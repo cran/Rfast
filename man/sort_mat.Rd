@@ -1,7 +1,7 @@
 \name{Sorting of the columns-rows of a matrix}
-\alias{sort_mat}
 \alias{colSort}
 \alias{rowSort}
+\alias{sort_mat}
 \title{
 Sorting of the columns-rows of a matrix 
 }
@@ -11,17 +11,14 @@ Fast sorting of the columns-rows of a matrix.
 }
 
 \usage{
-sort_mat(x, by.row = FALSE, descending = FALSE, stable = FALSE,parallel=FALSE)
 colSort(x, descending = FALSE, stable = FALSE,parallel=FALSE)
 rowSort(x, descending = FALSE, stable = FALSE,parallel=FALSE)
+sort_mat(x,by.row=FALSE,descending=FALSE,stable=FALSE,parallel=FALSE)
 }
 
 \arguments{
 \item{x}{
 A numerical matrix with data.
-}
-\item{by.row}{
-If you want to sort the rows of the matrix set this to TRUE.
 }
 \item{descending}{
 If you want the sorting in descending order, set this to TRUE.
@@ -32,6 +29,9 @@ If this is TRUE, the algorithm is a bit slower.
 }
 \item{parallel}{
 Do you want to do it in parallel in C++? TRUE or FALSE. Works with every other argument.
+}
+\item{by.row}{
+TRUE or FALSE for applying sort in rows or column.
 }
 }
 
@@ -54,9 +54,6 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 x <- matrix( rnorm(100 * 500), ncol = 500 )
-\dontrun{
-system.time( s1 <- sort_mat(x) )
-}
 system.time( s1 <- colSort(x) )
 system.time( s2 <- apply(x, 2, sort)  )
 all.equal(as.vector(s1), as.vector(s2))

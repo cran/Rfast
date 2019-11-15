@@ -115,9 +115,9 @@ s <- cov(iris[, 1:4])
 x <- racg(100, s)
 mod <- acg.mle(x)
 mod
-cov2cor(mod$cova)  ## estimated covariance matrix turned into a correlation matrix
-cov2cor(s)  ## true covariance matrix turned into a correlation matrix
-vmf.mle(x)
+res<-cov2cor(mod$cova)  ## estimated covariance matrix turned into a correlation matrix
+res<-cov2cor(s)  ## true covariance matrix turned into a correlation matrix
+res<-vmf.mle(x)
 x <- rbind( rvmf(100,rnorm(4), 10), rvmf(100,rnorm(4), 20) )
 a <- multivmf.mle(x, rep(1:2, each = 100) )
 }

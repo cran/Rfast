@@ -48,7 +48,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 
 \seealso{
-\code{\link{med}, \link{binary_search}, \link{Order}, \link{nth} 
+\code{\link{Median}, \link{binary_search}, \link{Order}, \link{nth} 
 }
 }
 
@@ -61,8 +61,8 @@ value <- "r"
 system.time( count_value(y,value) )
 values <- sample(x,100,replace=TRUE)
 x <- matrix(x,100,100)
-colCountValues(x,values)
-rowCountValues(x,values)
+res<-colCountValues(x,values)
+res<-rowCountValues(x,values)
 x<-value<-values<-y<-NULL
 }
 

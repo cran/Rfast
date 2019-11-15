@@ -39,7 +39,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>
 %}
 
 \seealso{
-\code{\link{sort_mat}, \link{sort_cor_vectors}
+\code{\link{colSort}, \link{rowSort}, \link{sort_cor_vectors}
 }
 }
 

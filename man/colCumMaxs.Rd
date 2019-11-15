@@ -55,10 +55,10 @@ and Michail Tsagris <mtsagris@yahoo.gr>.
 
 \examples{
 x <- matrnorm(10, 10)
-colCumSums(x)
-colCumMins(x)
-colCumMaxs(x)
-colCumProds(x)
+res<-colCumSums(x)
+res<-colCumMins(x)
+res<-colCumMaxs(x)
+res<-colCumProds(x)
 }
 
 

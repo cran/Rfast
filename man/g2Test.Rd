@@ -90,8 +90,8 @@ nsamples <- 5000
 data <- matrix( sample( 0:(nvalues - 1), nvars * nsamples, replace = TRUE ), nsamples, nvars )
 dc <- rep(nvalues, nvars)
 
-g2Test( data, 1, 2, 3, c(3, 3, 3) )
-g2Test_perm( data, 1, 2, 3, c(3, 3, 3), 1000 )
+res<-g2Test( data, 1, 2, 3, c(3, 3, 3) )
+res<-g2Test_perm( data, 1, 2, 3, c(3, 3, 3), 1000 )
 
 dc<-data<-NULL
 }

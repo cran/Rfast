@@ -57,8 +57,8 @@ R implementation and documentation: Klio Lakiotaki <kliolak@gmail.com>.
 
 \examples{
 x <- rgamma(500,1, 4)
-skew(x)
-kurt(x, TRUE)
+res<-skew(x)
+res<-kurt(x, TRUE)
 }
 
 \keyword{ Skewness }

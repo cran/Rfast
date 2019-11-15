@@ -43,10 +43,10 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 x <- matrix( rnorm(10 * 10), ncol = 10 )
-Norm(x, "F")
-norm(x, "F")
-Norm(x, "M")
-norm(x, "M")
+res<-Norm(x, "F")
+res<-norm(x, "F")
+res<-Norm(x, "M")
+res<-norm(x, "M")
 }
 
 \keyword{ Norm of a matrix }

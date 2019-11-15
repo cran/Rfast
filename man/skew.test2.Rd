@@ -55,8 +55,8 @@ R implementation and documentation: Klio Lakiotaki <kliolak@gmail.com>.
 \examples{
 x <- rgamma(150,1, 4)
 y <- rgamma(100, 1, 4)
-skew.test2(x, y)
-kurt.test2(x, y)
+res<-skew.test2(x, y)
+res<-kurt.test2(x, y)
 }
 
 \keyword{ Skewness }

@@ -77,7 +77,7 @@ x <- as.matrix(iris[, 1:4])
 id <- as.numeric(iris[, 5])
 a <- gaussian.nb(xnew = NULL, x[ina, ], id[ina])
 est <- gaussiannb.pred(x[-ina, ], a$mu, a$sigma, a$ni)
-table(id[-ina], est)
+res<-table(id[-ina], est)
 }
 
 \keyword{ Discrimination }

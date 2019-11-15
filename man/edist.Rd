@@ -56,13 +56,13 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- as.matrix( iris[1:50, 1:4] )
 y <- as.matrix( iris[51:100, 1:4] )
-edist(x, y)
+res<-edist(x, y)
 z <- as.matrix(iris[101:150, 1:4])
 a <- list()
 a[[ 1 ]] <- x
 a[[ 2 ]] <- y
 a[[ 3 ]] <- z
-edist(a)
+res<-edist(a)
 
 x<-y<-z<-a<-NULL
 }

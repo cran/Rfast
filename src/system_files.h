@@ -77,7 +77,7 @@ void print_error(T values,Args... args){
 #endif
 
 
-vector<string> split_words(string);
+vector<string> split_words(string,const char*);
 void writeFile(vector<string>,string);
 vector<string> readFile(string,int&);
 bool find_export(string,string);
@@ -88,7 +88,7 @@ vector<string> read_aliases(ifstream &);
 vector<string> find_which(vector<string>,vector<string>);
 vector<string> find_duplis(vector<string>);
 bool is_example(const char *,int);
-bool get_example(ifstream&,string&);
+int get_example(ifstream&,string&);
 vector<string> read_directory(string);
 string read_example(ifstream &,int&);
 bool binary_help(vector<string>::iterator,vector<string>::iterator,string&,vector<string>::iterator&);
@@ -105,6 +105,9 @@ bool is_export(string& s);
 string read_current_signature_function_from_r_file(string& line,string keyword_function,ifstream &file,const int position_of_function_key);
 void read_functions_from_r_file(const string filename,vector<string> &exported_functions_names,vector<string> &not_exported_functions_names,List& signatures,bool& found_dont_read);
 List read_functions_and_signatures(string path);
+bool is_export_s3(string&);
+bool is_s3method(string&);
+bool is_R_operator(string);
 
 template<class T>
 bool find_string(string& s,T f){

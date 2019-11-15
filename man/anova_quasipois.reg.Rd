@@ -55,15 +55,17 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
+\dontrun{
 y <- rnbinom(200, 10, 0.5)
 x <- matrix(rnorm(200 * 3), ncol = 3)
 a1 <- qpois.reg(x, y)
 a0 <- qpois.reg(x[, 1], y)
-anova_quasipois.reg(a0, a1, 200)
+res<-anova_quasipois.reg(a0, a1, 200)
 b1 <- glm(y ~ x, family = quasipoisson)
 b0 <- glm(y ~ x[, 1], family = quasipoisson)
-anova(b0, b1, test = "F")
+res<-anova(b0, b1, test = "F")
 c1 <- glm(y ~ x, family = poisson)
 c0 <- glm(y ~ x[, 1], family = poisson)
-anova(c0, c1, test = "Chisq")
+res<-anova(c0, c1, test = "Chisq")
+}
 }

@@ -61,7 +61,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <- rvonmises(1000, 2, 25, rads = TRUE)
-vm.mle(x)
+res<-vm.mle(x)
 }
 
 \keyword{ Random values simulation }

@@ -17,7 +17,6 @@ using std::string;
 using std::sort;
 using std::remove;
 
-
 vector<string> check_namespace(const string dir_to_export,const string dir_to_file){
   int which_string_has_export=0,len_which_not_exp=1;
   vector<string> allfiles=readDirectory(dir_to_file,2),which_undefined_function,all_exported_files;
@@ -31,7 +30,7 @@ vector<string> check_namespace(const string dir_to_export,const string dir_to_fi
   string exported_files=data_export[which_string_has_export];
   exported_files.erase(exported_files.end()-1);
   exported_files.erase(exported_files.begin(),exported_files.begin()+7);
-  all_exported_files=split_words(exported_files);
+  all_exported_files=split_words(exported_files,",");
   sort(allfiles.begin(),allfiles.end());
   for(unsigned int i=0;i<all_exported_files.size();++i){
     if(binary_search(allfiles.begin(),allfiles.end(),all_exported_files[i])==false){
@@ -49,7 +48,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< const string >::type dir_to_export(dir_to_exportSEXP);
     traits::input_parameter< const string >::type dir_to_file(dir_to_fileSEXP);
-    __result = check_namespace(dir_to_export,dir_to_file);
+    __result = wrap(check_namespace(dir_to_export,dir_to_file));
     return __result;
 END_RCPP
 }
@@ -82,7 +81,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< string >::type path_man(path_manSEXP);
-    __result = check_true_false(path_man);
+    __result = wrap(check_true_false(path_man));
     return __result;
 END_RCPP
 }
@@ -90,11 +89,19 @@ END_RCPP
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 using std::remove;
+/*
+//[[Rcpp::export]]
+List read_export(const string path_rf){
+    return read_functions_and_signatures(path_rf);
+}*/
 
+//[[Rcpp::export]]
 List check_aliases(const string path_man,const string path_rf){
   ifstream file;
-  vector<string> aliases,all_r_functions=read_functions_and_signatures(path_rf)["export"],all_rd_files=readDirectory(path_man,3),tmp,dontread_rd;
-
+  List all_functions=read_functions_and_signatures(path_rf)["export"];
+  vector<string> aliases,all_r_functions=all_functions["functions"],all_s3method=all_functions["s3"],all_rd_files=readDirectory(path_man,3),tmp,dontread_rd;
+  all_r_functions.reserve(all_r_functions.size()+all_s3method.size());
+  all_r_functions.insert(all_r_functions.end(),all_s3method.begin(),all_s3method.end());
   for(auto& rd_file : all_rd_files){
     file.open(path_man+rd_file+".Rd");
     if(!file.is_open()){
@@ -103,9 +110,8 @@ List check_aliases(const string path_man,const string path_rf){
     }
     if(check_read_file(file,'%')){
       tmp=read_aliases(file);
-      for(unsigned int j=0;j<tmp.size();++j){
-        aliases.push_back(tmp[j]);
-      }
+      aliases.reserve(aliases.size()+tmp.size());
+      aliases.insert(aliases.end(),tmp.begin(),tmp.end());
     }else{
       DEBUG("Find attribute dont read file with name: "+rd_file);
       dontread_rd.push_back(rd_file);
@@ -115,8 +121,8 @@ List check_aliases(const string path_man,const string path_rf){
   sort(aliases.begin(),aliases.end());
   sort(all_r_functions.begin(),all_r_functions.end());
   List ls;
-  ls["Missing Man files"]=find_which(all_r_functions,aliases);
-  ls["Missing R files"]=find_which(aliases,all_r_functions);
+  ls["Missing Man aliases"]=find_which(all_r_functions,aliases);
+  ls["Missing R functions"]=find_which(aliases,all_r_functions);
   ls["Duplicate alias"]=find_duplis(aliases);
   ls["dont read"]=List::create(_["Rd"]=dontread_rd);
   return ls;
@@ -128,7 +134,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< const string >::type dir_to_man(dir_to_manSEXP);
     traits::input_parameter< const string >::type dir_to_file(dir_to_fileSEXP);
-    __result = check_aliases(dir_to_man,dir_to_file);
+    __result = wrap(check_aliases(dir_to_man,dir_to_file));
     return __result;
 END_RCPP
 }
@@ -175,8 +181,8 @@ List check_usage(string path_man,string path_rf){
             
             string curr_func,func_from_r_file;
             for(auto& al : aliases){
-                for(auto& tmp : functions_usage){
-                    if(tmp.compare(0,al.size(),al)==0 && tmp[al.size()]=='('){ // otan to onoma einai idio akrivos kai ameso meta ksekinaei "("
+                for(auto& tmp : functions_usage){//sigourevo oti gia to alias iparxei h antistoixi sinartisi sto usage
+                    if(tmp.compare(0,al.size(),al)==0 and tmp[al.size()]=='('){ // otan to onoma einai idio akrivos kai amesos meta ksekinaei "("
                         curr_func=tmp;
                         break;
                     }
@@ -184,19 +190,20 @@ List check_usage(string path_man,string path_rf){
                 if(curr_func.empty()){
                     missing_functions.push_back(al+" not in "+file_rd.name); // aliase not in usage
                 }else{
-                    if(functions_signatures.containsElementNamed(al.c_str())){ //  an iparxei to aliase
+                    if(functions_signatures.containsElementNamed(al.c_str())){ //  an iparxei to alias
                         List functions_details = functions_signatures[al];
-                        r_file = as<string>(functions_details["filename"]); // to onoma toy arxeiou pou iparxei to aliase
+                        //r_file = as<string>(functions_details["filename"]); // to onoma toy arxeiou pou iparxei to aliase
                         function_signature = as<string>(functions_details["signature"]); // ipografi tis sinartiseis
                         
-                        DEBUG("current: "+curr_func+" , fromRfile: "+function_signature);
+                        //DEBUG("current: "+curr_func+" , fromRfile: "+function_signature);
                         if(curr_func!=function_signature){
-                            DEBUG(curr_func+" : "+function_signature);
+                            DEBUG(curr_func+" : "+function_signature +" ["+al+"]");
                             missmatch_functions.push_back(al+" != "+file_rd.name);
                         }
                     }else{
                         missing_functions.push_back(al);
                     }
+                    curr_func.clear();
                 }
             }
         }
@@ -216,7 +223,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< string >::type path_man(path_manSEXP);
     traits::input_parameter< string >::type path_rf(path_rfSEXP);
-    __result = check_usage(path_man,path_rf);
+    __result = wrap(check_usage(path_man,path_rf));
     return __result;
 END_RCPP
 }

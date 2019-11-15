@@ -61,7 +61,7 @@ system.time( sftests(x) )
 a <- sftests(x)
 mean(a[, 3]<0.05) 
 x <- rnorm(100)
-sftest(x)
+res<-sftest(x)
 }
 
 \keyword{ Univariate normality test }

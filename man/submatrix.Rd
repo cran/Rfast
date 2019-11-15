@@ -46,7 +46,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 x <- matrix( rnorm(100 * 100), ncol = 100 )
-submatrix(x,1,50,1,25) # x[1:50,1:25]
+res<-submatrix(x,1,50,1,25) # x[1:50,1:25]
 
 x<-NULL
 }

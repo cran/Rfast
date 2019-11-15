@@ -57,6 +57,6 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 x <- as.matrix(iris[1:50, 1:4])
 y <- as.matrix(iris[51:100, 1:4])
-dcor.ttest(x, y)
+res<-dcor.ttest(x, y)
 }
 

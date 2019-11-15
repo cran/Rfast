@@ -45,7 +45,7 @@ and Michail Tsagris <mtsagris@yahoo.gr>.
 
 \examples{
 
-as.Rfast.function("median")
+res<-as.Rfast.function("var")
 
 }
 

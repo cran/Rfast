@@ -57,6 +57,6 @@ Manos Papadakis <papadakm95@gmail.com>
 \examples{
 x <- rnorm(7)
 y <- rnorm(7)
-exact.ttest2(x, y)
+res<-exact.ttest2(x, y)
 }
 

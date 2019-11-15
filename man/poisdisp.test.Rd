@@ -62,14 +62,14 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 y <- rnbinom(500, 10, 0.6)
-poisdisp.test(y, "either")
-poisdisp.test(y, "over")
-pois.test(y)
+res<-poisdisp.test(y, "either")
+res<-poisdisp.test(y, "over")
+res<-pois.test(y)
 
 y <- rpois(500, 10)
-poisdisp.test(y, "either")
-poisdisp.test(y, "over")
-pois.test(y)
+res<-poisdisp.test(y, "either")
+res<-poisdisp.test(y, "over")
+res<-pois.test(y)
 }
 
 \keyword{ Poisson distribution }

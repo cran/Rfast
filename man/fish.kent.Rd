@@ -53,7 +53,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 
 \examples{
 x <- rvmf(100, rnorm(3), 15)
-fish.kent(x)
+res<-fish.kent(x)
 x <- NULL
 }
 

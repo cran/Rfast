@@ -43,18 +43,18 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \seealso{
-\code{ \link{sort_mat}, \link{Sort}, \link{colMins}
+\code{ \link{colSort}, \link{rowSort}, \link{Sort}, \link{colMins}
 }
 }
 
 \examples{
 x <- rnorm(10)
 y <- rnorm(10)
-Pmax(x, y)
+res<-Pmax(x, y)
 a<-pmax(x, y)
-Pmin(x, y)
+res<-Pmin(x, y)
 b<-pmin(x, y)
-Pmin_Pmax(x,y) == c(a,b)
+res<-Pmin_Pmax(x,y) == c(a,b)
 a<-b<-x<-y<-NULL
 }
 

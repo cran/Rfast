@@ -4,7 +4,7 @@
 //[[Rcpp::plugins(cpp11)]]
 #include <RcppArmadillo.h>
 #include "mn.h"
-#include "templates.h"
+#include "Rfast.h"
 
 using namespace Rcpp;
 using namespace arma;

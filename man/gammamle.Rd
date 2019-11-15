@@ -111,7 +111,7 @@ x <- rgamma(100, 3, 4)
 system.time( for (i in 1:20) gammamle(x) )
 ## system.time( for (i in 1:20) fitdistr(x,"gamma") )
 a <- glm(x ~ 1, gaussian(log) )
-normlog.mle(x)
+res<-normlog.mle(x)
 }
 
 \keyword{ Continuous distributions }

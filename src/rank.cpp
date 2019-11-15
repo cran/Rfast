@@ -2,7 +2,7 @@
 //Author: Manos Papadakis
 
 #include <RcppArmadillo.h>
-#include "templates.h"
+#include "Rfast.h"
 #include <thread>
 
 using namespace Rcpp;
@@ -136,7 +136,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericVector >::type x(xSEXP);
     traits::input_parameter< string >::type method(methodSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
-    __result = Rank(x,method,descend,false);
+    __result = wrap(Rank(x,method,descend,false));
     return __result;
 END_RCPP
 }

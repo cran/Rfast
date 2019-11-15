@@ -76,10 +76,12 @@ R implementation and documentation: Michail Tsargis <mtsagris@yahoo.gr>
 y <- abs( rnorm(100) )
 x <- matrix( rnorm(100 * 2), ncol = 2)
 mod <- glm(y ~ x, family = Gamma(log) )
-summary(mod)
-gammareg(y, x)
+res<-summary(mod)
+\dontrun{
+res<-gammareg(y, x)
+}
 mod <- glm(y ~ 1, family = Gamma(log) )
-summary(mod)
-gammacon(y)
+res<-summary(mod)
+res<-gammacon(y)
 }
 

@@ -68,7 +68,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <- matrnorm(100, 4)
-mvnorm.mle(x)
+res<-mvnorm.mle(x)
 x <- NULL
 }
 

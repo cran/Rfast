@@ -40,11 +40,11 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 x <- rnorm(1)
-squareform(x)  ## OK
+res<-squareform(x)  ## OK
 x <- rnorm(3)
-squareform(x)  ## OK
+res<-squareform(x)  ## OK
 x <- rnorm(4)
-squareform(x)  ## not OK
+res<-squareform(x)  ## not OK
 }
 
 \keyword{ symmetric matrix }

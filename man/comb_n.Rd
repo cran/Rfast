@@ -51,7 +51,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com> and M
 system.time( comb_n(20, 4) )
 system.time( combn(20, 4) )
 x <- rnorm(5)
-comb_n(x, 3)
+res<-comb_n(x, 3)
 }
 
 \keyword{ Combinatorics }

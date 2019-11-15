@@ -56,9 +56,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-spat.med( as.matrix( iris[, 1:4] ) )
-colMeans( as.matrix(iris[, 1:4]) )
-colMedians( as.matrix(iris[, 1:4]) )
+res<-spat.med( as.matrix( iris[, 1:4] ) )
+res<-colMeans( as.matrix(iris[, 1:4]) )
+res<-colMedians( as.matrix(iris[, 1:4]) )
 }
 
 \keyword{ spatial median }

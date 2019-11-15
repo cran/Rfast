@@ -7,7 +7,7 @@
 #include <random>
 #include <unordered_map>
 #include <RcppArmadillo.h>
-#include "templates.h"
+#include "Rfast.h"
 #include "cts_rf.h"
 
 // [[Rcpp::plugins("cpp11")]]

@@ -39,7 +39,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 
 \seealso{
-\code{\link{colMins}, \link{colMaxs}, \link{nth}, \link{rowrange} \link{colMedians}, \link{colVars}, \link{sort_mat}
+\code{\link{colMins}, \link{colMaxs}, \link{nth}, \link{rowrange} \link{colMedians}, \link{colVars}, \link{colSort}, \link{rowSort}
 }
 }
 

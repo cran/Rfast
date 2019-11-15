@@ -3,267 +3,11 @@
 
 #include <RcppArmadillo.h>
 #include "mn.h"
-#include "templates.h"
+#include "Rfast.h"
 
 using namespace Rcpp;
 using namespace arma;
 using namespace std;
-
-SEXP col_meds_helper_1_p(SEXP X){
-  NumericMatrix x(X);
-  const int p=x.ncol(),step=x.nrow(),middle=step/2-1;
-  mat xx(x.begin(),step,p,false);
-  SEXP F=PROTECT(Rf_allocVector(REALSXP,p));
-  double *FF=REAL(F);
-  if(step%2==0){
-    #ifdef _OPENMP
-#pragma omp parallel for
-#endif
-    for(int i=0;i<p;++i){
-      colvec tmp=xx.col(i);
-      nth_element(tmp.begin(),tmp.begin()+middle,tmp.end());
-      FF[i]=(tmp[middle]+*(min_element(tmp.begin()+middle+1,tmp.end())))/2.0;
-    }
-  }else{
-#ifdef _OPENMP
-#pragma omp parallel for
-#endif
-    for(int i=0;i<p;++i){
-      colvec tmp=xx.col(i);
-      nth_element(tmp.begin(),tmp.begin()+middle+1,tmp.end());
-      FF[i]=tmp[middle+1];
-    }
-  }
-  UNPROTECT(1);
-  return F;
-}
-
-SEXP col_meds_helper_2_p(SEXP X){
-  NumericMatrix x(X);
-  const int p=x.ncol(),step=x.nrow(),middle=step/2-1;
-  mat xx(x.begin(),step,p,false);
-  SEXP F=PROTECT(Rf_allocVector(REALSXP,p));
-  double *FF=REAL(F);
-  if(step%2==0){
-#ifdef _OPENMP
-#pragma omp parallel for
-#endif
-    for(int i=0;i<p;++i){
-      colvec tmp=xx.col(i);
-      nth_element(tmp.begin(),tmp.begin()+middle,tmp.end());
-      FF[i]=(tmp[middle]+*(min_element(tmp.begin()+middle+1,tmp.end())))/2.0 * 1.482602;
-    }
-  }else{
-#ifdef _OPENMP
-#pragma omp parallel for
-#endif
-    for(int i=0;i<p;++i){
-      colvec tmp=xx.col(i);
-      nth_element(tmp.begin(),tmp.begin()+middle+1,tmp.end());
-      FF[i]=tmp[middle+1] * 1.482602;
-    }
-  }
-  UNPROTECT(1);
-  return F;
-}
-
-SEXP row_meds_helper_1_p(SEXP X){
-  NumericMatrix x(X);
-  const int p=x.nrow(),step=x.ncol(),middle=step/2-1;
-  mat xx(x.begin(),step,p,false);
-  SEXP F=PROTECT(Rf_allocVector(REALSXP,p));
-  double *FF=REAL(F);
-  if(step%2==0){
-    #ifdef _OPENMP
-#pragma omp parallel for
-#endif
-    for(int i=0;i<p;++i){
-      rowvec tmp=xx.row(i);
-      nth_element(tmp.begin(),tmp.begin()+middle,tmp.end());
-      FF[i]=(tmp[middle]+*(min_element(tmp.begin()+middle+1,tmp.end())))/2.0;
-    }
-  }else{
-#ifdef _OPENMP
-#pragma omp parallel for
-#endif
-    for(int i=0;i<p;++i){
-      rowvec tmp=xx.row(i);
-      nth_element(tmp.begin(),tmp.begin()+middle+1,tmp.end());
-      FF[i]=tmp[middle+1];
-    }
-  }
-  UNPROTECT(1);
-  return F;
-}
-
-SEXP row_meds_helper_2_p(SEXP X){
-  NumericMatrix x(X);
-  const int p=x.nrow(),step=x.ncol(),middle=step/2-1;
-  mat xx(x.begin(),step,p,false);
-  SEXP F=PROTECT(Rf_allocVector(REALSXP,p));
-  double *FF=REAL(F);
-  if(step%2==0){
-    #ifdef _OPENMP
-#pragma omp parallel for
-#endif
-    for(int i=0;i<p;++i){
-      rowvec tmp=xx.row(i);
-      nth_element(tmp.begin(),tmp.begin()+middle,tmp.end());
-      FF[i]=(tmp[middle]+*(min_element(tmp.begin()+middle+1,tmp.end())))/2.0 * 1.482602;
-    }
-  }else{
-#ifdef _OPENMP
-#pragma omp parallel for
-#endif
-    for(int i=0;i<p;++i){
-      rowvec tmp=xx.row(i);
-      nth_element(tmp.begin(),tmp.begin()+middle+1,tmp.end());
-      FF[i]=tmp[middle+1] * 1.482602;
-    }
-  }
-  UNPROTECT(1);
-  return F;
-}
-
-//[[Rcpp::export]]
-SEXP col_mads_p(SEXP x){
-  SEXP y=PROTECT(col_meds_helper_1_p(x));
-  y=eachrow_min_abs(x,y);
-  y=col_meds_helper_2_p(y);
-  UNPROTECT(1);
-  return y;
-}
-
-//[[Rcpp::export]]
-SEXP row_mads_p(SEXP x){
-  SEXP y=PROTECT(row_meds_helper_1_p(x));
-  y=eachcol_min_abs(x,y);
-  y=row_meds_helper_2_p(y);
-  UNPROTECT(1);
-  return y;
-}
-
-RcppExport SEXP Rfast_row_mads_p(SEXP x) {
-BEGIN_RCPP
-    RObject __result;
-    RNGScope __rngScope;
-    __result = row_mads_p(x);
-    return __result;
-END_RCPP
-}
-
-RcppExport SEXP Rfast_col_mads_p(SEXP x) {
-BEGIN_RCPP
-    RObject __result;
-    RNGScope __rngScope;
-    __result = col_mads_p(x);
-    return __result;
-END_RCPP
-}
-
-//////////////////////////////////////////////////////
-
-
-SEXP col_meds_simple_p(NumericMatrix x){
-  const int p=x.ncol(),step=x.nrow(),middle=step/2-1;
-  mat xx(x.begin(),step,p,false);
-  SEXP F=PROTECT(Rf_allocVector(REALSXP,p));
-  double *FF=REAL(F);
-  if(step%2==0){
-    #ifdef _OPENMP
-    #pragma omp parallel for
-    #endif
-    for(int i=0;i<p;++i){
-      colvec tmp=xx.col(i);
-      nth_element(tmp.begin(),tmp.begin()+middle,tmp.end());
-      FF[i]=(tmp[middle]+*(min_element(tmp.begin()+middle+1,tmp.end())))/2.0;
-    }
-  }else{
-    #ifdef _OPENMP
-    #pragma omp parallel for
-    #endif
-    for(int i=0;i<p;++i){
-      colvec tmp=xx.col(i);
-      nth_element(tmp.begin(),tmp.begin()+middle+1,tmp.end());
-      FF[i]=tmp[middle+1];
-    }
-  }
-  UNPROTECT(1);
-  return F;
-}
-
-SEXP col_meds_na_rm_p(NumericMatrix& x){
-  const int p=x.ncol();
-  int i;
-  mat xx(x.begin(),x.nrow(),p,false);
-  SEXP F=Rf_allocVector(REALSXP,p);
-  double *FF=REAL(F);
-  #ifdef _OPENMP
-  #pragma omp parallel for
-  #endif
-  for(i=0;i<p;++i){
-    colvec tmp=xx.col(i);
-    FF[i]=med_helper<colvec>(tmp.begin(),tmp.begin()+(int)(std::remove_if(tmp.begin(),tmp.end(),R_IsNA)-tmp.begin()));
-  }
-  return F;
-}
-
-SEXP col_meds_p(NumericMatrix x,const bool na_rm){
-  return na_rm ? col_meds_na_rm_p(x) : col_meds_simple_p(x);
-}
-
-// colMedians
-RcppExport SEXP Rfast_col_meds_p(SEXP xSEXP,SEXP na_rmSEXP) {
-BEGIN_RCPP
-    RObject __result;
-    RNGScope __rngScope;
-    traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    traits::input_parameter< const bool >::type na_rm(na_rmSEXP);
-    __result = col_meds_p(x,na_rm);
-    return __result;
-END_RCPP
-}
-
-SEXP row_meds_p(NumericMatrix x){
-  const int sz=x.ncol(),p=x.nrow(),middle=sz/2-1;
-  mat xx(x.begin(),sz,p,false);
-  SEXP F=Rf_allocVector(REALSXP,p);
-  double *FF=REAL(F);
-  if(sz%2==0){
-    #ifdef _OPENMP
-    #pragma omp parallel for
-    #endif
-    for(int i=0;i<p;++i){
-      rowvec rowi=xx.row(i);
-      nth_element(rowi.begin(),rowi.begin()+middle,rowi.end());
-      FF[i]=(rowi[middle]+*(min_element(rowi.begin()+middle+1,rowi.end())))/2.0;
-    }
-  }else{
-    #ifdef _OPENMP
-    #pragma omp parallel for
-    #endif
-    for(int i=0;i<p;++i){
-      rowvec rowi=xx.row(i);
-      nth_element(rowi.begin(),rowi.begin()+middle,rowi.end());
-      FF[i]=rowi[middle+1]/2.0;
-    }
-  }
-  return F;
-}
-
-// rowMedians
-RcppExport SEXP Rfast_row_meds_p(SEXP xSEXP) {
-BEGIN_RCPP
-    RObject __result;
-    RNGScope __rngScope;
-    traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    __result = row_meds_p(x);
-    return __result;
-END_RCPP
-}
-
-//////////////////////////////////////////////////////////////////
-
 
 using std::nth_element;
 
@@ -303,7 +47,7 @@ BEGIN_RCPP
     traits::input_parameter< const bool >::type descend(descendSEXP);
     traits::input_parameter< const bool >::type na_rm(na_rmSEXP);
     traits::input_parameter< const bool >::type index(indexSEXP);
-    __result = col_nth_p(x,y,descend,na_rm,index);
+    __result = wrap(col_nth_p(x,y,descend,na_rm,index));
     return __result;
 END_RCPP
 }
@@ -346,7 +90,7 @@ BEGIN_RCPP
     traits::input_parameter< const bool >::type descend(descendSEXP);
     traits::input_parameter< const bool >::type na_rm(na_rmSEXP);
     traits::input_parameter< const bool >::type index(indexSEXP);
-    __result = row_nth_p(x,y,descend,na_rm,index);
+    __result = wrap(row_nth_p(x,y,descend,na_rm,index));
     return __result;
 END_RCPP
 }
@@ -375,7 +119,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< const bool >::type stable(stableSEXP);
     traits::input_parameter< const bool >::type descending(descendingSEXP);
-    __result = col_order_p(x,stable,descending);
+    __result = wrap(col_order_p(x,stable,descending));
     return __result;
 END_RCPP
 }
@@ -401,7 +145,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< const bool >::type stable(stableSEXP);
     traits::input_parameter< const bool >::type descending(descendingSEXP);
-    __result = row_order_p(x,stable,descending);
+    __result = wrap(row_order_p(x,stable,descending));
     return __result;
 END_RCPP
 }
@@ -455,7 +199,7 @@ BEGIN_RCPP
     traits::input_parameter< string >::type method(methodSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
     traits::input_parameter< const bool >::type stable(stableSEXP);
-    __result = col_ranks_p(x,method,descend,stable);
+    __result = wrap(col_ranks_p(x,method,descend,stable));
     return __result;
 END_RCPP
 }
@@ -506,7 +250,7 @@ BEGIN_RCPP
     traits::input_parameter< string >::type method(methodSEXP);
     traits::input_parameter< const bool >::type descend(descendSEXP);
     traits::input_parameter< const bool >::type stable(stableSEXP);
-    __result = row_ranks_p(x,method,descend,stable);
+    __result = wrap(row_ranks_p(x,method,descend,stable));
     return __result;
 END_RCPP
 }
@@ -534,7 +278,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    __result = col_sums_p(x);
+    __result = wrap(col_sums_p(x));
     return __result;
 END_RCPP
 }
@@ -559,7 +303,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    __result = row_sums_p(x);
+    __result = wrap(row_sums_p(x));
     return __result;
 END_RCPP
 }
@@ -585,7 +329,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type n(nSEXP);
-    __result = col_max_p(n);
+    __result = wrap(col_max_p(n));
     return __result;
 END_RCPP
 }
@@ -613,7 +357,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    __result = col_mean_p(x);
+    __result = wrap(col_mean_p(x));
     return __result;
 END_RCPP
 }
@@ -640,7 +384,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type n(nSEXP);
-    __result = col_min_p(n);
+    __result = wrap(col_min_p(n));
     return __result;
 END_RCPP
 }
@@ -668,7 +412,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< LogicalMatrix >::type x(xSEXP);
-    __result = col_all_p(x);
+    __result = wrap(col_all_p(x));
     return __result;
 END_RCPP
 }
@@ -693,7 +437,7 @@ BEGIN_RCPP
     RObject __result;
     RNGScope __rngScope;
     traits::input_parameter< LogicalMatrix >::type x(xSEXP);
-    __result = row_all_p(x);
+    __result = wrap(row_all_p(x));
     return __result;
 END_RCPP
 }
@@ -722,7 +466,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< NumericVector >::type values(valuesSEXP);
-    __result = col_count_values_p(x,values);
+    __result = wrap(col_count_values_p(x,values));
     return __result;
 END_RCPP
 }
@@ -749,7 +493,7 @@ BEGIN_RCPP
     RNGScope __rngScope;
     traits::input_parameter< NumericMatrix >::type x(xSEXP);
     traits::input_parameter< NumericVector >::type values(valuesSEXP);
-    __result = row_count_values_p(x,values);
+    __result = wrap(row_count_values_p(x,values));
     return __result;
 END_RCPP
 }

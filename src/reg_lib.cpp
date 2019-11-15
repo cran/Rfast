@@ -2,7 +2,7 @@
 
 #include <RcppArmadillo.h>
 #include "reg_lib.h"
-#include "templates.h"
+#include "Rfast.h"
 #include "my_k_sorted_array.h"
 #include <algorithm>
 #include "mn.h"
@@ -153,7 +153,7 @@ double spml_mle2(mat u, vec ci2, vec cisi, vec si2, const int n, const double to
 }
 
 void my_pow2(vec inp,double *out,const double power,const int sz){
-  for(double *startx=&inp[0],*starty=out,*end=startx+sz;startx!=end;++startx,++starty)
+  for(double *startx=inp.memptr(),*starty=out,*end=startx+sz;startx!=end;++startx,++starty)
     *starty=std::pow(*startx,power);
 
   return;

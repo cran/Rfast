@@ -11,7 +11,7 @@ Column and row-wise medians of a matrix.
 
 \usage{
 colMedians(x,na.rm = FALSE, parallel = FALSE)
-rowMedians(x, parallel = FALSE)
+rowMedians(x,na.rm = FALSE, parallel = FALSE)
 }
 
 \arguments{
@@ -44,7 +44,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 
 \seealso{
-\code{\link{med}, \link{colVars}, \link{colMeans} (buit-in R function)
+\code{\link{Median}, \link{colVars}, \link{colMeans} (buit-in R function)
 }
 }
 

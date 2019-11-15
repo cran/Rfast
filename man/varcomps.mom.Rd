@@ -88,8 +88,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 ## example from Montgomery, pages 514-517
 x <- c(98,97,99,96,91,90,93,92,96,95,97,95,95,96,99,98)
 ina <- rep(1:4, each = 4)
-varcomps.mom(x, ina)
-varcomps.mle(x, ina)
+res<-varcomps.mom(x, ina)
+res<-varcomps.mle(x, ina)
 }
 
 \keyword{ Variance components }

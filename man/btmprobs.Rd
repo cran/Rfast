@@ -60,7 +60,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <- matrix( rpois(10 * 10, 10), ncol = 10) ## not the best example though
-btmprobs(x)
+res<-btmprobs(x)
 }
 
 \keyword{ Bradley-Terry model }

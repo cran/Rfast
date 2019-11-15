@@ -38,7 +38,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 
 \seealso{
-\code{\link{med}, \link{colVars}, \link{colMeans} (buit-in R function)
+\code{\link{Median}, \link{colVars}, \link{colMeans} (buit-in R function)
 }
 }
 

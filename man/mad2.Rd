@@ -1,5 +1,6 @@
 \name{Mean - Median absolute deviation of a vector}
 \alias{mad2}
+\alias{Mad}
 \title{
 Mean - Median absolute deviation of a vector
 }
@@ -10,6 +11,7 @@ Mean - Median absolute deviation of a vector.
 
 \usage{
 mad2(x,method = "median",na.rm=FALSE)
+Mad(x,method = "median",na.rm=FALSE)
 }
 
 \arguments{
@@ -38,13 +40,13 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 %}
 
 \seealso{
-\code{\link{colMads}, \link{med}, \link{colMedians}
+\code{\link{colMads}, \link{Median}, \link{colMedians}
 }
 }
 
 \examples{
 x <- Rnorm(1000)
-mad2(x)
+Mad(x)
 mad(x)
 }
 

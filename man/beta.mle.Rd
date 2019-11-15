@@ -64,17 +64,17 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 x <- rbeta(1000, 1, 4)
 system.time( for(i in 1:1000) beta.mle(x) )
-beta.mle(x)
-ibeta.mle(x)
+res<-beta.mle(x)
+res<-ibeta.mle(x)
 
 x <- runif(1000)
-hsecant01.mle(x)
-logitnorm.mle(x)
-ibeta.mle(x)
+res<-hsecant01.mle(x)
+res<-logitnorm.mle(x)
+res<-ibeta.mle(x)
 
 x <- rbeta(1000, 2, 5)
 x[sample(1:1000, 50)] <- 0
-ibeta.mle(x)
+res<-ibeta.mle(x)
 
 
 

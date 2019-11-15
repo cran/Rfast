@@ -46,14 +46,14 @@ Ported into R and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \seealso{
-\code{\link{sort_mat}
+\code{\link{colSort}, \link{rowSort}
 }
 }
 
 \examples{
 x <- matrix(NA, 10, 10)
 x[sample(1:100, 10)] <- rpois(10, 3)
-floyd(x)
+res<-floyd(x)
 }
 
 \keyword{ Floyd-Warshall algorithm }

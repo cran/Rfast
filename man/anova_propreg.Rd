@@ -55,16 +55,18 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
+\dontrun{
 y <- rbeta(1000, 1, 4)
 x <- matrix(rnorm(1000 * 3), ncol = 3)
 a <- prop.reg(y, x)
 ## all coefficients are tested
-anova_propreg(a)  
+res<-anova_propreg(a)  
 ## the first predictor variable is tested 
-anova_propreg(a, 2)  
+res<-anova_propreg(a, 2)  
 a  ## this information is already included in the model output
 ## the first and the second predictor variables are tested 
-anova_propreg(a, 2:3)  
+res<-anova_propreg(a, 2:3)
+}
 }
 
 \keyword{ Significance testing }

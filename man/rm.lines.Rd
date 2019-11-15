@@ -85,8 +85,8 @@ y <- as.matrix(y)
 ### the first 6 measurements are from subject 1, measurments 7-12 are from subject 2,
 ## measurements 13-18 are from subject 3 and so on.
 x <- c(-10, 25, 37, 50, 65, 80) ## all subjects were measured at the same time points
-rm.lines(y, x) ## Is linear trend between the measurements and the temperature?
-rm.anovas(y, x)  ## Tests whether the means of the individuals are the same
+res<-rm.lines(y, x) ## Is linear trend between the measurements and the temperature?
+res<-rm.anovas(y, x)  ## Tests whether the means of the individuals are the same
 ## the temperature is treated as categorical variable here.
 
 ## fake example
@@ -95,9 +95,9 @@ y <- matrnorm(10, 4)
 x <- 1:4
 ## we stack the measurements of each subject, one under the other in a matrix form.
 y1 <- matrix( t(y) )
-rm.anovas(y1, x)  ## perform the test
+res<-rm.anovas(y1, x)  ## perform the test
 z <- matrix( rnorm(20 * 8), ncol = 2) ## same example, but with 2 sets of measurements.
-rm.anovas(z, x)
+res<-rm.anovas(z, x)
 }
 
 \keyword{ Repeated measures }

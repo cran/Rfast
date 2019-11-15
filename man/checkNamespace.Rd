@@ -63,7 +63,7 @@ For functions "checkTF", "checkUsage", "checkAliases" you can choose which files
 }
 
 \value{
-For function "checkNamespace": a vector with the names of missing R files.
+For function "checkNamespace": a vector with the names of missing R files. (Don't use it for now)
 
 For function "checkAliases": a list with 4 fields.
 \item{Missing Man files}{

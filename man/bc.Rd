@@ -53,7 +53,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 
 \examples{
 x <- exp(rnorm(1000))
-bc(x)
+res<-bc(x)
 }
 
 

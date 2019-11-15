@@ -57,5 +57,5 @@ and Michail Tsagris <mtsagris@yahoo.gr>.
 \examples{
 x <- rnorm(10)
 y <- rnorm(10)
-Outer(x, y)
+res<-Outer(x, y)
 }

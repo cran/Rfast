@@ -48,8 +48,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 x=list("1 2 4 3"=2.56,"2.34 1.05"=2)
-hash2list(x)
-hash2list(x,TRUE)
+res<-hash2list(x)
+res<-hash2list(x,TRUE)
 }
 
 \keyword{ Hash tables }

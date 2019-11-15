@@ -57,8 +57,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 y <- factor( rbinom(100,3,0.5), ordered = TRUE )
-ordinal.mle(y)
-ordinal.mle(y, link = "probit")
+res<-ordinal.mle(y)
+res<-ordinal.mle(y, link = "probit")
 }
 
 \keyword{ Ordinal model }

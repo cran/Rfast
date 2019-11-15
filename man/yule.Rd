@@ -47,8 +47,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 
 \examples{
 x <- rpois(4, 30) + 2
-yule(x)
-yule( matrix(x, ncol = 2) )
+res<-yule(x)
+res<-yule( matrix(x, ncol = 2) )
 }
 
 

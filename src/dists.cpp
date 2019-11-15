@@ -3,7 +3,7 @@
 
 #include <RcppArmadillo.h>
 #include "mn.h"
-#include "templates.h"
+#include "Rfast.h"
 #include <string>
 
 using namespace Rcpp;
@@ -205,6 +205,10 @@ NumericMatrix total_variation_dist(NumericMatrix x){
   return f;
 }
 
+bool check_if_is_finite(double x){
+    return x>0 and !R_IsNA(x);
+};
+
 //[[Rcpp::export]]
 NumericMatrix kullback_leibler_dist(NumericMatrix x){
   const int ncl=x.ncol(),nrw=x.nrow();
@@ -213,13 +217,14 @@ NumericMatrix kullback_leibler_dist(NumericMatrix x){
   colvec xv(nrw),log_xv(nrw);
   double a;
   int i,j;
+  
   fill_with<std::log,double*,double*>(x.begin(),x.end(),log_xx.begin());
 
     for(i=0;i<ncl-1;++i){
       xv=xx.col(i);
       log_xv=log_xx.col(i);
       for(j=i+1;j<ncl;++j){
-        a=sum((xv-xx.col(j))%(log_xv-log_xx.col(j)));
+        a=sum_with_condition<std::isfinite,colvec>((xv-xx.col(j))%(log_xv-log_xx.col(j)));
         f(i,j)=a;
         f(j,i)=a;
       }
@@ -242,7 +247,7 @@ NumericMatrix jensen_shannon_dist(NumericMatrix x){
         xv=xx.col(i);
         log_xv=log_xx.col(i);
         for(j=i+1;j<ncl;++j){
-            a=sum((xv+xx.col(j))%(log2-arma::log(xv+xx.col(j)))+xv%log_xv+xx.col(j)%log_xx.col(j));
+            a=sum_with_condition<check_if_is_finite,colvec>((xv+xx.col(j))%(log2-arma::log(xv+xx.col(j)))+xv%log_xv+xx.col(j)%log_xx.col(j));
             f(i,j)=a;
             f(j,i)=a;
         }
@@ -333,7 +338,7 @@ BEGIN_RCPP
     traits::input_parameter< const string >::type method(methodSEXP);
     traits::input_parameter< const bool >::type sqr(sqrSEXP);
     traits::input_parameter< const int >::type p(pSEXP);
-    __result = dist(x,method,sqr,p);
+    __result = wrap(dist(x,method,sqr,p));
     return __result;
 END_RCPP
 }

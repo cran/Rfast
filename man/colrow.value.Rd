@@ -38,13 +38,13 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 
 \seealso{
-\code{\link{rowMins}, \link{rowFalse}, \link{nth}, \link{colrange}, \link{colMedians}, \link{colVars}, \link{sort_mat}, \link{rowTrue}
+\code{\link{rowMins}, \link{rowFalse}, \link{nth}, \link{colrange}, \link{colMedians}, \link{colVars}, \link{colSort}, \link{rowSort}, \link{rowTrue}
 }
 }
 
 \examples{
 x <- matrix(runif(10*10),10,10)
-colrow.value(x) 
+res<-colrow.value(x) 
 
 x<-NULL
 }

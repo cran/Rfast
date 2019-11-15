@@ -58,7 +58,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 \examples{
 x <- rnorm(100)
 y <- rpois(100, 10) + 1
-poly.cor(x, y)
+res<-poly.cor(x, y)
 }
 
 

@@ -22,7 +22,7 @@ rmdp <- function(y, alpha = 0.05, itertime = 100) {
   var_t <- Rfast::colVars( y[submcd, ] )
   sama <- ( t(y) - mu_t )^2 / var_t
   disa <- Rfast::colsums(sama) 
-  disa <- disa * p / Rfast::med(disa) 
+  disa <- disa * p / Rfast::Median(disa) 
   b <- Rfast::hd.eigen(y[submcd, ], center = TRUE, scale = TRUE)$values
   tr2_h <- sum(b^2)
   tr2 <- tr2_h - p^2 / h

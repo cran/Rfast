@@ -58,9 +58,9 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 x <- matrix( runif(10 * 10), ncol = 10 )
-colOrder(x)
-apply(x, 2, order)
-rowOrder(x)
+res<-colOrder(x)
+res<-apply(x, 2, order)
+res<-rowOrder(x)
 t(apply(x, 1, order))
 
 y <- rnorm(100)

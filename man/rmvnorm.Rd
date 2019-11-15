@@ -62,8 +62,8 @@ x <- as.matrix(iris[, 1:4])
 m <- colmeans(x)
 s <- cov(x)
 y <- rmvnorm(1000, m, s)
-colmeans(y)
-cov(y)
+res<-colmeans(y)
+res<-cov(y)
 y <- NULL
 }
 

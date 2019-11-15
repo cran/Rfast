@@ -1,7 +1,7 @@
 //Author: Manos Papadakis
 
 #include <RcppArmadillo.h>
-#include "templates.h"
+#include "Rfast.h"
 #include "mn.h"
 
 using namespace Rcpp;

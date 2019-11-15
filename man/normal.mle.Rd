@@ -78,11 +78,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 x <- rt(1000,10)
 a <- ct.mle(x)
-tmle(x, v = a$nu)
-cauchy.mle(x)
-normal.mle(x)
-logistic.mle(x)
-gumbel.mle(x)
+res<-tmle(x, v = a$nu)
+res<-cauchy.mle(x)
+res<-normal.mle(x)
+res<-logistic.mle(x)
+res<-gumbel.mle(x)
 }
 
 \keyword{ Continuous distributions }

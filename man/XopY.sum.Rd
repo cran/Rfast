@@ -83,9 +83,9 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 \examples{
 x <- matrix( rnorm(5 * 5), ncol = 5 )
 y <- matrix( rnorm(5 * 5), ncol = 5 )
-XopY.sum(x, y, oper = "*")
+res<-XopY.sum(x, y, oper = "*")
 y <- x[,1]
-eachrow(x,y)
+res<-eachrow(x,y)
 
 all.equal(eachcol.apply(x,y),colsums(x*y))
 

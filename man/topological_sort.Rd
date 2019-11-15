@@ -52,9 +52,9 @@ G[2, 1] <- 1
 G[3, 1] <- 1
 G[4, 2] <- 1
 G[5, 4] <- 1
-topological_sort(G)
+res<-topological_sort(G)
 G[2, 4] <- 1
-topological_sort(G)
+res<-topological_sort(G)
 }
 
 \keyword{ Topological sort }

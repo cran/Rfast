@@ -45,7 +45,7 @@ x <- as.matrix(iris[, 1:3])
 y <- iris
 y[, 5] <- as.numeric(y[, 5])
 y <- as.matrix(y)
-mat.mat(x, y)
+res<-mat.mat(x, y)
 
 x<-y<-NULL
 }

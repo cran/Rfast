@@ -63,7 +63,7 @@ m <- rnorm(4)
 m <- m/sqrt(sum(m^2))
 x <- rvmf(1000, m, 25)
 m
-vmf.mle(x)
+res<-vmf.mle(x)
 }
 
 \keyword{ Random values simulation }

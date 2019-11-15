@@ -13,7 +13,7 @@ colvec rmdp(NumericMatrix Y,const int h,umat rnd,const int itertime) {
   mat ny,tmp,sama;
   int crit=10,l=0;
   double tempdet=0,bestdet=0;
-  colvec jvec(n), ivec(n),final_vec(n),disa(n);
+  colvec jvec(n,fill::zeros), ivec(n),final_vec(n),disa(n);
   uvec dist_perm(n),indextony(h),t(h);
   rowvec mu_t,var_t;
   span index(0,h-1);
@@ -64,21 +64,7 @@ BEGIN_RCPP
     traits::input_parameter< const int >::type h(hSEXP);
     traits::input_parameter< umat >::type rnd(rndSEXP);
     traits::input_parameter< const int >::type itertime(itertimeSEXP);
-    __result = rmdp(y,h,rnd,itertime);
+    __result = wrap(rmdp(y,h,rnd,itertime));
     return __result;
 END_RCPP
-}
-
-//[[Rcpp::export]]
-IntegerVector Order(SEXP x,const bool stable=true,const bool descend=false){
-    IntegerVector ind=seq(0,LENGTH(x)-1);
-    double *xx=REAL(x);
-    if(descend){
-        auto descend_func = [&xx](int i,int j){return xx[i-1]>xx[j-1];};
-        stable ? stable_sort(ind.begin(),ind.end(),descend_func) : sort(ind.begin(),ind.end(),descend_func);
-    }else{
-        auto func = [&xx](int i,int j){return xx[i]<xx[j];};
-        stable ? stable_sort(ind.begin(),ind.end(),func) : sort(ind.begin(),ind.end(),func);
-    }
-    return ind;
 }

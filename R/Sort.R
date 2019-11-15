@@ -23,41 +23,17 @@ Sort.int <- function(x) {
 
 #[export]
 rowSort <- function(x,descending=FALSE,stable=FALSE,parallel=FALSE) {
-	if(parallel){
-	  	if(stable){
-			.Call(Rfast_stable_sort_mat_p,x,descending,TRUE)
-		}else{
-			.Call(Rfast_sort_mat_p,x,descending,TRUE)
-		}
-	}else{
-		if(stable){
-			.Call(Rfast_stable_sort_mat,x,descending,TRUE)
-		}else{
-			.Call(Rfast_sort_mat,x,descending,TRUE)
-		}
-	}
+	.Call(Rfast_sort_mat,x,descending,TRUE,stable,parallel)
 }
 
 #[export]
 colSort <- function(x,descending=FALSE,stable=FALSE,parallel=FALSE) {
-	if(parallel){
-	  	if(stable){
-			.Call(Rfast_stable_sort_mat_p,x,descending,FALSE)
-		}else{
-			.Call(Rfast_sort_mat_p,x,descending,FALSE)
-		}
-	}else{
-		if(stable){
-			.Call(Rfast_stable_sort_mat,x,descending,FALSE)
-		}else{
-			.Call(Rfast_sort_mat,x,descending,FALSE)
-		}
-	}
+	.Call(Rfast_sort_mat,x,descending,FALSE,stable,parallel)
 }
 
 #[export]
 sort_mat <- function(x,by.row=FALSE,descending=FALSE,stable=FALSE,parallel=FALSE) {
-	.Defunct(if(by.row) "Rfast::rowSort" else "Rfast::colSort","Rfast")
+	if(by.row) rowSort(x,descending,stable,parallel) else colSort(x,descending,stable,parallel)
 }
 
 #[export]

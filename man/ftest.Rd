@@ -110,19 +110,19 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 \examples{
 x <- rnorm(200)
 ina <- rbinom(200, 3, 0.5) + 1
-anova1(x, ina)
-ftest(x, ina)
+res<-anova1(x, ina)
+res<-ftest(x, ina)
 ina <- rbinom(200, 1, 0.5) + 1
 x1 <- x[ ina == 1 ]   ; x2 <- x[ ina == 2 ]
-ttest2(x1, x2)
-var2test(x1, x2)
+res<-ttest2(x1, x2)
+res<-var2test(x1, x2)
 
 ## RCBD example 4.1 from Montgomery (2001), page 131-132
 x <- c(9.3, 9.4, 9.2, 9.7, 9.4, 9.3, 9.4, 9.6, 9.6, 9.8, 9.5, 10,
 10, 9.9, 9.7, 10.2)
 tr <- rep(1:4, 4)
 bl <- rep(1:4, each = 4)
-block.anova(x, tr, bl)
+res<-block.anova(x, tr, bl)
 }
 
 \keyword{ F-test }

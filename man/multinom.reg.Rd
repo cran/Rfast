@@ -61,9 +61,11 @@ Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
+\dontrun{
 y <- iris[, 5]
 x <- matrnorm(150, 3)
-multinom.reg(y, x)
+res<-multinom.reg(y, x)
+}
 }
 
 \keyword{ Multinomial distribution }

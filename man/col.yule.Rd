@@ -54,7 +54,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 \examples{
 x <- matrix(rbinom(300 * 10, 1, 0.5), ncol = 10)
 ina <- rep(1:2, each = 150)
-col.yule( x, ina = ina )
+res<-col.yule( x, ina = ina )
 }
 
 

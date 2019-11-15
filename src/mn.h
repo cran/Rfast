@@ -1,8 +1,7 @@
 //Author: Manos Papadakis
 
-// [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
-#include "templates.h"
+#include "Rfast.h"
 
 using namespace arma;
 using namespace Rcpp;
@@ -40,13 +39,11 @@ bool my_any(int* ,int *);
 double total_dista(NumericMatrix, NumericMatrix,const bool);
 colvec pnormc(colvec);
 double sum_abs(mat,mat);
-NumericVector toNumbers(string,char);
+NumericVector toNumbers(string,const string);
 IntegerVector combine(IntegerVector,IntegerVector);
 double total_euclidean_dist(NumericMatrix,const bool);
 NumericMatrix euclidean_dist(NumericMatrix,const bool);
 icolvec get_k_indices(rowvec,const int&);
-SEXP eachrow_min_abs(SEXP,SEXP);
-SEXP eachcol_min_abs(SEXP,SEXP);
 IntegerVector Order(NumericVector,const bool,const bool);
 NumericVector Rank(NumericVector,string,const bool,const bool);
 double calcDevRes(colvec,colvec,colvec);

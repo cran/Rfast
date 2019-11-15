@@ -46,8 +46,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 
 \examples{
 x <- sample(20:30, 100, replace = TRUE)
-Choose(x, 4)
-Lchoose(x, 4)
+res<-Choose(x, 4)
+res<-Lchoose(x, 4)
 
 x<-NULL
 }

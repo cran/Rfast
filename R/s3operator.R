@@ -1,10 +1,10 @@
-#[dont read]
+##[dont read]
 
 delete <- new.env(size=1)
 class(delete)<-"delete"
 lockEnvironment(delete,TRUE)
 
-
+#[export s3]
 "[<-.Hash"<-function(x,...,sep = " ",value){
     key<-paste0(c(...),collapse = sep)
     if(is.null(x[[key]])){
@@ -19,7 +19,7 @@ lockEnvironment(delete,TRUE)
     x[[key]]<-value
     x
 }
-
+#[export s3]
 "[.Hash"<-function(x,...,sep = " "){
     key<-paste0(c(...),collapse = sep)
     val <- x[[key]]
@@ -29,13 +29,13 @@ lockEnvironment(delete,TRUE)
         val
     }
 }
-
+#[export s3]
 length.Hash<-function(x){
     x$.length
 }
 
 
-
+#[export s3]
 print.Hash<-function(x,...){
 	len <- length(x)
     cat("<Hash> contains ",len," keys-values pairs\n")
@@ -79,7 +79,7 @@ print.Hash<-function(x,...){
 
 
 ##########################################################################################################################
-
+#[export s3]
 print.environment<-function(x,all.names=FALSE,...){
 	.print_helper_for_environment<-function(x,all.names,count_depth){
 	    all.vars<-ls(x,all.names = all.names)
@@ -113,11 +113,11 @@ print.environment<-function(x,all.names=FALSE,...){
 
 ##########################################################################################################################
 
-
+#[export]
 "Elem<-"<-function(x,value){
     UseMethod("Elem<-")
 }
-
+#[export s3]
 "Elem<-.iterator"<-function(x,value){
     if(x$.method=="ceil"){
         x[[".variable"]][x[[".value"]]] <- value
@@ -130,11 +130,11 @@ print.environment<-function(x,all.names=FALSE,...){
     }
     x
 }
-
+#[export]
 Elem<-function(x){
     UseMethod("Elem")
 }
-
+#[export s3]
 Elem.iterator<-function(x){
     if(x$.method=="ceil"){
         x$.variable[x$.value]
@@ -146,7 +146,7 @@ Elem.iterator<-function(x){
         stop("Error...who knows...")
     }
 }
-
+#[export s3]
 print.iterator<-function(x,...){
     cat("variable:\n     ")
     if(is.null(dim(x$.variable))){
@@ -160,7 +160,7 @@ print.iterator<-function(x,...){
     cat("value : ",x$.value,"\n")
     cat("type  : ",x$.type,"\n")       
 }
-
+#[export s3]
 "==.iterator"<-function(x,y){
     if(class(y)=="iterator"){
         identical(y$.variable,x$.variable) && identical(y$.by,x$.by) && 
@@ -169,18 +169,18 @@ print.iterator<-function(x,...){
         stop("Error in function '==', second argument is not class 'iterator'.")
     }
 }
-
+#[export s3]
 "!=.iterator"<-function(x,y){
     !(x==y)
 }
 
 
 ##########################################################################################################################
-
+#[export s3]
 "[.ufactor"<-function(x,i){
 	x$levels[x$values[i]]
 }
-
+#[export s3]
 print.ufactor<-function(x,...){
     cat("Values: \n ")
     options(digits = 15)

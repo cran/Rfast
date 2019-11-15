@@ -1,6 +1,86 @@
 <h1 align="center"> _Rfast_ </h1>
 
 > <b>New version</b> </br>
+Date release: **14/11/2019** 
+>
+
+***
+
+> <h3>**_Statistical functions_**</h3>
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  |	    Function	    |           What's new!             |
+>>  | --------------------- | --------------------------------- |
+>>  | Var                   | Time improvement for removing NAs.|
+>>  | colVars               | Time improvement and depricate argument "suma".|
+>>  | rowVars               | Time improvement and depricate argument "suma".|
+>>  | rowMedians            | Add option for removing NAs if any.|
+>>  | colMads               | Add option for removing NAs if any, add option for choosing method, fix bug and time improvement.|
+>>  | rowMads               | Add option for removing NAs if any, add option for choosing method, fix bug and time improvement.|
+>>  | mad2                  | Deprecated. Use "Mad" instead.|
+>>  | med                   | Deprecated. Use "Median" instead.|
+>>  | colShuffle            | Fix a bug.|
+>>  | rowShuffle            | Fix a bug.|
+>>  | rmdp                  | Fix a bug.|
+***
+>
+>>2. <u> **New** </u>
+>>
+>>  | 	     Function	      |          What's new!            |
+>>  | --------------------- | ------------------------------------------- |
+>>  |                       |  											  |
+>
+***
+> <h3>**_Utility functions_**</h3>  
+>
+>>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>>
+>>  | 	    Function	    |            What's new!                  |
+>>  | --------------------- | --------------------------------------- |
+>>  |  checkUsage           | From now on check for S3methods.        |
+>>  |  AddToNamespace       | From now on export S3methods.           |
+>>  |  checkAliases         | From now on check the S3methods.        |
+>>  |  checkNamespace       | Don't use it for now.             |
+***
+>
+> <h3><b>Comments</b></h3> 
+>> From now on the Rfast can be used in C++ via "LinkingTo" mechanism.
+>> The main namespace is "Rfast". Inside "Rfast" you will find two more namespaces, "vector" and "matrix".
+>> Namespace "vector" for calling functions using an Rcpp's or RcppArmadillo's vector.
+>> Namespace "matrix" for calling functions using an Rcpp's or RcppArmadillo's matrices.
+>> The signatures of the functions and the arguments are the same that are exported in R.
+>>
+>> For namespace "vector" the functions that are available are:
+>>   
+>> - median(x)
+>> - var(x, std = false, na_rm = false)
+>> - mad(x, method = "median", na_rm = false)
+>> - shuffle(x,engine = Engine(time(0)) // Engine by default is default_random_engine. You can use anyone from C++.
+>>   
+>> For namespace "matrix" the functions that are available are:
+>>   
+>> * transpose(x)
+>> * matrix_multiplication(x,y)
+>> * colSort(x, descend = false, stable = false, parallel = false)
+>> * rowSort(x, descend = false, stable = false, parallel = false)
+>> * is_symmetric(x)
+>> * colMedian(x, na_rm = false, parallel = false)
+>> * rowMedian(x, na_rm = false, parallel = false)
+>> * colVars(x, std = false, na_rm = false, parallel = false)
+>> * rowVars(x, std = false, na_rm = false, parallel = false)
+>> * colMads(x, method = "median", na_rm = false, parallel = false)
+>> * rowMads(x, method = "median", na_rm = false, parallel = false)
+>> * colShuffle(x,engine = Engine(time(0)) // Engine by default is default_random_engine. You can use anyone from C++.
+>> * rowShuffle(x,engine = Engine(time(0)) // Engine by default is default_random_engine. You can use anyone from C++.
+>>
+>> How to use it:
+>>
+>> 1. Just add in "LinkingTo" in your NAMESPACE file the "Rfast" or in Rstudio add in the file "//[[Rcpp::depends(Rfast)]]".
+>> 2. Include in your cpp files the header "Rfast.h" and enjoy!
+>
+
+> <b>New version</b> </br>
 Date release: **07/06/2019** 
 >
 
@@ -11,6 +91,7 @@ Date release: **07/06/2019**
 >>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >>
 >>  |	    Function	    |           What's new!             |
+>>  | --------------------- | --------------------------------- |
 >>  | spml.mle              |         Fix of a bug.             |
 >>  | dirknn                |         Time improvement.         |
 >>  | glm_logistic          |  Made the code more robust.       |
@@ -36,7 +117,7 @@ Date release: **07/06/2019**
 >
 
 > <h4>version</h4> 1.9.4</br>
-Date release: **05/24/2019** 
+Date release: **24/05/2019** 
 >
 
 ***
@@ -46,6 +127,7 @@ Date release: **05/24/2019**
 >>1. <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >>
 >>  |	    Function	    |           What's new!             |
+>>  | --------------------- | --------------------------------- |
 >>  | allbetas              | Time improvement |
 >>  | cor.fbed              | Time improvement |
 >>  | cor.fsreg             | Time improvement |
@@ -74,7 +156,7 @@ Date release: **05/24/2019**
 >>2. <u> **New** </u>
 >>
 >>  | 	     Function	      |          What's new!            |
->>  | --------------------- | ------------------------------------------- |
+>>  | --------------------- | ----------------------------------- |
 >>  |                       |  											  |
 >
 ***

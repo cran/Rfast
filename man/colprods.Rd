@@ -45,8 +45,8 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 x <- matrix( runif(100 * 10), ncol = 10 )
-colprods(x)
-rowprods(x)
+res<-colprods(x)
+res<-rowprods(x)
 
 x<-NULL
 }

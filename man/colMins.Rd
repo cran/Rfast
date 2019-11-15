@@ -46,7 +46,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \seealso{
-\code{\link{rowMins}, \link{rowMaxs}, \link{nth}, \link{colrange}, \link{colMedians}, \link{colVars}, \link{sort_mat}
+\code{\link{rowMins}, \link{rowMaxs}, \link{nth}, \link{colrange}, \link{colMedians}, \link{colVars}, \link{colSort}, \link{rowSort}
 }
 }
 

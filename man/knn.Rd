@@ -99,9 +99,9 @@ y <- as.numeric(iris[, 5])
 id <- sample(1:150, 120)
 mod <- knn(x[-id, ], y[id], x[id, ], k = c(4, 5, 6), type = "C", mem.eff = FALSE)
 mod # Predicted values of y for 3 values of k. 
-table(mod[, 1], y[-id] )  # Confusion matrix for k = 4
-table(mod[, 2], y[-id] )  # Confusion matrix for k = 5
-table(mod[, 3], y[-id] )  # Confusion matrix for k = 6
+res<-table(mod[, 1], y[-id] )  # Confusion matrix for k = 4
+res<-table(mod[, 2], y[-id] )  # Confusion matrix for k = 5
+res<-table(mod[, 3], y[-id] )  # Confusion matrix for k = 6
 }
 
 \keyword{ k-NN algorithm }

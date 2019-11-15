@@ -41,7 +41,7 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \examples{
-which.is(iris)
+res<-which.is(iris)
 }
 
 \keyword{ Factor variables}

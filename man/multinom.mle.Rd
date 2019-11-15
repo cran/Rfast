@@ -65,8 +65,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <- t( rmultinom(1000, 20, c(0.4, 0.5, 0.1) ) )
-multinom.mle(x)
-colpoisson.mle(x)
+res<-multinom.mle(x)
+res<-colpoisson.mle(x)
 x <- NULL
 }
 

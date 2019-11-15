@@ -25,7 +25,7 @@ TRUE or FAlSE for remove NAs if exists.
 }
 
 \details{
-This is a faster calculaiton of the usual variance of a matrix. 
+This is a faster calculation of the usual variance of a matrix. 
 }
 
 \value{
@@ -46,10 +46,9 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 }
 
 \examples{
-x <- rnorm(1000)
-system.time( for (i in 1:100) Var(x) )
-#system.time( for (i in 1:100) var(x) )
-
+x <- rnorm(100)
+a1 <- Var(x)
+a2 <- var(x)
 x<-NULL
 }
 

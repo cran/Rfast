@@ -5,7 +5,7 @@
 #include <string>
 #include <algorithm>
 #include "mn.h"
-#include "templates.h"
+#include "Rfast.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -315,11 +315,12 @@ double sum_abs(mat x,mat y){
 }
 
 //hash2lists
-NumericVector toNumbers(string x,char spliter){
+NumericVector toNumbers(string x,const string spliter){
   NumericVector f;
   x+=spliter;
-  const char *split=&spliter;
-  char *token = std::strtok(&x[0], split);
+  const char *split=spliter.c_str();
+  char *xx=(char*)x.c_str();
+  char *token = std::strtok(xx, split);
   while (token != nullptr) {
     f.push_back(std::atof(token));
     token = std::strtok(nullptr, split);
@@ -341,33 +342,6 @@ icolvec get_k_indices(rowvec x,const int& k){
   icolvec ind=linspace<icolvec>(1,x.size(),x.size());
   std::sort(ind.begin(),ind.end(),[&](int i,int j){return x[i-1]<x[j-1];});
   return ind(span(0,k-1));
-}
-
-SEXP eachrow_min_abs(SEXP x,SEXP y){
-  int ncol=Rf_ncols(x),nrow=Rf_nrows(x);
-  SEXP mat=PROTECT(Rf_duplicate(x));
-  double *xx=REAL(mat),*end=xx+ncol*nrow,*yy=REAL(y),y3,*x3;
-  for(;xx!=end;++yy){
-    y3=*yy;
-    for(x3=xx,xx+=nrow;x3!=xx;++x3){
-      *x3=std::abs(*x3-y3);
-    }
-  }
-  UNPROTECT(1);
-  return mat;
-}
-
-SEXP eachcol_min_abs(SEXP x,SEXP y){
-  const int ncol=Rf_ncols(x),nrow=Rf_nrows(x),n=ncol*nrow;
-  SEXP mat=PROTECT(Rf_duplicate(x));
-  double *xx=REAL(mat),*end=xx+n,*yy=REAL(y),*yb,*endy=yy+nrow;
-  for(;xx!=end;){
-    for(yb=yy;yb!=endy;++xx,++yb){
-      *xx=std::abs(*xx-*yb);
-    }
-  }
-  UNPROTECT(1);
-  return mat;
 }
 
 double calcDevRes(colvec p,colvec y,colvec expyhat){

@@ -97,19 +97,19 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 x <- rpois(100, 2)
-zip.mle(x)
-poisson.mle(x)
+res<-zip.mle(x)
+res<-poisson.mle(x)
 ## small difference in the two log-likelihoods as expected.
 
 x <- rpois(100, 10)
 x[x == 0 ] <- 1
-ztp.mle(x)
-poisson.mle(x)
+res<-ztp.mle(x)
+res<-poisson.mle(x)
 ## significant difference in the two log-likelihoods. 
 
 x <- rnbinom(100, 10, 0.6)
-poisson.mle(x)
-negbin.mle(x)
+res<-poisson.mle(x)
+res<-negbin.mle(x)
 }
 
 \keyword{ Poisson distribution }

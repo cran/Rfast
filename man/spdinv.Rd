@@ -47,8 +47,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Mano
 
 \examples{
 s <- cova( as.matrix(iris[, 1:4]) )
-spdinv(s)
-solve(s)
+res<-spdinv(s)
+res<-solve(s)
 }
 
 \keyword{ Inverse matrix }

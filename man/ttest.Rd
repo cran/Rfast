@@ -76,16 +76,16 @@ x <- rbinom(R, 50, 0.6)
 n <- rep(50, R)
 p <- rep(0.6, R)
 a1 <- proptest(x, n, p, "unequal", logged = FALSE)
-sum( a1[, 2] < 0.05 ) / R
+res<-sum( a1[, 2] < 0.05 ) / R
 
 ## vartest
 x <- matrnorm(100, 100)
 a2 <- vartest(x, rep(1, R) )
-sum( a2[, 2] < 0.05 )
+res<-sum( a2[, 2] < 0.05 )
 
 ## ttest
 a4 <- ttest(x, numeric(R) )
-sum(a4[, 2] < 0.05) / R
+res<-sum(a4[, 2] < 0.05) / R
 x <- NULL
 }
 

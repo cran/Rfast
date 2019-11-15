@@ -61,8 +61,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 
 \examples{
 x = rnorm(500)
-t.test(x, mu = 0)
-ttest1(x, 0, conf = 0.95)
+res<-t.test(x, mu = 0)
+res<-ttest1(x, 0, conf = 0.95)
 }
 
 \keyword{ One sample t-test }

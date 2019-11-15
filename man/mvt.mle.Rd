@@ -63,8 +63,8 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>.
 
 \examples{
 x <- matrnorm(100, 4)
-mvnorm.mle(x)
-mvt.mle(x, v = 5)
-mvt.mle(x, v = 100)
+res<-mvnorm.mle(x)
+res<-mvt.mle(x, v = 5)
+res<-mvt.mle(x, v = 100)
 }
 

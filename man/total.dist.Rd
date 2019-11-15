@@ -56,10 +56,10 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 
 \examples{
 x <- matrix( rnorm(50 * 10), ncol = 10 )
-total.dist(x) 
+res<-total.dist(x) 
 y <- matrix( rnorm(40 * 10), ncol = 10)
-total.dista(x, y)
-total.dista(y, x)
+res<-total.dista(x, y)
+res<-total.dista(y, x)
 
 x<-y<-NULL
 }

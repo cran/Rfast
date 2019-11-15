@@ -50,11 +50,11 @@ R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>
 
 \examples{
 x <- rvonmises(n = 50, m = 2, k = 10)
-kuiper(x)
-watson(x)
+res<-kuiper(x)
+res<-watson(x)
 x <- runif(50, 0, 2 * pi)
-kuiper(x)
-watson(x)
+res<-kuiper(x)
+res<-watson(x)
 }
 
 \keyword{ Circular data}

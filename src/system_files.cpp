@@ -26,13 +26,13 @@ void reset_file(ifstream& file){
   file.seekg(0,ios::beg);
 }
 
-vector<string> split_words(string x){
+vector<string> split_words(string x,const char* sep=","){
   x.erase(remove(x.begin(),x.end(), ' '),x.end());
-  int n=count(x.begin(),x.end(),',')+1;
+  int n=count(x.begin(),x.end(),sep[0])+1;
   vector<string> y(n);
-  x+=",";
+  x+=sep;
   int i=0;
-  const char *split=",";
+  const char *split=sep;
   char *token = strtok(&x[0], split);
   while (token != NULL) {
     y[i++]=token;
@@ -58,7 +58,7 @@ vector<string> readFile(string path,int& which_string_has_export){
   which_string_has_export=-1;
   bool found_export=false;
   while(getline(input,s)){
-    if(find_export(s,export_word) && !found_export){ // oso briskei to export kai den to exei ksanavrei
+    if(find_export(s,export_word) and !found_export){ // oso briskei to export kai den to exei ksanavrei
       which_string_has_export=f.size();
         found_export=true;
     }
@@ -133,7 +133,7 @@ bool binary_help(vector<string>::iterator first,vector<string>::iterator last,st
   vector<string>::iterator t=lower_bound(first,last,val);
   int tt=t-first+1;
   bool found=false;
-  if(tt!=last-first && val>=*first){
+  if(tt!=last-first and val>=*first){
     res=t;
     found=true;
   }
@@ -153,13 +153,13 @@ void dont_read_man(vector<string>& all_rd_files,vector<string>& no_read){
 }
 
 bool is_alias(string& s){
-  return (s.size()>5 && s[0]=='\\' && s[1]=='a' && s[2]=='l' 
-            && s[3]=='i' && s[4]=='a' && s[5]=='s');
+  return (s.size()>5 and s[0]=='\\' and s[1]=='a' and s[2]=='l' 
+            and s[3]=='i' and s[4]=='a' and s[5]=='s');
 }
 
 bool is_title(string& s){
-  return (s.size()>5 && s[0]=='\\' && s[1]=='t' && s[2]=='i' 
-            && s[3]=='t' && s[4]=='l' && s[5]=='e');
+  return (s.size()>5 and s[0]=='\\' and s[1]=='t' and s[2]=='i' 
+            and s[3]=='t' and s[4]=='l' and s[5]=='e');
 }
 
 void remove_alias_and_spaces(string &s){
@@ -167,6 +167,9 @@ void remove_alias_and_spaces(string &s){
   s.erase(s.end()-1);
   s.erase(s.begin(),s.begin()+7);
   remove_spaces(s);
+  if(is_R_operator(s.substr(0,2)) or find_string(s,"<-")){
+  	s="\""+s+"\"";
+  }
   DEBUG("End remove_alias_and_spaces");
 }
 
@@ -188,47 +191,56 @@ vector<string> read_aliases(ifstream &file){
 }
 
 bool is_example(const char *s,int len){
-  return (len>7 && s[0]=='\\' && s[1]=='e' && s[2]=='x' 
-            && s[3]=='a' && s[4]=='m' && s[5]=='p' 
-            && s[6]=='l' && s[7]=='e' && s[8]=='s');
+  return (len>7 and s[0]=='\\' and s[1]=='e' and s[2]=='x' 
+            and s[3]=='a' and s[4]=='m' and s[5]=='p' 
+            and s[6]=='l' and s[7]=='e' and s[8]=='s');
 }
 
-bool get_example(ifstream &file,string &res){
+int get_example(ifstream &file,string &res){
   string s;
-  getline(file,s);
-  bool is_e=is_example(s.c_str(),s.size());
-  res = is_e ? s : "";
+  int is_e=0; // not example
+  if(getline(file,s)){
+    is_e=is_example(s.c_str(),s.size());
+    res = is_e ? s : "";
+  }else{
+    is_e=-1; // failed to read. Maybe EOF found
+  }
   return is_e;
 }
 
 string read_example(ifstream &file,int& long_lines){
     string als;
     string s;
+    int found_example;
     unsigned int count_curly_bracket=1;/*at least there will be an empty example section*/
-    while(!get_example(file,s));
-    getline(file,s);
-    while(count_curly_bracket>0){/* check for {} and extract the example correct*/
-        if(s.size()>99){ // 100 max lines
-            ++long_lines;
-        }
-        for(auto& symbol : s){
-            if(symbol=='{')
-                ++count_curly_bracket;
-            else if(symbol=='}')
-                --count_curly_bracket;
-        }
-        s+="\n";
-        als+=s;
-        getline(file,s);
+    do{
+      found_example=get_example(file,s);
+    }while(found_example>0);
+    if(found_example>0){
+      getline(file,s);
+      while(count_curly_bracket>0){/* check for {} and extract the example correct*/
+          if(s.size()>99){ // 100 max lines
+              ++long_lines;
+          }
+          for(auto& symbol : s){
+              if(symbol=='{')
+                  ++count_curly_bracket;
+              else if(symbol=='}')
+                  --count_curly_bracket;
+          }
+          s+="\n";
+          als+=s;
+          getline(file,s);
+      }
+      als[als.size()-2]='\n'; // replace } with new line
+      als.erase(als.end()-1); // remove extra new line
     }
-    als[als.size()-2]='\n'; // replace } with new line
-    als.erase(als.end()-1); // remove extra new line
     return als;
 }
 
 bool is_usage(string &s){
-  return (s.size()>5 && s[0]=='\\' && s[1]=='u' && s[2]=='s' 
-            && s[3]=='a' && s[4]=='g' && s[5]=='e');
+  return (s.size()>5 and s[0]=='\\' and s[1]=='u' and s[2]=='s' 
+            and s[3]=='a' and s[4]=='g' and s[5]=='e');
 }
 
 bool get_usage(ifstream &file,string &res){
@@ -241,6 +253,50 @@ bool get_usage(ifstream &file,string &res){
   return is_e;
 }
 
+bool is_method(string& s){
+	return s.size()>=sizeof("\\method") and s[0]=='\\' and s[1]=='m' and
+	       s[2]=='e' and s[3]=='t' and s[4]=='h' and s[5]=='o' and s[6]=='d';
+}
+
+string convert_method_to_function(string s){
+    int position_of_assign;
+    
+    for(position_of_assign=s.size()-1;position_of_assign>=0;--position_of_assign){
+        if(s[position_of_assign]=='-' and s[position_of_assign-1]=='<'){
+            --position_of_assign;
+            break;
+        }else if(s[position_of_assign]==')'){
+            position_of_assign=-1;
+        }
+    }
+    string function_name,class_name;
+    if(position_of_assign>=0){
+        string argument_name=s.substr(position_of_assign+2,s.size()-position_of_assign); //+2 epeidi eimai sto <-
+        s.erase(s.begin()+position_of_assign-1,s.end());
+        s+=","+argument_name+")";
+        function_name="<-"; //stin periptosi pou exo to <- tote prepei na to valo kai sto onoma tis sinartisis
+        // function(x)<-value
+    }
+    int position_start_name=0,position_end_name;
+    
+    if(is_method(s)){
+        position_start_name=s.find('{')+1;
+        position_end_name=s.find('}',position_start_name);
+        function_name=s.substr(position_start_name,position_end_name-position_start_name)+function_name;
+        position_start_name=s.find('{',position_end_name)+1;
+        position_end_name=s.find('}',position_start_name);
+        class_name=s.substr(position_start_name,position_end_name-position_start_name);
+        s.erase(s.begin(),s.begin()+position_end_name+1);
+    }else{//periptosi pou einai function(x)<-value
+        position_end_name=s.find('(');
+        function_name=s.substr(position_start_name,position_end_name-position_start_name)+function_name;
+        s.erase(s.begin(),s.begin()+position_end_name);
+        return "\""+function_name+"\""+s;
+    }
+    
+    return is_R_operator(function_name) or position_of_assign>=0 ? "\""+function_name+"."+class_name+"\""+s : function_name+"."+class_name+s;
+}
+
 vector<string> read_usage(ifstream &file){
   DEBUG("START read_usage");
   vector<string> usg;
@@ -251,21 +307,26 @@ vector<string> read_usage(ifstream &file){
   do{
     getline(file,s);
     remove_spaces(s);
-    if(s!="" && sinexeia_apo_kato_grammi){
+    if(s!="" and sinexeia_apo_kato_grammi){
       DEBUG("ektelesi tin sinexeia stin apo kato grammi");
       sinexeia_apo_kato_grammi=false;
       usg[usg.size()-1]+=s;
-    }else if(s!="}" && s[s.size()-1]!='}' && s!=""){ //  keni grammi, sketo "}", "sinartisi}"
+    }else if(s!="}" and s[s.size()-1]!='}' and s!=""){ //  keni grammi, sketo "}", "sinartisi}"
       usg.push_back(s);
     }
-    if(s!="" && s[s.size()-1]!=')'){ //  periptosi pou i sinartisi paei kai stin kato grammi
+    if(s!="" and !find_string(s,"<-") and s[s.size()-1]!=')'){ //  periptosi pou i sinartisi paei kai stin kato grammi kai den prepei na einai assign function
       DEBUG("BBrike sinexeia stin apo kato grammi");
       sinexeia_apo_kato_grammi=true;
     }
   }while(s[s.size()-1]!='}');
-  if(s.size()>1 && s[s.size()-1]=='}'){ //  periptosi "sinartisi}"
+  if(s.size()>1 and s[s.size()-1]=='}'){ //  periptosi "sinartisi}"
     s.erase(s.end()-1);
     usg.push_back(s);
+  }
+  for(auto& v : usg){
+  	if(is_method(v) or find_string(v,"<-")){
+      	v=convert_method_to_function(v);
+    }
   }
   //for(auto& v : usg)
   //  name_of_functions_in_usage.push_back(v.substr(0,v.find(')')));
@@ -333,7 +394,7 @@ bool check_read_file(ifstream& file,char attr){
 }
 
 bool is_dont_read(string& s,char attr){
-    return s[0]==attr and s.size()>=sizeof("[dont read]") and //sizeof("[dont read]") 11 + \0
+    return s[0]==attr and s.size()>=sizeof("[dontread]") and //sizeof("[dontread]") 11 + \0
     s[1]=='[' and s[2]=='d' and s[3]=='o' and s[4]=='n' and s[5]=='t' and s[6]==' ' and s[7]=='r' and 
     s[8]=='e' and s[9]=='a' and s[10]=='d' and s[11]==']';
 }
@@ -344,6 +405,24 @@ bool is_export(string& s){
            s[5]=='o' and s[6]=='r' and s[7]=='t' and s[8]==']';
 }
 
+bool is_export_s3(string& s){
+    return s[0]=='#' and s.size()>=sizeof("[exports3]") and //sizeof("[export]") 8 + \0
+           s[1]=='[' and s[2]=='e' and s[3]=='x' and s[4]=='p' and 
+           s[5]=='o' and s[6]=='r' and s[7]=='t' and s[8]=='s' and 
+           s[9]=='3' and s[10]==']';
+}
+
+bool is_s3method(string& s){
+	return s.size()>=sizeof("S3method") and s[0]=='S' and s[1]=='3' and s[2]=='m'
+	and s[3]=='e' and s[4]=='t' and s[5]=='h' and s[6]=='o' and s[7]=='d';
+}
+
+bool is_R_operator(string s){
+    return s[0]=='[' or s[0]==']' or s[0]=='+' or s[0]=='-' or 
+           s[0]=='&' or s[0]=='|' or s[0]=='/' or s[0]=='!' or 
+	       s=="!=" or s=="=="  or s=="*" or s=="and" or 
+	       s=="||"; 
+}
 
 string read_current_signature_function_from_r_file(string& line,string keyword_function,ifstream &file,const int position_of_function_key){
     string func=line;
@@ -354,7 +433,11 @@ string read_current_signature_function_from_r_file(string& line,string keyword_f
             getline(file,line);
             remove_spaces(line);
             func+=line;
-        } while (!find_string(line,"{")); 
+        } while (!find_string(line,"{"));  
+        //++depth_scope;
+        line=func;
+        //ayto edo einai akros xrisimo dioti an to anoigma tou scope den einai mazi me 
+        //tin ipografi tis sinartisi tote den tha metrithei sosta.
     }
     DEBUG("function: ",func);
     func.erase(func.begin()+position_of_function_key,func.begin()+position_of_function_key+keyword_function.size());
@@ -366,13 +449,13 @@ string read_current_signature_function_from_r_file(string& line,string keyword_f
 }
 
 //proipothesi na einai dilomeno h sinartisi tou stil a<-function h a=function
-void read_functions_from_r_file(const string filename,vector<string> &exported_functions_names,vector<string> &not_exported_functions_names,List& signatures,bool& found_dont_read){
+void read_functions_from_r_file(const string filename,vector<string> &exported_functions_names,vector<string> &exported_functions_s3,vector<string> &not_exported_functions_names,List& signatures,bool& found_dont_read){
     
     ifstream file(filename.c_str());
     size_t position_of_function_key1=0,position_of_function_key2=0;
     string line;
     int depth_scope=0,number_of_line=0,number_of_export_line=0;
-    bool found_export=false;
+    bool found_export=false,found_export_s3=false;
     
     while(getline(file,line) and isspace(line[0])){
         ++number_of_line;
@@ -384,6 +467,7 @@ void read_functions_from_r_file(const string filename,vector<string> &exported_f
     }else{    
         auto read_name_from_function = [&](string& line){
             string function_name;
+            bool read_constant_string=false;
             DEBUG(line);
             
             for(unsigned int i=0;i<line.size();++i){
@@ -391,13 +475,15 @@ void read_functions_from_r_file(const string filename,vector<string> &exported_f
                 
                 if(std::isspace(ch))
                     continue;
-                else if(ch=='{'){
+                else if(ch=='\"'){ // kathe fora pou vrisko aytakia tote energopoio-apenergopoio ton mixanismo tou string
+                    read_constant_string=!read_constant_string;
+                }else if(ch=='{' and !read_constant_string){ // an eimai mesa se string tote den metrao to {
                     ++depth_scope;
-                    DEBUG("depth: "+to_string(depth_scope));
+                    DEBUG(to_string(__LINE__)+": depth-> "+to_string(depth_scope));
                     continue;
-                }else if(ch=='}'){
+                }else if(ch=='}' and !read_constant_string){ // an eimai mesa se string tote den metrao to }
                     --depth_scope;
-                    DEBUG("depth: "+to_string(depth_scope));
+                    DEBUG(to_string(__LINE__)+": depth-> "+to_string(depth_scope));
                     continue;
                 }
                 if(ch=='<' and i+9<line.size()){//an bro < kai exo akoma 9 theseis na psakso
@@ -407,12 +493,17 @@ void read_functions_from_r_file(const string filename,vector<string> &exported_f
                         if(found_export){
                             DEBUG("<-function export: "+function_name);
                             exported_functions_names.push_back(function_name);
-                            signatures[function_name]=List::create(_["signature"]=read_current_signature_function_from_r_file(line,"<-function",file,position_of_function_key1),_["filename"]=filename);
+                            signatures[function_name]=List::create(_["signature"]=read_current_signature_function_from_r_file(line,"<-function",file,position_of_function_key1),_["filename"]=filename,_["export type"]="export");
+				            found_export=false;
+                        }else if(found_export_s3){
+                            DEBUG("<-function export s3: "+function_name);
+                            exported_functions_s3.push_back(function_name);
+                            signatures[function_name]=List::create(_["signature"]=read_current_signature_function_from_r_file(line,"<-function",file,position_of_function_key1),_["filename"]=filename,_["export type"]="export s3");
+				            found_export_s3=false;
                         }else{
                             DEBUG("<-function: "+function_name);
                             not_exported_functions_names.push_back(function_name);
                         }
-                        found_export=false;
                     }
                 }else if(ch=='=' and i+8<line.size()){//an bro = kai exo akoma 8 theseis na psakso
                     position_of_function_key2=line.find("=function");
@@ -422,32 +513,44 @@ void read_functions_from_r_file(const string filename,vector<string> &exported_f
                         if(found_export){
                             DEBUG("<-function export: "+function_name);
                             exported_functions_names.push_back(function_name);
-                            signatures[function_name]=List::create(_["signature"]=read_current_signature_function_from_r_file(line,"=function",file,position_of_function_key2),_["filename"]=filename);
+                            signatures[function_name]=List::create(_["signature"]=read_current_signature_function_from_r_file(line,"=function",file,position_of_function_key2),_["filename"]=filename,_["export type"]="export");
+				     	              found_export=false;
+                        }else if(found_export_s3){
+                            DEBUG("<-function export s3: "+function_name);
+                            exported_functions_s3.push_back(function_name);
+                            signatures[function_name]=List::create(_["signature"]=read_current_signature_function_from_r_file(line,"=function",file,position_of_function_key2),_["filename"]=filename,_["export type"]="export s3");
+				                    found_export_s3=false;
                         }else{
                             DEBUG("<-function: "+function_name);
                             not_exported_functions_names.push_back(function_name);
                         }
-                        found_export=false;
                     }
                 }
                 function_name+=ch;
             }
-            if(found_export and number_of_export_line==number_of_line-1){//an exo vrei export  stin porigoumeni grammi kai h epomeni einai space
+            if((found_export or found_export_s3) and number_of_export_line==number_of_line-1){//an exo vrei export  stin porigoumeni grammi kai h epomeni einai space
                 Rcout<<"Warning: In file '"<<filename<<"' unused [export] attribute in line "<<number_of_export_line<<".\n";
             }
             found_export=false;
+            found_export_s3=false;
         };
         
         do{
             ++number_of_line;
             remove_spaces(line);
-            if(is_export(line) and depth_scope==0){ //mono oi sinartiseis poy einai sto global scope epitrepontai na einai export
-                DEBUG("found export: "+line);
+            //mono oi sinartiseis poy einai sto global scope epitrepontai na einai export
+	        if(is_export(line) and depth_scope==0){
+                DEBUG("found export: in line "+line + "in depth "+to_string(depth_scope));
                 number_of_export_line=number_of_line;
                 found_export=true;
                 continue;
+            }else if(is_export_s3(line) and depth_scope==0){
+            	DEBUG("found export s3: in line "+line + "in depth "+to_string(depth_scope));
+                number_of_export_line=number_of_line;
+                found_export_s3=true;
+                continue;
             }else if(line[0]=='#'){ // pass comments
-                DEBUG("found comments: "+line);
+                DEBUG("found comments: in line "+line + "in depth "+to_string(depth_scope));
                 continue;
             }
             read_name_from_function(line);
@@ -456,17 +559,20 @@ void read_functions_from_r_file(const string filename,vector<string> &exported_f
 }
 
 List read_functions_and_signatures(string path){
-    std::vector<string> exported_functions_names,not_exported_functions_names,files=read_directory(path),dont_read;
+    std::vector<string> exported_functions_names,exported_functions_s3,
+    not_exported_functions_names,files=read_directory(path),dont_read;
+
     exported_functions_names.reserve(500);
+    exported_functions_s3.reserve(50);
     not_exported_functions_names.reserve(500);
     bool found_dont_read=false;
     List signatures;
     for(auto& file : files){
-        read_functions_from_r_file(path+"\\"+file,exported_functions_names,not_exported_functions_names,signatures,found_dont_read);
+        read_functions_from_r_file(path+"\\"+file,exported_functions_names,exported_functions_s3,not_exported_functions_names,signatures,found_dont_read);
         if(found_dont_read){
             found_dont_read=false;
             dont_read.push_back(file);
         }
     }
-    return List::create(_["dont read"]=dont_read,_["export"]=exported_functions_names,_["without export"]=not_exported_functions_names,_["signatures"]=signatures);
+    return List::create(_["dont read"]=dont_read,_["export"]=List::create(_["functions"]=exported_functions_names,_["s3"]=exported_functions_s3),_["without export"]=not_exported_functions_names,_["signatures"]=signatures);
 }

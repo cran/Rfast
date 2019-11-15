@@ -38,15 +38,15 @@ R implementation and documentation: Manos Papadakis <papadakm95@gmail.com>.
 }
 
 \seealso{
-\code{ \link{sort_mat}, \link{Sort}, \link{colMins}, \link{colMaxs}, \link{colMedians}
+\code{ \link{Sort}, \link{colMins}, \link{colMaxs}, \link{colMedians}
 }
 }
 
 \examples{
 x <- matrix(rnorm(100),10,10)
 y <- matrix(rnorm(100),10,10)
-colPmax(x, y)
-colPmin(x, y)
+res<-colPmax(x, y)
+res<-colPmin(x, y)
 x<-y<-NULL
 }
 

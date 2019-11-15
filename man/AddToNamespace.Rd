@@ -10,7 +10,7 @@ Insert/remove function names in/from the NAMESPACE file.
 }
 
 \usage{
-AddToNamespace(path.namespace,path.rfolder,sort = FALSE)
+AddToNamespace(path.namespace,path.rfolder)
 RemoveFromNamespace(path.namespace,files.to.remove)
 }
 
@@ -21,16 +21,13 @@ An full path to the NAMESPACE file.
 \item{path.rfolder}{
 An full path to the directory the new files to be added are stored.
 }
-\item{sort}{
-An boolean value for sorting the exported functions in file NAMESPACE.
-}
 \item{files.to.remove}{
 An character with the names of the functions to be removed from file NAMESPACE.
 }
 }
 
 \details{
-AddToNameSpace: Reads the files that are exported in NAMESPACE and the functions that are inside rfolder (where R files are) and insert every function that is not exported. For that you must add the attribute "#[export]" above an fucntion you wish to export. Also, if you don't want the program to read any file just add at the top of the file the attribute "#[dont read]".
+AddToNameSpace: Reads the files that are exported in NAMESPACE and the functions that are inside rfolder (where R files are) and insert every function that is not exported. For that you must add the attribute "#[export]" above every function you wish to export. Also you can use the attribute "#[export s3]" for exporting S3methods. Finally, if you don't want the program to read a file just add at the top of the file the attribute "#[dont read]".
 
 RemoveFromNamespace: Remove every function, from argument "files.to.remove", from NAMESPACE.
 }
