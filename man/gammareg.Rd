@@ -36,9 +36,6 @@ with a log link with the intercept only ( glm(y ~ 1, Gamma(log) ) ).
 
 \value{
 A list including:
-\item{i}{
-The number of iterations required by the Newton-Raphson.
-}
 \item{deviance}{
 The deviance value.
 }
@@ -61,7 +58,7 @@ McCullagh, Peter, and John A. Nelder. Generalized linear models. CRC press, USA,
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsargis <mtsagris@yahoo.gr>
+R implementation and documentation: Michail Tsagris \email{mtsagris@yahoo.gr}.
 }
 
 %\note{

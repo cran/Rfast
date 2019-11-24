@@ -1,6 +1,6 @@
-3145a56fd23ebff25e0d614b67f51eca *DESCRIPTION
+0a5661ea89f511534a3294911221568e *DESCRIPTION
 8920545ef3b8128f71faea41c0b7d211 *NAMESPACE
-69d35f391df83ad82cb0048377264d7a *NEWS.md
+0015ca4f949b1648acd1bda3943d40db *NEWS.md
 1b4e87ff8d709341570e026406728a78 *R/All.R
 a760bdbcbccd45553deb2fcfa6b34ab6 *R/Any.R
 8620e872795fe30d1525438c774aa230 *R/Diag.R
@@ -207,7 +207,7 @@ eb082654f589e3578022fd421cb36b57 *R/twoway.anovas.R
 5312a06164c4a9399d1210119d834cf2 *R/ufactor.R
 9830c909216df4dd6d5c1a8f26aa63aa *R/var2test.R
 99a61dd4363824cc89ee12c65843dd99 *R/var2tests.R
-78fc4b181910977d35e0c2d5777902ac *R/variable_selection.R
+64b72a4f760958b2c7a7f51745ea350a *R/variable_selection.R
 f753bc8695aeb2dadd07be9d23e9673a *R/vartest.R
 52333ac995c9b9ba4ff1a2d092dbf6e2 *R/vartests.R
 92034d621f5f5ac3f369d92ef0012d36 *R/vecdist.R
@@ -219,7 +219,7 @@ a8624ffe500cba8040c0e5dc0ebffe50 *R/yule.R
 70454356682d8660b28bd4408b6dc7d5 *inst/include/Rfast/helpers.hpp
 fd1fe9abf3cce885840d4502570578f3 *inst/include/Rfast/matrix.hpp
 8262e207d81246442c10bc92293ec4c5 *inst/include/Rfast/templates.h
-4468a0f00a78075b6bdd848481b29cfb *inst/include/Rfast/vector.hpp
+c96fa73df36f5bdeefb51a7fb6078339 *inst/include/Rfast/vector.hpp
 44814d34052dcdd74f976b5377634617 *man/AddToNamespace.Rd
 8f16fc5173d7f9a9604f4be9c5ed1837 *man/Diag.fill.Rd
 548a7130af542cffb3a6c15e3c653d60 *man/Dist.Rd
@@ -233,7 +233,7 @@ a40d2d4036e1ddb290da3bae10f27bec *man/Lgamma.Rd
 5a74a969fb8a63b260a9a4a033f6b6b5 *man/Outer.Rd
 a4342770ffd57c219d7343d0aa04155c *man/Pmax.Rd
 92cb3a8901cbf940dbb7ebb059a99b58 *man/Rank.Rd
-60a9f19710f73064b74e6af3e9500f0e *man/Rfast-package.Rd
+61cd5143a989d459749ed467bb23b59b *man/Rfast-package.Rd
 5cec04671e5868c3a61343e7efbf6c3c *man/Rnorm.Rd
 355f1f9c9faf5242162f3ae4eb88a602 *man/Round.Rd
 a148c047fdba90d9f5f8f5d7926b3a37 *man/Sort.Rd
@@ -311,7 +311,7 @@ e004de4e8bdaf824c890c15d9a5d1ff1 *man/dcor.ttest.Rd
 8146c0dc5df7bb064387834b2b92fa77 *man/design_matrix.Rd
 3795f586a3a764cc09dfc0c42fbff7b2 *man/diri.nr2.Rd
 c0e61cab024a5cfac9483fbf641280ac *man/dirknn.Rd
-e39cbf6e515be950a6c2f6aab7cee1bd *man/dirknn.cv.Rd
+d659976f74054008ac06c11348e1a917 *man/dirknn.cv.Rd
 1783ed386633bc6cfef26d128a042b80 *man/dista.Rd
 ecfa6a9ef71a2ed3af36ec30bca66972 *man/dmvnorm.Rd
 31ef987274b6e8884f3ca1e9086d4b55 *man/edist.Rd
@@ -331,7 +331,7 @@ cb92d174ff4a29721bc60db545019d82 *man/g2Test.Rd
 c887bc6bdd1b3cd9fa196b107c7d182a *man/g2Test_univariate.Rd
 36b85b6b58f90b905fcb2c62a3a10b31 *man/g2tests.Rd
 cb1e09b59e62e05b78ec7d49f834b29e *man/gammamle.Rd
-8b0bf8eefeacacfee4db4539aa8c559b *man/gammareg.Rd
+38efdf3db717e4857972e1ccbebe23a6 *man/gammareg.Rd
 ed8faaa7a6d138e57d1b143ab5a65ecd *man/gaussian.nb.Rd
 9d0c4d0faa12a2c97a21242b0b3b44aa *man/gaussiannb.pred.Rd
 88f9bda06b2d05ce44c7b59a6d1e6632 *man/gchi2Test.Rd
@@ -463,7 +463,7 @@ d9c05086f1dae2cf7d998a7bbbb1dabf *src/binarysearch.cpp
 015ba7e441d4f2dd2e0844ed21d9b9c2 *src/calc_qpois_regs.cpp
 17e3e76602395d2d826419fd78ffeac4 *src/calc_qpois_regs.h
 ab8df8243d5bbaac1a7f5ab278fc9525 *src/check.cpp
-b71a5a36f2e6c2d41b78f18c6f260c41 *src/cholesky.cpp
+63b02376d9716ba4f031916c44da0cca *src/cholesky.cpp
 f889bfd7bec0b95f02d48a776e317d1c *src/col_row_utilities.cpp
 9053fdab068710215d063952fd4d34f8 *src/col_row_utilities_p.cpp
 a7d8531c2eb5031ea6895927338a127f *src/col_statistical.cpp
@@ -471,7 +471,7 @@ de4d6343b787f41fba020b93cb291b9f *src/colrint_mle.cpp
 8186a134a4e2f6516d7353453e4c7a72 *src/colweibull_mle.cpp
 594f3ccc81f9273e320b1879a8daf0a4 *src/cts.cpp
 aab124fcd7efddf06dec13ce423159d2 *src/cts.h
-3199caa49180478cd4f661e95f51e1b7 *src/cts_rf.cpp
+8746a2ee5f43c149f3080921f6851f08 *src/cts_rf.cpp
 e0b9490604eeff6d18ee92df2acf74a2 *src/cts_rf.h
 32720e3d699bc51c9d61212cd10b4788 *src/design_matrix.cpp
 8899b70df66f3be7ac88c584a91419b9 *src/dir_knn.cpp
@@ -532,12 +532,12 @@ fd1427d5a65d0b12f1b8e0b449d2ef33 *src/spat_med.cpp
 f71c216b1a52810b05382c9994a5242b *src/spml.cpp
 33977d240224627565412a7a68f71641 *src/sw_regs.cpp
 5d8d856881ae3a1b44f9ccfd0f0dd8e2 *src/sw_regs.h
-6ac591b291601491bcda10770f7592a5 *src/system_files.cpp
+f75799027e58ee030c7b18ec6aba77d1 *src/system_files.cpp
 da2c5bda2c56b0e28d82fb1994eae302 *src/system_files.h
-d3abdb82f2ebb6536bde1d96b40854d9 *src/topological_sort.cpp
+30de026efada3ca53aa834875aca451b *src/topological_sort.cpp
 7e7a4afb9e4d8b42ea973ee711522922 *src/total_dista.cpp
 dd4707a447b848bd67c13e11dd431c49 *src/total_dists.cpp
-b5bbc6ee42e3f6a491f752313074de4e *src/utilities.cpp
+7d9ad07cc282e643ade2e38ef6827b9b *src/utilities.cpp
 b2f891e68002c4cb593e046808e46663 *src/varcomps_mle.cpp
 aa13d3fa708a40b681767ba0a03a69c8 *src/vecdist.cpp
 e0a01c2522268199a9635ccdd809fbed *src/weib_reg.cpp
