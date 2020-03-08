@@ -1,4 +1,4 @@
-1439e5a9463830eca1f1a0603a09af06 *DESCRIPTION
+1e19402b92f30e0e1e6c544efcdd1dff *DESCRIPTION
 8920545ef3b8128f71faea41c0b7d211 *NAMESPACE
 20148ee398b1f8395ce5e69f501f6d04 *NEWS.md
 1b4e87ff8d709341570e026406728a78 *R/All.R
@@ -70,7 +70,7 @@ d82130f6ef790c35762eb373557814c6 *R/cova.R
 5b62117dfb6fbe6ec5a2241752f289d2 *R/cqtest.R
 a9a4dd097e17ae4f9bcac41457941746 *R/cqtests.R
 46a117f29b9659e4ac378fa95be925d9 *R/cumulative.R
-1a21fbae18c9944c4896f3e94eee4f9b *R/data.frame.to_matrix.R
+c114e2098c6aa2f430bb6f064f6bc3d1 *R/data.frame.to_matrix.R
 d0fd04d8f9559101388df0323fa3cc88 *R/dcor.R
 a75f1a75a3dfbaee63bf08e44718a4b5 *R/dcor.ttest.R
 0fcbf0d2cd1eeb367e80b5f1a095bad3 *R/dcov.R
@@ -147,7 +147,7 @@ a56046b09c21616835b48fe6bd6a0833 *R/mvkurtosis.R
 f0f0bc4e9e6cd111dba2e8200690d885 *R/pc.skel.R
 95c616350fa13ae8ab99762da237e849 *R/percent.ttest.R
 114b7302d6db73e37aa6e3f7f906cbe2 *R/percent.ttests.R
-27ea8df3af70a5c3b96cb5b74bc64164 *R/percentages_mle.R
+e9c6ccef5363688b6b4e6e12881aff23 *R/percentages_mle.R
 b383b16f0978912166611166585d1cd7 *R/permcor.R
 3ad18330f7e14d877a4d50ca05d46975 *R/permutation_combination.R
 19ee63b492ed3510e312d0a914380556 *R/pois.test.R
@@ -156,11 +156,11 @@ b383b16f0978912166611166585d1cd7 *R/permcor.R
 17c7319862fb559dbb68633f29fcca14 *R/poisson.anovas.R
 825e9672f77ed3814a51d8e3dfa8cb8a *R/poisson.nb.R
 a22985e7bbe8d4c1bdf559d093862a3b *R/poissonnb.pred.R
-6d829863bcaeaadf7520e6c611d703a3 *R/poly.cor.R
+6a9f4a1a50cf3f7c2d1fd5dc10c98a74 *R/poly.cor.R
 ec0d7fb96ed2dba4efc1cef500e27e95 *R/pooled.cov.R
 0a8820e196a2a23e5bfa816d5501f290 *R/positive.R
 623dc4a7d390d2c736067822b09f4b46 *R/positive.negative.R
-d6fa368e99f12e181655ea0dc31382ed *R/positive_mle.R
+854f0d5b69d9e47bc3f122e1ee1f6656 *R/positive_mle.R
 552ba6e3bc3d82d01221c7e717f5aaf4 *R/prods.R
 6c8d0bdea340efaff5585cc7c5040b39 *R/proptest.R
 8a05fa48e37497b811e720864cc0ab67 *R/proptests.R
@@ -216,7 +216,7 @@ a8624ffe500cba8040c0e5dc0ebffe50 *R/yule.R
 4fc48a63fade3f26695a8f76f5433aa2 *README.md
 35f89348ca353a5e3ec98d7e27c03358 *inst/include/Rfast.h
 eced96c0dfcc0dd577422bf5db23b2dd *inst/include/Rfast/helpers.hpp
-e6c356bb0dc932703447f1b840467754 *inst/include/Rfast/matrix.hpp
+762ab4a51b29a420b97de306c23184aa *inst/include/Rfast/matrix.hpp
 8262e207d81246442c10bc92293ec4c5 *inst/include/Rfast/templates.h
 f48c6fbdb2eb081845e729cc32305951 *inst/include/Rfast/vector.hpp
 44814d34052dcdd74f976b5377634617 *man/AddToNamespace.Rd
@@ -232,7 +232,7 @@ a40d2d4036e1ddb290da3bae10f27bec *man/Lgamma.Rd
 5a74a969fb8a63b260a9a4a033f6b6b5 *man/Outer.Rd
 a4342770ffd57c219d7343d0aa04155c *man/Pmax.Rd
 92cb3a8901cbf940dbb7ebb059a99b58 *man/Rank.Rd
-65a00fbacdc4a4fa954beacc0d8893fd *man/Rfast-package.Rd
+d93db8b8b7c6dc822739e9519f84a1ce *man/Rfast-package.Rd
 5cec04671e5868c3a61343e7efbf6c3c *man/Rnorm.Rd
 355f1f9c9faf5242162f3ae4eb88a602 *man/Round.Rd
 a148c047fdba90d9f5f8f5d7926b3a37 *man/Sort.Rd
@@ -348,7 +348,7 @@ a29c4e551d9280577f564e80f6d4bec0 *man/invgauss.reg.Rd
 c7b1ad2940185716a2a239546cd6a440 *man/is_element.Rd
 3ae0b0119ccbb3afb5d4fc08b59f0bef *man/is_integer.Rd
 26178209f9e67434d611120d430bcf62 *man/iterator.Rd
-c8e6ad155dafd92dc4a5c3bbcf67d11b *man/james.Rd
+f4d5765ba83a0ed4c262657926b43b59 *man/james.Rd
 fbd03e9c5161212843f4421bedb7e0f0 *man/knn.Rd
 6b92b9dd9994d1e107a82eab26dd1a49 *man/knn.cv.Rd
 728252370dac9ef21f4e7287dd0ef75c *man/kruskaltests.Rd
@@ -370,8 +370,8 @@ fb1f61d1d7fd58336ac5b0be47be3c6f *man/mad2.Rd
 1d0c436e0132e35c53731467a30fcf8d *man/multinom.mle.Rd
 fbd51f8c61554732770978410dce63f8 *man/multinom.reg.Rd
 180304a099277719b9f00c435dc65c99 *man/multinom.regs.Rd
-e991e3346dabfb581469328a7e32f615 *man/mv.eeltest1.Rd
-eaba1076dad02d7bad8a677001a4c37b *man/mv.eeltest2.Rd
+0fbaa55e0afdc2ea91cf9d7f1b0cb7bc *man/mv.eeltest1.Rd
+8cc85e6edb08c6d41226046fb3fc7d5f *man/mv.eeltest2.Rd
 c8a93f852e66b5ebae7527161da08b8b *man/mvbetas.Rd
 4830927d5123c375b66091ea8ad55aae *man/mvkurtosis.Rd
 cf720888a4d6e669fb34195a0a8fab2e *man/mvnorm.mle.Rd
@@ -381,7 +381,7 @@ f2d3d3ed3a69b0acddcfff34af6c0799 *man/negative.Rd
 d655e99ce5499d4d3ad6d1e41d93c2a4 *man/normlog.reg.Rd
 450d379550ab206d7ca999c34f022eca *man/normlog.regs.Rd
 adfb872c024b771df4ba700e43508a27 *man/odds.Rd
-6f1aba71e6628c3a2c0782770828763a *man/odds.ratio.Rd
+b864345ceaa0c8fb4198eb2db7b51654 *man/odds.ratio.Rd
 fc6042bcada7d470c7b7ddf456052e3b *man/ompr.Rd
 3319b1810ecb88d383e4247df3e33a17 *man/ordinal.mle.Rd
 c8f8c9f8fd6cff9597652eeb0dc691cf *man/pc.skel.Rd
@@ -393,7 +393,7 @@ b6349eb33c5d3c3cfc5d44d3afa14d75 *man/permutation.Rd
 8f42b875e832bde92d238bf65ab66294 *man/poisson.anova.Rd
 1966293cad11526919163d3b7dc652c5 *man/poisson.anovas.Rd
 cc06dd8abab5140c651961d2d8f88da8 *man/poly.cor.Rd
-14bb0275b734f87cadf38844ac372b07 *man/pooled.cov.Rd
+9f55aff1d3bd8c688737241a87a06e88 *man/pooled.cov.Rd
 d7c03ba61af61f6f39ad86164eb37041 *man/prop.reg.Rd
 d6b610e94e939cf13416725535674e05 *man/proptests.Rd
 92c8edb830c05965d7f0c6c3ad43041f *man/qpois.reg.Rd
@@ -428,7 +428,7 @@ cab1cf343509f97f516896ca1a7fddb9 *man/sort_unique.Rd
 04ef8ccbb025f7e07c1a76734b830274 *man/spml.reg.Rd
 6a527aca6e0164adbb8c959eb18f2ea8 *man/spml.regs.Rd
 8eda0681edd629c3d958be4f52cb4114 *man/squareform.Rd
-dc0e2d48040dc0061da31f5413793384 *man/sscov.Rd
+d461ae044956b112af84038176c89d69 *man/sscov.Rd
 8054b8bab5283c73e6d791fa4c82bd58 *man/standardise.Rd
 85da1edfd46a769856cdd8bd889d3bc5 *man/submatrix.Rd
 3e385584a6a15a32363f83e20826d872 *man/tobit.mle.Rd
@@ -457,7 +457,7 @@ b8644383c3a0f5356c873902ff2321c6 *src/Diag.cpp
 7e04410d262b03736cfefab20f56f32a *src/add_to_namespace.cpp
 310c94bd3f4266de62d9b950a8631601 *src/apply_condition.cpp
 8782dacad5bfe3cb2b50363834b9f2b4 *src/as_integer.cpp
-d9c05086f1dae2cf7d998a7bbbb1dabf *src/binarysearch.cpp
+2da8b05e1ff61e3ff32abb5759834c37 *src/binarysearch.cpp
 824c39d35c2dd4b7feb315fbae514cfc *src/bincomb.cpp
 015ba7e441d4f2dd2e0844ed21d9b9c2 *src/calc_qpois_regs.cpp
 17e3e76602395d2d826419fd78ffeac4 *src/calc_qpois_regs.h
