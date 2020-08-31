@@ -6,7 +6,7 @@
 using namespace Rcpp;
 using namespace arma;
 
-double calc_neg_ll(double *wx, double *expwx, double *y, const int size){
+static double calc_neg_ll(double *wx, double *expwx, double *y, const int size){
   double sum = 0.0;
   double *wit = wx, *yit = y;
   for(int i=0;i<size;i++,wit++,yit++){
@@ -57,7 +57,7 @@ List glm_logistic(NumericMatrix X, NumericVector Y, const double tol = 1e-06, co
     } while(negLL > prevNegLL + alpha * ta * lambda[0] && ta > ttol);
 
     B = nextB;
-    if ( isinf(negLL) || lambda[0]*ta/2 < tol || prevNegLL - negLL < lltol) {
+    if ( std::isinf(negLL) || lambda[0]*ta/2 < tol || prevNegLL - negLL < lltol) {
       if ( NumericVector::is_na(negLL)) {
         Rcout<<"Infinity found"<<endl;
       }
@@ -66,7 +66,7 @@ List glm_logistic(NumericMatrix X, NumericVector Y, const double tol = 1e-06, co
     expwxinv = 1/expwx;
   }
   double dev = 2 * negLL;
-  if ( isinf(dev) )
+  if ( std::isinf(dev) )
     dev = 1e+308;
 
   l["iter"] = iters+1;
@@ -85,7 +85,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericVector >::type y(ySEXP);
     traits::input_parameter< const double >::type tol(tolSEXP);
     traits::input_parameter< const int >::type maxiters(maxitersSEXP);
-    __result = wrap(glm_logistic(x,y,tol,maxiters));
+    __result = glm_logistic(x,y,tol,maxiters);
     return __result;
 END_RCPP
 }
@@ -126,7 +126,7 @@ BEGIN_RCPP
     traits::input_parameter< NumericVector >::type y(ySEXP);
     traits::input_parameter< const double >::type ylogy(ylogySEXP);
     traits::input_parameter< const double >::type tol(tolSEXP);
-    __result = wrap(glm_poisson(x,y,ylogy,tol));
+    __result = glm_poisson(x,y,ylogy,tol);
     return __result;
 END_RCPP
 }

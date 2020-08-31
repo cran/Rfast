@@ -6,7 +6,7 @@ racg <- function(n, sigma) {
   ## sigma does not have to be of full rank
   p <- dim(sigma)[1]
   x <- Rfast::matrnorm(n, p)
-  x <- x %*% chol(sigma) 
+  x <- x %*% chol(sigma)
   x / sqrt( Rfast::rowsums(x^2) )
 }
 
@@ -112,15 +112,22 @@ rvmf <- function (n, mu, k) {
         w <- .Call("Rfast_rvmf_h", PACKAGE = "Rfast", n, ca, 
             d1, x0, m, k, b)
         S <- cbind(sqrt(1 - w^2) * v, w)
-        A <- rotation(ini, mu)
-        x <- tcrossprod(S, A)
-    }
-    else {
+        if (isTRUE(all.equal(ini, mu, check.attributes = FALSE))) {
+            x <- S
+        } else if (isTRUE(all.equal(-ini, mu, check.attributes = FALSE))) {
+            x <- -S
+        } else {
+            A <- rotation(ini, mu)
+            x <- tcrossprod(S, A)
+        }
+    } else {
         x1 <- Rfast::matrnorm(n, d)  ## matrix( RcppZiggurat::zrnorm(n * d), ncol = d )
         x <- x1/sqrt(Rfast::rowsums(x1^2))
     }
+    colnames(x) <- names(mu)
     x
 }
+
 
 # rvmf <- function(n, mu, k) {
 #   ## n is the sample size
@@ -139,7 +146,7 @@ rvmf <- function (n, mu, k) {
 #     w <- numeric(n)
 #     m <- 0.5 * d1
 #     ca <- k * x0 + (d - 1) * log(1 - x0^2)
-#     
+#
 #     for (i in 1:n) {
 #       ta <-  -1000
 #       u <- 1
