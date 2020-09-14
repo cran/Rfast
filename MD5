@@ -1,6 +1,6 @@
-f2d8b019cedd458dbab341d16b0c7d58 *DESCRIPTION
+68ba4af3e36269d84292c7f231cbaf1e *DESCRIPTION
 ec0737e1bad0c03544c7daedd531fb67 *NAMESPACE
-06bc13b93733f0c4bd00772d0a1553c6 *NEWS.md
+d519f757dc73e5d3f0fddb36839c423d *NEWS.md
 1b4e87ff8d709341570e026406728a78 *R/All.R
 a760bdbcbccd45553deb2fcfa6b34ab6 *R/Any.R
 8620e872795fe30d1525438c774aa230 *R/Diag.R
@@ -232,6 +232,7 @@ a40d2d4036e1ddb290da3bae10f27bec *man/Lgamma.Rd
 5a74a969fb8a63b260a9a4a033f6b6b5 *man/Outer.Rd
 a4342770ffd57c219d7343d0aa04155c *man/Pmax.Rd
 92cb3a8901cbf940dbb7ebb059a99b58 *man/Rank.Rd
+7eb7d90988e3ec026542686e7e9d7f64 *man/Rfast-package.Rd
 5cec04671e5868c3a61343e7efbf6c3c *man/Rnorm.Rd
 355f1f9c9faf5242162f3ae4eb88a602 *man/Round.Rd
 a148c047fdba90d9f5f8f5d7926b3a37 *man/Sort.Rd
@@ -462,7 +463,7 @@ c3580b5fdb6ead2c26b31cab4ac2bed2 *src/binarysearch.cpp
 17e3e76602395d2d826419fd78ffeac4 *src/calc_qpois_regs.h
 097f9929de4069c9d70c3aa745ff41fb *src/check.cpp
 300a2c1da1586ef2d2fb0e24e23459b0 *src/cholesky.cpp
-1cad3c889d4c0ab1b6ff9b1f78e9a980 *src/col_row_utilities.cpp
+6954df731f909b455f3c8548cfc68925 *src/col_row_utilities.cpp
 9f345471f4b20b76eebdf8b7bfc1828b *src/col_row_utilities_p.cpp
 1011732f91d44b100acee58d2dcaee9b *src/col_statistical.cpp
 b0777392503a26d1948f470095a8e6a8 *src/colrint_mle.cpp
@@ -491,7 +492,7 @@ bd9fdc709bf4387b4afb437a395e4d4f *src/geom_regs.cpp
 c62912454013cd668af8470389f60c36 *src/glm.cpp
 84146dcb8b8fde5c1ba65818b1476495 *src/group.cpp
 5c9bc968daa08799f6ddc428421e25f2 *src/hash.cpp
-72bf15b501f53fc4dd42a45050071afd *src/init.c
+2d7433f7dcaa8c055c49607df9c850ff *src/init.c
 3a2dee15d757109cce58512cce3ee21f *src/is.cpp
 bdcbd8a21745feb4e9db370b483df117 *src/k_nn.cpp
 9ba06b474128c215385b9837305f02ba *src/k_nn.h
