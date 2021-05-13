@@ -25,7 +25,7 @@ The number of bootstrap samples to use.
 }
 
 \details{
-Instead of sampling B times from each sample, we sample \eqn{sqrt{B}} from each of them and then take all pairs. 
+Instead of sampling B times from each sample, we sample \eqn{\sqrt{B}} from each of them and then take all pairs. 
 Each bootstrap sample is independent of each other, hence there is no violation of the theory. 
 }
 
@@ -48,7 +48,7 @@ https://arxiv.org/ftp/arxiv/papers/1806/1806.10947.pdf
 \author{
 Michail Tsagris and Christina Chatzipantsiou
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Christina Chatzipantsiou <chatzipantsiou@gmail.com>.
+R implementation and documentation: Michail Tsagris <mtsagris@uoc.gr> and Christina Chatzipantsiou <chatzipantsiou@gmail.com>.
 }
 %\note{
 %%  ~~further notes~~

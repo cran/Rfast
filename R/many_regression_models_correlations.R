@@ -23,7 +23,7 @@ allbetas <- function(y, x, pvalue = FALSE, logged = FALSE) {
     dof <- n - 2
     stat <- r * dof / (1 - rho2)
     pvalue <- pf( stat, 1, n - 2, lower.tail = FALSE, log.p = logged)
-    result <- cbind(a, be, r, stat, pvalue)
+    result <- cbind(a, be, r / sqrt( sy * sx ), stat, pvalue)
     if ( is.null( colnames(x) ) ) {
       rownames(result) <- paste("X", 1:ncol(x), sep = "" )
     } else  rownames(result) <- colnames(x)
@@ -621,6 +621,10 @@ univglms2 <- function (y, x, oiko = NULL, logged = FALSE) {
 }
 
 
+#[export]
+quasi.poisson_only <- function(x,y,tol = 1e-09, maxiters = 100) {
+	.Call(Rfast_quasi_poisson_only,x,y,sum(y*log(y),na.rm=TRUE),tol,maxiters)
+}
 
   
 

@@ -101,9 +101,9 @@ structure learning algorithm. Machine learning 65(1):31-78.
 }
 
 \author{
-Marios Dimitriadis
+Marios Dimitriadis.
 
-R implementation and documentation: Marios Dimitriadis <kmdimitriadis@gmail.com>
+R implementation and documentation: Marios Dimitriadis <kmdimitriadis@gmail.com>.
 }
 
 %\note{
@@ -115,7 +115,7 @@ R implementation and documentation: Marios Dimitriadis <kmdimitriadis@gmail.com>
 
 \examples{
 # simulate a dataset with continuous data
-dataset <- matrix(rnorm(1000 * 50, 1, 100), nrow = 1000) 
+dataset <- matrix(rnorm(200 * 20, 1, 100), nrow = 500) 
 a <- pc.skel(dataset, method = "pearson", alpha = 0.01) 
 }
 

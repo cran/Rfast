@@ -1,12 +1,12 @@
-\name{Orthogonal matching pursuit regression}
+\name{Orthogonal matching pursuit variable selection}
 \alias{ompr}
 \alias{omp}
 \title{
-Orthogonal matching pursuit regression
+Orthogonal matching pursuit variable selection
 }
 
 \description{
-Orthogonal matching pursuit regression.
+Orthogonal matching pursuit variable selection.
 }
 
 \usage{
@@ -74,15 +74,15 @@ https://www.google.gr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwik9P3Y
 
 Lozano A., Swirszcz G., & Abe N. (2011). Group orthogonal matching pursuit for logistic regression. In Proceedings of the Fourteenth International Conference on Artificial Intelligence and Statistics.
 
-Michail Tsagris, Zacharias Papadovasilakis, Kleanthi Lakiotaki, Ioannis Tsamardinos (2020). 
-A generalised OMP algorithm for feature selection with application to gene expression data. arxiv preprint.
+The \eqn{\gamma}-OMP algorithm for feature selection with application to gene expression data. 
+IEEE/ACM Transactions on Computational Biology and Bioinformatics (Accepted for publication)
 https://arxiv.org/pdf/2004.00281.pdf
 }
 
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr>.
+R implementation and documentation: Michail Tsagris <mtsagris@uoc.gr>.
 }
 %\note{
 %%  ~~further notes~~

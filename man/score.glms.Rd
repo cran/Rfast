@@ -71,14 +71,17 @@ via the \eqn{\chi^2} distribution.
 }
 
 \references{
-Hosmer, DW. JR, Lemeshow S. and Sturdivant R.X. (2013). Applied Logistic Regression. New Jersey ,Wiley, 3rd Edition.
+Tsagris M., Alenazi A. and Fafalios S. (2020). Computationally efficient univariate filtering for massive data. 
+Electronic Journal of Applied Statistical Analysis (Accepted for publication).
 
-Campbell, M.J. (2001). Statistics at Square Two: Understand Modern Statistical Applications in Medicine, pg. 112.
+Hosmer DW. JR, Lemeshow S. and Sturdivant R.X. (2013). Applied Logistic Regression. New Jersey ,Wiley, 3rd Edition.
+
+Campbell M.J. (2001). Statistics at Square Two: Understand Modern Statistical Applications in Medicine, pg. 112.
 London, BMJ Books. 
  
-Draper, N.R. and Smith H. (1988). Applied regression analysis. New York, Wiley, 3rd edition.
+Draper N.R. and Smith H. (1988). Applied regression analysis. New York, Wiley, 3rd edition.
 
-McCullagh, Peter, and John A. Nelder. Generalized linear models.  CRC press, USA, 2nd edition, 1989.
+McCullagh Peter, and John A. Nelder. Generalized linear models.  CRC press, USA, 2nd edition, 1989.
 
 Agresti Alan (1996). An introduction to categorical data analysis. New York: Wiley.
 
@@ -88,7 +91,7 @@ Joseph M.H. (2011). Negative Binomial Regression. Cambridge University Press, 2n
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> and Manos Papadakis <papadakm95@gmail.com>.
+R implementation and documentation: Michail Tsagris <mtsagris@uoc.gr> and Manos Papadakis <papadakm95@gmail.com>.
 }
 %\note{
 %%  ~~further notes~~

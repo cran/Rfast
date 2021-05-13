@@ -9,7 +9,7 @@ Multivariate Laplace random values simulation.
 }
 
 \usage{
-rmvlaplace(n, lam, mu, G) 
+rmvlaplace(n, lam, mu, G, seed = NULL) 
 }
 
 \arguments{
@@ -24,6 +24,9 @@ The mean vector.
 }
 \item{G}{
 A \eqn{d \times d} covariance matrix with determinant 1. 
+}
+\item{seed}{
+If you want the same to be generated again use a seed for the generator, an integer number.
 }
 }
 
@@ -42,7 +45,7 @@ Eltoft T., Kim T., and Lee T.W. (2006). On the multivariate laplace distribution
 \author{
 Michail Tsagris
 
-R implementation and documentation: Michail Tsagris <mtsagris@yahoo.gr> 
+R implementation and documentation: Michail Tsagris <mtsagris@uoc.gr> 
 }
 
 %\note{
