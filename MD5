@@ -1,4 +1,4 @@
-d4cfc0fc882fb4aac2d8514cb0642811 *DESCRIPTION
+f907a2d526241763adc70dccfe27eb4e *DESCRIPTION
 f892defbb73a6c1f42001a77878a982a *NAMESPACE
 d519f757dc73e5d3f0fddb36839c423d *NEWS.md
 1b4e87ff8d709341570e026406728a78 *R/All.R
@@ -186,7 +186,7 @@ a40d2d4036e1ddb290da3bae10f27bec *man/Lgamma.Rd
 4317d157c03ca807f739d704967eb531 *man/Outer.Rd
 a4342770ffd57c219d7343d0aa04155c *man/Pmax.Rd
 92cb3a8901cbf940dbb7ebb059a99b58 *man/Rank.Rd
-725789bd45fe20f05e6353e4537a027b *man/Rfast-package.Rd
+7a03dfbac08117f859118c47b8cdd534 *man/Rfast-package.Rd
 eb9dc2eb30f552be5428b1c1cd556617 *man/Rnorm.Rd
 355f1f9c9faf5242162f3ae4eb88a602 *man/Round.Rd
 a148c047fdba90d9f5f8f5d7926b3a37 *man/Sort.Rd
@@ -338,7 +338,7 @@ d655e99ce5499d4d3ad6d1e41d93c2a4 *man/normlog.reg.Rd
 81339a5b13789776cc694b6b5492203b *man/odds.ratio.Rd
 3de6270ffe954a22a1ccc7b4da042bfb *man/ompr.Rd
 3319b1810ecb88d383e4247df3e33a17 *man/ordinal.mle.Rd
-56a6f235d132f3b24b06af35510be1eb *man/pc.skel.Rd
+ffb1788ff528fbf013b141d05089783f *man/pc.skel.Rd
 49f2691c7137ce2a9a5dd1350fb0892e *man/percent.ttest.Rd
 63a196fbf29fcfb4a100333e3d3e2617 *man/percent.ttests.Rd
 65159160876753424b67c473dc0f5aa6 *man/permcor.Rd
