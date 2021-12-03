@@ -15,7 +15,7 @@ score.betaregs <- function (y, x, logged = FALSE) {
 #[export]
 score.expregs <- function(y, x, logged = FALSE) {
   lam <- mean(y)
-  u <- Rfast::colsums(x * y) * lam - Rfast::colsums(x) 
+  u <- Rfast::eachcol.apply(x, y) * lam - Rfast::colsums(x) 
   vu <- Rfast::colsums(x^2) * lam^4
   stat <- u^2 / vu
   pvalue <- pchisq(stat, 1, lower.tail = FALSE, log.p = logged)
@@ -61,7 +61,7 @@ score.glms <- function(y, x, oiko = NULL, logged = FALSE ) {
   r <- as.numeric( cor(y, x) )
   if ( oiko == "binomial" ) {
     stat <- r * sqrt(n)  
-  } else  stat <- ( Var(y, std = T) / sqrt( sum(y) / n ) * sqrt(n - 1) ) * r 
+  } else  stat <- ( Rfast::Var(y, std = TRUE) / sqrt( sum(y) / n ) * sqrt(n - 1) ) * r 
 
   if ( logged ) {
     pvalue <- log(2) + pt( abs(stat), n - 2, lower.tail = FALSE, log.p = TRUE )
@@ -110,8 +110,8 @@ score.multinomregs <- function(y, x, logged = FALSE) {
 
 
 #[export]
-score.negbinregs <- function (y, x, logged = FALSE) {
-    mod <- Rfast::negbin.mle(y)
+score.negbinregs <- function (y, x, type = 1, logged = FALSE) {
+    mod <- Rfast::negbin.mle(y, type = type)
     r <- mod$param[2]
     p <- mod$param[1]
     my <- mod$param[3]

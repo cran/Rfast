@@ -97,7 +97,7 @@ gammareg <- function(y, x, tol = 1e-07, maxiters = 100) {
 glm_logistic <- function (x, y, full = FALSE, tol = 1e-09,maxiters = 100) {
     x <- model.matrix(y ~ ., data.frame(x))
     mod <- .Call(Rfast_glm_logistic, x, y,tol,maxiters)
-	names(mod$be) <- colnames(x)
+	rownames(mod$be) <- colnames(x)
     res <- list(be = mod$be, devi = mod$deviance)
     if (full) {
         be <- mod$be
@@ -120,7 +120,7 @@ glm_logistic <- function (x, y, full = FALSE, tol = 1e-09,maxiters = 100) {
 glm_poisson <- function (x, y, full = FALSE,tol = 1e-09) {
     x <- model.matrix(y ~ ., data.frame(x))
     mod <- .Call(Rfast_glm_poisson, x, y, sum(y * log(y), na.rm = TRUE),tol)
-	names(mod$be) <- colnames(x)
+	rownames(mod$be) <- colnames(x)
     res <- list(be = mod$be, devi = mod$deviance)
     if (full) {
         be <- mod$be
@@ -176,8 +176,8 @@ lmfit <- function(x, y, w = NULL) {
   if ( is.null(w) ) {
     be <- solve( crossprod(x), crossprod(x, y) )
   } else  be <- solve( crossprod(x, w * x), crossprod(x, w * y) )
-  e <- y - x %*% be 
-  names(be) <- colnames(x)
+  e <- as.vector( y - x %*% be )
+  rownames(be) <- colnames(x)
   list(be = be, residuals = e)
 }
 
@@ -271,7 +271,7 @@ multinom.reg <- function(y, x, tol = 1e-07, maxiters = 50) {
 normlog.reg <- function(y, x, tol = 1e-07, maxiters = 100) {
   x <- model.matrix(y ~ ., data.frame(x))
   mod <- .Call(Rfast_normlog_reg,y, x, tol, maxiters)
-  names(mod$be) <- colnames(x)
+  rownames(mod$be) <- colnames(x)
   mod
 }
 
@@ -351,7 +351,7 @@ spatmed.reg <- function(y, x, tol = 1e-07) {
 
   B1 <- solve(crossprod(x), crossprod(x, y) )
   est <- y - x %*% B1
-  ww <- sqrt( .Call(Rfast_row_sums, est^2, indices = NULL))
+  ww <- sqrt( Rfast::rowsums(est^2) )
   ## ww <- sqrt( Rfast::rowsums( est^2 ) )
   z <- x / ww
   B2 <- solve( crossprod(z, x), crossprod(z, y) )
@@ -360,7 +360,7 @@ spatmed.reg <- function(y, x, tol = 1e-07) {
     i <- i + 1
     B1 <- B2
     est <- y - x %*% B1
-    ww <- sqrt( .Call(Rfast_row_sums, est^2, indices = NULL))
+    ww <- sqrt( Rfast::rowsums(est^2) )
 	## ww <- sqrt( Rfast::rowsums( est^2 ) )
     ela <- which( ww == 0 )
     z <- x / ww
@@ -395,10 +395,10 @@ spml.reg <- function(y, x, tol = 1e-07, seb = FALSE, maxiters = 100) {
 
 #[export]
 weib.reg <- function (y, x, tol = 1e-07, maxiters = 100) {
-    X <- model.matrix(y ~ ., data.frame(x))
-    mod <- .Call(Rfast_weib_reg, y, X, tol, 
+    x <- model.matrix(y ~ ., data.frame(x))
+    mod <- .Call(Rfast_weib_reg, y, x, tol, 
         maxiters)
-    names(mod$be) <- colnames(X)
+    rownames(mod$be) <- colnames(x)
     list(iters = mod$iters, loglik = mod$loglik, shape = mod$shape, be = mod$be)
 }
 
@@ -408,6 +408,7 @@ qpois.reg <- function (x, y, full = FALSE, tol = 1e-09, maxiters = 100) {
     x <- model.matrix(y ~ ., data.frame(x))
     mod <- .Call(Rfast_qpois_reg, x, y, sum(y * log(y), na.rm = TRUE), 
         tol,maxiters)
+	rownames(mod$be) <- colnames(x)	
     res <- list(be = mod$be, devi = mod$deviance, varb = mod$phi * 
         spdinv(mod$L2), phi = mod$phi)
     if (full) {
