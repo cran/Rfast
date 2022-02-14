@@ -228,6 +228,23 @@ double total_itakura_saito_dist(NumericMatrix x){
   return a;
 }
 
+//[[Rcpp::export]]
+double total_haversine_dist(NumericMatrix x){
+  const int nrw=x.nrow();
+  const int nrw_1=nrw-1;
+  colvec x0(x.begin(),nrw,false),x1(x.begin()+nrw,nrw,false);
+  colvec ind_col(nrw_1);
+  double a=0;
+  int i;
+  
+  for(i=0;i<nrw_1;++i){
+    span ind(i+1,nrw_1);
+    ind_col = x0(ind);
+    a += accu(2*asin(sqrt(square(sin( 0.5 * (x0[i] -ind_col))) + cos(x0[i]) * (cos(ind_col) % square(sin( 0.5 * (x1[i] - x1(ind))))))));
+  }
+  return a;
+}
+
 
 double total_dists(NumericMatrix x,const string method,const bool sqr,const int p){
   if(method == "euclidean" || p==2){
@@ -254,6 +271,8 @@ double total_dists(NumericMatrix x,const string method,const bool sqr,const int 
     return total_kullback_leibler_dist(x);
   }else if(method == "itakura_saito"){
     return total_itakura_saito_dist(x);
+  }else if(method == "haversine"){
+    return total_haversine_dist(x);
   }
   stop("Unsupported Method: %s",method);
 }
