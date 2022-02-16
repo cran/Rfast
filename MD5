@@ -1,4 +1,4 @@
-0df4168054756e1f55297e4cff7476f9 *DESCRIPTION
+6e79b1ee55320d77b72db3bb7679a597 *DESCRIPTION
 0063978a8661f4d4d08969110344964b *NAMESPACE
 3cf0b5c63a507da4862d433c689313e9 *NEWS.md
 1b4e87ff8d709341570e026406728a78 *R/All.R
@@ -148,7 +148,7 @@ a8624ffe500cba8040c0e5dc0ebffe50 *R/yule.R
 fdee4f85a80db2038d25bd2798705dae *README.md
 35f89348ca353a5e3ec98d7e27c03358 *inst/include/Rfast.h
 eced96c0dfcc0dd577422bf5db23b2dd *inst/include/Rfast/helpers.hpp
-f2c9b9e3cbb44efbd58b0b5268a4ebe8 *inst/include/Rfast/matrix.hpp
+d15b4cfbe880db9e2c986e38db0fe039 *inst/include/Rfast/matrix.hpp
 d3a09dad6c0eff6232102e7e1153bbd8 *inst/include/Rfast/templates.h
 c86cd91079fe6b6f6348f2e76cb1481a *inst/include/Rfast/vector.hpp
 5377e033646dd57dafdc0ea8f0f96c13 *man/AddToNamespace.Rd
@@ -164,7 +164,7 @@ a40d2d4036e1ddb290da3bae10f27bec *man/Lgamma.Rd
 10f6ff363b53d75dac054f57541992a4 *man/Outer.Rd
 a4342770ffd57c219d7343d0aa04155c *man/Pmax.Rd
 92cb3a8901cbf940dbb7ebb059a99b58 *man/Rank.Rd
-c8b22feeaa70e0d4969840a8bf4ee7d3 *man/Rfast-package.Rd
+c5cf0587fad5d2cca2dfcfcbd19c58ad *man/Rfast-package.Rd
 eb9dc2eb30f552be5428b1c1cd556617 *man/Rnorm.Rd
 355f1f9c9faf5242162f3ae4eb88a602 *man/Round.Rd
 a148c047fdba90d9f5f8f5d7926b3a37 *man/Sort.Rd
@@ -393,7 +393,7 @@ c3580b5fdb6ead2c26b31cab4ac2bed2 *src/binarysearch.cpp
 719f7fa2d2a1aa25c8a883e532c4b0b4 *src/bincomb.cpp
 015ba7e441d4f2dd2e0844ed21d9b9c2 *src/calc_qpois_regs.cpp
 17e3e76602395d2d826419fd78ffeac4 *src/calc_qpois_regs.h
-7a09415e911ae3d5c422c263ec1cf69c *src/check.cpp
+5715e836ced7cd8c365978464e58eede *src/check.cpp
 300a2c1da1586ef2d2fb0e24e23459b0 *src/cholesky.cpp
 30d39263d2c78b71d219ae2f276046eb *src/col_row_utilities.cpp
 9f345471f4b20b76eebdf8b7bfc1828b *src/col_row_utilities_p.cpp
