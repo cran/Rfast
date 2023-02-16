@@ -1,10 +1,16 @@
 #[export]
 colmeans <- function(x,parallel = FALSE) {
-	if(parallel){
-		.Call(Rfast_col_mean_p,x)
-	}else{
-  		as.vector(.Call(Rfast_col_means,x))
-  	}
+	UseMethod("colmeans")
+}
+
+#[export s3]
+colmeans.matrix <- function(x,parallel = FALSE) {
+	.Call(Rfast_col_means,x,parallel)
+}
+
+#[export s3]
+colmeans.data.frame <- function(x,parallel = FALSE) {
+	.Call(Rfast_col_means,x,parallel)
 }
 
 #[export]

@@ -1,5 +1,31 @@
 <h1 align="center"> _Rfast_ </h1>
 
+### **Version 2.0.7**
+***
+> <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>
+>  |	    Function	    |           What's new!             |
+>  | :-------------------:  | :-------------------------------: |
+>  |  colVars				| Supports data.frame  |
+>  |  colmeans				| Supports data.frame  |
+>  |  invdir.mle			| A small optimization |
+
+
+</br>
+</br>
+
+### **Version 2.0.6**
+***
+> <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>
+>  |	    Function	    |           What's new!             |
+>  | :-------------------:  | :-------------------------------: |
+>  |  Dist(method = "bhattacharyya") | Minor optimization. |
+
+
+</br>
+</br>
+
 ### **Version 2.0.5**
 ***
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
@@ -11,7 +37,7 @@
 >  |  checkUsage            | Fix a bug about "=function". Optimized empty return values and error messages. |
 >  |  checkAliases, checkTF | Optimized empty return values. |
 >  |  edist                 | Fix a bug. |
->  |  dirimultinom.mle       | Fix a bug. |
+>  |  dirimultinom.mle      | Fix a bug. |
 
 
 </br>

@@ -4,6 +4,7 @@
 #define SYSTEM_FILES
 
 #include <vector>
+#include <array>
 #include <string>
 #include <fstream>
 #include <dirent.h>
@@ -14,6 +15,7 @@
 
 using Rcpp::List;
 using std::vector;
+using std::array;
 using std::string;
 using std::ifstream;
 
@@ -80,9 +82,10 @@ void print_error(T values,Args... args){
 
 
 vector<string> split_words(string,const char*);
+array<string,2> split_words_in_half(string,const char);
 void writeFile(vector<string>,string);
-vector<string> readFile(string,int&);
-bool find_export(string,string);
+vector<string> readNamespaceFile(string,int&);
+bool is_namespace_export(string);
 vector<string> readDirectory(const string,const int);
 bool is_alias(const char *s,int);
 bool next_alias(ifstream &,string &);
@@ -105,14 +108,22 @@ void reset_file(ifstream& file);
 
 bool is_dont_read(string& s,char attr);
 bool is_export(string& s);
-string read_current_signature_function_from_r_file(string& line,string keyword_function,ifstream &file,const int position_of_function_key);
+string read_current_signature_function_from_r_file(string& ,string ,ifstream &,const int );
 
-void read_functions_from_r_file(const string filename,vector<string> &exported_functions_names,vector<string> &exported_functions_s3,vector<string> &not_exported_functions_names,List& signatures,bool& found_dont_read);        
+void read_functions_from_r_file(
+    const string,
+    vector<string> &,
+    vector<string> &,
+    vector<string> &,
+    vector<string> &,
+    List& ,
+    bool& );        
 
 List read_functions_and_signatures(string path);
 bool is_export_s3(string&);
 bool is_s3method(string&);
 bool is_R_operator(string);
+bool is_hidden_function(string&);
 
 template<class T>
 bool find_string(string& s,T f){

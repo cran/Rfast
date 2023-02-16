@@ -43,7 +43,7 @@ A matrix with the test statistic and the p-value of each test.
 }
 
 \references{
-D.C. Montgomery (2001). Design and analysis of experiments (5th Edition). New York: John Wiley \& Sons 
+D.C. Montgomery (2001). Design and analysis of experiments (5th Edition). New York: John Wiley & Sons.
 }
 
 \author{
@@ -61,7 +61,7 @@ R implementation and documentation: Michail Tsagris <mtsagris@uoc.gr> and Manos 
 }
 
 \examples{
-\dontrun{
+\donttest{
 y <- as.matrix( rnorm(125) )
 x1 <- rep(1:5, 25)
 x2 <- rep(1:5, each = 25)

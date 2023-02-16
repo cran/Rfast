@@ -23,7 +23,7 @@ vector<string> check_namespace(const string dir_to_export,const string dir_to_fi
   if(allfiles.empty()){
     stop("Warning: empty folder.\n");
   }
-  vector<string> data_export=readFile(dir_to_export,which_string_has_export);
+  vector<string> data_export=readNamespaceFile(dir_to_export,which_string_has_export);
   if(which_string_has_export==-1){
     stop("Error. can't find \"export\" function in NAMESPACE file.\n");
   }
@@ -63,7 +63,7 @@ List check_true_false(string path_to_man){
   CharacterVector trues,falses;
   for(unsigned int i=0;i<exams.size();++i){
     s=exams[i];
-    remove(s.begin(),s.end(),' ');
+    [[maybe_unused]] auto temp = remove(s.begin(),s.end(),' ');
     if(find_string(s,"=T)") || find_string(s,"=T,")){
       trues.push_back(names[i]);
     }else if(find_string(s,"=F)") || find_string(s,"=F,")){
@@ -94,17 +94,17 @@ END_RCPP
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 using std::remove;
-/*
 //[[Rcpp::export]]
 List read_export(const string path_rf){
     return read_functions_and_signatures(path_rf);
-}*/
+}
 
 //[[Rcpp::export]]
 List check_aliases(const string path_man,const string path_rf){
   ifstream file;
   List all_functions=read_functions_and_signatures(path_rf)["export"];
-  vector<string> aliases,all_r_functions=all_functions["functions"],all_s3method=all_functions["s3"],all_rd_files=readDirectory(path_man,3),tmp,dontread_rd;
+  vector<string> aliases,all_r_functions=all_functions["functions"],
+  all_s3method=all_functions["s3"],all_rd_files=readDirectory(path_man,3),tmp,dontread_rd;
   all_r_functions.reserve(all_r_functions.size()+all_s3method.size());
   all_r_functions.insert(all_r_functions.end(),all_s3method.begin(),all_s3method.end());
   for(auto& rd_file : all_rd_files){
@@ -216,8 +216,8 @@ List check_usage(string path_man,string path_rf){
                             DEBUG(curr_func+" : "+function_signature +" ["+al+"]");
                             missmatch_functions.push_back("signature of <"+al+"> missmatch with usage in <"+file_rd.name+">");
                         }
-                    }else{
-                        missing_functions.push_back("<"+al+"> not in <"+file_rd.name+">"); // aliase not in usage
+                    }else{ // an to alias den iparxei stis sinartiseis simainei oti leipei h R sinartisi
+                        missing_functions.push_back("<"+al+"> not in any R file");
                     }
                     curr_func.clear();
                 }
@@ -236,6 +236,8 @@ List check_usage(string path_man,string path_rf){
       r_rd["Rd"]=dontread_rd;
     if(r_rd.size()!=0)
       L["dont read"]=r_rd;
+    if(functions.containsElementNamed("hidden functions"))
+      L["hidden functions"]=functions["hidden functions"];
     DEBUG("END");
     return L;
 }

@@ -18,8 +18,8 @@ Note 3: In general, make sure you give the correct input, in order to get the co
 \tabular{ll}{
 Package: \tab Rfast\cr
 Type: \tab Package\cr
-Version: \tab 2.0.6 \cr
-Date: \tab 2022-02-15\cr
+Version: \tab 2.0.7 \cr
+Date: \tab 2023-02-15\cr
 License: \tab GPL-2\cr
 }
 }
@@ -67,6 +67,7 @@ their invaluable help with this R package.
 \item Adam Muschielok from Rodenstock GmbH found a bug in the function vmf.mle and he is greatly acknowledged for that.
 \item Bret Presnell for detecting and correcting a bug in the function rvmf.
 \item Gabriel Hoffman for spotting a mistake in the fuction dirimultinom.mle.
+\item  Lutz von der Burchard for spotting a bug in the function bic.corfsreg.
 }
 From now on the Rfast can be used in C++ via LinkingTo mechanism.
 \itemize{

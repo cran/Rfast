@@ -39,7 +39,7 @@ A matrix with the test statistic and the p-value for the factor variable and the
 }
 
 \references{
-D.C. Montgomery (2001). Design and analysis of experiments (5th Edition). New York: John Wiley \& Sons 
+D.C. Montgomery (2001). Design and analysis of experiments (5th Edition). New York: John Wiley & Sons 
 }
 
 \author{
@@ -62,7 +62,7 @@ y <- matrix( rnorm(90 * 100), ncol = 100 )
 ina <- rbinom(90, 2, 0.5) + 1
 x <- rnorm(90)
 system.time( a <- ancovas(y, ina, x) )
-\dontrun{
+\donttest{
 m1 <- lm(y[, 15] ~ factor(ina) + x)
 m2 <- lm(y[, 15] ~ x + factor(ina))
 res<-anova(m1)
