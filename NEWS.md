@@ -1,11 +1,54 @@
-<h1 align="center"> _Rfast_ </h1>
+<h1 align="center">Rfast</h1>
 
-### **Version 2.0.7**
+### **Version 2.0.8 - Poseidon**
 ***
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	    Function	    |           What's new!             |
->  | :-------------------:  | :-------------------------------: |
+>  | -------------------  | ------------------------------- |
+>  |  colMads				| Supports data.frame  |
+>  |  colShuffle				| Supports data.frame  |
+>  |  colMedian				| Supports data.frame  |
+>  |  colRanks				| Supports data.frame and fix bug about method "min".  |
+>  |  colSort				| Supports data.frame  |
+>  |  colMaxs				| Supports data.frame  |
+>  |  colMins				| Supports data.frame  |
+>  |  colMinsMaxs				| Supports data.frame and add extra option for parallelism.  |
+>  |  colrange				| Supports data.frame and add extra option for parallelism.  |
+>  |  checkExamples				| Add extra option for running examples inside environment. Treat special functions with new export attribute. |
+>  |  sort_mat              | Depricated. |
+>
+>
+> <u> **LinkingTo** </u>(_**by speed, correctness or options**_) 
+>
+>  |	    Function/Structure	    |           What's new!             |
+>  | -------------------  | ------------------------------- |
+>  |  colMads				| Supports data.frame  |
+>  |  colShuffle				| Supports data.frame  |
+>  |  colMedian				| Supports data.frame  |
+>  |  colSort				| Supports data.frame  |
+>  |  colMaxs				| Supports data.frame  |
+>  |  colMins				| Supports data.frame  |
+>  |  colMinsMaxs				| Supports data.frame and add extra option for parallelism.  |
+>  |  NA				| A structure for manage R's NA values. Supports {int, double, bool, string}.  |
+>  |  Type				| A structure for manage R's types. Supports {REAL,INT,CHAR,FACTOR,LIST,DATAFRAME}.  |
+>
+> ### **Comments**
+***
+> From now on all the function will be inside namespace Rfast. Sub-namespaces "vector" and "matrix" have been removed.
+>
+>
+
+
+</br>
+</br>
+
+### **Version 2.0.7 - Zeus**
+***
+> <u> **Improved** </u>(_**by speed, correctness or options**_) 
+>
+>  |	    Function	    |           What's new!             |
+>  | -------------------  | ------------------------------- |
 >  |  colVars				| Supports data.frame  |
 >  |  colmeans				| Supports data.frame  |
 >  |  invdir.mle			| A small optimization |
@@ -19,7 +62,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	    Function	    |           What's new!             |
->  | :-------------------:  | :-------------------------------: |
+>  | -------------------  | ------------------------------- |
 >  |  Dist(method = "bhattacharyya") | Minor optimization. |
 
 
@@ -31,7 +74,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	    Function	    |           What's new!             |
->  | :-------------------:  | :-------------------------------: |
+>  | -------------------  | ------------------------------- |
 >  |  Dist, total.dist, vecdist       | New distance algorithm named "haversine". |
 >  |  gaussian.nb           | 3 times faster than the old version. Add new option for parallel which decreases execution 18 times. |
 >  |  checkUsage            | Fix a bug about "=function". Optimized empty return values and error messages. |
@@ -48,7 +91,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	    Function	    |           What's new!             |
->  | :-------------------: | :-------------------------------: |
+>  | ------------------- | ------------------------------- |
 >  |         nth           | Fix a bug using na_rm. In github is #52. |
 >  |  colsums,rowsums      | Add new option for removing NAs and optimize option indices. |
 
@@ -60,7 +103,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	    Function	    |           What's new!             |
->  | :-------------------: | :-------------------------------: |
+>  | ------------------- | ------------------------------- |
 >  |         Var           | Time improvement for removing NAs.|
 >  |  checkUsage           | From now on check for S3methods and fix bug.        |
 >  |  Tcrossprod           | Same as R's tcrossprod.        |
@@ -75,7 +118,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	    Function	    |           What's new!             |
->  | :-------------------: | :-------------------------------: |
+>  | ------------------- | ------------------------------- |
 >  | Var                   | Time improvement for removing NAs.|
 >  | colVars               | Time improvement and depricate argument "suma".|
 >  | rowVars               | Time improvement and depricate argument "suma".|
@@ -101,14 +144,14 @@
 > Namespace "matrix" for calling functions using an Rcpp's or RcppArmadillo's matrices.
 > The signatures of the functions and the arguments are the same that are exported in R.
 >
-> For namespace "vector" the functions that are available are:
+> For namespace "vector" the functions that are available are
 >   
 > - median(x)
 > - var(x, std = false, na_rm = false)
 > - mad(x, method = "median", na_rm = false)
 > - shuffle(x,engine = Engine(time(0)) // Engine by default is default_random_engine. You can use anyone from C++.
 >   
-> For namespace "matrix" the functions that are available are:
+> For namespace "matrix" the functions that are available are
 >   
 > * transpose(x)
 > * matrix_multiplication(x,y)
@@ -124,9 +167,9 @@
 > * colShuffle(x,engine = Engine(time(0)) // Engine by default is default_random_engine. You can use anyone from C++.
 > * rowShuffle(x,engine = Engine(time(0)) // Engine by default is default_random_engine. You can use anyone from C++.
 >
-> How to use it:
+> How to use it
 >
-> 1. Just add in "LinkingTo" in your NAMESPACE file the "Rfast" or in Rstudio add in the file "//[[Rcpp::depends(Rfast)]]".
+> 1. Just add in "LinkingTo" in your NAMESPACE file the "Rfast" or in Rstudio add in the file "//[[Rcppdepends(Rfast)]]".
 >
 >  
 >  Include in your cpp files the header "Rfast.h" and enjoy!
@@ -139,7 +182,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	    Function	    |           What's new!             |
->  | :-------------------: | :-------------------------------: |
+>  | ------------------- | ------------------------------- |
 >  | spml.mle              |         Fix of a bug.             |
 >  | dirknn                |         Time improvement.         |
 >  | glm_logistic          |  Made the code more robust.       |
@@ -156,7 +199,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	    Function	    |           What's new!             |
->  | :-------------------: | :-------------------------------: |
+>  | ------------------- | ------------------------------- |
 >  | allbetas              | Time improvement |
 >  | cor.fbed              | Time improvement |
 >  | cor.fsreg             | Time improvement |
@@ -178,7 +221,7 @@
 >  | group.mad         | Deprecated and replaced by group |
 >  | group.var         | Deprecated and replaced by group |
 >  | group.sum         | Deprecated and replaced by group |
->  | groupcolVars      | Deprecated and replaced by "Rfast2::colGroup(...,method="var")" |
+>  | groupcolVars      | Deprecated and replaced by "Rfast2colGroup(...,method="var")" |
 >  | sort_mat          | Deprecated and replaced by "colSort" and "rowSort" |
 >  | AddToNamespace        | remove unused option       |
 >  | nth                   | fix bug				     |
@@ -191,7 +234,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	    Function	    |           What's new!             |
->  | :-------------------: | :-----------------------------------------: |
+>  | ------------------- | ----------------------------------------- |
 >  | omp                   | Time improvement.                 |
 >  | sort_mat              |  Replaced by "colSort" and "rowSort" and will be removed in the next udate. |
 >  | checkUsage            |  Remove uneccessary option. |
@@ -205,7 +248,7 @@
 > <u>**New**</u>
 >
 >  | 	     Function	      |          What's new!            |
->  | :-------------------: | :-----------------------------------------: |
+>  | ------------------- | ----------------------------------------- |
 >  | omp	                  |  Multinomial regression now added. |
 >  | omp	                  |  Option to standardise the predictor variables. |
 >  | cor.fbed	              |  Option to standardise the predictor variables. |
@@ -220,7 +263,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	    Function	    |           What's new!             |
->  | :-------------------: | :-----------------------------------------: |
+>  | ------------------- | ----------------------------------------- |
 >  | omp                   | Time improvement.                 |
 >  | ompr                  | Time improvement.                 |
 >  | cor.fbed              | Time improvement.                 |
@@ -250,7 +293,7 @@
 > <u>**New**</u>
 >
 >  | 	     Function	      |          What's new!            |
->  | :-------------------: | :-----------------------------------------: |
+>  | ------------------- | ----------------------------------------- |
 >  | omp	                  |  Multinomial regression now added. |
 >
 > ### **Comments**
@@ -267,7 +310,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	      Function	    |     What's new!     |
->  | :-------------------: | :--------------------: |
+>  | ------------------- | -------------------- |
 >  |     ompr           	| Time improvement.    |
 >  |     omp           	| Time improvement .   |
 >  |   cholesky            | Time improvement. |
@@ -279,7 +322,7 @@
 > <u>**New**</u>
 >
 >  | 	   Function		    |                What's new!                |
->  | :----------------:	| :---------------------------------------: |
+>  | ----------------	| --------------------------------------- |
 >  |     which.is          | The same with which_isFactor but general. Use this instead of which_isFactor. |
 >  |     colrow.value      | Search if a column and row is filled with a specific value. |
 
@@ -291,7 +334,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	      Function	    |     What's new!     |
->  | :----------------:	| :-----------------: |
+>  | ----------------	| ----------------- |
 >  | topological_sort      |  Time improvement.  |
 >  | permcor               |  Fix a bug.         |
 >  | omp                   |  Time improvement.  |
@@ -314,7 +357,7 @@
 > <u>**New**</u>
 >
 >  | 	   Function		      |                           What's new!                           |
->  | :----------------:	  | :-------------------------------------------------------------: |
+>  | ----------------	  | ------------------------------------------------------------- |
 >  | betabinom.mle           |  MLE of the beta binomial distribution.                         |
 >  | betageom.mle            |  MLE of the beta geometric distribution.                        |
 >  | multivt.mle             |  MLE of the multivariate t distribution.                        |
@@ -369,7 +412,7 @@
 > <u> **Improved** </u>(_**by speed, correctness or options**_) 
 >
 >  |	      Function	    |     What's new!     |
->  | :----------------:	| :-----------------: |
+>  | ----------------	| ----------------- |
 >  | rowMedians            | Fix a bug  |
 >  | mad2                  | Add option handling NAs and fix a bug  |
 >  | prop.regs             | Made it more stable.                   |
