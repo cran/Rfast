@@ -432,14 +432,14 @@ RcppExport SEXP Rfast_row_max(SEXP x)
 
 /////////////////////////////////////////////////////////////
 
-NumericVector col_means(DataFrame x, const bool parallel = false)
+NumericVector col_means(DataFrame x, const bool parallel = false, const unsigned int cores = get_num_of_threads())
 {
 	int i = 0;
 	NumericVector f(x.size());
 	if (parallel)
 	{
 		colvec ff(f.begin(), f.size(), false);
-#pragma omp parallel for
+#pragma omp parallel for num_threads(cores)
 		for (DataFrame::iterator s = x.begin(); s < x.end(); ++s)
 		{
 			colvec y;
@@ -468,7 +468,7 @@ NumericVector col_means(DataFrame x, const bool parallel = false)
 	return f;
 }
 
-NumericVector col_means(NumericMatrix x, const bool parallel = false)
+NumericVector col_means(NumericMatrix x, const bool parallel = false, const unsigned int cores = get_num_of_threads())
 {
 	mat xx;
 	const int n = x.ncol();
@@ -477,12 +477,11 @@ NumericVector col_means(NumericMatrix x, const bool parallel = false)
 	if (parallel)
 	{
 		xx = mat(x.begin(), x.nrow(), n, false);
-#pragma omp parallel for
+#pragma omp parallel for num_threads(cores)
 		for (int i = 0; i < n; i++)
 		{
 			ff[i] = mean(xx.col(i));
 		}
-		UNPROTECT(1);
 	}
 	else
 	{
@@ -509,13 +508,14 @@ RcppExport SEXP Rfast_row_means(SEXP xSEXP)
 	END_RCPP
 }
 
-RcppExport SEXP Rfast_col_means(SEXP xSEXP, SEXP parallelSEXP)
+RcppExport SEXP Rfast_col_means(SEXP xSEXP, SEXP parallelSEXP, SEXP coresSEXP)
 {
 	BEGIN_RCPP
 	RObject __result;
 	RNGScope __rngScope;
 	traits::input_parameter<const bool>::type parallel(parallelSEXP);
-	__result = Rf_isMatrix(xSEXP) ? col_means(NumericMatrix(xSEXP), parallel) : col_means(DataFrame(xSEXP), parallel);
+	traits::input_parameter<const unsigned int>::type cores(coresSEXP);
+	__result = Rf_isMatrix(xSEXP) ? col_means(NumericMatrix(xSEXP), parallel, cores) : col_means(DataFrame(xSEXP), parallel, cores);
 	return __result;
 	END_RCPP
 }
@@ -572,7 +572,7 @@ SEXP col_min_indices(NumericMatrix x)
 	return F;
 }
 
-SEXP col_min(SEXP x, const bool parallel)
+SEXP col_min(SEXP x, const bool parallel, const unsigned int cores)
 {
 	int ncol = Rf_ncols(x), nrow = Rf_nrows(x);
 	if (parallel)
@@ -581,7 +581,7 @@ SEXP col_min(SEXP x, const bool parallel)
 		mat xx(X.begin(), nrow, ncol, false);
 		NumericVector f(ncol);
 #ifdef _OPENMP
-#pragma omp parallel for
+#pragma omp parallel for num_threads(cores)
 #endif
 		for (int i = 0; i < ncol; ++i)
 		{
@@ -629,16 +629,17 @@ RcppExport SEXP Rfast_col_min_indices(SEXP xSEXP)
 }
 
 // find the minimum value of its collumn
-RcppExport SEXP Rfast_col_min(SEXP x, SEXP parallelSEXP)
+RcppExport SEXP Rfast_col_min(SEXP x, SEXP parallelSEXP, SEXP coresSEXP)
 {
 	BEGIN_RCPP
 	RObject __result;
 	RNGScope __rngScope;
 	traits::input_parameter<const bool>::type parallel(parallelSEXP);
+	traits::input_parameter<const unsigned int>::type cores(coresSEXP);
 	if (Rf_isMatrix(x))
-		__result = col_min(x, parallel);
+		__result = col_min(x, parallel,cores);
 	else
-		__result = Rfast::colMins(DataFrame(x), parallel);
+		__result = Rfast::colMins(DataFrame(x), parallel, cores);
 	return __result;
 	END_RCPP
 }
@@ -937,7 +938,7 @@ IntegerMatrix col_order(NumericMatrix x, const bool stable, const bool descendin
 	IntegerMatrix f(x.nrow(), ncl);
 	for (int i = 0; i < ncl; ++i)
 	{
-		f.column(i) = Order(x.column(i), stable, descending);
+		f.column(i) = Order(x.column(i), stable, descending,false);
 	}
 	return f;
 }
@@ -960,7 +961,7 @@ IntegerMatrix row_order(NumericMatrix x, const bool stable, const bool descendin
 	const int nrw = x.nrow();
 	IntegerMatrix f(nrw, x.ncol());
 	for (int i = 0; i < nrw; ++i)
-		f.row(i) = Order(x.row(i), stable, descending);
+		f.row(i) = Order(x.row(i), stable, descending,false);
 	return f;
 }
 
@@ -1149,7 +1150,7 @@ DataFrame col_ranks(DataFrame x, string method, const bool descend, const bool s
 		for (auto c : x)
 		{
 			y = c;
-			f[i++] = Rank(y, method, descend, stable);
+			f[i++] = Rank(y, method, descend, stable,false);
 		}
 	}
 	f.names() = x.names();
@@ -1211,7 +1212,7 @@ NumericMatrix col_ranks(NumericMatrix x, string method, const bool descend, cons
 	{
 		for (int i = 0; i < ncl; ++i)
 		{
-			f.column(i) = Rank(x.column(i), method, descend, stable);
+			f.column(i) = Rank(x.column(i), method, descend, stable,false);
 		}
 	}
 	return f;
@@ -1240,7 +1241,7 @@ NumericMatrix row_ranks(NumericMatrix x, string method, const bool descend, cons
 	NumericMatrix f(n, x.ncol());
 	for (int i = 0; i < n; ++i)
 	{
-		f.row(i) = Rank(x.row(i), method, descend, stable);
+		f.row(i) = Rank(x.row(i), method, descend, stable,false);
 	}
 	return f;
 }
