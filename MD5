@@ -1,6 +1,6 @@
-6bc3d2b7fc9766d566a2ae56eeb83056 *DESCRIPTION
+706da88de3936df7887747c424ca07a6 *DESCRIPTION
 312380a499ee5b4af5462a165819650c *NAMESPACE
-f717c49148d5c03f85adb967b41fe849 *NEWS.md
+12ce4278e0b7eebcf69cc64f663d35c8 *NEWS.md
 1e2468f76f1f829ce49cc5a54a58950f *R/All.R
 a760bdbcbccd45553deb2fcfa6b34ab6 *R/Any.R
 8620e872795fe30d1525438c774aa230 *R/Diag.R
@@ -121,7 +121,7 @@ ec0d7fb96ed2dba4efc1cef500e27e95 *R/pooled.cov.R
 f1223cf36a049aa0641a282ba28e6c99 *R/ranef_mle_regressions_repeated_measures.R
 c399ad9496b758c2c35a2db592369c61 *R/range.R
 d4a1d8a466e6941941bca385ca048523 *R/real_mle.R
-83594e823ca378d2a7e4a453f4f43cab *R/regression_models.R
+561249a22bbaf52435a4ff6667fb3397 *R/regression_models.R
 fc868a584c1a3c63063f8c4668a8c006 *R/rel.risk.R
 72cd48251ea587d06edf7a2d7c149191 *R/replicate.R
 58db224e44c251ce8f0246ea48a8ddf2 *R/rmdp.R
@@ -146,7 +146,8 @@ a428ff8f8404d5e68e51d4d770267cca *R/variance_tests.R
 de661bebb0dcbffb2ade2b0da9d45f57 *R/watson.R
 299f84ed84b2393402556dba48feb667 *R/which.is.R
 a8624ffe500cba8040c0e5dc0ebffe50 *R/yule.R
-fdee4f85a80db2038d25bd2798705dae *README.md
+a1aae7fc86e968f93a5b0fd46ecfda1d *README.md
+0dc8904e1fca4ce20f35c29c2d93f1ac *build/partial.rdb
 35f89348ca353a5e3ec98d7e27c03358 *inst/include/Rfast.h
 5a8ddfadaf57485771e79ddc6b009286 *inst/include/Rfast/FactorVector.hpp
 4725fd1dc55134a5c6fc6f357772efc5 *inst/include/Rfast/assertions.hpp
@@ -172,7 +173,7 @@ b1c2fa34a877da8d022d21f3fffd3e64 *man/Median.Rd
 10f6ff363b53d75dac054f57541992a4 *man/Outer.Rd
 5bb2e614ceb931b8d1397c26ad3d6dc9 *man/Pmax.Rd
 119b804491da30bbc3c98c4d53bfaa39 *man/Rank.Rd
-af1d9557f0b92955eda715f2e590fb2c *man/Rfast-package.Rd
+63684448d3ca1a06e02566b50419608e *man/Rfast-package.Rd
 eb9dc2eb30f552be5428b1c1cd556617 *man/Rnorm.Rd
 b603aebf6636b7aada57480e0a4e3027 *man/Round.Rd
 7ecabdd8f18bdbd8fcdb33e89c901614 *man/Sort.Rd
@@ -293,6 +294,7 @@ f95a02619338b07ba5aa7649cc89aa28 *man/kruskaltests.Rd
 309653df1c8350626eba260b75976d09 *man/logistic.cat1.Rd
 ed85867c22925500e6d565224ed6ffb8 *man/logistic_only.Rd
 8e8e80c802b4b19392bd6dfe5d034105 *man/lower_tri.Rd
+8a2664d992583efc6d7f3fc518a0c17d *man/macros/system.Rd
 3bed3a2b226e740b7f94f9c40027824b *man/mahala.Rd
 f8b32787f5c1d936717d12ad89f650c9 *man/mat.mat.Rd
 3d464f79bac238105f5bd31c047de7b5 *man/mat.mult.Rd
@@ -400,7 +402,7 @@ c3580b5fdb6ead2c26b31cab4ac2bed2 *src/binarysearch.cpp
 17e3e76602395d2d826419fd78ffeac4 *src/calc_qpois_regs.h
 6042d368e7a0818775b64ef2cdfedc79 *src/check.cpp
 300a2c1da1586ef2d2fb0e24e23459b0 *src/cholesky.cpp
-9e13198dcce01b33bd4b67468f768a10 *src/col_row_utilities.cpp
+38e7fe046c4c422e3ced71ca66842829 *src/col_row_utilities.cpp
 51260e518162392a7e9104d1b1495a2d *src/col_row_utilities_p.cpp
 1011732f91d44b100acee58d2dcaee9b *src/col_statistical.cpp
 b0777392503a26d1948f470095a8e6a8 *src/colrint_mle.cpp
