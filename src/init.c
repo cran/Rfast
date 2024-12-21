@@ -1,8 +1,8 @@
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
 
-SEXP Rfast_add_to_namespace(SEXP, SEXP);
-SEXP Rfast_as_integer(SEXP, SEXP, SEXP);
+SEXP Rfast_add_to_namespace(SEXP, SEXP, SEXP);
+SEXP Rfast_as_integer(SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_apply_condition(SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_bcdcor(SEXP, SEXP);
 SEXP Rfast_binarysearch(SEXP, SEXP);
@@ -42,10 +42,10 @@ SEXP Rfast_columns(SEXP, SEXP);
 SEXP Rfast_chi2Test(SEXP, SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_chi2Test_univariate(SEXP, SEXP);
 SEXP Rfast_chi2tests(SEXP, SEXP, SEXP, SEXP);
-SEXP Rfast_check_namespace(SEXP, SEXP);
-SEXP Rfast_check_aliases(SEXP, SEXP);
-SEXP Rfast_check_true_false(SEXP);
-SEXP Rfast_check_usage(SEXP, SEXP);
+SEXP Rfast_check_namespace(SEXP, SEXP, SEXP);
+SEXP Rfast_check_aliases(SEXP, SEXP, SEXP);
+SEXP Rfast_check_true_false(SEXP, SEXP);
+SEXP Rfast_check_usage(SEXP, SEXP, SEXP);
 SEXP Rfast_col_any(SEXP);
 SEXP Rfast_col_anovas(SEXP, SEXP);
 SEXP Rfast_cholesky(SEXP);
@@ -62,8 +62,8 @@ SEXP Rfast_diag_matrix_fill_vec(SEXP, SEXP);
 SEXP Rfast_diag_fill_scalar(SEXP, SEXP);
 SEXP Rfast_diag_fill_vec(SEXP, SEXP);
 SEXP Rfast_design_matrix(SEXP, SEXP);
-SEXP Rfast_dist(SEXP, SEXP, SEXP, SEXP);
-SEXP Rfast_dist_vec(SEXP, SEXP, SEXP, SEXP);
+SEXP Rfast_dist(SEXP, SEXP, SEXP, SEXP, SEXP);
+SEXP Rfast_dist_vec(SEXP, SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_Digamma(SEXP);
 SEXP Rfast_design_matrix_big(SEXP);
 SEXP Rfast_dista(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -83,15 +83,6 @@ SEXP Rfast_g2tests_perm(SEXP, SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_g2tests(SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_group(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_group_sum(SEXP, SEXP, SEXP, SEXP);
-SEXP Rfast_group_all(SEXP, SEXP, SEXP);
-SEXP Rfast_group_any(SEXP, SEXP, SEXP);
-SEXP Rfast_group_mad(SEXP, SEXP, SEXP);
-SEXP Rfast_group_max(SEXP, SEXP, SEXP, SEXP);
-SEXP Rfast_group_mean(SEXP, SEXP, SEXP);
-SEXP Rfast_group_med(SEXP, SEXP, SEXP, SEXP);
-SEXP Rfast_group_min(SEXP, SEXP, SEXP);
-SEXP Rfast_group_min_max(SEXP, SEXP, SEXP);
-SEXP Rfast_group_var(SEXP, SEXP, SEXP);
 SEXP Rfast_glm_logistic(SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_glm_poisson(SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_hash2list(SEXP, SEXP);
@@ -170,8 +161,7 @@ SEXP Rfast_row_nth(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_row_min_max(SEXP);
 SEXP Rfast_row_shuffle(SEXP);
 SEXP Rfast_Round(SEXP, SEXP, SEXP);
-SEXP Rfast_read_directory(SEXP);
-SEXP Rfast_rvmf(SEXP, SEXP, SEXP);
+SEXP Rfast_rvmf(SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_rvonmises(SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_row_all(SEXP);
 SEXP Rfast_row_true(SEXP);
@@ -179,7 +169,7 @@ SEXP Rfast_row_prods(SEXP);
 SEXP Rfast_row_false(SEXP);
 SEXP Rfast_row_order(SEXP, SEXP, SEXP);
 SEXP Rfast_row_true_false(SEXP);
-SEXP Rfast_read_examples(SEXP);
+SEXP Rfast_read_examples(SEXP, SEXP);
 SEXP Rfast_row_count_values(SEXP, SEXP);
 SEXP Rfast_row_mads(SEXP, SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_row_vars(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -201,7 +191,7 @@ SEXP Rfast_sort_int(SEXP);
 SEXP Rfast_stable_sort(SEXP, SEXP, SEXP);
 SEXP Rfast_spat_med(SEXP, SEXP);
 SEXP Rfast_squareform_c(SEXP);
-SEXP Rfast_total_dists(SEXP, SEXP, SEXP, SEXP);
+SEXP Rfast_total_dists(SEXP, SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_total_dista(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_topological_sort(SEXP);
 SEXP Rfast_Trigamma(SEXP);
@@ -211,6 +201,7 @@ SEXP Rfast_table_sign(SEXP, SEXP, SEXP);
 SEXP Rfast_table2_c(SEXP, SEXP, SEXP);
 SEXP Rfast_table2_with_names(SEXP, SEXP, SEXP);
 SEXP Rfast_transpose(SEXP);
+SEXP Rfast_Unique(SEXP, SEXP);
 SEXP Rfast_upper_tri(SEXP, SEXP);
 SEXP Rfast_upper_tri_assign(SEXP, SEXP, SEXP);
 SEXP Rfast_upper_tri_b(SEXP, SEXP, SEXP);
@@ -253,9 +244,9 @@ SEXP Rfast_row_ranks_p(SEXP, SEXP, SEXP, SEXP, SEXP);
 SEXP Rfast_row_sums_p(SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"Rfast_add_to_namespace", (DL_FUNC)&Rfast_add_to_namespace, 2},
+    {"Rfast_add_to_namespace", (DL_FUNC)&Rfast_add_to_namespace, 3},
     {"Rfast_apply_condition", (DL_FUNC)&Rfast_apply_condition, 4},
-    {"Rfast_as_integer", (DL_FUNC)&Rfast_as_integer, 3},
+    {"Rfast_as_integer", (DL_FUNC)&Rfast_as_integer, 4},
     {"Rfast_bcdcor", (DL_FUNC)&Rfast_bcdcor, 2},
     {"Rfast_binarysearch", (DL_FUNC)&Rfast_binarysearch, 2},
     {"Rfast_bic_fs_reg", (DL_FUNC)&Rfast_bic_fs_reg, 4},
@@ -294,10 +285,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rfast_chi2Test_univariate", (DL_FUNC)&Rfast_chi2Test_univariate, 2},
     {"Rfast_chi2Test", (DL_FUNC)&Rfast_chi2Test, 5},
     {"Rfast_chi2tests", (DL_FUNC)&Rfast_chi2tests, 4},
-    {"Rfast_check_namespace", (DL_FUNC)&Rfast_check_namespace, 2},
-    {"Rfast_check_aliases", (DL_FUNC)&Rfast_check_aliases, 2},
-    {"Rfast_check_true_false", (DL_FUNC)&Rfast_check_true_false, 1},
-    {"Rfast_check_usage", (DL_FUNC)&Rfast_check_usage, 2},
+    {"Rfast_check_namespace", (DL_FUNC)&Rfast_check_namespace, 3},
+    {"Rfast_check_aliases", (DL_FUNC)&Rfast_check_aliases, 3},
+    {"Rfast_check_true_false", (DL_FUNC)&Rfast_check_true_false, 2},
+    {"Rfast_check_usage", (DL_FUNC)&Rfast_check_usage, 3},
     {"Rfast_col_any", (DL_FUNC)&Rfast_col_any, 1},
     {"Rfast_col_anovas", (DL_FUNC)&Rfast_col_anovas, 2},
     {"Rfast_cholesky", (DL_FUNC)&Rfast_cholesky, 1},
@@ -314,8 +305,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rfast_diag_fill_scalar", (DL_FUNC)&Rfast_diag_fill_scalar, 2},
     {"Rfast_diag_fill_vec", (DL_FUNC)&Rfast_diag_fill_vec, 2},
     {"Rfast_design_matrix", (DL_FUNC)&Rfast_design_matrix, 2},
-    {"Rfast_dist", (DL_FUNC)&Rfast_dist, 4},
-    {"Rfast_dist_vec", (DL_FUNC)&Rfast_dist_vec, 4},
+    {"Rfast_dist", (DL_FUNC)&Rfast_dist, 5},
+    {"Rfast_dist_vec", (DL_FUNC)&Rfast_dist_vec, 5},
     {"Rfast_Digamma", (DL_FUNC)&Rfast_Digamma, 1},
     {"Rfast_design_matrix_big", (DL_FUNC)&Rfast_design_matrix_big, 1},
     {"Rfast_dista", (DL_FUNC)&Rfast_dista, 8},
@@ -335,15 +326,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rfast_g2tests", (DL_FUNC)&Rfast_g2tests, 4},
     {"Rfast_group", (DL_FUNC)&Rfast_group, 6},
     {"Rfast_group_sum", (DL_FUNC)&Rfast_group_sum, 4},
-    {"Rfast_group_all", (DL_FUNC)&Rfast_group_all, 3},
-    {"Rfast_group_any", (DL_FUNC)&Rfast_group_any, 3},
-    {"Rfast_group_mad", (DL_FUNC)&Rfast_group_mad, 3},
-    {"Rfast_group_max", (DL_FUNC)&Rfast_group_max, 4},
-    {"Rfast_group_mean", (DL_FUNC)&Rfast_group_mean, 3},
-    {"Rfast_group_med", (DL_FUNC)&Rfast_group_med, 4},
-    {"Rfast_group_min", (DL_FUNC)&Rfast_group_min, 3},
-    {"Rfast_group_min_max", (DL_FUNC)&Rfast_group_min_max, 3},
-    {"Rfast_group_var", (DL_FUNC)&Rfast_group_var, 3},
     {"Rfast_glm_logistic", (DL_FUNC)&Rfast_glm_logistic, 4},
     {"Rfast_glm_poisson", (DL_FUNC)&Rfast_glm_poisson, 4},
     {"Rfast_hash2list", (DL_FUNC)&Rfast_hash2list, 2},
@@ -423,8 +405,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rfast_row_min_max", (DL_FUNC)&Rfast_row_min_max, 1},
     {"Rfast_row_shuffle", (DL_FUNC)&Rfast_row_shuffle, 1},
     {"Rfast_Round", (DL_FUNC)&Rfast_Round, 3},
-    {"Rfast_read_directory", (DL_FUNC)&Rfast_read_directory, 1},
-    {"Rfast_rvmf", (DL_FUNC)&Rfast_rvmf, 3},
+    {"Rfast_rvmf", (DL_FUNC)&Rfast_rvmf, 4},
     {"Rfast_rvonmises", (DL_FUNC)&Rfast_rvonmises, 4},
     {"Rfast_row_all", (DL_FUNC)&Rfast_row_all, 1},
     {"Rfast_row_true", (DL_FUNC)&Rfast_row_true, 1},
@@ -432,7 +413,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rfast_row_false", (DL_FUNC)&Rfast_row_false, 1},
     {"Rfast_row_order", (DL_FUNC)&Rfast_row_order, 3},
     {"Rfast_row_true_false", (DL_FUNC)&Rfast_row_true_false, 1},
-    {"Rfast_read_examples", (DL_FUNC)&Rfast_read_examples, 1},
+    {"Rfast_read_examples", (DL_FUNC)&Rfast_read_examples, 2},
     {"Rfast_row_mads", (DL_FUNC)&Rfast_row_mads, 5},
     {"Rfast_row_vars", (DL_FUNC)&Rfast_row_vars, 5},
     {"Rfast_row_max_indices", (DL_FUNC)&Rfast_row_max_indices, 1},
@@ -453,7 +434,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rfast_sort_int", (DL_FUNC)&Rfast_sort_int, 1},
     {"Rfast_spat_med", (DL_FUNC)&Rfast_spat_med, 2},
     {"Rfast_squareform_c", (DL_FUNC)&Rfast_squareform_c, 1},
-    {"Rfast_total_dists", (DL_FUNC)&Rfast_total_dists, 4},
+    {"Rfast_total_dists", (DL_FUNC)&Rfast_total_dists, 5},
     {"Rfast_total_dista", (DL_FUNC)&Rfast_total_dista, 7},
     {"Rfast_topological_sort", (DL_FUNC)&Rfast_topological_sort, 1},
     {"Rfast_Trigamma", (DL_FUNC)&Rfast_Trigamma, 1},
@@ -463,6 +444,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"Rfast_table2_c", (DL_FUNC)&Rfast_table2_c, 3},
     {"Rfast_table2_with_names", (DL_FUNC)&Rfast_table2_with_names, 3},
     {"Rfast_transpose", (DL_FUNC)&Rfast_transpose, 1},
+    {"Rfast_Unique", (DL_FUNC)&Rfast_Unique, 2},
     {"Rfast_upper_tri", (DL_FUNC)&Rfast_upper_tri, 2},
     {"Rfast_upper_tri_assign", (DL_FUNC)&Rfast_upper_tri_assign, 3},
     {"Rfast_upper_tri_b", (DL_FUNC)&Rfast_upper_tri_b, 3},

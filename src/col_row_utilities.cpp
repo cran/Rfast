@@ -6,6 +6,7 @@
 #include <chrono>
 #include <random>
 #include "Rfast.h"
+#include "Rfast/types.hpp"
 
 using namespace Rcpp;
 using namespace arma;
@@ -323,7 +324,7 @@ SEXP col_max(SEXP x, const bool parallel, const unsigned int cores)
 	else
 	{
 		SEXP F;
-		switch (Rfast::Type::type(x))
+		switch (Rfast::Type::type<SEXP>(x))
 		{
 		case Rfast::Type::Types::REAL:
 		{
@@ -597,7 +598,7 @@ SEXP col_min(SEXP x, const bool parallel, const unsigned int cores)
 	else
 	{
 		SEXP F;
-		switch (Rfast::Type::type(x))
+		switch (Rfast::Type::type<SEXP>(x))
 		{
 		case Rfast::Type::Types::REAL:
 		{
@@ -789,7 +790,7 @@ using std::nth_element;
 SEXP col_nth(NumericMatrix X, IntegerVector elems, const int num_of_nths, const bool descend, const bool na_rm, const bool index)
 {
 	const unsigned int n = elems.size();
-	SEXP F = R_NilValue;
+	SEXP F = Rfast::R::Null;
 	if (num_of_nths == 1)
 	{
 		NumericVector y(X.nrow());
@@ -864,7 +865,7 @@ RcppExport SEXP Rfast_col_nth(SEXP xSEXP, SEXP ySEXP, SEXP num_of_nthsSEXP, SEXP
 SEXP row_nth(NumericMatrix X, IntegerVector elems, const int num_of_nths, const bool descend, const bool na_rm, const bool index)
 {
 	const unsigned int n = elems.size();
-	SEXP F = R_NilValue;
+	SEXP F = Rfast::R::Null;
 
 	if (num_of_nths == 1)
 	{

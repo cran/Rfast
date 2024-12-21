@@ -56,9 +56,9 @@ mat colMaxElems(mat x, colvec y)
   return maxs;
 }
 
-colvec euclidean_norm(mat &x)
+rowvec euclidean_norm(mat &x)
 {
-	return sqrt(sum(square(x), 0).t());
+	return sqrt(sum(square(x), 0));
 }
 
 bool my_compare_order_second(const pr<double,int>& a,const pr<double,int>& b){
@@ -329,7 +329,7 @@ bool my_any(int* start,int *end){
 //spml_mle
 colvec pnormc(colvec x){
   for(double *xx=&x[0],*endx=&x[x.n_elem];xx!=endx;++xx){
-    *xx=R::pnorm5(*xx,0,1,1,0);
+    *xx=R::pnorm(*xx,0,1,1,0);
   }
   return x;
 }

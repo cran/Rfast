@@ -147,8 +147,8 @@ as.Rfast.function<-function(Rfunction.name,margin=NULL){
 }
 
 #[export]
-AddToNamespace <- function(path.namespace,path.rfolder) {
-  .Call(Rfast_add_to_namespace,path.namespace,path.rfolder)
+AddToNamespace <- function(path.namespace,path.rfolder,paths.full = FALSE) {
+  .Call(Rfast_add_to_namespace,path.namespace,path.rfolder,paths.full)
 }
 
 #[export]
@@ -158,27 +158,27 @@ RemoveFromNamespace <- function(path.namespace,files.to.remove) {
 
 #[export]
 read.directory <- function(path.directory) {
-  .Call(Rfast_read_directory,path.directory)
+  .Deprecated("This function will be permanently removed.")
 }
 
 #[export]
-read.examples<-function(path.man){
-  .Call(Rfast_read_examples,path.man)
+read.examples<-function(path.man,paths.full = FALSE){
+  .Call(Rfast_read_examples,path.man,paths.full)
 }
 
 #[export]
-checkTF <- function(path.man) {
-	.Call(Rfast_check_true_false,path.man)
+checkTF <- function(path.man,paths.full = FALSE) {
+	.Call(Rfast_check_true_false,path.man,paths.full)
 }
 
 #[export]
-checkNamespace <- function(path.namespace,path.rfolder) {
-	.Call(Rfast_check_namespace,path.namespace,path.rfolder)
+checkNamespace <- function(path.namespace,path.rfolder,paths.full = FALSE) {
+	.Call(Rfast_check_namespace,path.namespace,path.rfolder,paths.full)
 }
 
 #[export]
-checkExamples<-function(path.man,package,each = 1,print.errors = stderr(),print.names = FALSE){
-  examples_files <- .Call(Rfast_read_examples,path.man)
+checkExamples<-function(path.man,package,each = 1,print.errors = stderr(),print.names = FALSE,paths.full = FALSE){
+  examples_files <- .Call(Rfast_read_examples,path.man,paths.full = FALSE)
   packageEnv <- new.env(parent = getNamespace(package))
   error_files<-vector("character")
   examples <- examples_files$examples
@@ -211,18 +211,18 @@ checkExamples<-function(path.man,package,each = 1,print.errors = stderr(),print.
 }
 
 #[export]
-checkAliases <- function(path.man,path.rfolder) {
-	.Call(Rfast_check_aliases,path.man,path.rfolder)
+checkAliases <- function(path.man,path.rfolder,paths.full = FALSE) {
+	.Call(Rfast_check_aliases,path.man,path.rfolder,paths.full)
 }
 
 #[export]
-checkUsage <- function(path.man,path.rfolder) {
-	.Call(Rfast_check_usage,path.man,path.rfolder)
+checkUsage <- function(path.man,path.rfolder,paths.full = FALSE) {
+	.Call(Rfast_check_usage,path.man,path.rfolder,paths.full)
 }
 
 #[export]
 sourceR <- function(path,local=FALSE,encode = "UTF-8",print.errors=FALSE) {
-  file_names <- .Call('Rfast_read_directory', PACKAGE = 'Rfast',path)
+  file_names <- list.files(path)
   error_files<-vector("character")
   if(print.errors){
     warning_error_function <-function(err){
@@ -245,28 +245,28 @@ sourceR <- function(path,local=FALSE,encode = "UTF-8",print.errors=FALSE) {
 }
 
 #[export]
-sourceRd <- function(path,print.errors=FALSE) {
-  file_names <- Rfast::read.directory(path)
+sourceRd <- function(path,print.errors=FALSE, macros = NULL) {
+  file_names <- list.files(path, pattern = "*.Rd")
   error_files<-vector("character")
   if(print.errors){
-    warning_error_function <-function(err){
-      write(paste(file_names[i],":","\n",err),stderr())
-      error_files <<- c(error_files,file_names[i])
-    }
+      warning_error_function <-function(err){
+          write(paste(file_names[i],":","\n",err),stderr())
+          error_files <<- c(error_files,file_names[i])
+      }
   }else{
-    warning_error_function <-function(err){
-      error_files <<- c(error_files,file_names[i])
-    }
+      warning_error_function <-function(err){
+          error_files <<- c(error_files,file_names[i])
+      }
   }
   error<-0
   for(i in 1:length(file_names)){
-    error<-tools::checkRd(sprintf("%s%s",path,file_names[i]))
-    if(length(error)!=0){
-      warning_error_function(error)
-    }
+      error<-tools::checkRd(sprintf("%s%s",path,file_names[i]), macros = macros)
+      if(length(error)!=0){
+          warning_error_function(error)
+      }
   }
   if(length(error_files)==0){
-    return("Everything is ok..!")
+      return("Everything is ok..!")
   }
   return(error_files)
 }

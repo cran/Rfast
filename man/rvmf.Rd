@@ -9,7 +9,7 @@ It generates random vectors following the von Mises-Fisher distribution. The dat
 }
 
 \usage{
-rvmf(n, mu, k)
+rvmf(n, mu, k, parallel = FALSE)
 }
 
 \arguments{
@@ -23,6 +23,9 @@ The mean direction, a unit vector.
 The concentration parameter. If k = 0, random values from the spherical uniform will be drwan. 
 Values from a multivariate normal distribution with zero mean vector and the identity matrix as 
 the covariance matrix. Then each vector becomes a unit vector.
+}
+\item{parallel}{
+Run the algorithm in parallel. The parallel algorithm needs memory.
 }
 }
 
