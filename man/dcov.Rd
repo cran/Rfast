@@ -1,6 +1,7 @@
 \name{Distance variance and covariance}
 \alias{dvar}
 \alias{dcov}
+\alias{bcdcor}
 \title{
 Distance variance and covariance
 }
@@ -10,8 +11,9 @@ Distance variance and covariances.
 }
 
 \usage{
-dvar(x)
-dcov(x, y)
+dvar(x, bc = FALSE)
+dcov(x, y, bc = FALSE)
+bcdcor(x, y)
 }
 
 \arguments{
@@ -20,6 +22,9 @@ A numerical matrix or a vector.
 }
 \item{y}{
 A numerical matrix or a vector.
+}
+\item{bc}{
+If you want the bias-corrected distance correlation set this equal to TRUE.
 }
 }
 
@@ -34,10 +39,10 @@ The distance covariance or distance variance.
 
 \references{
 Szekely G.J., Rizzo M.L. and Bakirov N.K.(2007). Measuring and Testing Independence 
-by Correlation of Distances. Annals of Statistics, 35(6):2769-2794.
+by Correlation of Distances. Annals of Statistics, 35(6):2769--2794.
 
-Huo X. and Szekely G. J. (2016). Fast computing for distance covariance. 
-Technometrics, 58(4): 435-447.
+Szekely G. J. and Rizzo M. L. (2023). The Energy of Data and Distance Correlation. 
+Chapman and Hall/CRC.
 }
 
 \author{

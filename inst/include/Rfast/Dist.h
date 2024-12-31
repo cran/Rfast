@@ -3,16 +3,24 @@
 #ifndef DIST_H
 #define DIST_H
 
+#include <RcppArmadillo.h>
 #include <Rcpp.h>
 #include <string>
 
 using Rcpp::NumericMatrix;
 using std::string;
+using namespace arma;
+
+typedef double (*Binary_Function)(double,double); // binary function
+double sum_max_elems(colvec x, colvec y);
+double sum_min_elems(colvec x, colvec y);
+colvec max_elems(colvec x, colvec y);
+template<Binary_Function F,typename T> double sum_with(T x,const double p);
 
 namespace Dist
 {
-    template<bool sqr>
-    inline double euclidean(colvec &x, colvec &y)
+    template<bool sqr, class T = colvec>
+    inline double euclidean(T &x, colvec &y)
     {
         if constexpr(sqr){
             return std::sqrt(sum(square(y - x)));
