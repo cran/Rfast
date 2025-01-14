@@ -37,7 +37,9 @@ namespace Dist
 		mat xx(x.begin(), nrw, ncl, false), ff(f.begin(), ncl, ncl, false);
 		if (parallel)
 		{
-#pragma omp parallel for
+#ifdef _OPENMP
+	#pragma omp parallel for
+#endif
 			for (size_t i = 0; i < ncl - 1; ++i)
 			{
 				colvec xv(xx.begin_col(i), nrw, false);
@@ -72,7 +74,9 @@ namespace Dist
 
 		if (parallel)
 		{
-#pragma omp parallel for
+#ifdef _OPENMP
+	#pragma omp parallel for
+#endif
 			for (size_t i = 0; i < ncl - 1; ++i)
 			{
 				colvec xv(xx.begin_col(i), nrw, false);
@@ -175,7 +179,6 @@ namespace Dist
 	{
 		const size_t ncl = x.ncol(), nrw = x.nrow();
 		NumericMatrix f(ncl, ncl);
-		colvec xlogx_xv(nrw);
 		mat xx(x.begin(), nrw, ncl, false), ff(f.begin(), ncl, ncl, false);
 		mat xlogx = xx % arma::log(xx);
 		double a = 0;
@@ -384,8 +387,10 @@ namespace DistVector
 				for (size_t j = i + 1; j < ncl; ++j)
 				{
 					colvec y(xx.begin_col(j), nrw, false);
-					ff[k] = func(xv, y);
-#pragma omp atomic
+					ff[k] = func(xv, y);	
+#ifdef _OPENMP
+	#pragma omp atomic
+#endif
 					++k;
 				}
 			}
@@ -410,7 +415,9 @@ namespace DistVector
 		size_t k = 0;
 		if (parallel)
 		{
-#pragma omp parallel for
+#ifdef _OPENMP
+	#pragma omp parallel for
+#endif
 			for (size_t i = 0; i < ncl - 1; ++i)
 			{
 				colvec xv(xx.begin_col(i), nrw, false);
@@ -442,7 +449,7 @@ namespace DistVector
 		NumericVector f(proper_size(nrw, ncl));
 		mat xx(x.begin(), nrw, ncl, false);
 		colvec ff(f.begin(), f.size(), false);
-		mat x_abs = abs(x);
+		mat x_abs = abs(xx);
 		size_t k = 0;
 		for (size_t i = 0; i < ncl - 1; ++i)
 		{
@@ -538,8 +545,8 @@ namespace DistVector
 	{
 		const size_t ncl = x.ncol(), nrw = x.nrow();
 		NumericVector f(proper_size(nrw, ncl));
-		mat xx(x.begin(), nrw, ncl, false), log_xx(nrw, ncl, fill::none), xlogx = xx % arma::log(xx);
-		colvec xlogx_ff(f.begin(), f.size(), false), ff(f.begin(), f.size(), false);
+		mat xx(x.begin(), nrw, ncl, false), xlogx = xx % arma::log(xx);
+		colvec ff(f.begin(), f.size(), false);
 		const double log0_5 = std::log(0.5);
 		size_t k = 0;
 		for (size_t i = 0; i < ncl - 1; ++i)
@@ -548,7 +555,7 @@ namespace DistVector
 			colvec xlogx_xv(xlogx.begin_col(i), nrw, false);
 			for (size_t j = i + 1; j < ncl; ++j, ++k)
 			{
-				ff[k] = sum_with_condition<double, check_if_is_finite, colvec>(xlogx_xv + xlogx_xv.col(j) - (arma::log(xv + xx.col(j)) + log0_5) % (xv + xx.col(j)));
+				ff[k] = sum_with_condition<double, check_if_is_finite, colvec>(xlogx_xv + xlogx.col(j) - (arma::log(xv + xx.col(j)) + log0_5) % (xv + xx.col(j)));
 			}
 		}
 		return f;
@@ -714,16 +721,22 @@ namespace DistTotal
 		double a = 0.0;
 		if constexpr (parallel)
 		{
-			#pragma omp parallel
-			{
+#ifdef _OPENMP
+	#pragma omp parallel
+	{
+#endif
 				for (size_t j = i + 1; j < ncl; ++j)
 				{
 					colvec y(xx.begin_col(j), nrw, false);
-					double tmp = func(xv, y);
-					#pragma omp atomic
+					double tmp = func(xv, y);	
+#ifdef _OPENMP
+	#pragma omp atomic
+#endif
 					a += tmp;
 				}
-			}
+#ifdef _OPENMP
+}
+#endif
 		}
 		else
 		{
@@ -745,12 +758,17 @@ namespace DistTotal
 		double a = 0;
 		if (parallel)
 		{
-#pragma omp parallel for
+#ifdef _OPENMP
+	#pragma omp parallel for
+#endif
 			for (size_t i = 0; i < ncl - 1; ++i)
 			{
 				colvec xv(xx.begin_col(i), nrw, false);
 				double tmp = dist_inner<Function,true>(xx, xv, i, ncl, nrw, func);
-#pragma omp atomic
+				
+#ifdef _OPENMP
+	#pragma omp atomic
+#endif
 				a += tmp;
 			}
 		}
@@ -814,7 +832,6 @@ namespace DistTotal
 		const size_t ncl = x.ncol(), nrw = x.nrow();
 		mat xx(x.begin(), nrw, ncl, false), sqrt_xx(nrw, ncl, fill::none);
 		fill_with<std::sqrt, double *, double *>(xx.begin(), xx.end(), sqrt_xx.begin());
-		colvec xv(nrw);
 		double a = 0;
 		for (size_t i = 0; i < ncl - 1; ++i)
 		{
@@ -824,7 +841,7 @@ namespace DistTotal
 				a += -log(Coeff::bhattacharyya<false>(xv, sqrt_xx.col(j)));
 			}
 		}
-		return -a;
+		return a;
 	}
 
 	double jeffries_matusita(NumericMatrix &x)
@@ -898,7 +915,7 @@ namespace DistTotal
 			for (size_t j = i + 1; j < ncl; ++j)
 			{
 
-				a += sum_with_condition<double, check_if_is_finite, colvec>(xlogx_xv + xlogx_xv.col(j) - (arma::log(xv + xx.col(j)) + log0_5) % (xv + xx.col(j)));
+				a += sum_with_condition<double, check_if_is_finite, colvec>(xlogx_xv + xlogx.col(j) - (arma::log(xv + xx.col(j)) + log0_5) % (xv + xx.col(j)));
 			}
 		}
 		return a;
@@ -908,7 +925,7 @@ namespace DistTotal
 	{
 		const size_t ncl = x.ncol(), nrw = x.nrow();
 		mat xx(x.begin(), nrw, ncl, false);
-		colvec norm_x = euclidean_norm(xx);
+		colvec norm_x = euclidean_norm(xx).t();
 		double a = 0.0;
 
 		for (size_t i = 0; i < ncl - 1; ++i)
@@ -917,7 +934,7 @@ namespace DistTotal
 			double normx = norm_x[i];
 			for (size_t j = i + 1; j < ncl; ++j)
 			{
-				a += dot(xv, xx.col(j)) / (normx * norm_x[j]);
+				a += 2.0 * (1 - dot(xv, xx.col(j)) / (normx * norm_x[j]));
 			}
 		}
 		return a;

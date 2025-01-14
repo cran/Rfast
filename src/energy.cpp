@@ -2,7 +2,7 @@
 // Author: Manos Papadakis
 //[[Rcpp::plugins(cpp11)]]
 
-#define ARMA_64BIT_WORD
+#undef ARMA_64BIT_WORD
 
 #include <RcppArmadillo.h>
 
@@ -219,5 +219,3 @@ RcppExport SEXP Rfast_edist(SEXP xSEXP, SEXP ySEXP) {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
-
-#undef ARMA_64BIT_WORD
