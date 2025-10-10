@@ -3,7 +3,6 @@
 #define ARMA_64BIT_WORD
 #include <RcppArmadillo.h>
 #include <R.h>
-#include <Rinternals.h>
 
 using namespace Rcpp;
 using namespace arma;
@@ -56,8 +55,8 @@ static double group_sum_tabulate_div(colvec& x,T *kk,T mn,T mx){
 //[[Rcpp::export]]
 NumericVector col_anovas(NumericVector Y,IntegerMatrix X) {
   const int nrw=X.nrow(),ncl=X.ncol();
-  NumericVector a(ncl),k(ncl);
-  colvec kk(k.begin(),ncl,false),y(Y.begin(),nrw,false);
+  NumericVector a(ncl);
+  colvec y(Y.begin(),nrw,false);
   Mat<int> x(X.begin(), nrw, ncl, false);
   Row<int> mx=max(x,0),mn=min(x,0);
   for (int i = 0; i < ncl; ++i) {
